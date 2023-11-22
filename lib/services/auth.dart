@@ -12,6 +12,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../pages/bookingDetail.dart';
@@ -110,7 +111,49 @@ Future<String> savePdfToStorage12( // old
   return filePathAndName;
 }
 
+
 savePdfToStorage1(
+    String pdfUrl, targetPath, targetFilename) async {
+  if(Platform.isAndroid){
+    savePdfToStorageForAndroid(pdfUrl, targetPath, targetFilename);
+    return;
+  }
+  EasyLoading.show(
+      status: null,
+      maskType: EasyLoadingMaskType.black
+  );
+  try {
+    final response = await http.get(Uri.parse(pdfUrl));
+
+    if (response.statusCode == 200) {
+      final directory = await getTemporaryDirectory();
+      final pdfFile = File('${directory.path}/downloaded.pdf');
+
+      await pdfFile.writeAsBytes(response.bodyBytes);
+
+      // Save the file to the iOS device's shared documents directory
+      final documentsDirectory = await getApplicationDocumentsDirectory();
+      final savedPDF = await pdfFile.copy('${documentsDirectory.path}/downloaded.pdf');
+
+      print('PDF downloaded and saved to: ${savedPDF.path}');
+      Share.shareFiles([savedPDF.path], text: 'PDF').then((value) {
+        // print('sharing----- $value');
+        EasyLoading.dismiss();
+      });
+      // return savedPDF;
+    } else {
+      print('Failed to download PDF. Status code: ${response.statusCode}');
+      EasyLoading.dismiss();
+      // return null;
+    }
+  } catch (e) {
+    print('Error downloading PDF: $e');
+    EasyLoading.dismiss();
+    // return null;
+  }
+}
+
+savePdfToStorageForAndroid(
     String url, targetPath, targetFilename) async {
   var status = await Permission.storage.request();
   EasyLoading.show(
@@ -118,6 +161,7 @@ savePdfToStorage1(
       maskType: EasyLoadingMaskType.black
   );
   var response = await http.get(Uri.parse(url));
+
   print('auth the url is new fun__________________________________$url');
   if(status.isGranted){
     String path = await downloadfolderpath();
@@ -143,6 +187,8 @@ savePdfToStorage1(
    EasyLoading.dismiss();
   }
 }
+
+
 
 // downloadfolderpath() async {
 //   var dir = await DownloadsPathProvider.downloadsDirectory;

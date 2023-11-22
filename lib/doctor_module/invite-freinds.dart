@@ -23,7 +23,7 @@ class DoctorInvitePage extends StatefulWidget {
 class _DoctorInvitePageState extends State<DoctorInvitePage> {
   Map userData={};
   bool load=false;
-  late List<Contact> contacts;
+  List<Contact> contacts = [];
 
   @override
   void initState() {

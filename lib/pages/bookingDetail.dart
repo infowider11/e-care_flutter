@@ -70,16 +70,18 @@ class _bookingdetailState extends State<bookingdetail> {
   void initState() {
     super.initState();
     get_info();
-    IsolateNameServer.registerPortWithName(
-        _port.sendPort, 'downloader_send_port');
-    _port.listen((dynamic data) {
-      String id = data[0];
-      DownloadTaskStatus status = data[1];
-      int progress = data[2];
-      setState(() {});
-    });
+   if(Platform.isAndroid){
+     IsolateNameServer.registerPortWithName(
+         _port.sendPort, 'downloader_send_port');
+     _port.listen((dynamic data) {
+       String id = data[0];
+       DownloadTaskStatus status = data[1];
+       int progress = data[2];
+       setState(() {});
+     });
 
-    FlutterDownloader.registerCallback(downloadCallback);
+     FlutterDownloader.registerCallback(downloadCallback);
+   }
   }
 
   @override
@@ -90,7 +92,8 @@ class _bookingdetailState extends State<bookingdetail> {
 
   @pragma('vm:entry-point')
   static void downloadCallback(
-      String id, DownloadTaskStatus status, int progress) {
+      String id, int status, int progress) {
+      // String id, DownloadTaskStatus status, int progress) {
     final SendPort? send =
         IsolateNameServer.lookupPortByName('downloader_send_port');
     send!.send([id, status, progress]);
