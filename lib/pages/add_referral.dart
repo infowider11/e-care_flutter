@@ -1,0 +1,256 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:ecare/constants/colors.dart';
+import 'package:ecare/constants/constans.dart';
+import 'package:ecare/constants/image_urls.dart';
+import 'package:ecare/constants/sized_box.dart';
+import 'package:ecare/functions/navigation_functions.dart';
+import 'package:ecare/pages/loginpage.dart';
+import 'package:ecare/pages/prescriptions_doctor.dart';
+import 'package:ecare/pages/question_1_allergies.dart';
+import 'package:ecare/pages/question_1_condition.dart';
+import 'package:ecare/pages/question_1_medication.dart';
+import 'package:ecare/pages/who_i_am_page.dart';
+import 'package:ecare/services/api_urls.dart';
+import 'package:ecare/services/auth.dart';
+import 'package:ecare/services/webservices.dart';
+import 'package:ecare/widgets/CustomTexts.dart';
+import 'package:ecare/widgets/appbar.dart';
+import 'package:ecare/widgets/buttons.dart';
+import 'package:ecare/widgets/customtextfield.dart';
+import 'package:ecare/widgets/showSnackbar.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_signature_pad/flutter_signature_pad.dart';
+import 'package:path_provider/path_provider.dart';
+import '../widgets/Customdropdownbutton.dart';
+import 'dart:ui' as ui;
+
+
+class Add_Referral_Letter_Page extends StatefulWidget {
+  final bool? is_update;
+  final Map? data;
+  final String? booking_id;
+  const Add_Referral_Letter_Page({Key? key, this.is_update, this.data,this.booking_id})
+      : super(key: key);
+
+
+  @override
+  State<Add_Referral_Letter_Page> createState() =>
+      _Add_Referral_Letter_PageState();
+}
+
+class _Add_Referral_Letter_PageState extends State<Add_Referral_Letter_Page> {
+  TextEditingController desc = TextEditingController();
+  List bookings = [];
+  String booking_id = '';
+
+  final _sign = GlobalKey<SignatureState>();
+  var strokeWidth = 5.0;
+  ByteData _img = ByteData(0);
+
+  get_bookings() async {
+    bookings = await Webservices.getList(
+        ApiUrls.bookingslist + await getCurrentUserId());
+    print('-------- ${bookings}');
+    setState(() {});
+  }
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    if (widget.booking_id != null && widget.booking_id != 'null') {
+      booking_id = widget.booking_id!;
+    }
+    if(widget.data!=null){
+      booking_id=widget.data!['booking_id'].toString();
+      desc.text=widget.data!['description'];
+    }
+    get_bookings();
+    super.initState();
+  }
+
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: MyColors.scaffold,
+      appBar: appBar(context: context),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              MainHeadingText(
+                text: widget.is_update == null
+                    ? 'Add Referral later'
+                    : 'Edit Referral later',
+                fontSize: 32,
+                fontFamily: 'light',
+              ),
+              vSizedBox4,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ParagraphText(
+                    text: 'Booking Id',
+                    fontSize: 14.0,
+                    color: Colors.black,
+                    fontFamily: 'regular',
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(0.0),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: MyColors.bordercolor),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: CustomDropdownButton(
+                      extra_text: 'Booking Id #',
+                      isextra_text: true,
+                      margin: 0.0,
+                      isLabel: false,
+                      onChanged: ((dynamic value) {
+                        print('select bank ---- ${value}');
+                        booking_id = value['id'].toString();
+                        setState(() {});
+                      }),
+                      selectedItem: booking_id != null ? booking_id : '',
+                      items: bookings,
+                      hint: 'Select Booking',
+                      itemMapKey: 'id',
+                      text: '',
+                    ),
+                  ),
+                  CustomTextFieldmaxlines(
+                    controller: desc,
+                    label: 'Decription',
+                    showlabel: true,
+                    labelcolor: MyColors.onsurfacevarient,
+                    hintText: 'Description',
+                    maxLines: 5,
+                  ),
+                  vSizedBox,
+                  if(widget.is_update==null)
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ParagraphText(
+                              text: 'Signature',
+                              fontSize: 14.0,
+                              color: Colors.black,
+                              fontFamily: 'regular',
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  final sign = _sign.currentState;
+                                  sign?.clear();
+                                },
+                                child: Text('Clear',style: TextStyle(color: Colors.red),)
+                            ),
+                          ],
+                        ),
+                        Container(
+                          // color: Colors.white,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          width: double.infinity,
+                          height: 200,
+                          child:Row(
+                            children: [
+                              Expanded(
+                                child: Signature(
+                                  color: Colors.black,
+                                  key: _sign,
+                                  onSign: () {
+                                    final sign = _sign.currentState;
+                                    debugPrint('${sign?.points.length} points in the signature');
+                                  },
+                                  // backgroundPainter: _WatermarkPaint("2.0", "2.0"),
+                                  strokeWidth: strokeWidth,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                ],
+              ),
+              vSizedBox2,
+              RoundEdgedButton(
+                text:
+                widget.is_update == null ? 'Add Referral' : 'Edit Referral',
+                onTap:() async{
+                  if(booking_id==''){
+                    showSnackbar('Please select booking.');
+                  } else
+                  if(desc.text==''){
+                    showSnackbar('Please enter description.');
+                  } else {
+                    Map<String,dynamic> files = {};
+                    Map<String,dynamic> data = {
+                      'user_id':await getCurrentUserId(),
+                      'description':desc.text,
+                      'booking_id':booking_id,
+                    };
+                    if(widget.is_update==true){
+                      data['id'] = widget.data!['id'].toString();
+                    }
+                    File? file;
+                    final sign = _sign.currentState;
+                    // return;
+                    final image = await sign?.getData();
+                    if(widget.is_update==null){
+                      var data = await image?.toByteData(format: ui.ImageByteFormat.png);
+                      setState(() {
+                        _img = data!;
+                      });
+                      final encoded = base64.encode(data!.buffer.asUint8List());
+                      String bs4str = encoded;
+                      Uint8List decodedbytes = base64.decode(bs4str);
+                      final path = await getExternalStorageDirectory();
+                      var filePathAndName = path!.path + '/'+'signature.png';
+                      file = await File(filePathAndName).writeAsBytes(decodedbytes);
+                      print('file-------- ${file}');
+                    }
+                    if(_img.buffer.lengthInBytes != 0){
+                      files['signature_image'] = file;
+                    }
+                    EasyLoading.show(
+                      status: null,
+                      maskType: EasyLoadingMaskType.black
+                    );
+                    // var res = await Webservices.postData(apiUrl:
+                    // widget.is_update==true?ApiUrls.edit_reffral:ApiUrls.add_reffral, body:data, context: context);
+                    var res = await Webservices.postDataWithImageFunction(apiUrl:
+                    widget.is_update==true?ApiUrls.edit_reffral:ApiUrls.add_reffral, body:data, context: context, files: files);
+                    EasyLoading.dismiss();
+                    print('add reffal note---- $res');
+                    Navigator.pop(context);
+                  }
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => Prescriptions_Doctor_Page()));
+                },
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

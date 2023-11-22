@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "639588918463",
+    "project_id": "e-care-2b97d",
+    "storage_bucket": "e-care-2b97d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639588918463:android:dcc53d00cc3cbee1b2920a",
+        "android_client_info": {
+          "package_name": "com.app.ecare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639588918463-ofq8v86kjprclof14cp9i3i5u5sd5f6s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.ecare",
+            "certificate_hash": "25f41980f6ce9d08658310a311df37494c69240b"
+          }
+        },
+        {
+          "client_id": "639588918463-kbdcuo76k1bqsndfa1a3o3ee5suja3c2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu-o0jN5YJUhYjNxGCr6qgRpirmdlP7FA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "639588918463-kbdcuo76k1bqsndfa1a3o3ee5suja3c2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
