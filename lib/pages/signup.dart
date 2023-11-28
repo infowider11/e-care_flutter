@@ -253,44 +253,44 @@ class _SignUp_PageState extends State<SignUp_Page> {
                     },
                   ),
                   vSizedBox6,
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Divider(
-                        color: MyColors.headingcolor,
-                        // thickness: 1,
-                        height: 40,
-                      ),
-                      Container(
-                        height: 30,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFCAE6FF),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            ParagraphText(
-                              text: 'Or Sign in with Google account',
-                              fontFamily: 'light',
-                              color: MyColors.headingcolor,
-                              fontSize: 12,
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                  vSizedBox2,
-              IconButton(
-                  onPressed: () async{
-                    _signInWithGoogle();
-                  },
-                  icon:Image.asset(MyImages.google, height: 30,)),
-                  vSizedBox2,
+              //     Stack(
+              //       alignment: Alignment.center,
+              //       children: [
+              //         Divider(
+              //           color: MyColors.headingcolor,
+              //           // thickness: 1,
+              //           height: 40,
+              //         ),
+              //         Container(
+              //           height: 30,
+              //           decoration: BoxDecoration(
+              //             color: Color(0xFFCAE6FF),
+              //             borderRadius: BorderRadius.circular(8),
+              //           ),
+              //           padding:
+              //               EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+              //           child: Column(
+              //             mainAxisAlignment: MainAxisAlignment.center,
+              //             crossAxisAlignment: CrossAxisAlignment.center,
+              //             children: [
+              //               ParagraphText(
+              //                 text: 'Or Sign in with Google account',
+              //                 fontFamily: 'light',
+              //                 color: MyColors.headingcolor,
+              //                 fontSize: 12,
+              //               ),
+              //             ],
+              //           ),
+              //         )
+              //       ],
+              //     ),
+              //     vSizedBox2,
+              // IconButton(
+              //     onPressed: () async{
+              //       _signInWithGoogle();
+              //     },
+              //     icon:Image.asset(MyImages.google, height: 30,)),
+              //     vSizedBox2,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
