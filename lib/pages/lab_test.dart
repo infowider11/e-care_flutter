@@ -27,6 +27,7 @@ import 'package:http/http.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:intl/intl.dart';
+import '../functions/get_folder_directory.dart';
 import '../widgets/showSnackbar.dart';
 import 'bookingDetail.dart';
 
@@ -462,7 +463,7 @@ class LabTestPageState extends State<LabTestPage>
     // if(await Permission.storage.request().isGranted){
       print('persmision----granted---------');
       // String path = await downloadfolderpath();
-      Directory? dir = await getExternalStorageDirectory();
+      Directory? dir = await getFolderDirectory();
       String path = dir!.path;
       print('path ${path}');
       // String path = '/storage/emulated/0/Download';

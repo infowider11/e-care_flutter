@@ -26,6 +26,7 @@ import '../constants/global_keys.dart';
 import '../constants/navigation.dart';
 import '../dialogs/payment_success_dialog.dart';
 import '../doctor_module/patient-details.dart';
+import '../functions/get_folder_directory.dart';
 import '../functions/global_Var.dart';
 import '../services/api_urls.dart';
 import 'dart:isolate';
@@ -708,7 +709,7 @@ class _bookingdetailState extends State<bookingdetail> {
                                   String fileName = 'invoice_' +
                                       DateTime.now().second.toString();
                                   final externalDir =
-                                      await getExternalStorageDirectory();
+                                      await getFolderDirectory();
                                   print('filename------$fileName');
                                   var download = await savePdfToStorage(
                                       info['invoice_link'],
@@ -873,7 +874,7 @@ class _bookingdetailState extends State<bookingdetail> {
       String url, targetPath, targetFilename) async {
     var response = await get(Uri.parse(url)); // <--2
     print('the url is__________________________________$url');
-    final path = await getExternalStorageDirectory();
+    final path = await getFolderDirectory();
     var firstPath = targetPath;
     var filePathAndName = path!.path + '/' + targetFilename;
     await Directory(firstPath).create(recursive: true);

@@ -32,6 +32,7 @@ import 'package:intl/intl.dart';
 import '../widgets/image_picker.dart';
 import '../widgets/showSnackbar.dart';
 import 'package:month_year_picker/month_year_picker.dart';
+import 'package:path/path.dart';
 class hpcsaregistration extends StatefulWidget {
   final Map<String,dynamic>?  data;
   const hpcsaregistration({
@@ -239,7 +240,8 @@ class _hpcsaregistrationState extends State<hpcsaregistration> {
                 },),
                 hSizedBox,
                 if(proofFile.length>0)
-                  Text('${proofFile[0].toString().split('cache/image_cropper_')[1]}',style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
+                  // Text('${proofFile[0].toString().split('cache/image_cropper_')[1]}',style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
+                Expanded(child: Text('${basename(proofFile[0].path)}',style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),)),
               ],
             ),
             vSizedBox2,

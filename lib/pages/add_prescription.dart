@@ -28,6 +28,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_signature_pad/flutter_signature_pad.dart';
 
+import '../functions/get_folder_directory.dart';
 import '../widgets/Customdropdownbutton.dart';
 import 'dart:ui' as ui;
 import 'package:path_provider/path_provider.dart';
@@ -343,10 +344,13 @@ class _Add_Prescriptions_Doctor_PageState
                       ? 'Add Prescriptions '
                       : 'Edit Prescriptions',
                   onTap: () async {
+                    print('i am here');
                     File? file;
                     final sign = _sign.currentState;
+                    print('i am here2');
                     // return;
                       final image = await sign?.getData();
+
                     print('sign----- ${image}');
                       // return;
                     if(widget.is_update==false){
@@ -357,7 +361,14 @@ class _Add_Prescriptions_Doctor_PageState
                       final encoded = base64.encode(data!.buffer.asUint8List());
                       String bs4str = encoded;
                       Uint8List decodedbytes = base64.decode(bs4str);
-                      final path = await getExternalStorageDirectory();
+                      // late Directory path;
+                      var path = await getFolderDirectory();
+
+                      // if(Platform.isMacOS ||Platform.isIOS){
+                      //   path = await getTemporaryDirectory();
+                      // }else{
+                      //   path = await getExternalStorageDirectory();
+                      // }
                       var filePathAndName = path!.path + '/'+'signature.png';
                       file = await File(filePathAndName).writeAsBytes(decodedbytes);
                       print('-------- ${file}');

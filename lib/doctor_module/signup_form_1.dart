@@ -29,6 +29,7 @@ import 'package:intl/intl.dart';
 import '../widgets/image_picker.dart';
 import '../widgets/showSnackbar.dart';
 import 'package:month_year_picker/month_year_picker.dart';
+import 'package:path/path.dart';
 class SignUpForm1 extends StatefulWidget {
   final Map<String,dynamic>  data;
   const SignUpForm1({
@@ -246,7 +247,8 @@ if(allCat[i]['parent'].toString()==id.toString()){
                 },),
                 hSizedBox,
                 if(images.length>0)
-                  Text('${images[0].toString().split('cache/image_cropper_')[1]}'),
+                  Text('${basename(images[0].path)}'),
+                  // Text('${images[0].toString().split('cache/image_cropper_')[1]}'),
               ],
             ),
             vSizedBox,
@@ -345,7 +347,8 @@ if(allCat[i]['parent'].toString()==id.toString()){
                 },),
                 hSizedBox,
                 if(proofFile.length>0)
-                  Text('${proofFile[0].toString().split('cache/image_cropper_')[1]}'),
+                  Text('${basename(proofFile[0].path)}'),
+                  // Text('${proofFile[0].toString().split('cache/image_cropper_')[1]}'),
               ],
             ),
             // CustomTextField(controller: proof, hintText: 'Write here..'),
