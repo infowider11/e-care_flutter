@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>E-Care</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>E-Care</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSContactsUsageDescription</key>
+    <string>This app requires contacts access to function properly.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We use your camera to enable video calls with doctors for enhanced medical consultations.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>We use your contacts to simplify the process of sending invitations to other users. Rest assured that invitations are sent from your end when you choose to invite someone to use our app.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>We use your location to help you find nearby doctors for your convenience and to enhance your access to healthcare services.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We use your location to help you find nearby doctors for your convenience and to enhance your access to healthcare services.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We use your microphone for seamless communication and interaction with doctors during video consultations.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We use your photo library to enable you to share images of your medical condition for a more accurate diagnosis.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We use your photo library to enable you to change your profile photo.</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+    <dict>
+      <key>NSExceptionDomains</key>
+      <dict>
+        <key>e-care.co.za</key>
+        <dict>
+          <!-- add this key to enable subdomains such as sub.yourserver.com -->
+          <key>NSIncludesSubdomains</key>
+          <true/>
+          <!-- add this key to allow standard HTTP requests, thus negating the ATS -->
+          <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+          <true/>
+          <!-- add this key to specify the minimum TLS version to accept -->
+          <key>NSTemporaryExceptionMinimumTLSVersion</key>
+          <string>TLSv1.1</string>
+        </dict>
+      </dict>
+    </dict>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key><true/>
+    </dict>
+    <key>FDMaximumConcurrentTasks</key>
+    <integer>5</integer>
+    <key>FDAllFilesDownloadedMessage</key>
+    <string>All files have been downloaded</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+</dict>
+</plist>
