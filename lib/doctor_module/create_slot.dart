@@ -29,6 +29,9 @@ class _CreateSlotState extends State<CreateSlot> {
   TextEditingController date = TextEditingController();
   TextEditingController stime = TextEditingController();
   TextEditingController etime = TextEditingController();
+  DateTime? selectedDate;
+  TimeOfDay? start_timestamp;
+  TimeOfDay? end_timestamp;
   List slots = [];
   bool load = false;
   int s_time = 0;
@@ -100,6 +103,7 @@ class _CreateSlotState extends State<CreateSlot> {
                               DateFormat formatter = DateFormat('yyyy-MM-dd');
                               String formatted = formatter.format(m);
                               date.text = formatted;
+                              selectedDate = m;
                               // print('checking date------${formatted}');
                             }
                           },
@@ -130,6 +134,7 @@ class _CreateSlotState extends State<CreateSlot> {
                                       s_time =
                                           picked.minute + (picked.hour * 60);
                                     });
+                                    start_timestamp = picked;
                                     String time = picked.format(context);
                                     print('picked----$time');
                                     stime.text = time;
@@ -176,6 +181,7 @@ class _CreateSlotState extends State<CreateSlot> {
                                           'Please note that the minimum duration of a consultation slot is 15 minutes and the maximum duration is 60 minutes.');
                                     } else {
                                       etime.text = time;
+                                      end_timestamp = picked;
                                       setState(() {});
                                     }
                                   }
@@ -202,11 +208,17 @@ class _CreateSlotState extends State<CreateSlot> {
                             } else if (etime.text == '') {
                               showSnackbar('Please Select End Time.');
                             } else {
+
+                              // DateTime startDateTime =  DateTime(selectedDate!.year, selectedDate!.month, selectedDate!.day, start_timestamp!.hour, start_timestamp!.minute);
+                              // DateTime endDateTime =  DateTime(selectedDate!.year, selectedDate!.month, selectedDate!.day, end_timestamp!.hour, end_timestamp!.minute);
+
                               Map<String, dynamic> data = {
                                 'user_id': await getCurrentUserId(),
                                 'date': date.text.toString(),
                                 'start_time': stime.text.toString(),
                                 'end_time': etime.text.toString(),
+                                // 'start_timestamp': startDateTime.millisecondsSinceEpoch.toString(),
+                                // 'end_timestamp': endDateTime.millisecondsSinceEpoch.toString(),
                               };
                               await EasyLoading.show(
                                 status: null,

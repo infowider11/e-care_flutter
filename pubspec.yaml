@@ -39,15 +39,17 @@ dependencies:
   syncfusion_flutter_sliders: ^20.2.45
   flutter_switch: ^0.3.2
   http: ^0.13.5
-  intl: ^0.17.0
+  intl: ^0.18.1
   intl_phone_field: ^3.1.0
   image_picker: ^0.8.4+4
   image_cropper: ^1.4.1
   month_year_picker: any
   shared_preferences: ^2.0.15
-  dropdown_search: ^2.0.1
+#  dropdown_search: ^2.0.1
+  dropdown_search: ^5.0.6
   flutter_easyloading: ^3.0.5
-  flutter_html: ^2.2.1
+  flutter_html: ^3.0.0-beta.2
+#  flutter_html: ^2.2.1
   video_player: ^2.4.7
   contacts_service: ^0.6.3
   flutter_sms: ^2.3.3
@@ -55,10 +57,12 @@ dependencies:
 #  firebase_messaging: ^11.2.8
 #  flutter_local_notifications: ^9.4.0
   permission_handler: ^10.2.0
-  cached_network_image: ^3.1.0+1
+#  cached_network_image: ^3.1.0+1
+  cached_network_image: ^3.3.1
   photo_view: ^0.14.0
   readmore: ^2.2.0
   jiffy: ^5.0.0
+  flutter_native_timezone: ^2.0.0
 #  badges: ^2.0.3
   badges: ^3.0.2
   cell_calendar: ^0.7.0
@@ -66,13 +70,17 @@ dependencies:
   url_launcher: ^6.1.6
   flutter_downloader: ^1.9.1
   agora_rtc_engine: ^5.1.0
-#  agora_rtc_engine: ^6.1.0
+#  agora_rtc_engine: ^6.2.6
   flutter_rating_bar: ^4.0.1
-  firebase_auth: ^1.2.0
-  firebase_core: ^1.0.2
+  firebase_auth: ^4.17.4
+  firebase_core: ^2.25.4
+#  firebase_auth: ^1.2.0
+#  firebase_core: ^1.0.2
   google_sign_in: ^5.0.4
-  cloud_firestore: ^3.1.5
-  webview_flutter: ^2.0.4
+#  cloud_firestore: ^3.1.5
+  cloud_firestore: ^4.15.4
+  webview_flutter: ^4.7.0
+#  webview_flutter: ^2.0.4
   downloads_path_provider_28: ^0.1.2
   flutter_signature_pad: ^3.0.1
   file_picker: ^5.2.10
@@ -86,6 +94,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   sentry_flutter: ^7.7.0
+  open_file: ^3.3.2
 
 dev_dependencies:
   flutter_test:

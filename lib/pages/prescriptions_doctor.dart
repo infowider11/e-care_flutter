@@ -24,6 +24,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart';
 import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 
+import '../constants/api_variable_keys.dart';
 import '../services/auth.dart';
 import '../widgets/showSnackbar.dart';
 import 'bookingDetail.dart';
@@ -43,7 +44,7 @@ class Prescriptions_Doctor_PageState extends State<Prescriptions_Doctor_Page>
     with TickerProviderStateMixin {
   TextEditingController email = TextEditingController();
   late AnimationController controller;
-  List lists = [];
+  List prescriptionList = [];
   bool load = false;
 
   @override
@@ -65,7 +66,7 @@ class Prescriptions_Doctor_PageState extends State<Prescriptions_Doctor_Page>
         apiUrl: ApiUrls.get_precriptions, body: data, context: context);
     print('list    ${res}');
     if (res['status'].toString() == '1') {
-      lists = res['data'];
+      prescriptionList = res['data'];
       setState(() {});
     }
     setState(() {
@@ -168,28 +169,32 @@ class Prescriptions_Doctor_PageState extends State<Prescriptions_Doctor_Page>
                         //   ),
 
 
-                        for(int i=0;i<lists.length;i++)
+                        for(int i=0;i<prescriptionList.length;i++)
                           ListUI02(
-                            heading: 'Prescription ${i+1}',
-                            subheading: '${DateFormat.yMMMEd().format(DateTime.parse(lists[i]['created_at']))}',
+                            heading: 'Prescription:  ${prescriptionList[i][ApiVariableKeys.doctor_lastname]}/${prescriptionList[i][ApiVariableKeys.user_lastname]}',
+                            // heading: 'Prescription:  ${i+1}',
+                            // heading: 'Prescription ${i+1}',
+                            subheading: '${prescriptionList[i][ApiVariableKeys.consult_dateTime]}',
+                            // subheading: '${DateFormat.yMMMEd().format(DateTime.parse(prescriptionList[i]['created_at']))}',
                             editonTap: () async{
                               await push(context: context, screen: Add_Prescriptions_Doctor_Page(
                                 is_update:true,
-                                data: lists[i],
+                                data: prescriptionList[i],
                               ));
-                              get_lists();
+                              // get_lists();
                             },
                             sendonTap: () async{
+
                               // EasyLoading.show(
                               //   status: null,
                               //   maskType: EasyLoadingMaskType.black,
                               // );
-                              await savePdfToStorage1(lists[i]['pdf_url'], 'pdf',
-                                  '${lists[i]['id']}_prescription.pdf');
+                              await savePdfToStorage1(prescriptionList[i]['pdf_url'], 'pdf',
+                                  '${prescriptionList[i]['id']}_prescription.pdf');
                               // EasyLoading.dismiss();
                             },
                             deleteonTap: () {
-                              delete(lists[i]['id'].toString(),lists[i]['booking_id'].toString());
+                              delete(prescriptionList[i]['id'].toString(),prescriptionList[i]['booking_id'].toString());
                             },
                             isimage: false,
                             isIcon: false,
@@ -383,7 +388,7 @@ class Prescriptions_Doctor_PageState extends State<Prescriptions_Doctor_Page>
                         //     ),
                         //   ),
 
-                        if (lists.length == 0)
+                        if (prescriptionList.length == 0)
                           Center(
                             heightFactor: 1.0,
                             child: Text('No data found.'),

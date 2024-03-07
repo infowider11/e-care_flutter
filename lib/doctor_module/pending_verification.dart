@@ -55,7 +55,7 @@ class _PendingVerificationPageState extends State<PendingVerificationPage> {
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) {
                   return tabs_third_page(
-                    selectedIndex: 0,
+                    initialIndex: 0,
                   );
                 }), (route) {
                   return false;

@@ -322,7 +322,9 @@ class _ChooseScheduleState extends State<ChooseSchedule> {
                             ),
                             child: MainHeadingText(
                               text: '${available_slot[i]['date']}, '
-                                  '${DateFormat.jm().format(DateFormat('hh:mm').parse(available_slot[i]['start_time']))} '
+                              '${DateFormat.jm().format(DateTime.parse(available_slot[i]['date_with_time']))} '
+                                  // '${DateFormat.jm().parse(available_slot[i]['date_with_time'])}'
+                                  // '${DateFormat.jm().format(DateFormat('hh:mm').parse(available_slot[i]['start_time']))} '
                                   '(${available_slot[i]['duration']} minutes consultation available)',
                               color: selected_inx == i
                                   ? Colors.white

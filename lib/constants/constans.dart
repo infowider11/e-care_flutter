@@ -14,6 +14,8 @@ spreadRadius: 0.0,
 blurRadius: 12.0
 );
 
+String currentTimezone = 'America/Los_Angeles';
+
 BoxShadow boxShadowtop = BoxShadow(
 color: Color(0xFF000000).withOpacity(0.09),
 offset: Offset(0.0,-1.0),

@@ -79,7 +79,7 @@ class _DoctorNotificationPageState extends State<DoctorNotificationPage> {
             GestureDetector(
               onTap: () async{
                 if(lists[i]['other']['screen']=='booking') {
-                  pushReplacement(context: context, screen: tabs_third_page(selectedIndex: 2,));
+                  pushReplacement(context: context, screen: tabs_third_page(initialIndex: 2,));
                 } else if(lists[i]['other']['screen']=='booking_chat') {
                   push(context: context,screen:
                   ChatPage(booking_id:lists[i]['other']['booking_id'].toString(),

@@ -125,9 +125,25 @@ class _MyWalletState extends State<MyWallet> {
                           height: 50,
                         ),
                         hSizedBox,
+
+                        if(lists[i]['status']=='5')
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+
+                              MainHeadingText(text: 'Amount refunded to ', fontSize: 14, fontFamily: 'light',),
+                              MainHeadingText(text: '${lists[i]['paitent']['first_name']} ${lists[i]['paitent']['last_name']??''} for consultation. ', fontSize: 14, fontFamily: 'light',),
+                              // MainHeadingText(text: '${lists[i]['paitent']['first_name']} ${lists[i]['paitent']['last_name']??''} for ${lists[i]['specialist_category']['title']} ', fontSize: 14, fontFamily: 'light',),
+                              vSizedBox05,
+                              MainHeadingText(text: '${lists[i]['refundDate']}', color: MyColors.primaryColor, fontSize: 11,),
+                              MainHeadingText(text: '${lists[i]['amount']} ZAR', fontSize: 16, color: MyColors.primaryColor,)
+
+                            ],
+                          )else
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+
                             MainHeadingText(text: 'Payment received from ', fontSize: 14, fontFamily: 'light',),
                             MainHeadingText(text: '${lists[i]['paitent']['first_name']} ${lists[i]['paitent']['last_name']??''} for consultation. ', fontSize: 14, fontFamily: 'light',),
                             // MainHeadingText(text: '${lists[i]['paitent']['first_name']} ${lists[i]['paitent']['last_name']??''} for ${lists[i]['specialist_category']['title']} ', fontSize: 14, fontFamily: 'light',),

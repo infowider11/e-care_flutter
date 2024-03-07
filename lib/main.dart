@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'dart:isolate';
+import 'dart:ui';
 
 import 'package:ecare/pages/booked_visit.dart';
 import 'package:ecare/pages/filter.dart';
@@ -25,6 +27,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 // import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+import 'constants/constans.dart';
 import 'constants/global_keys.dart';
 import 'constants/navigation.dart';
 import 'doctor_module/add_new_card.dart';
@@ -33,10 +36,34 @@ import 'doctor_module/money_request.dart';
 import 'doctor_module/my_wallet.dart';
 import 'package:month_year_picker/month_year_picker.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'functions/download_file.dart';
+import 'functions/get_timezone.dart';
 import 'functions/global_Var.dart';
 import 'package:flutter/foundation.dart';
 
+import 'functions/print_function.dart';
 
+setDownloadProgress(int progress){
+  print('Changing download progress from ${downloadStatusProgress} to $progress');
+  downloadStatusProgress = progress;
+}
+class TestClass{
+  static void callback(String id, int status, int progress) {
+    //
+    // myCustomPrintStatement('Download status: $status');
+    // myCustomPrintStatement('Download progress: $progress');
+    // // downloadStatusProgress = progress;
+    //
+    // setDownloadProgress(progress);
+    myCustomPrintStatement('Download status progress: ${progress}');
+
+
+    final SendPort? send =
+    IsolateNameServer.lookupPortByName('downloader_send_port');
+
+    send!.send([id, status, progress]);
+  }
+}
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,38 +75,43 @@ void main() async{
         ignoreSsl: true // option: set to false to disable working with http links (default: false)
     );
   }
-
+  await FlutterDownloader.registerCallback(TestClass.callback);
   // if(!kIsWeb) {
     await Firebase.initializeApp();
     print('firebase is initialized');
     await initOneSignal('090aa36a-e6f9-4195-9413-fa54d2789e23');
+  try{
+    // currentTimezone = await getUserTimeZone();
+  }catch(e){
+    print('Errir in catch block in gettiing timezone $e');
+  }
     print('onesingal init successfully----');
     // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
   // }
 
-
-
-
-  runZonedGuarded(() async{
-    await SentryFlutter.init(
-          (options) {
-
-        options.dsn = 'https://fe4b503f6bc049158a7fd3473a43f211@o4505385253666816.ingest.sentry.io/4505385254846464'; //manish
-
-        // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
-        // We recommend adjusting this value in production.
-        options.tracesSampleRate = 1.0;
-      },
-      appRunner: () => runApp(const MyApp()),
-
-    );
-  }, (error, stack) {
-    log('Error foung $error, \nStack:  $stack');
-    // CustomLogServices.sendMessageToSentry(message: 'Error $error', stackTrace: stack);
-  });
-
+  runApp(const MyApp());
   configLoading();
+
+  // runZonedGuarded(() async{
+  //   await SentryFlutter.init(
+  //         (options) {
+  //
+  //       options.dsn = 'https://fe4b503f6bc049158a7fd3473a43f211@o4505385253666816.ingest.sentry.io/4505385254846464'; //manish
+  //
+  //       // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+  //       // We recommend adjusting this value in production.
+  //       options.tracesSampleRate = 1.0;
+  //     },
+  //     appRunner: () => runApp(const MyApp()),
+  //
+  //   );
+  // }, (error, stack) {
+  //   log('Error foung $error, \nStack:  $stack');
+  //   // CustomLogServices.sendMessageToSentry(message: 'Error $error', stackTrace: stack);
+  // });
+
+
 }
 
 

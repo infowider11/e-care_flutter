@@ -31,12 +31,14 @@ import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:ui' as ui;
 import '../widgets/Customdropdownbutton.dart';
+import '../widgets/custom_dropdown.dart';
 
 class Add_sicknote extends StatefulWidget {
   final bool? is_update;
   final Map? data;
   final String? booking_id;
-  const Add_sicknote({Key? key, this.is_update, this.data,this.booking_id})
+  final String? doctorName;
+  const Add_sicknote({Key? key, this.is_update, this.data,this.booking_id,  this.doctorName})
       : super(key: key);
 
   @override
@@ -139,7 +141,8 @@ class _Add_sicknoteState extends State<Add_sicknote> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: CustomDropdownButton(
-                      extra_text: 'Booking Id #',
+                      extra_text:widget.doctorName==null? 'Booking Id #': '(${widget.doctorName}) Booking Id #',
+                      // extra_text: 'Booking Id #',
                       isextra_text: true,
                       margin: 0.0,
                       isLabel: false,
@@ -153,7 +156,7 @@ class _Add_sicknoteState extends State<Add_sicknote> {
                       items: bookings,
                       hint: 'Select Booking',
                       itemMapKey: 'id',
-                      text: '',
+                      // text: '',
                     ),
                   ),
                   vSizedBox,

@@ -22,6 +22,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../constants/sized_box.dart';
 import '../functions/global_Var.dart';
 import '../pages/add_bank_account_page.dart';
+import '../pages/icdCodesPage.dart';
 import '../services/auth.dart';
 import '../welcome.dart';
 import 'notification.dart';
@@ -414,6 +415,36 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                                 children: [
                                   MainHeadingText(
                                     text: 'Referral letters',
+                                    color: MyColors.onsurfacevarient,
+                                    fontSize: 17,
+                                    fontFamily: 'bold',
+                                  ),
+                                  Icon(Icons.chevron_right_rounded)
+                                ],
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              // showSnackbar('Coming soon 1234');
+                              push(
+                                  context: context,
+                                  screen: IcdCodesPage());
+                            },
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 16, horizontal: 8),
+                              decoration: BoxDecoration(
+                                color: MyColors.white,
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  MainHeadingText(
+                                    text: 'Statements with ICD-10 codes',
                                     color: MyColors.onsurfacevarient,
                                     fontSize: 17,
                                     fontFamily: 'bold',

@@ -29,6 +29,7 @@ Future<void> initOneSignal(app_id) async {
 setNotificationHandler(context) async {
   OneSignal.shared.setNotificationWillShowInForegroundHandler(
       (OSNotificationReceivedEvent event) {
+        print('Notification is received $event');
     // Will be called whenever a notification is received in foreground
     // Display Notification, pass null param for not displaying the notification
     event.complete(event.notification);

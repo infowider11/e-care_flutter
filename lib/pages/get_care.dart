@@ -98,6 +98,7 @@ class _GetCareState extends State<GetCare> {
                 fontSize: 30,
                 fontFamily: 'light',
               ),
+              ParagraphText(text: 'For medical aid claims, book only with healthcare providers having a practice number. After your consultation, ask for a statement with ICD-10 codes from your healthcare Provider.'),
               vSizedBox6,
               for(int i=0;i<categories.length;i++)
                 if(categories[i]['parent'].toString()=='0')

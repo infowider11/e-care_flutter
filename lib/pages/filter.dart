@@ -200,183 +200,185 @@ class _FilterPageState extends State<FilterPage> {
                   },
                 ),
                 vSizedBox2,
-                ParagraphText(
-                  text: 'Ratings',
-                  fontSize: 16,
-                ),
-                vSizedBox05,
-                Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: MyColors.lightBlue.withOpacity(0.11),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                rate='1';
-                              });
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                  color: rate=='1'?MyColors.primaryColor:Colors.transparent,
-                                  border: Border.all(
-                                      color: MyColors.primaryColor, width: 1),
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    color: rate=='1'?MyColors.white:MyColors.primaryColor,
-                                    size: 18,
-                                  ),
-                                  Text(
-                                    '1 star',
-                                    style: TextStyle(
-                                        fontSize: 14, color: rate=='1'?MyColors.white:MyColors.primaryColor),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          hSizedBox,
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                rate='2';
-                              });
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                  color: rate=='2'?MyColors.primaryColor:Colors.transparent,
-                                  border: Border.all(
-                                      color: MyColors.primaryColor, width: 1),
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    color: rate=='2'?MyColors.white:MyColors.primaryColor,
-                                    size: 18,
-                                  ),
-                                  Text(
-                                    '2 star',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: rate=='2'?MyColors.white:MyColors.primaryColor),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          hSizedBox,
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                rate='3';
-                              });
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                  color: rate=='3'?MyColors.primaryColor:Colors.transparent,
-                                  border: Border.all(
-                                      color: MyColors.primaryColor, width: 1),
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    color: rate=='3'?MyColors.white:MyColors.primaryColor,
-                                    size: 18,
-                                  ),
-                                  Text(
-                                    '3 star',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: rate=='3'?MyColors.white:MyColors.primaryColor),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          hSizedBox,
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                rate='4';
-                              });
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                  color: rate=='4'?MyColors.primaryColor:Colors.transparent,
-                                  border: Border.all(
-                                      color: MyColors.primaryColor, width: 1),
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    color: rate=='4'?MyColors.white:MyColors.primaryColor,
-                                    size: 18,
-                                  ),
-                                  Text(
-                                    '4 star',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: rate=='4'?MyColors.white:MyColors.primaryColor),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      vSizedBox,
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                rate='5';
-                              });
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                  color: rate=='5'?MyColors.primaryColor:Colors.transparent,
-                                  border: Border.all(
-                                      color: MyColors.primaryColor, width: 1),
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    color: rate=='5'?MyColors.white:MyColors.primaryColor,
-                                    size: 18,
-                                  ),
-                                  Text(
-                                    '5 star',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: rate=='5'?MyColors.white:MyColors.primaryColor),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
+                // ParagraphText(
+                //   text: 'Ratings',
+                //   fontSize: 16,
+                // ),
+                // vSizedBox05,
+                // Container(
+                //   padding: EdgeInsets.all(16),
+                //   decoration: BoxDecoration(
+                //     color: MyColors.lightBlue.withOpacity(0.11),
+                //     borderRadius: BorderRadius.circular(16),
+                //   ),
+                //   child: Column(
+                //     children: [
+                //       Row(
+                //         children: [
+                //           GestureDetector(
+                //             onTap: () {
+                //               setState(() {
+                //                 rate='1';
+                //               });
+                //             },
+                //             child: Container(
+                //               padding: EdgeInsets.all(8),
+                //               decoration: BoxDecoration(
+                //                   color: rate=='1'?MyColors.primaryColor:Colors.transparent,
+                //                   border: Border.all(
+                //                       color: MyColors.primaryColor, width: 1),
+                //                   borderRadius: BorderRadius.circular(8)),
+                //               child: Row(
+                //                 children: [
+                //                   Icon(
+                //                     Icons.star,
+                //                     color: rate=='1'?MyColors.white:MyColors.primaryColor,
+                //                     size: 18,
+                //                   ),
+                //                   Text(
+                //                     '1 star',
+                //                     style: TextStyle(
+                //                         fontSize: 14, color: rate=='1'?MyColors.white:MyColors.primaryColor),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //           ),
+                //           hSizedBox,
+                //           GestureDetector(
+                //             onTap: () {
+                //               setState(() {
+                //                 rate='2';
+                //               });
+                //             },
+                //             child: Container(
+                //               padding: EdgeInsets.all(8),
+                //               decoration: BoxDecoration(
+                //                   color: rate=='2'?MyColors.primaryColor:Colors.transparent,
+                //                   border: Border.all(
+                //                       color: MyColors.primaryColor, width: 1),
+                //                   borderRadius: BorderRadius.circular(8)),
+                //               child: Row(
+                //                 children: [
+                //                   Icon(
+                //                     Icons.star,
+                //                     color: rate=='2'?MyColors.white:MyColors.primaryColor,
+                //                     size: 18,
+                //                   ),
+                //                   Text(
+                //                     '2 star',
+                //                     style: TextStyle(
+                //                         fontSize: 14,
+                //                         color: rate=='2'?MyColors.white:MyColors.primaryColor),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //           ),
+                //           hSizedBox,
+                //           GestureDetector(
+                //             onTap: () {
+                //               setState(() {
+                //                 rate='3';
+                //               });
+                //             },
+                //             child: Container(
+                //               padding: EdgeInsets.all(8),
+                //               decoration: BoxDecoration(
+                //                   color: rate=='3'?MyColors.primaryColor:Colors.transparent,
+                //                   border: Border.all(
+                //                       color: MyColors.primaryColor, width: 1),
+                //                   borderRadius: BorderRadius.circular(8)),
+                //               child: Row(
+                //                 children: [
+                //                   Icon(
+                //                     Icons.star,
+                //                     color: rate=='3'?MyColors.white:MyColors.primaryColor,
+                //                     size: 18,
+                //                   ),
+                //                   Text(
+                //                     '3 star',
+                //                     style: TextStyle(
+                //                         fontSize: 14,
+                //                         color: rate=='3'?MyColors.white:MyColors.primaryColor),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //           ),
+                //
+                //
+                //         ],
+                //       ),
+                //       vSizedBox,
+                //       Row(
+                //         children: [
+                //           GestureDetector(
+                //             onTap: () {
+                //               setState(() {
+                //                 rate='4';
+                //               });
+                //             },
+                //             child: Container(
+                //               padding: EdgeInsets.all(8),
+                //               decoration: BoxDecoration(
+                //                   color: rate=='4'?MyColors.primaryColor:Colors.transparent,
+                //                   border: Border.all(
+                //                       color: MyColors.primaryColor, width: 1),
+                //                   borderRadius: BorderRadius.circular(8)),
+                //               child: Row(
+                //                 children: [
+                //                   Icon(
+                //                     Icons.star,
+                //                     color: rate=='4'?MyColors.white:MyColors.primaryColor,
+                //                     size: 18,
+                //                   ),
+                //                   Text(
+                //                     '4 star',
+                //                     style: TextStyle(
+                //                         fontSize: 14,
+                //                         color: rate=='4'?MyColors.white:MyColors.primaryColor),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //           ),
+                //           hSizedBox,
+                //           GestureDetector(
+                //             onTap: () {
+                //               setState(() {
+                //                 rate='5';
+                //               });
+                //             },
+                //             child: Container(
+                //               padding: EdgeInsets.all(8),
+                //               decoration: BoxDecoration(
+                //                   color: rate=='5'?MyColors.primaryColor:Colors.transparent,
+                //                   border: Border.all(
+                //                       color: MyColors.primaryColor, width: 1),
+                //                   borderRadius: BorderRadius.circular(8)),
+                //               child: Row(
+                //                 children: [
+                //                   Icon(
+                //                     Icons.star,
+                //                     color: rate=='5'?MyColors.white:MyColors.primaryColor,
+                //                     size: 18,
+                //                   ),
+                //                   Text(
+                //                     '5 star',
+                //                     style: TextStyle(
+                //                         fontSize: 14,
+                //                         color: rate=='5'?MyColors.white:MyColors.primaryColor),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //           ),
+                //         ],
+                //       )
+                //     ],
+                //   ),
+                // ),
                 vSizedBox2,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

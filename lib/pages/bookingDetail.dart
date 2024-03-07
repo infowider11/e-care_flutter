@@ -36,6 +36,7 @@ import '../services/pay_stack/modals/FlutterPayStackInitializeTransactionRespons
 import '../services/pay_stack/payment_page.dart';
 import '../tabs.dart';
 import '../widgets/showSnackbar.dart';
+import 'add_icd_notes.dart';
 import 'add_prescription.dart';
 import 'addsick.dart';
 import 'consultation_notes.dart';
@@ -126,7 +127,7 @@ class _bookingdetailState extends State<bookingdetail> {
       length: 5,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('sBooking Detail'),
+          title: Text('Booking Detail'),
           leading: BackButton(
             color: Colors.black,
           ),
@@ -186,6 +187,20 @@ class _bookingdetailState extends State<bookingdetail> {
                       ],
                     ),
                   ),
+                  ///kjl
+                  // lkjl
+                  // PopupMenuItem(
+                  //   value: 5,
+                  //   // row with two children
+                  //   child: Row(
+                  //     children: [
+                  //       SizedBox(
+                  //         width: 10,
+                  //       ),
+                  //       Text("Add ICD-10 codes to statement")
+                  //     ],
+                  //   ),
+                  // ),
                 ],
                 offset: Offset(0, 58),
                 color: MyColors.white,
@@ -217,6 +232,21 @@ class _bookingdetailState extends State<bookingdetail> {
                         screen: Consultation_Notes_Page(
                           booking_id: info['id'].toString(),
                         ));
+                  }else if (value == 5) {
+                    print('skjdfkldas ${info['user_data']['first_name']}');
+                    // return;
+                    push(
+                      context: context,
+                      screen:AddIcdNotes(
+                        booking_id: info
+                        ['id']
+                            .toString(),
+                        doctorName: '${info[
+                        'user_data']
+                        [
+                        'first_name']}',
+                      ),
+                    );
                   }
                 },
               ),
@@ -673,8 +703,8 @@ class _bookingdetailState extends State<bookingdetail> {
                                 setState(() {
                                   didDownloadPDF = true;
                                 });
-                                var status = await Permission.storage.request();
-                                if (status.isGranted) {
+                                // var status = await Permission.storage.request();
+                                if (true) {
                                   String fileName = 'invoice_' +
                                       DateTime.now().second.toString();
                                   final externalDir =

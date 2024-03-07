@@ -266,6 +266,8 @@ class _BookedVisitState extends State<BookedVisit>
 
   @override
   Widget build(BuildContext context) {
+
+    log('sdlkfjsfj ${confirms}');
     return DefaultTabController(
       animationDuration: Duration(seconds: 1),
       initialIndex: 4,

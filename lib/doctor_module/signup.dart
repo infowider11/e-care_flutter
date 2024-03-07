@@ -188,7 +188,7 @@ class _SignUp_Page_DoctorState extends State<SignUp_Page_Doctor> {
             vSizedBox4,
             GestureDetector(
               onTap: () async {
-                var m = await showDatePicker(context: context, initialDate: DateTime(DateTime.now().year-16), firstDate: DateTime(DateTime.now().year-50), lastDate: DateTime(DateTime.now().year-15));
+                var m = await showDatePicker(context: context, initialDate: DateTime(DateTime.now().year-16), firstDate: DateTime(1950), lastDate: DateTime(DateTime.now().year-15));
                 if(m!=null){
                   DateFormat formatter = DateFormat('yyyy-MM-dd');
                   String formatted = formatter.format(m);

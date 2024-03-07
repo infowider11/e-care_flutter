@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:ecare/constants/api_variable_keys.dart';
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/constans.dart';
 import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
+import 'package:ecare/functions/get_name.dart';
 import 'package:ecare/functions/navigation_functions.dart';
 import 'package:ecare/pages/loginpage.dart';
 import 'package:ecare/pages/prescriptions_doctor.dart';
@@ -30,6 +32,8 @@ import '../widgets/Customdropdownbutton.dart';
 import 'dart:ui' as ui;
 import 'package:path_provider/path_provider.dart';
 
+import '../widgets/custom_dropdown.dart';
+
 class Add_Prescriptions_Doctor_Page extends StatefulWidget {
   final bool? is_update;
   final Map? data;
@@ -52,6 +56,7 @@ class _Add_Prescriptions_Doctor_PageState
   TextEditingController desc = TextEditingController();
   List bookings = [];
   String booking_id = '';
+  Map? selectedBookingData;
   ByteData _img = ByteData(0);
   var color = Colors.red;
   var strokeWidth = 5.0;
@@ -75,6 +80,7 @@ class _Add_Prescriptions_Doctor_PageState
     get_bookings();
     if (widget.booking_id != null && widget.booking_id != 'null') {
       booking_id = widget.booking_id!;
+
     }
     if(widget.data!=null){
       // name.text=widget.data!['prescription_name'];
@@ -106,6 +112,14 @@ class _Add_Prescriptions_Doctor_PageState
     bookings = await Webservices.getList(
         ApiUrls.bookingslist + await getCurrentUserId());
     print('-------- ${bookings}');
+
+    for(int i = 0;i<bookings.length;i++){
+      bookings[i]['${ApiVariableKeys.temp_name}'] = getName(prefixText: 'Booking', doctorLastName: bookings[i][ApiVariableKeys.doctor_data][ApiVariableKeys.last_name], userLastName: '${bookings[i][ApiVariableKeys.user_data][ApiVariableKeys.last_name]}', dateTimeConsultation: '${bookings[i]['${ApiVariableKeys.slot_data}'][ApiVariableKeys.date_with_time]}');
+      print('the booking data is ${bookings[i]}');
+      if(bookings[i]['id']==widget.booking_id){
+        selectedBookingData = bookings[i];
+      }
+    }
     setState(() {});
   }
 
@@ -149,8 +163,12 @@ class _Add_Prescriptions_Doctor_PageState
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: CustomDropdownButton(
+
+                      height: 70,
                       isextra_text: true,
-                      extra_text: 'Booking id #',
+                      // extra_text: getName(prefixText: 'Booking', doctorLastName: value['${ApiVariableKeys.doctor_lastname}'], userLastName: userLastName, dateTimeConsultation: dateTimeConsultation),
+                      // extra_text: 'Booking',
+                      // extra_text: 'Booking id #',
                       margin: 0.0,
                       isLabel: false,
                       onChanged: ((dynamic value) {
@@ -158,10 +176,12 @@ class _Add_Prescriptions_Doctor_PageState
                         booking_id = value['id'].toString();
                         setState(() {});
                       }),
-                      selectedItem: booking_id != null ? booking_id : '',
+                      selectedItem: selectedBookingData,
+                      // selectedItem: booking_id != null ? booking_id : '',
                       items: bookings,
                       hint: 'Select Booking',
-                      itemMapKey: 'id',
+                      // itemMapKey: 'id',
+                      itemMapKey: '${ApiVariableKeys.temp_name}',
                       text: '',
                     ),
                   ),
@@ -187,7 +207,7 @@ class _Add_Prescriptions_Doctor_PageState
                               children: [
                                 CustomTextField(controller: lists[i]['medicines'], hintText: 'Medicine Name'),
                                 vSizedBox,
-                                CustomTextField(controller: lists[i]['dosage'], hintText: 'Dosage'),
+                                CustomTextField(controller: lists[i]['dosage'], hintText: 'Dosage, route and frequency'),
                                 vSizedBox,
                                 CustomTextField(controller: lists[i]['duration'], hintText: 'Duration'),
                               ],

@@ -18,6 +18,7 @@ import 'package:firebase_core/firebase_core.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 // import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../constants/image_urls.dart';
@@ -36,11 +37,11 @@ class SplashScreenPage extends StatefulWidget {
 }
 
 class _SplashScreenPageState extends State<SplashScreenPage> {
+
   @override
   void initState() {
     super.initState();
     // if(!kIsWeb)
-
     initializeEverything();
 
   }
@@ -80,7 +81,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) {
                         return tabs_third_page(
-                          selectedIndex: 0,
+                          initialIndex: 0,
                         );
                       }), (route) {
                     return false;

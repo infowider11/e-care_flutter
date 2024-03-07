@@ -22,7 +22,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 class TermsCondPage extends StatefulWidget {
-  const TermsCondPage({Key? key}) : super(key: key);
+  final String? userType;
+  const TermsCondPage({Key? key, this.userType}) : super(key: key);
 
   @override
   State<TermsCondPage> createState() => TermsCondPageState();
@@ -39,7 +40,10 @@ class TermsCondPageState extends State<TermsCondPage>
     setState(() {
       load=true;
     });
-    var type = await isUserLoggedIn()?user_Data!['type'].toString():'1';
+
+    print('the userLogin status is ${user_Data?['type']}....${widget.userType}');
+    // var type = await isUserLoggedIn()?user_Data!['type'].toString():'1';
+    var type = await isUserLoggedIn()?user_Data!['type'].toString():widget.userType??'1';
       var res = await Webservices.get(ApiUrls.term+type);
       print('content-----$res');
     if(res['status'].toString()=='1'){

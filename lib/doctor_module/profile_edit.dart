@@ -408,7 +408,7 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                         var m = await showDatePicker(
                             context: context,
                             initialDate: DateTime(DateTime.now().year - 16),
-                            firstDate: DateTime(DateTime.now().year - 50),
+                            firstDate: DateTime(1950),
                             lastDate: DateTime(DateTime.now().year - 15));
                         if (m != null) {
                           DateFormat formatter = DateFormat('yyyy-MM-dd');
@@ -685,9 +685,10 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                         } else if (lname.text == '') {
                           showSnackbar( 'Please Enter your last name.');
                         }
-                        else if (practiceNumberController.text == '') {
-                          showSnackbar( 'Please Enter your practice number.');
-                        } else if (subCatType == null &&
+                        // else if (practiceNumberController.text == '') {
+                        //   showSnackbar( 'Please Enter your practice number.');
+                        // }
+                        else if (subCatType == null &&
                             subCategories.length > 0) {
                           showSnackbar( 'Please select subcategory.');
                         }

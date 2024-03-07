@@ -8,10 +8,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
+import '../constants/api_variable_keys.dart';
+import '../functions/get_name.dart';
 import '../services/api_urls.dart';
 import '../services/auth.dart';
 import '../services/webservices.dart';
 import '../widgets/Customdropdownbutton.dart';
+import '../widgets/custom_dropdown.dart';
 import '../widgets/showSnackbar.dart';
 
 class Add_Consultation_Notes_Page extends StatefulWidget {
@@ -51,11 +54,18 @@ class _Add_Consultation_Notes_PageState
     }
     super.initState();
   }
-
+  Map? selectedBookingData;
   get_bookings() async {
     bookings = await Webservices.getList(
         ApiUrls.bookingslist + await getCurrentUserId());
     print('-------- ${bookings}');
+    for(int i = 0;i<bookings.length;i++){
+      bookings[i]['${ApiVariableKeys.temp_name}'] = getName(prefixText: 'Booking', doctorLastName: bookings[i][ApiVariableKeys.doctor_data][ApiVariableKeys.last_name], userLastName: '${bookings[i][ApiVariableKeys.user_data][ApiVariableKeys.last_name]}', dateTimeConsultation: '${bookings[i]['${ApiVariableKeys.slot_data}'][ApiVariableKeys.date_with_time]}');
+      print('the booking data is ${bookings[i]}');
+      if(bookings[i]['id']==widget.booking_id){
+        selectedBookingData = bookings[i];
+      }
+    }
     setState(() {});
   }
 
@@ -91,9 +101,29 @@ class _Add_Consultation_Notes_PageState
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                 ),
+                // child: CustomDropdownButton(
+                //   extra_text: 'Booking Id #',
+                //   isextra_text: true,
+                //   margin: 0.0,
+                //   isLabel: false,
+                //   onChanged: ((dynamic value) {
+                //     print('select bank ---- ${value}');
+                //     booking_id = value['id'].toString();
+                //     setState(() {});
+                //   }),
+                //   selectedItem: booking_id != null ? booking_id : '',
+                //   items: bookings,
+                //   hint: 'Select Booking',
+                //   itemMapKey: 'id',
+                //   text: '',
+                // ),
                 child: CustomDropdownButton(
-                  extra_text: 'Booking Id #',
+
+                  height: 70,
                   isextra_text: true,
+                  // extra_text: getName(prefixText: 'Booking', doctorLastName: value['${ApiVariableKeys.doctor_lastname}'], userLastName: userLastName, dateTimeConsultation: dateTimeConsultation),
+                  // extra_text: 'Booking',
+                  // extra_text: 'Booking id #',
                   margin: 0.0,
                   isLabel: false,
                   onChanged: ((dynamic value) {
@@ -101,10 +131,12 @@ class _Add_Consultation_Notes_PageState
                     booking_id = value['id'].toString();
                     setState(() {});
                   }),
-                  selectedItem: booking_id != null ? booking_id : '',
+                  selectedItem: selectedBookingData,
+                  // selectedItem: booking_id != null ? booking_id : '',
                   items: bookings,
                   hint: 'Select Booking',
-                  itemMapKey: 'id',
+                  // itemMapKey: 'id',
+                  itemMapKey: '${ApiVariableKeys.temp_name}',
                   text: '',
                 ),
               ),

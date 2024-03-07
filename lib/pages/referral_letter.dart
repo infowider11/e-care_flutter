@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
+import 'package:ecare/constants/api_variable_keys.dart';
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/constans.dart';
 import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
+import 'package:ecare/functions/get_name.dart';
 import 'package:ecare/functions/navigation_functions.dart';
 import 'package:ecare/pages/add_prescription.dart';
 import 'package:ecare/pages/add_referral.dart';
@@ -32,7 +34,8 @@ import '../widgets/showSnackbar.dart';
 
 class Referral_Letter_Page extends StatefulWidget {
   final String? booking_id;
-  const Referral_Letter_Page({Key? key,this.booking_id}) : super(key: key);
+  final String? doctorName;
+  const Referral_Letter_Page({Key? key,this.booking_id, this.doctorName}) : super(key: key);
 
   @override
   State<Referral_Letter_Page> createState() => Referral_Letter_PageState();
@@ -91,7 +94,8 @@ class Referral_Letter_PageState extends State<Referral_Letter_Page> with TickerP
                   vSizedBox4,
                   for(int i=0;i<lists.length;i++)
                   ListUI02(
-                    heading: 'Letter ${i+1}',
+                    heading: '${getName(prefixText: 'Referral Letter', doctorLastName: '${lists[i][ApiVariableKeys.doctor_lastname]}', userLastName: '${lists[i][ApiVariableKeys.user_lastname]}', dateTimeConsultation: null,)}',
+                    // heading: 'Letter ${i+1}',
                     subheading: '${DateFormat.yMMMEd().format(DateTime.parse(lists[i]['created_at']))}',
                     editonTap: () async{
                        await push(context: context, screen: Add_Referral_Letter_Page(
@@ -137,6 +141,7 @@ class Referral_Letter_PageState extends State<Referral_Letter_Page> with TickerP
                 onTap: () async{
                   await push(context: context, screen: Add_Referral_Letter_Page(
                     booking_id: widget.booking_id.toString(),
+                    doctorName: widget.doctorName,
                   ));
                   get_lists();
                 },

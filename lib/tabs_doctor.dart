@@ -23,15 +23,15 @@ import 'doctor_module/homepage.dart';
 import 'functions/global_Var.dart';
 
 class tabs_third_page extends StatefulWidget {
-  int selectedIndex;
-  tabs_third_page({Key? key, this.selectedIndex = 0}) : super(key: key);
+  int initialIndex;
+  tabs_third_page({Key? key, this.initialIndex = 0}) : super(key: key);
 
   @override
   _tabs_third_pageState createState() => _tabs_third_pageState();
 }
 
 class _tabs_third_pageState extends State<tabs_third_page> {
-  int _selectedIndex = 0;
+  int selectedIndex = 0;
   Timer? timer;
   bool healthprofile=false;
   static const TextStyle optionStyle =
@@ -42,18 +42,19 @@ class _tabs_third_pageState extends State<tabs_third_page> {
     DoctorHomePage(),
     AppointmentRequest(),
     DoctorMyECare(),
-    DoctorInvitePage(),
+    // DoctorInvitePage(),
   ];
 
   void _onItemTapped(int index) {
     setState(() {
-      widget.selectedIndex = index;
+      selectedIndex = index;
     });
   }
 
   @override
   void initState() {
     // TODO: implement initState
+    _onItemTapped(widget.initialIndex);
     setNotificationHandler(context);
     super.initState();
     interval();
@@ -110,7 +111,7 @@ class _tabs_third_pageState extends State<tabs_third_page> {
     return Scaffold(
       extendBody: true,
       body: Center(
-        child: _widgetOptions.elementAt(widget.selectedIndex),
+        child: _widgetOptions.elementAt(selectedIndex),
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -203,23 +204,23 @@ class _tabs_third_pageState extends State<tabs_third_page> {
               backgroundColor: Colors.white,
             ),
 
-            BottomNavigationBarItem(
-              icon: Transform.translate(
-                offset: Offset(0,0),
-                child: ImageIcon(
-                  AssetImage("assets/images/invite.png"),
-                  size: 22,
-                ),
-              ),
-              activeIcon:  ImageIcon(
-                AssetImage("assets/images/invite.png"),
-                size: 22,
-              ),
-              label: 'Invite',
-              backgroundColor: Colors.white,
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Transform.translate(
+            //     offset: Offset(0,0),
+            //     child: ImageIcon(
+            //       AssetImage("assets/images/invite.png"),
+            //       size: 22,
+            //     ),
+            //   ),
+            //   activeIcon:  ImageIcon(
+            //     AssetImage("assets/images/invite.png"),
+            //     size: 22,
+            //   ),
+            //   label: 'Invite',
+            //   backgroundColor: Colors.white,
+            // ),
           ],
-          currentIndex: widget.selectedIndex,
+          currentIndex: selectedIndex,
           selectedItemColor: MyColors.primaryColor,
           onTap: _onItemTapped,
         ),

@@ -27,7 +27,7 @@ class ListUI01 extends StatelessWidget {
   final String? badge_count;
   ListUI01({
     Key? key,
-    this.badge_count='0',
+    this.badge_count = '0',
     this.onSelected,
     required this.heading,
     this.subheading = "Aug 10, 2022",
@@ -50,7 +50,7 @@ class ListUI01 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(    
+        Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
               color: bgColor,
@@ -68,9 +68,9 @@ class ListUI01 extends StatelessWidget {
                 ),
               if (isimage)
                 Image.asset(
-                image,
-                height: 50.0,
-                width: 50.0,
+                  image,
+                  height: 50.0,
+                  width: 50.0,
                   fit: BoxFit.cover,
                 ),
               hSizedBox,
@@ -96,20 +96,25 @@ class ListUI01 extends StatelessWidget {
                             fontSize: 14,
                           ),
                         hSizedBox,
-                        if (badge_count!=null&&int.parse(badge_count.toString())>0)
+                        if (badge_count != null &&
+                            int.parse(badge_count.toString()) > 0)
                           badges.Badge(
-                            position: badges.BadgePosition.topEnd(top: 5, end: 2),
+                            position:
+                                badges.BadgePosition.topEnd(top: 5, end: 2),
                             showBadge: true,
-                            badgeContent: Text('${badge_count.toString()}',style: TextStyle(color: Colors.white),),
+                            badgeContent: Text(
+                              '${badge_count.toString()}',
+                              style: TextStyle(color: Colors.white),
+                            ),
                             // child: IconButton(
                             //   icon: Icon(Icons.chat),
                             //   onPressed: () {},
                             // ),
                           ),
                         // Badge(
-                          //   showBadge: true,
-                          //   badgeContent: Text('${badge_count.toString()}',style: TextStyle(color: Colors.white),),
-                          // ),
+                        //   showBadge: true,
+                        //   badgeContent: Text('${badge_count.toString()}',style: TextStyle(color: Colors.white),),
+                        // ),
                       ],
                     ),
                     MainHeadingText(
@@ -121,10 +126,7 @@ class ListUI01 extends StatelessWidget {
                     ),
                     if (isthirdHead)
                       MainHeadingText(
-                          text: thirdHead,
-                          color: thirdHeadColor,
-                          fontSize: 8
-                      )
+                          text: thirdHead, color: thirdHeadColor, fontSize: 8)
                   ],
                 ),
               )
@@ -160,7 +162,7 @@ class ListUI02 extends StatelessWidget {
     required this.heading,
     this.sendonTap,
     this.editonTap,
-    this.is_edit=true,
+    this.is_edit = true,
     this.deleteonTap,
     this.subheading = "Aug 10, 2022",
     this.rightText = "9:00 PM",
@@ -181,7 +183,7 @@ class ListUI02 extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.symmetric(vertical: 14,horizontal: 8.0),
+          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 8.0),
           decoration: BoxDecoration(
               color: bgColor,
               borderRadius: BorderRadius.circular(16),
@@ -190,155 +192,152 @@ class ListUI02 extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                flex: 0,
-                child: Row(
+                // flex: 0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      flex:0,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          MainHeadingText(
-                            text: heading,
+                    MainHeadingText(
+                      text: heading,
+                      color: MyColors.headingcolor,
+                      fontSize: 13,
+                      fontFamily: 'bold',
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: MainHeadingText(
+                            text: subheading,
                             color: MyColors.headingcolor,
-                            fontSize: 13,
-                            fontFamily: 'bold',
+                            fontFamily: 'light',
+                            fontSize: 10,
                           ),
-                          Row(
-                            children: [
-                              MainHeadingText(
-                                text: subheading,
-                                color: MyColors.headingcolor,
-                                fontFamily: 'light',
-                                fontSize: 10,
-                              ),
-                              hSizedBox,
-                              if (isthirdHead)
-                                MainHeadingText(
-                                    text: thirdHead,
-                                    color: thirdHeadColor,
-                                    fontSize: 10)
-                            ],
-                          ),
-                        ],
-                      ),
+                        ),
+                        hSizedBox,
+                        if (isthirdHead)
+                          MainHeadingText(
+                              text: thirdHead,
+                              color: thirdHeadColor,
+                              fontSize: 10)
+                      ],
                     ),
-                    Expanded(child: new Container(),flex: 0,),
                   ],
                 ),
               ),
-
               hSizedBox2,
-              if(is_edit)
               Expanded(
-                child: RoundEdgedButton(
-                  onTap: editonTap,
-                  fontSize: 10,
-                  text: 'Edit',
-                  isSolid: false,
-                  width: 60,
-                  verticalPadding: 0,
-                  horizontalPadding: 0,
-                  height: 30,
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width / 2,
+                  ),
+                  child: Wrap(
+                    runSpacing: 10,
+                    alignment: WrapAlignment.center,
+                    children: [
+                      if (is_edit)
+                        RoundEdgedButton(
+                          onTap: editonTap,
+                          fontSize: 10,
+                          text: 'Edit',
+                          isSolid: false,
+                          width: 60,
+                          verticalPadding: 0,
+                          horizontalPadding: 0,
+                          height: 30,
+                        ),
+                      hSizedBox,
+                      RoundEdgedButton(
+                        onTap: sendonTap,
+                        fontSize: 10,
+                        text: 'Download',
+                        width: 60,
+                        verticalPadding: 0,
+                        horizontalPadding: 0,
+                        height: 30,
+                      ),
+                      hSizedBox,
+                      RoundEdgedButton(
+                        fontSize: 10,
+                        onTap: deleteonTap,
+                        color: Colors.red,
+                        text: 'Delete',
+                        width: 60,
+                        verticalPadding: 0,
+                        horizontalPadding: 0,
+                        height: 30,
+                      ),
+                      if (isIcon)
+                        IconButton(
+                          onPressed: () {
+                            PopupMenuButton<int>(
+                              itemBuilder: (context) => [
+                                // PopupMenuItem 1
+                                PopupMenuItem(
+                                  value: 1,
+                                  // row with 2 children
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text("Prescription")
+                                    ],
+                                  ),
+                                ),
+                                // PopupMenuItem 2
+                                PopupMenuItem(
+                                  value: 2,
+                                  // row with two children
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text("Sick note")
+                                    ],
+                                  ),
+                                ),
+                                PopupMenuItem(
+                                  value: 3,
+                                  // row with two children
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text("Referral Letter")
+                                    ],
+                                  ),
+                                ),
+                              ],
+                              offset: Offset(0, 58),
+                              color: MyColors.white,
+                              elevation: 0,
+                              // on selected we show the dialog box
+                              onSelected: (value) {
+                                // if value 1 show dialog
+                                if (value == 1) {
+                                  // push(context: context, screen: Prescriptions_Doctor_Page(
+                                  //   booking_id: info['id'].toString(),
+                                  // ));
+                                } else if (value == 2) {
+                                } else if (value == 3) {}
+                              },
+                            );
+                          },
+                          icon: Icon(Icons.more_vert),
+                        ),
+                      // Image.asset('assets/images/download.png', width: 24,),
+
+                      if (isRightText)
+                        ParagraphText(
+                          text: rightText,
+                          color: MyColors.onsurfacevarient,
+                          fontSize: 14,
+                        ),
+                    ],
+                  ),
                 ),
               ),
-              hSizedBox,
-              Expanded(
-                child: RoundEdgedButton(
-                  onTap: sendonTap,
-                  fontSize: 10,
-                  text: 'Download',
-                  width: 60,
-                  verticalPadding: 0,
-                  horizontalPadding: 0,
-                  height: 30,
-                ),
-              ),
-              hSizedBox,
-              Expanded(
-                child: RoundEdgedButton(
-                  fontSize: 10,
-                  onTap: deleteonTap,
-                  color: Colors.red,
-                  text: 'Delete',
-                  width: 60,
-                  verticalPadding: 0,
-                  horizontalPadding: 0,
-                  height: 30,
-                ),
-              ),
-              if(isIcon)
-            IconButton(
-              onPressed: () {
-                PopupMenuButton<int>(
-                  itemBuilder: (context) => [
-                    // PopupMenuItem 1
-                    PopupMenuItem(
-                      value: 1,
-                      // row with 2 children
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text("Prescription")
-                        ],
-                      ),
-                    ),
-                    // PopupMenuItem 2
-                    PopupMenuItem(
-                      value: 2,
-                      // row with two children
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text("Sick note")
-                        ],
-                      ),
-                    ),
-                    PopupMenuItem(
-                      value: 3,
-                      // row with two children
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text("Referral Letter")
-                        ],
-                      ),
-                    ),
-                  ],
-                  offset: Offset(0, 58),
-                  color: MyColors.white,
-                  elevation: 0,
-                  // on selected we show the dialog box
-                  onSelected: (value) {
-                    // if value 1 show dialog
-                    if (value == 1) {
-                      // push(context: context, screen: Prescriptions_Doctor_Page(
-                      //   booking_id: info['id'].toString(),
-                      // ));
-                    } else if (value == 2) {
-
-                    } else if(value == 3){
-
-                    }
-                  },
-                );
-              },
-              icon: Icon(Icons.more_vert),
-            ),
-              // Image.asset('assets/images/download.png', width: 24,),
-
-              if (isRightText)
-                ParagraphText(
-                  text: rightText,
-                  color: MyColors.onsurfacevarient,
-                  fontSize: 14,
-                )
             ],
           ),
         ),

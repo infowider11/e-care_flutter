@@ -156,7 +156,7 @@ class _DoctorVideoCallState extends State<DoctorVideoCall> {
                       ),
                       hSizedBox2,
                       GestureDetector(
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => tabs_third_page(selectedIndex: 1,))),
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => tabs_third_page(initialIndex: 1,))),
                         child: Container(
                           width: 75,
                           height: 75,

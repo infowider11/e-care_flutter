@@ -1,4 +1,6 @@
 import 'package:ecare/constants/constans.dart';
+import 'package:ecare/dialogs/consent_page_dialog.dart';
+import 'package:ecare/functions/customDialogBox.dart';
 import 'package:ecare/functions/navigation_functions.dart';
 import 'package:ecare/pages/select_type_page.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
@@ -268,8 +270,14 @@ class _Welcome_Page_NextState extends State<Welcome_Page_Next> {
       floatingActionButton: FloatingActionButton(
         // onPressed: _incrementCounter,
         backgroundColor: Color(0xFFCAE6FF),
-        onPressed: () {
-          push(context: context, screen: Select_Type_Page());
+        onPressed: () async{
+          bool? result = await showCustomDialogBox(context: context, child: ConsentPageDialog());
+          // return;
+
+          if(result==true){
+            push(context: context, screen: Select_Type_Page());
+          }
+
         },
         tooltip: 'Increment',
         child: const Icon(

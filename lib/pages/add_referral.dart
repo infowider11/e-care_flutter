@@ -26,15 +26,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_signature_pad/flutter_signature_pad.dart';
 import 'package:path_provider/path_provider.dart';
+import '../constants/api_variable_keys.dart';
+import '../functions/get_name.dart';
 import '../widgets/Customdropdownbutton.dart';
 import 'dart:ui' as ui;
+
+import '../widgets/custom_dropdown.dart';
 
 
 class Add_Referral_Letter_Page extends StatefulWidget {
   final bool? is_update;
   final Map? data;
   final String? booking_id;
-  const Add_Referral_Letter_Page({Key? key, this.is_update, this.data,this.booking_id})
+  final String? doctorName;
+  const Add_Referral_Letter_Page({Key? key, this.is_update, this.data,this.booking_id, this.doctorName})
       : super(key: key);
 
 
@@ -51,11 +56,18 @@ class _Add_Referral_Letter_PageState extends State<Add_Referral_Letter_Page> {
   final _sign = GlobalKey<SignatureState>();
   var strokeWidth = 5.0;
   ByteData _img = ByteData(0);
-
+  Map? selectedBookingData;
   get_bookings() async {
     bookings = await Webservices.getList(
         ApiUrls.bookingslist + await getCurrentUserId());
     print('-------- ${bookings}');
+    for(int i = 0;i<bookings.length;i++){
+      bookings[i]['${ApiVariableKeys.temp_name}'] = getName(prefixText: 'Booking', doctorLastName: bookings[i][ApiVariableKeys.doctor_data][ApiVariableKeys.last_name], userLastName: '${bookings[i][ApiVariableKeys.user_data][ApiVariableKeys.last_name]}', dateTimeConsultation: '${bookings[i]['${ApiVariableKeys.slot_data}'][ApiVariableKeys.date_with_time]}');
+      print('the booking data is ${bookings[i]}');
+      if(bookings[i]['id']==widget.booking_id){
+        selectedBookingData = bookings[i];
+      }
+    }
     setState(() {});
   }
 
@@ -112,9 +124,30 @@ class _Add_Referral_Letter_PageState extends State<Add_Referral_Letter_Page> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
                     ),
+                    // child: CustomDropdownButton(
+                    //   // extra_text: 'Booking Id #',
+                    //   extra_text:widget.doctorName==null? 'Booking Id #': '(${widget.doctorName}) Booking Id #',
+                    //   isextra_text: true,
+                    //   margin: 0.0,
+                    //   isLabel: false,
+                    //   onChanged: ((dynamic value) {
+                    //     print('select bank ---- ${value}');
+                    //     booking_id = value['id'].toString();
+                    //     setState(() {});
+                    //   }),
+                    //   selectedItem: booking_id != null ? booking_id : '',
+                    //   items: bookings,
+                    //   hint: 'Select Booking',
+                    //   itemMapKey: 'id',
+                    //   text: '',
+                    // ),
                     child: CustomDropdownButton(
-                      extra_text: 'Booking Id #',
+
+                      height: 70,
                       isextra_text: true,
+                      // extra_text: getName(prefixText: 'Booking', doctorLastName: value['${ApiVariableKeys.doctor_lastname}'], userLastName: userLastName, dateTimeConsultation: dateTimeConsultation),
+                      // extra_text: 'Booking',
+                      // extra_text: 'Booking id #',
                       margin: 0.0,
                       isLabel: false,
                       onChanged: ((dynamic value) {
@@ -122,10 +155,12 @@ class _Add_Referral_Letter_PageState extends State<Add_Referral_Letter_Page> {
                         booking_id = value['id'].toString();
                         setState(() {});
                       }),
-                      selectedItem: booking_id != null ? booking_id : '',
+                      selectedItem: selectedBookingData,
+                      // selectedItem: booking_id != null ? booking_id : '',
                       items: bookings,
                       hint: 'Select Booking',
-                      itemMapKey: 'id',
+                      // itemMapKey: 'id',
+                      itemMapKey: '${ApiVariableKeys.temp_name}',
                       text: '',
                     ),
                   ),

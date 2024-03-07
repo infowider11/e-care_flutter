@@ -23,6 +23,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 
+import '../constants/api_variable_keys.dart';
 import '../services/api_urls.dart';
 import '../services/auth.dart';
 import '../services/webservices.dart';
@@ -42,7 +43,7 @@ class SickNotesPageState extends State<SickNotesPage>
     with TickerProviderStateMixin {
   TextEditingController email = TextEditingController();
   late AnimationController controller;
-  List lists = [];
+  List sickNoteList = [];
   bool load = false;
 
   @override
@@ -64,10 +65,10 @@ class SickNotesPageState extends State<SickNotesPage>
         apiUrl: ApiUrls.get_sicknotes, body: data, context: context);
     print('list    ${res}');
     if (res['status'].toString() == '1') {
-      lists = res['data'];
+      sickNoteList = res['data'];
       setState(() {});
     } else {
-      lists = [];
+      sickNoteList = [];
     }
     setState(() {
       load = false;
@@ -100,16 +101,19 @@ class SickNotesPageState extends State<SickNotesPage>
                         'Download documents from your Healthcare Practitioner here'),
                 vSizedBox4,
 
-                for(int i=0;i<lists.length;i++)
+                for(int i=0;i<sickNoteList.length;i++)
                   ListUI02(
                     is_edit: user_Data!['type'].toString()=='1'?true:false,
-                    heading: 'Sick Note ${i+1}',
-                    subheading: '${DateFormat.yMMMEd().format(DateTime.parse(lists[i]['created_at']))}',
+
+                    heading: 'Sick Note: ${sickNoteList[i][ApiVariableKeys.doctor_lastname]}/${sickNoteList[i][ApiVariableKeys.user_lastname]}/${sickNoteList[i][ApiVariableKeys.consult_dateTime]}',
+                    // heading: 'Sick Note ${i+1}',
+                    subheading: '',
+                    // subheading: '${DateFormat.yMMMEd().format(DateTime.parse(sickNoteList[i]['created_at']))}',
                     editonTap: () async{
                       await push(context: context,screen:Add_sicknote(
                         is_update:true,
-                        data: lists[i],
-                        booking_id: lists[i]['booking_id'].toString(),
+                        data: sickNoteList[i],
+                        booking_id: sickNoteList[i]['booking_id'].toString(),
                       ));
                       get_lists();
                     },
@@ -118,12 +122,12 @@ class SickNotesPageState extends State<SickNotesPage>
                       //   status: null,
                       //   maskType: EasyLoadingMaskType.black,
                       // );
-                      await savePdfToStorage1(lists[i]['sick_pdf'], 'pdf',
-                          '${lists[i]['id']}_sick_note.pdf');
+                      await savePdfToStorage1(sickNoteList[i]['sick_pdf'], 'pdf',
+                          '${sickNoteList[i]['id']}_sick_note.pdf');
                       // EasyLoading.dismiss();
                     },
                     deleteonTap: () {
-                      delete(lists[i]['id'].toString(),lists[i]['booking_id'].toString());
+                      delete(sickNoteList[i]['id'].toString(),sickNoteList[i]['booking_id'].toString());
                     },
                     isimage: false,
                     isIcon: false,
@@ -202,7 +206,7 @@ class SickNotesPageState extends State<SickNotesPage>
                 //   ),
                 // ),
 
-                if(lists.length==0)
+                if(sickNoteList.length==0)
                   Center(
                     heightFactor: 1.0,
                     child: Text('No data found.'),

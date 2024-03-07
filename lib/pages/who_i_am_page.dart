@@ -279,7 +279,7 @@ class _Whoiam_PageState extends State<Whoiam_Page> {
                                       recognizer: new TapGestureRecognizer()
                                         ..onTap = () => push(
                                             context: context,
-                                            screen: TermsCondPage())),
+                                            screen: TermsCondPage(userType: '2',))),
                                   TextSpan(text: "and"),
                                   TextSpan(
                                       text: " Privacy Policy",

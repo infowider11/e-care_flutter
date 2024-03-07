@@ -42,7 +42,7 @@ class _tabs_second_pageState extends State<tabs_second_page> {
     GetCare(),
     BookedVisit(),
     MyECare(),
-    DoctorInvitePage()
+    // DoctorInvitePage()
   ];
 
   void _onItemTapped(int index) {
@@ -287,21 +287,21 @@ class _tabs_second_pageState extends State<tabs_second_page> {
               label: 'My E-Care',
               backgroundColor: Colors.white,
             ),
-            BottomNavigationBarItem(
-              icon: Transform.translate(
-                offset: Offset(0, 0),
-                child: ImageIcon(
-                  AssetImage("assets/images/invite.png"),
-                  size: 22,
-                ),
-              ),
-              activeIcon: ImageIcon(
-                AssetImage("assets/images/invite.png"),
-                size: 22,
-              ),
-              label: 'Invite',
-              backgroundColor: Colors.white,
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Transform.translate(
+            //     offset: Offset(0, 0),
+            //     child: ImageIcon(
+            //       AssetImage("assets/images/invite.png"),
+            //       size: 22,
+            //     ),
+            //   ),
+            //   activeIcon: ImageIcon(
+            //     AssetImage("assets/images/invite.png"),
+            //     size: 22,
+            //   ),
+            //   label: 'Invite',
+            //   backgroundColor: Colors.white,
+            // ),
           ],
           currentIndex: widget.selectedIndex,
           selectedItemColor: MyColors.primaryColor,

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
+import 'package:ecare/constants/api_variable_keys.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/constans.dart';
@@ -62,31 +63,31 @@ class LabTestPageState extends State<LabTestPage>
       );
   TextEditingController email = TextEditingController();
   bool load = false;
-  List lists = [];
-  List raffrals = [];
+  List prescriptionList = [];
+  List referralList = [];
 
-  get_lists1() async {
-    setState(() {
-      load = true;
-    });
-    var res = await Webservices.get(ApiUrls.get_document_image +
-        "?user_id=" +
-        await getCurrentUserId() +
-        '&type=' +
-        '${widget.doc_type}');
-    print('list----$res');
-    if (res['status'].toString() == '1') {
-      lists = res['data'];
-      setState(() {});
-    } else {
-      lists = [];
-    }
-    setState(() {
-      load = false;
-    });
-  }
+  // get_lists1() async {
+  //   setState(() {
+  //     load = true;
+  //   });
+  //   var res = await Webservices.get(ApiUrls.get_document_image +
+  //       "?user_id=" +
+  //       await getCurrentUserId() +
+  //       '&type=' +
+  //       '${widget.doc_type}');
+  //   print('list----$res');
+  //   if (res['status'].toString() == '1') {
+  //     lists = res['data'];
+  //     setState(() {});
+  //   } else {
+  //     lists = [];
+  //   }
+  //   setState(() {
+  //     load = false;
+  //   });
+  // }
 
-  get_raffral() async {
+  getReferralList() async {
     Map<String, dynamic> data = {
       'user_id': await getCurrentUserId(),
       'booking_id': '',
@@ -95,12 +96,12 @@ class LabTestPageState extends State<LabTestPage>
         apiUrl: ApiUrls.get_reffral, body: data, context: context);
     print('list    ${res}');
     if (res['status'].toString() == '1') {
-      raffrals = res['data'];
+      referralList = res['data'];
       setState(() {});
     }
   }
 
-  get_lists() async {
+  getPrescriptionList() async {
     setState(() {
       load = true;
     });
@@ -112,7 +113,7 @@ class LabTestPageState extends State<LabTestPage>
         apiUrl: ApiUrls.get_precriptions, body: data, context: context);
     print('list    ${res}');
     if (res['status'].toString() == '1') {
-      lists = res['data'];
+      prescriptionList = res['data'];
       setState(() {});
     }
     setState(() {
@@ -124,8 +125,8 @@ class LabTestPageState extends State<LabTestPage>
   void initState() {
     // TODO: implement initState
     super.initState();
-    get_lists();
-    get_raffral();
+    getPrescriptionList();
+    getReferralList();
   }
 
   @override
@@ -159,7 +160,7 @@ class LabTestPageState extends State<LabTestPage>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        for (int i = 0; i < lists.length; i++)
+                        for (int i = 0; i < prescriptionList.length; i++)
                           Container(
                             padding: EdgeInsets.symmetric(
                                 vertical: 8, horizontal: 8.0),
@@ -193,7 +194,8 @@ class LabTestPageState extends State<LabTestPage>
                                       children: [
                                         MainHeadingText(
                                           text:
-                                              '${lists[i]['prescription_medicine'][0]['medicines']} (#${lists[i]['booking_id']})',
+                                              '${prescriptionList[i]['prescription_medicine'][0]['medicines']}: ${prescriptionList[i][ApiVariableKeys.doctor_lastname]}/${prescriptionList[i][ApiVariableKeys.user_lastname]}/${prescriptionList[i][ApiVariableKeys.consult_dateTime]}',
+                                              // ' ${prescriptionList[i]['prescription_medicine'][0]['medicines']} (#${prescriptionList[i]['booking_id']})',
                                           color: MyColors.headingcolor,
                                           fontSize: 15,
                                           fontFamily: 'bold',
@@ -202,7 +204,7 @@ class LabTestPageState extends State<LabTestPage>
                                           children: [
                                             MainHeadingText(
                                               text:
-                                                  '${lists[i]['prescription_medicine'][0]['dosage']}',
+                                                  '${prescriptionList[i]['prescription_medicine'][0]['dosage']}',
                                               color: MyColors.headingcolor,
                                               fontFamily: 'light',
                                               fontSize: 13,
@@ -210,7 +212,7 @@ class LabTestPageState extends State<LabTestPage>
                                             hSizedBox,
                                             MainHeadingText(
                                                 text:
-                                                    '${lists[i]['prescription_medicine'][0]['duration']}',
+                                                    '${prescriptionList[i]['prescription_medicine'][0]['duration']}',
                                                 color: Colors.black,
                                                 fontSize: 13),
                                             hSizedBox,
@@ -230,9 +232,9 @@ class LabTestPageState extends State<LabTestPage>
                                     fontSize: 9,
                                     onTap: ()async{
                                       await savePdfToStorage1(
-                                          lists[i]['pdf_url'],
+                                          prescriptionList[i]['pdf_url'],
                                           'pdf',
-                                          '${lists[i]['id']}_prescription_pdf.pdf');
+                                          '${prescriptionList[i]['id']}_prescription_pdf.pdf');
                                     },
                                   ),
                                 ),
@@ -285,7 +287,7 @@ class LabTestPageState extends State<LabTestPage>
                               ],
                             ),
                           ),
-                        if (lists.length == 0)
+                        if (prescriptionList.length == 0)
                           Center(
                             heightFactor: 5.0,
                             child: Text('No Data Found.'),
@@ -299,7 +301,7 @@ class LabTestPageState extends State<LabTestPage>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        for (int i = 0; i < raffrals.length; i++)
+                        for (int i = 0; i < referralList.length; i++)
                           Container(
                             padding: EdgeInsets.symmetric(
                                 vertical: 8, horizontal: 8.0),
@@ -333,13 +335,14 @@ class LabTestPageState extends State<LabTestPage>
                                       children: [
                                         MainHeadingText(
                                           text:
-                                              'Letter ${i+1}',
+                                              // 'Letter ${i+1}',
+                                          'Referral: ${referralList[i][ApiVariableKeys.doctor_lastname]}/${referralList[i][ApiVariableKeys.user_lastname]}/${referralList[i][ApiVariableKeys.consult_dateTime]}',
                                           color: MyColors.headingcolor,
                                           fontSize: 15,
                                           fontFamily: 'bold',
                                         ),
                                         ParagraphText(fontSize: 12.0,
-                                            text: '${DateFormat.yMMMEd().format(DateTime.parse(raffrals[i]['created_at']))}'),
+                                            text: '${DateFormat.yMMMEd().format(DateTime.parse(referralList[i]['created_at']))}'),
                                       ],
                                     ),
                                   ),
@@ -353,9 +356,9 @@ class LabTestPageState extends State<LabTestPage>
                                       fontSize: 10,
                                     onTap: () async{
                                       await savePdfToStorage1(
-                                          raffrals[i]['pdf_url'],
+                                          referralList[i]['pdf_url'],
                                           'pdf',
-                                          '${raffrals[i]['id']}_referral.pdf');
+                                          '${referralList[i]['id']}_referral.pdf');
                                     },
                                   ),
                                 )
@@ -408,7 +411,7 @@ class LabTestPageState extends State<LabTestPage>
                               ],
                             ),
                           ),
-                        if (raffrals.length == 0)
+                        if (referralList.length == 0)
                           Center(
                             heightFactor: 2.0,
                             child: Text('No data found.'),
@@ -512,7 +515,7 @@ class LabTestPageState extends State<LabTestPage>
         EasyLoading.dismiss();
         if (res['status'].toString() == '1') {
           Navigator.pop(context);
-          get_lists();
+          getPrescriptionList();
         }
       },
     );

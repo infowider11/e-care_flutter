@@ -157,18 +157,21 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
       ),
       padding: EdgeInsets.only(left: 10),
       child: DropdownSearch(
-        maxHeight:widget.maxheight??200,
+        /// commented to check
+        // maxHeight:widget.maxheight??200,
         selectedItem: widget.selected,
-        dropDownButton: Icon(
-          Icons.keyboard_arrow_down_outlined,
-          size: 24,
-          color: Color(0xFE7A7A7A),
-        ),
-
-        dropdownSearchDecoration: InputDecoration.collapsed(
-          hintText: widget.hint,
-        ),
-        mode: Mode.MENU,
+        /// commented to check
+        // dropDownButton: Icon(
+        //   Icons.keyboard_arrow_down_outlined,
+        //   size: 24,
+        //   color: Color(0xFE7A7A7A),
+        // ),
+        /// commented to check
+        // dropdownSearchDecoration: InputDecoration.collapsed(
+        //   hintText: widget.hint,
+        // ),
+        /// commented to check
+        // mode: Mode.MENU,
         items: widget.items,
         onChanged: widget.onChanged,
       ),

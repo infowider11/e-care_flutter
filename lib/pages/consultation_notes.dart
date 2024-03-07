@@ -25,6 +25,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 
+import '../constants/api_variable_keys.dart';
 import '../services/api_urls.dart';
 import '../services/auth.dart';
 import '../services/webservices.dart';
@@ -41,17 +42,17 @@ class Consultation_Notes_Page extends StatefulWidget {
 class Consultation_Notes_PageState extends State<Consultation_Notes_Page> with TickerProviderStateMixin {
   TextEditingController email = TextEditingController();
   late AnimationController controller;
-  List lists = [];
+  List consultationNotes = [];
   bool load = false;
 
   @override
   void initState() {
     // TODO: implement initState
-    get_lists();
+    getConsultationNotes();
     super.initState();
   }
 
-  get_lists() async {
+  getConsultationNotes() async {
     setState(() {
       load = true;
     });
@@ -63,7 +64,7 @@ class Consultation_Notes_PageState extends State<Consultation_Notes_Page> with T
         apiUrl: ApiUrls.consultant_note_list, body: data, context: context);
     print('list    ${res}');
     if (res['status'].toString() == '1') {
-      lists = res['data'];
+      consultationNotes = res['data'];
       setState(() {});
     }
     setState(() {
@@ -88,34 +89,37 @@ class Consultation_Notes_PageState extends State<Consultation_Notes_Page> with T
                   vSizedBox2,
                   MainHeadingText(text: 'Consultation Notes', fontSize: 32, fontFamily: 'light',),
                   vSizedBox4,
-                  for(int i=0;i<lists.length;i++)
-                  ListUI02(heading: '${lists[i]['patient_data']['first_name']??''} ${lists[i]['patient_data']['last_name']??''}',//'Note ${i+1}',
+                  for(int i=0;i<consultationNotes.length;i++)
+                  ListUI02(
+                    heading: 'Consultation Notes: ${consultationNotes[i][ApiVariableKeys.doctor_lastname]}/${consultationNotes[i][ApiVariableKeys.user_lastname]}',
+                    // heading: '${consultationNotes[i]['patient_data']['first_name']??''} ${consultationNotes[i]['patient_data']['last_name']??''}',//'Note ${i+1}',
                     editonTap: () async{
                       await push(context: context, screen: Add_Consultation_Notes_Page(
                         is_update: true,
-                        data: lists[i],
+                        data: consultationNotes[i],
                       ));
-                      get_lists();
+                      getConsultationNotes();
                     },
                     sendonTap: () async{
                       // EasyLoading.show(
                       //   status: null,
                       //   maskType: EasyLoadingMaskType.black,
                       // );
-                      await savePdfToStorage1(lists[i]['pdf_url'], 'pdf',
-                          '${lists[i]['id']}_notes.pdf');
+                      await savePdfToStorage1(consultationNotes[i]['pdf_url'], 'pdf',
+                          '${consultationNotes[i]['id']}_notes.pdf');
                       // EasyLoading.dismiss();
                     },
                     deleteonTap: () {
-                      delete(lists[i]['id'].toString(),'');
+                      delete(consultationNotes[i]['id'].toString(),'');
                     },
-                    subheading: '${DateFormat.yMMMd().add_jm().format(DateTime.parse(lists[i]['created_at']))}',
+                    subheading: '${consultationNotes[i][ApiVariableKeys.consult_dateTime]}',
+                    // subheading: '${DateFormat.yMMMd().add_jm().format(DateTime.parse(consultationNotes[i]['created_at']))}',
                     isimage: false,
                     isIcon: false,
                     thirdHeadColor: MyColors.labelcolor,
                   ),
 
-                  if(lists.length==0)
+                  if(consultationNotes.length==0)
                     Center(
                       heightFactor: 2.0,
                       child: Text('No data found.'),
@@ -136,7 +140,7 @@ class Consultation_Notes_PageState extends State<Consultation_Notes_Page> with T
                   await push(context: context, screen: Add_Consultation_Notes_Page(
                     booking_id: widget.booking_id.toString(),
                   ));
-                  get_lists();
+                  getConsultationNotes();
                 },
               ),
             ),
@@ -189,7 +193,7 @@ class Consultation_Notes_PageState extends State<Consultation_Notes_Page> with T
                       context: context);
                   print('res----${res}');
                   Navigator.of(context).pop();
-                  get_lists();
+                  getConsultationNotes();
                 },
               ),
               TextButton(

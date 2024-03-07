@@ -177,7 +177,7 @@ class _SignUp_PageState extends State<SignUp_Page> {
                       var m = await showDatePicker(
                           context: context,
                           initialDate: DateTime.now(),
-                          firstDate: DateTime(DateTime.now().year - 150),
+                          firstDate: DateTime(1950),
                           lastDate: DateTime.now());
                       if (m != null) {
                         DateFormat formatter = DateFormat('yyyy-MM-dd');

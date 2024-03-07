@@ -24,6 +24,7 @@ import '../constants/sized_box.dart';
 import '../services/auth.dart';
 import '../welcome.dart';
 import 'booked_visit.dart';
+import 'icd_codes_and_my_invoice_page.dart';
 import 'my_visit.dart';
 
 class MyECare extends StatefulWidget {
@@ -249,11 +250,38 @@ class _MyECareState extends State<MyECare> {
                     ),
                   ),
 
+                  // GestureDetector(
+                  //   onTap: () => Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //           builder: (context) => MyInvoicePage())),
+                  //   child: Container(
+                  //     margin: EdgeInsets.symmetric(horizontal: 10),
+                  //     padding: EdgeInsets.symmetric(vertical: 16),
+                  //     decoration: BoxDecoration(
+                  //         border: Border(
+                  //             bottom: BorderSide(
+                  //                 color: MyColors.onsurfacevarient, width: 1))),
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //       children: [
+                  //         MainHeadingText(
+                  //           text: 'My Invoices',
+                  //           color: MyColors.onsurfacevarient,
+                  //           fontSize: 17,
+                  //           fontFamily: 'bold',
+                  //         ),
+                  //         Icon(Icons.chevron_right_rounded)
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+
                   GestureDetector(
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => MyInvoicePage())),
+                            builder: (context) => ICDCodesAndMyInvoicePage())),
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 10),
                       padding: EdgeInsets.symmetric(vertical: 16),
@@ -264,11 +292,14 @@ class _MyECareState extends State<MyECare> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          MainHeadingText(
-                            text: 'My Invoices',
-                            color: MyColors.onsurfacevarient,
-                            fontSize: 17,
-                            fontFamily: 'bold',
+                          Expanded(
+                            child: MainHeadingText(
+                              text: 'My Invoices/ Statements with ICD-10 codes',
+                              overflow: TextOverflow.ellipsis,
+                              color: MyColors.onsurfacevarient,
+                              fontSize: 17,
+                              fontFamily: 'bold',
+                            ),
                           ),
                           Icon(Icons.chevron_right_rounded)
                         ],

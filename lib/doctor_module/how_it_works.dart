@@ -12,6 +12,7 @@ import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/custom_circular_image.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:video_player/video_player.dart';
 
 import '../constants/image_urls.dart';
@@ -105,12 +106,14 @@ class _DoctorHowItWorksState extends State<DoctorHowItWorks> {
                     // Image.network('${userData['profile_image']}', width: 35)
               ),
                 hSizedBox,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MainHeadingText(text: '${user_Data!['first_name']} ${user_Data!['last_name']}', fontFamily: 'light', fontSize: 15,),
-                    MainHeadingText(text: 'Welcome Back!', fontFamily: 'light', color: MyColors.primaryColor, fontSize: 12,),
-                  ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      MainHeadingText(text: '${user_Data!['first_name']} ${user_Data!['last_name']}', fontFamily: 'light', fontSize: 15,),
+                      MainHeadingText(text: 'Welcome Back!', fontFamily: 'light', color: MyColors.primaryColor, fontSize: 12,),
+                    ],
+                  ),
                 )
               ],
             )

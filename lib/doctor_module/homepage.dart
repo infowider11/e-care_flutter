@@ -13,6 +13,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:intl/intl.dart';
 
+import '../pages/add_icd_notes.dart';
 import '../pages/addsick.dart';
 import '../pages/chat.dart';
 import '../pages/consultation_notes.dart';
@@ -577,6 +578,18 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                               ],
                                             ),
                                           ),
+                                          PopupMenuItem(
+                                            value: 5,
+                                            // row with two children
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Text("Add ICD-10 codes to statement")
+                                              ],
+                                            ),
+                                          ),
                                         ],
                                         offset: Offset(0, 58),
                                         color: MyColors.white,
@@ -619,6 +632,21 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                   ['id']
                                                       .toString(),
                                                 ));
+                                          }else if (value == 5) {
+                                            print('skjdfkldas ${todays_app[i]['user_data']['first_name']}');
+                                            // return;
+                                            push(
+                                              context: context,
+                                              screen:AddIcdNotes(
+                                                booking_id: todays_app[i]
+                                                ['id']
+                                                    .toString(),
+                                                doctorName: '${todays_app[i][
+                                                'user_data']
+                                                [
+                                                'first_name']}',
+                                              ),
+                                            );
                                           }
                                         },
                                       ),
@@ -867,6 +895,18 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                   ],
                                                 ),
                                               ),
+                                              PopupMenuItem(
+                                                value: 5,
+                                                // row with 2 children
+                                                child: Row(
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Text("Add ICD-10 codes to statement"),
+                                                  ],
+                                                ),
+                                              ),
                                             ],
                                             offset: Offset(0, 58),
                                             color: MyColors.white,
@@ -907,6 +947,14 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                   ['id']
                                                       .toString(),
                                                 ));
+                                              }else if (value == 5) {
+                                                push(
+                                                    context: context,
+                                                    screen:AddIcdNotes(
+                                                      booking_id: confirms[i]
+                                                      ['id']
+                                                          .toString(),
+                                                    ));
                                               }
                                             },
                                           ),

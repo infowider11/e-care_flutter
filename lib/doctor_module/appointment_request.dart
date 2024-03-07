@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/doctor_module/appointment_detail.dart';
@@ -13,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
 
+import '../pages/add_icd_notes.dart';
 import '../pages/addsick.dart';
 import '../pages/bookingDetail.dart';
 import '../pages/chat.dart';
@@ -751,6 +754,18 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                           ],
                                                         ),
                                                       ),
+                                                      PopupMenuItem(
+                                                        value: 5,
+                                                        // row with 2 children
+                                                        child: Row(
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 10,
+                                                            ),
+                                                            Text("Add ICD-10 codes to statement"),
+                                                          ],
+                                                        ),
+                                                      ),
                                                     ],
                                                     offset: Offset(0, 58),
                                                     color: MyColors.white,
@@ -763,8 +778,14 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                           booking_id: confirms[i]['id'].toString(),
                                                         ));
                                                       } else if (value == 2) {
+                                                        log('sfs ${confirms[i]}');
+                                                        // return;
                                                         push(context: context, screen: Add_sicknote(
                                                           booking_id: confirms[i]['id'].toString(),
+                                                          doctorName: '${confirms[i][
+                                                          'user_data']
+                                                          [
+                                                          'first_name']}',
                                                         ));
                                                       } else if (value == 3) {
                                                         push(
@@ -773,6 +794,10 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                               booking_id: confirms[i]
                                                               ['id']
                                                                   .toString(),
+                                                              doctorName: '${confirms[i][
+                                                              'user_data']
+                                                              [
+                                                              'first_name']}',
                                                             ));
                                                       }else if (value == 4) {
                                                         push(
@@ -782,6 +807,22 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                               ['id']
                                                                   .toString(),
                                                             ));
+                                                      }
+                                                      else if (value == 5) {
+                                                        print('skjdfkldas ${confirms[i]['user_data']['first_name']}');
+                                                        // return;
+                                                        push(
+                                                            context: context,
+                                                            screen:AddIcdNotes(
+                                                              booking_id: confirms[i]
+                                                              ['id']
+                                                                  .toString(),
+                                                              doctorName: '${confirms[i][
+                                                              'user_data']
+                                                              [
+                                                              'first_name']}',
+                                                            ),
+                                                        );
                                                       }
                                                     },
                                                   ),

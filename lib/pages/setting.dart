@@ -84,10 +84,12 @@ class _SettingPageState extends State<SettingPage> {
             //         context,
             //         MaterialPageRoute(
             //             builder: (context) => NotificationPage()))),
-            SettingList(
-                heading: 'My Booking status',
-                func: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => BookingStatus()))),
+            ///
+            // SettingList(
+            //     heading: 'My Booking status',
+            //     func: () => Navigator.push(context,
+            //         MaterialPageRoute(builder: (context) => BookingStatus()))),
+            ///
             // SettingList(
             //     heading: 'Messages',
             //     func: () => Navigator.push(context,
