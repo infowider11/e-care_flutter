@@ -9,46 +9,7 @@ import '../constants/colors.dart';
 
 
 
-enum FileType {
-  Gallery,
-  Camera,
-  Video,
-}
-Future pickImage01( fileType) async {
-  File? image;
-  final ImagePicker imagePicker = ImagePicker();
-  XFile? pickedFile;
-  if (fileType == FileType.Camera) {
-    // Camera Part
-    pickedFile = await imagePicker.pickImage(
-      source: ImageSource.camera,
-      maxWidth: 480,
-      maxHeight: 640,
-      imageQuality: 25, // pick your desired quality
-    );
 
-      if (pickedFile != null) {
-        image = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-        return;
-      }
-
-  } else if (fileType == FileType.Gallery) {
-    // Gallery Part
-    pickedFile = await imagePicker.pickImage(
-      source: ImageSource.gallery,
-      maxWidth: 480,
-      maxHeight: 640,
-      imageQuality: 25,
-    );
-  } else {
-    print('No image selected.');
-    return;
-  }
-  image=File(pickedFile!.path);
-return image;
-}
 
 
 Future<File?> pickImage(bool isGallery) async {

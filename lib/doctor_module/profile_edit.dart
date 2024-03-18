@@ -787,7 +787,7 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                     onPressed: () async {
                       _close(ctx);
                       File? image;
-                      image = await pickImage01(FileType.Camera);
+                      image = await pickImage(false);
                       print('image----$image');
                       if (image != null) {
                         profile_image = [];
@@ -803,7 +803,7 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                     onPressed: () async {
                       _close(ctx);
                       File? image;
-                      image = await pickImage01(FileType.Gallery);
+                      image = await pickImage(true);
                       print('image----$image');
 
                       if (image != null) {
