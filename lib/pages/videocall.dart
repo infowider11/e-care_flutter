@@ -246,6 +246,12 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
       onPressed: () async{
         if(_engine!=null){
          await _engine!.leaveChannel();
+         Map<String,dynamic> data = {
+           'booking_id':widget.bookingId.toString(),
+           'user_id':await getCurrentUserId(),
+           'duration':call_duration.toString(),
+         };
+         var res = await Webservices.postData(apiUrl: ApiUrls.endCall,body: data, context: context);
         }
         setState(() {
           _remoteUid = null;
