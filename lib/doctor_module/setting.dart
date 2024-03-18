@@ -5,6 +5,7 @@ import 'package:ecare/pages/contact_us.dart';
 import 'package:ecare/pages/loginpage.dart';
 import 'package:ecare/pages/privacy_policy.dart';
 import 'package:ecare/pages/terms_cond_page.dart';
+import 'package:ecare/widgets/custom_circular_image.dart';
 import 'package:flutter/material.dart';
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
@@ -83,13 +84,17 @@ class _DoctorSettingPageState extends State<DoctorSettingPage> {
             children: [
               Row(
                 children: [
-                  Container(
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Image.network('${userData['profile_image']}',
-                          width: 35)),
+                  CustomCircularImage(
+                      height: 35,
+                      width: 35,
+                      imageUrl: '${userData['profile_image']}'),
+                  // Container(
+                  //     clipBehavior: Clip.hardEdge,
+                  //     decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(20),
+                  //     ),
+                  //     child: Image.network('${userData['profile_image']}',
+                  //         width: 35)),
                   hSizedBox,
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

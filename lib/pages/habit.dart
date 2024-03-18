@@ -62,160 +62,159 @@ class HabitsPageState extends State<HabitsPage> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: MyColors.scaffold,
       appBar: appBar(context: context),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          RoundEdgedButton(
+            horizontalMargin: 16,
+              text: 'Continue',
+              onTap: () async {
+                Map<String, dynamic> data = {
+                  'user_id': await getCurrentUserId(),
+                };
+                for (int i = 0; i < lists.length; i++) {
+                  data['question_id'] = lists[i]['id'].toString();
+                  data['ans_type'] =
+                      lists[i]['value_status'].toString();
+                }
+                await EasyLoading.show(
+                  status: null,
+                  maskType: EasyLoadingMaskType.black,
+                );
+                var res = await Webservices.postData(
+                    apiUrl: ApiUrls.PatientHabit,
+                    body: data,
+                    context: context);
+                EasyLoading.dismiss();
+                print('submit----$res');
+                if (res['status'].toString() == '1') {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ComingConsultation()));
+                } else {}
+              }),
+          RoundEdgedButton(
+            text: 'Skip',
+            color: Colors.transparent,
+            textColor: MyColors.primaryColor,
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ComingConsultation())),
+          ),
+          vSizedBox2
+        ],
+      ),
       body: load
           ? CustomLoader()
-          : Container(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Stack(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      vSizedBox2,
-                      MainHeadingText(
-                        text: 'Tell us about your habits ',
-                        fontSize: 32,
-                        fontFamily: 'light',
-                      ),
-                      vSizedBox2,
-                      ParagraphText(
-                          fontSize: 16,
-                          text:
-                              'Please provide the following information to help your provider get a better understanding of your lifestyle. '),
-                      vSizedBox4,
-                      for (int i = 0; i < lists.length; i++)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 10),
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: MyColors.bordercolor, width: 1),
-                                borderRadius: BorderRadius.circular(16)),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                MainHeadingText(
-                                  text: '${lists[i]['question']}',
-                                  fontSize: 16,
+          : SingleChildScrollView(
+            child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    vSizedBox2,
+                    MainHeadingText(
+                      text: 'Tell us about your habits ',
+                      fontSize: 32,
+                      fontFamily: 'light',
+                    ),
+                    vSizedBox2,
+                    ParagraphText(
+                        fontSize: 16,
+                        text:
+                            'Please provide the following information to help your provider get a better understanding of your lifestyle. '),
+                    vSizedBox4,
+                    for (int i = 0; i < lists.length; i++)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 10),
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: MyColors.bordercolor, width: 1),
+                              borderRadius: BorderRadius.circular(16)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              MainHeadingText(
+                                text: '${lists[i]['question']}',
+                                fontSize: 16,
+                                fontFamily: 'light',
+                              ),
+                              MainHeadingText(
+                                  text: '${lists[i]['sub_text']}',
+                                  fontSize: 14,
                                   fontFamily: 'light',
-                                ),
-                                MainHeadingText(
-                                    text: '${lists[i]['sub_text']}',
-                                    fontSize: 14,
-                                    fontFamily: 'light',
-                                    color: MyColors.onsurfacevarient),
-                                vSizedBox4,
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    RoundEdgedButton(
-                                      horizontalPadding: 10,
-                                      text: 'Yes',
-                                      width: 75,
-                                      borderRadius: 100,
-                                      isSolid:
-                                          lists[i]['value_status'].toString() ==
-                                                  '1'
-                                              ? true
-                                              : false,
-                                      onTap: () async {
-                                        lists[i]['value_status'] = '1';
-                                        setState(() {});
-                                      },
-                                    ),
-                                    hSizedBox05,
-                                    RoundEdgedButton(
-                                      horizontalPadding: 10,
-                                      text: 'No',
-                                      width: 70,
-                                      borderRadius: 100,
-                                      isSolid:
-                                          lists[i]['value_status'].toString() ==
-                                                  '0'
-                                              ? true
-                                              : false,
-                                      onTap: () async {
-                                        lists[i]['value_status'] = '0';
-                                        setState(() {});
-                                      },
-                                    ),
-                                    hSizedBox05,
-                                    RoundEdgedButton(
-                                      text: 'In the past',
-                                      horizontalPadding: 10,
-                                      width: 120,
-                                      borderRadius: 100,
-                                      isSolid:
-                                          lists[i]['value_status'].toString() ==
-                                                  '2'
-                                              ? true
-                                              : false,
-                                      onTap: () async {
-                                        lists[i]['value_status'] = '2';
-                                        setState(() {});
-                                      },
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
+                                  color: MyColors.onsurfacevarient),
+                              vSizedBox4,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  RoundEdgedButton(
+                                    horizontalPadding: 10,
+                                    text: 'Yes',
+                                    width: 75,
+                                    borderRadius: 100,
+                                    isSolid:
+                                        lists[i]['value_status'].toString() ==
+                                                '1'
+                                            ? true
+                                            : false,
+                                    onTap: () async {
+                                      lists[i]['value_status'] = '1';
+                                      setState(() {});
+                                    },
+                                  ),
+                                  hSizedBox05,
+                                  RoundEdgedButton(
+                                    horizontalPadding: 10,
+                                    text: 'No',
+                                    width: 70,
+                                    borderRadius: 100,
+                                    isSolid:
+                                        lists[i]['value_status'].toString() ==
+                                                '0'
+                                            ? true
+                                            : false,
+                                    onTap: () async {
+                                      lists[i]['value_status'] = '0';
+                                      setState(() {});
+                                    },
+                                  ),
+                                  hSizedBox05,
+                                  RoundEdgedButton(
+                                    text: 'In the past',
+                                    horizontalPadding: 10,
+                                    width: 120,
+                                    borderRadius: 100,
+                                    isSolid:
+                                        lists[i]['value_status'].toString() ==
+                                                '2'
+                                            ? true
+                                            : false,
+                                    onTap: () async {
+                                      lists[i]['value_status'] = '2';
+                                      setState(() {});
+                                    },
+                                  ),
+                                ],
+                              )
+                            ],
                           ),
                         ),
-                    ],
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        RoundEdgedButton(
-                            text: 'Continue',
-                            onTap: () async {
-                              Map<String, dynamic> data = {
-                                'user_id': await getCurrentUserId(),
-                              };
-                              for (int i = 0; i < lists.length; i++) {
-                                data['question_id'] = lists[i]['id'].toString();
-                                data['ans_type'] =
-                                    lists[i]['value_status'].toString();
-                              }
-                              await EasyLoading.show(
-                                status: null,
-                                maskType: EasyLoadingMaskType.black,
-                              );
-                              var res = await Webservices.postData(
-                                  apiUrl: ApiUrls.PatientHabit,
-                                  body: data,
-                                  context: context);
-                              EasyLoading.dismiss();
-                              print('submit----$res');
-                              if (res['status'].toString() == '1') {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ComingConsultation()));
-                              } else {}
-                            }),
-                        RoundEdgedButton(
-                          text: 'Skip',
-                          color: Colors.transparent,
-                          textColor: MyColors.primaryColor,
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ComingConsultation())),
-                        ),
-                        vSizedBox2
-                      ],
-                    ),
-                  )
-                ],
+                      ),
+                    vSizedBox2,
+
+                  ],
+                ),
               ),
-            ),
+          ),
     );
   }
 }

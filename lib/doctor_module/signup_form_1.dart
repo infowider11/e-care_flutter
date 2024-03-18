@@ -247,7 +247,7 @@ if(allCat[i]['parent'].toString()==id.toString()){
                 },),
                 hSizedBox,
                 if(images.length>0)
-                  Text('${basename(images[0].path)}'),
+                  Expanded(child: Text('${basename(images[0].path)}')),
                   // Text('${images[0].toString().split('cache/image_cropper_')[1]}'),
               ],
             ),
@@ -347,7 +347,7 @@ if(allCat[i]['parent'].toString()==id.toString()){
                 },),
                 hSizedBox,
                 if(proofFile.length>0)
-                  Text('${basename(proofFile[0].path)}'),
+                  Expanded(child: Text('${basename(proofFile[0].path)}')),
                   // Text('${proofFile[0].toString().split('cache/image_cropper_')[1]}'),
               ],
             ),

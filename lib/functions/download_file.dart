@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:ecare/functions/print_function.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
@@ -11,7 +12,8 @@ import 'package:share_plus/share_plus.dart';
 import 'package:path_provider/path_provider.dart' as pp;
 
 ReceivePort port = ReceivePort();
-void _bindBackgroundIsolate() {
+void _bindBackgroundIsolate() async{
+
   final isSuccess = IsolateNameServer.registerPortWithName(
     port.sendPort,
     'downloader_send_port',
@@ -65,19 +67,23 @@ Future<bool> checkDownloadStatus({bool initial = true})async{
 }
 
 Future<void> downloadCsvFile(Uri uri) async {
+
   print('the donlxowww is $uri');
   // myCustomPrintStatement('the donlxowww is $uri');
+  String path = '';
   if (Platform.isAndroid) {
     var status = await Permission.notification.request();
     myCustomPrintStatement('the status is $status');
+    myCustomPrintStatement('i ame here...0-1');
+    // final directory = await pp.getExternalStorageDirectory();
+    Directory directory = Directory('../storage/emulated/0/Download');
+    path = directory.path;
+    myCustomPrintStatement('i ame here...1');
   }
-  myCustomPrintStatement('i ame here...0-1');
-  // final directory = await pp.getExternalStorageDirectory();
-  Directory directory = Directory('../storage/emulated/0/Download');
-  String path = directory.path;
-  myCustomPrintStatement('i ame here...1');
+
 
   if (Platform.isIOS) {
+
     myCustomPrintStatement('i ame here...2');
     var tt = await pp.getApplicationDocumentsDirectory();
     path = tt.path;
@@ -108,36 +114,39 @@ Future<void> downloadCsvFile(Uri uri) async {
       'the file name is $fileName download directory is $path and url is ...${url.toString()}...');
   final savedDir = path;
   // if(!Platform.isIOS){
-  String? taskId = await FlutterDownloader.enqueue(
-    url: url.toString(),
-    savedDir: savedDir,
-    fileName: fileName,
-    showNotification: true,
-    openFileFromNotification: false,
-    saveInPublicStorage: true,
-    requiresStorageNotLow: true,
+ if(Platform.isAndroid){
+   String? taskId = await FlutterDownloader.enqueue(
+     url: url.toString(),
+     savedDir: savedDir,
+     fileName: fileName,
+     showNotification: true,
+     openFileFromNotification: false,
+     saveInPublicStorage: true,
+     requiresStorageNotLow: true,
 
-  );
+   );
 
-  _bindBackgroundIsolate();
-  print('the task id is $taskId');
+   _bindBackgroundIsolate();
+   print('the task id is $taskId');
 
-  myCustomPrintStatement('file is downloaded');
+   myCustomPrintStatement('file is downloaded');
+ }
   // }
   if (Platform.isIOS) {
     // downloadStatusProgress.notifyListeners();
     // await Future.delayed(Duration(seconds: 6));
-    myCustomPrintStatement('check download status start-----');
-    await checkDownloadStatus();
-
-    myCustomPrintStatement('check download status end-----');
+    // myCustomPrintStatement('check download status start-----');
+    // await checkDownloadStatus();
+    //
+    // myCustomPrintStatement('check download status end-----');
     try {
-      // var response = await get(uri);
+      var response = await get(uri);
       myCustomPrintStatement('mannn...$savedDir/$fileName');
       String filePath = '$savedDir/$fileName';
       // String filePath = '$savedDir/${DateTime.now().millisecondsSinceEpoch}_$fileName';
       print('the file path name is $filePath');
       File file = File(filePath);
+      await file.writeAsBytes(response.bodyBytes);
       // await file.writeAsBytes(response.bodyBytes.toList());
       XFile xFile = XFile(file.path);
       Share.shareXFiles([xFile]);

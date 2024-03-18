@@ -67,180 +67,226 @@ class _Whoiam_PageState extends State<Whoiam_Page> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: MyColors.scaffold,
-      appBar: appBar(context: context),
-      body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height - 100,
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Stack(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  vSizedBox,
-                  MainHeadingText(
-                    text: 'Who am I ?',
-                    fontSize: 32,
-                    fontFamily: 'light',
-                    color: MyColors.primaryColor,
-                  ),
-                  ParagraphText(
-                    text: 'Tell us some basic info',
-                    fontSize: 16,
-                    color: MyColors.paragraphcolor,
-                  ),
-                  vSizedBox4,
-                  CustomTextField(
-                    controller: fname,
-                    hintText: 'First Name',
-                    showlabeltop: true,
-                    label: 'First Name',
-                    labelfont: 12,
-                    labelcolor: MyColors.paragraphcolor,
-                    bgColor: Colors.transparent,
-                    fontsize: 16,
-                    hintcolor: MyColors.headingcolor,
-                  ),
-                  vSizedBox4,
-                  CustomTextField(
-                    controller: lname,
-                    hintText: 'Last Name',
-                    showlabeltop: true,
-                    label: 'Last Name',
-                    labelfont: 12,
-                    labelcolor: MyColors.paragraphcolor,
-                    bgColor: Colors.transparent,
-                    fontsize: 16,
-                    hintcolor: MyColors.headingcolor,
-                  ),
-                  vSizedBox4,
-                  Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      IntlPhoneField(
-                        onChanged: (p) {
-                          print('ghdvfh $p');
-                          print('onchange value---$p');
-                          // phone.text=p.countryCode;
-                          country_code = p.countryCode;
-                          country_short_code = p.countryISOCode;
-                          print('country_code-${country_code.toString()}');
-                          setState(() {});
-                        },
-                        onCountryChanged: (country) {
-                          country_short_code = country.code;
-                          setState(() {});
-                          // print('country-----$country');
-                        },
-                        dropdownIcon: Icon(
-                          Icons.phone,
-                          color: Colors.transparent,
-                        ),
-                        controller: phone,
-                        decoration: InputDecoration(
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            border: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: MyColors.bordercolor),
-                                borderRadius: BorderRadius.circular(15)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: MyColors.bordercolor),
-                                borderRadius: BorderRadius.circular(15)),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: MyColors.bordercolor),
-                                borderRadius: BorderRadius.circular(15))),
-                        initialCountryCode: 'ZA', // SOUTH AFRICA
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: MyColors.scaffold,
+        appBar: appBar(context: context),
+        bottomNavigationBar:   RoundEdgedButton(
+          text: 'Sign Up',
+          verticalMargin: 15,
+            horizontalMargin: 16,
+          onTap: () => {
+            if (validateString(fname.text,
+                "Please enter your first name.", context) ==
+                null &&
+                validateString(lname.text,
+                    "Please enter your last name.", context) ==
+                    null &&
+                validateString(phone.text, "Please enter your phone number",
+                    context) ==
+                    null)
+              {
+                if (!isChecked || !is_understand)
+                  {
+                    showSnackbar(
+                        'Please accept Terms & condition and Privacy Policy.'),
+                    // return
+                  }
+
+                // if (!is_understand)
+                //   {
+                //     showSnackbar(
+                //         'Please check app .'),
+                //     // return
+                //   }
+
+                else
+                  {
+                    widget.pre_data['first_name'] = fname.text,
+                    widget.pre_data['last_name'] = lname.text,
+                    widget.pre_data['phone'] = phone.text,
+                    widget.pre_data['phone_code'] = country_code,
+                    widget.pre_data['country_code'] =
+                        country_short_code,
+                    widget.pre_data['gender'] = gender,
+                    setState(() {}),
+                    if (widget.is_googleSignin == true)
+                      widget.pre_data['google_id'] =
+                      widget.googleSignin_data!['uid'],
+                    // }
+                    print('data------${widget.pre_data}'),
+                    // Navigator.push(context, MaterialPageRoute(builder: (context) => CreateProfile())),
+                    submit_signup_form(widget.pre_data),
+                  }
+              }
+            // Navigator.push(context, MaterialPageRoute(builder: (context) => CreateProfile())),
+          },
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            // height: MediaQuery.of(context).size.height - 100,
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                vSizedBox,
+                MainHeadingText(
+                  text: 'Who am I ?',
+                  fontSize: 32,
+                  fontFamily: 'light',
+                  color: MyColors.primaryColor,
+                ),
+                ParagraphText(
+                  text: 'Tell us some basic info',
+                  fontSize: 16,
+                  color: MyColors.paragraphcolor,
+                ),
+                vSizedBox4,
+                CustomTextField(
+                  controller: fname,
+                  hintText: 'First Name',
+                  showlabeltop: true,
+                  label: 'First Name',
+                  labelfont: 12,
+                  labelcolor: MyColors.paragraphcolor,
+                  bgColor: Colors.transparent,
+                  fontsize: 16,
+                  hintcolor: MyColors.headingcolor,
+                ),
+                vSizedBox4,
+                CustomTextField(
+                  controller: lname,
+                  hintText: 'Last Name',
+                  showlabeltop: true,
+                  label: 'Last Name',
+                  labelfont: 12,
+                  labelcolor: MyColors.paragraphcolor,
+                  bgColor: Colors.transparent,
+                  fontsize: 16,
+                  hintcolor: MyColors.headingcolor,
+                ),
+                vSizedBox4,
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    IntlPhoneField(
+                      onChanged: (p) {
+                        print('ghdvfh $p');
+                        print('onchange value---$p');
+                        // phone.text=p.countryCode;
+                        country_code = p.countryCode;
+                        country_short_code = p.countryISOCode;
+                        print('country_code-${country_code.toString()}');
+                        setState(() {});
+                      },
+                      onCountryChanged: (country) {
+                        country_short_code = country.code;
+                        setState(() {});
+                        // print('country-----$country');
+                      },
+                      dropdownIcon: Icon(
+                        Icons.phone,
+                        color: Colors.transparent,
                       ),
-                      Positioned(
-                        left: 14,
-                        top: -10,
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 1, horizontal: 10),
+                      controller: phone,
+                      decoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          border: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: MyColors.bordercolor),
+                              borderRadius: BorderRadius.circular(15)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: MyColors.bordercolor),
+                              borderRadius: BorderRadius.circular(15)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: MyColors.bordercolor),
+                              borderRadius: BorderRadius.circular(15))),
+                      initialCountryCode: 'ZA', // SOUTH AFRICA
+                    ),
+                    Positioned(
+                      left: 14,
+                      top: -10,
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 1, horizontal: 10),
+                        decoration: BoxDecoration(
+                            color: Color(0xFFCAE6FF),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: ParagraphText(
+                          text: "Phone Number",
+                          fontSize: 12,
+                          color: MyColors.paragraphcolor,
+                          fontFamily: 'regular',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                vSizedBox,
+                MainHeadingText(
+                  text: 'Select Gender',
+                  fontFamily: 'regular',
+                  fontSize: 16,
+                  color: MyColors.onsurfacevarient,
+                ),
+                // vSizedBox,
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        gender = 'male';
+                        setState(() {});
+                      },
+                      child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 16),
                           decoration: BoxDecoration(
-                              color: Color(0xFFCAE6FF),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: ParagraphText(
-                            text: "Phone Number",
-                            fontSize: 12,
-                            color: MyColors.paragraphcolor,
-                            fontFamily: 'regular',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  vSizedBox,
-                  MainHeadingText(
-                    text: 'Select Gender',
-                    fontFamily: 'regular',
-                    fontSize: 16,
-                    color: MyColors.onsurfacevarient,
-                  ),
-                  // vSizedBox,
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          gender = 'male';
-                          setState(() {});
-                        },
-                        child: Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 16),
-                            decoration: BoxDecoration(
-                                color: (gender == 'male')
-                                    ? MyColors.primaryColor
-                                    : Colors.transparent,
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                    color: MyColors.primaryColor, width: 1)),
-                            child: ParagraphText(
-                              text: 'Male',
-                              fontFamily: 'light',
-                              fontSize: 11,
                               color: (gender == 'male')
-                                  ? MyColors.white
-                                  : MyColors.headingcolor,
-                            )),
-                      ),
-                      hSizedBox,
-                      GestureDetector(
-                        onTap: () {
-                          gender = 'female';
-                          setState(() {});
-                        },
-                        child: Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 16),
-                            decoration: BoxDecoration(
-                                color: (gender == 'female')
-                                    ? MyColors.primaryColor
-                                    : Colors.transparent,
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                    color: MyColors.bordercolor, width: 1)),
-                            child: ParagraphText(
-                              text: 'Female',
-                              fontFamily: 'light',
-                              fontSize: 11,
+                                  ? MyColors.primaryColor
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                  color: MyColors.primaryColor, width: 1)),
+                          child: ParagraphText(
+                            text: 'Male',
+                            fontFamily: 'light',
+                            fontSize: 11,
+                            color: (gender == 'male')
+                                ? MyColors.white
+                                : MyColors.headingcolor,
+                          )),
+                    ),
+                    hSizedBox,
+                    GestureDetector(
+                      onTap: () {
+                        gender = 'female';
+                        setState(() {});
+                      },
+                      child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 16),
+                          decoration: BoxDecoration(
                               color: (gender == 'female')
-                                  ? MyColors.white
-                                  : MyColors.headingcolor,
-                            )),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
+                                  ? MyColors.primaryColor
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                  color: MyColors.bordercolor, width: 1)),
+                          child: ParagraphText(
+                            text: 'Female',
+                            fontFamily: 'light',
+                            fontSize: 11,
+                            color: (gender == 'female')
+                                ? MyColors.white
+                                : MyColors.headingcolor,
+                          )),
+                    ),
+                  ],
+                ),
+                Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -267,31 +313,31 @@ class _Whoiam_PageState extends State<Whoiam_Page> {
                                 text: TextSpan(
                                     style: TextStyle(color: Colors.black),
                                     children: [
-                                  TextSpan(text: "I agree to E-Care "),
-                                  // GestureDetector(
-                                  //   onTap: (){},
-                                  //   child: ,
-                                  // )
-                                  TextSpan(
-                                      text: "Terms & Conditions ",
-                                      style: TextStyle(
-                                          color: MyColors.primaryColor),
-                                      recognizer: new TapGestureRecognizer()
-                                        ..onTap = () => push(
-                                            context: context,
-                                            screen: TermsCondPage(userType: '2',))),
-                                  TextSpan(text: "and"),
-                                  TextSpan(
-                                      text: " Privacy Policy",
-                                      style: TextStyle(
-                                          color: MyColors.primaryColor),
-                                      recognizer: new TapGestureRecognizer()
-                                        ..onTap = () => push(
-                                            context: context,
-                                            screen: PrivacyPolicy())),
-                                ])
-                                // text: 'I agree to E-Care Terms & Conditions and Privacy Policy? ',
-                                ),
+                                      TextSpan(text: "I agree to E-Care "),
+                                      // GestureDetector(
+                                      //   onTap: (){},
+                                      //   child: ,
+                                      // )
+                                      TextSpan(
+                                          text: "Terms & Conditions ",
+                                          style: TextStyle(
+                                              color: MyColors.primaryColor),
+                                          recognizer: new TapGestureRecognizer()
+                                            ..onTap = () => push(
+                                                context: context,
+                                                screen: TermsCondPage(userType: '2',))),
+                                      TextSpan(text: "and"),
+                                      TextSpan(
+                                          text: " Privacy Policy",
+                                          style: TextStyle(
+                                              color: MyColors.primaryColor),
+                                          recognizer: new TapGestureRecognizer()
+                                            ..onTap = () => push(
+                                                context: context,
+                                                screen: PrivacyPolicy())),
+                                    ])
+                              // text: 'I agree to E-Care Terms & Conditions and Privacy Policy? ',
+                            ),
                           ),
                         ],
                       ),
@@ -318,74 +364,26 @@ class _Whoiam_PageState extends State<Whoiam_Page> {
                                 text: TextSpan(
                                     style: TextStyle(color: Colors.black),
                                     children: [
-                                  TextSpan(
-                                      text:
+                                      TextSpan(
+                                          text:
                                           "I understand that Telehealth consultations are not a substitute for in-person consultations.  E-Care is a platform connecting healthcare providers with healthcare users and will not be held liable for any loss/harm whatsoever resulting from its use. Please see terms and conditions for more information."),
-                                  // GestureDetector(
-                                  //   onTap: (){},
-                                  //   child: ,
-                                  // )
-                                ])
-                                // text: 'I agree to E-Care Terms & Conditions and Privacy Policy? ',
-                                ),
+                                      // GestureDetector(
+                                      //   onTap: (){},
+                                      //   child: ,
+                                      // )
+                                    ])
+                              // text: 'I agree to E-Care Terms & Conditions and Privacy Policy? ',
+                            ),
                           ),
                         ],
                       ),
-                      vSizedBox,
-                      RoundEdgedButton(
-                        text: 'Sign Up',
-                        onTap: () => {
-                          if (validateString(fname.text,
-                                      "Please enter your first name.", context) ==
-                                  null &&
-                              validateString(lname.text,
-                                      "Please enter your last name.", context) ==
-                                  null &&
-                              validateString(phone.text, "Please enter your phone number",
-                                      context) ==
-                                  null)
-                            {
-                              if (!isChecked || !is_understand)
-                                {
-                                  showSnackbar(
-                                      'Please accept Terms & condition and Privacy Policy.'),
-                                  // return
-                                }
+                      vSizedBox4,
 
-                              // if (!is_understand)
-                              //   {
-                              //     showSnackbar(
-                              //         'Please check app .'),
-                              //     // return
-                              //   }
-
-                              else
-                                {
-                                  widget.pre_data['first_name'] = fname.text,
-                                  widget.pre_data['last_name'] = lname.text,
-                                  widget.pre_data['phone'] = phone.text,
-                                  widget.pre_data['phone_code'] = country_code,
-                                  widget.pre_data['country_code'] =
-                                      country_short_code,
-                                  widget.pre_data['gender'] = gender,
-                                  setState(() {}),
-                                  if (widget.is_googleSignin == true)
-                                    widget.pre_data['google_id'] =
-                                        widget.googleSignin_data!['uid'],
-                                  // }
-                                  print('data------${widget.pre_data}'),
-                                  // Navigator.push(context, MaterialPageRoute(builder: (context) => CreateProfile())),
-                                  submit_signup_form(widget.pre_data),
-                                }
-                            }
-                          // Navigator.push(context, MaterialPageRoute(builder: (context) => CreateProfile())),
-                        },
-                      ),
                     ],
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),

@@ -368,7 +368,9 @@ class _Add_sicknoteState extends State<Add_sicknote> {
                       final encoded = base64.encode(data!.buffer.asUint8List());
                       String bs4str = encoded;
                       Uint8List decodedbytes = base64.decode(bs4str);
-                      final path = await getExternalStorageDirectory();
+                      /// added by dipanshu
+                      final path = Platform.isIOS?await getApplicationDocumentsDirectory():await getExternalStorageDirectory();
+                      // final path = await getExternalStorageDirectory();
                       var filePathAndName = path!.path + '/'+'signature.png';
                       file = await File(filePathAndName).writeAsBytes(decodedbytes);
                       print('file-------- ${file}');

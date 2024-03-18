@@ -785,24 +785,27 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
               actions: [
                 CupertinoActionSheetAction(
                     onPressed: () async {
+                      _close(ctx);
                       File? image;
-                      image = await pickImage(false);
+                      image = await pickImage01(FileType.Camera);
                       print('image----$image');
                       if (image != null) {
                         profile_image = [];
                         isChange = true;
                         profile_image.add(image);
                         setState(() {});
+
                       }
-                      _close(ctx);
+
                     },
                     child: const Text('Take a picture')),
                 CupertinoActionSheetAction(
                     onPressed: () async {
+                      _close(ctx);
                       File? image;
-                      image = await pickImage(true);
+                      image = await pickImage01(FileType.Gallery);
                       print('image----$image');
-                      ;
+
                       if (image != null) {
                         profile_image = [];
                         isChange = true;
@@ -813,7 +816,7 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
 
                         setState(() {});
                       }
-                      _close(ctx);
+
                     },
                     child: const Text('Gallery')),
               ],

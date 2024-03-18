@@ -41,6 +41,8 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>We use your photo library to enable you to share images of your medical condition for a more accurate diagnosis.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
+    <string>Allow access to photo library</string>
+	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We use your photo library to enable you to change your profile photo.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>

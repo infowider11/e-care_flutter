@@ -74,8 +74,10 @@ void main() async{
         debug: true, // optional: set to false to disable printing logs to console (default: true)
         ignoreSsl: true // option: set to false to disable working with http links (default: false)
     );
+    await FlutterDownloader.registerCallback(TestClass.callback);
+
   }
-  await FlutterDownloader.registerCallback(TestClass.callback);
+
   // if(!kIsWeb) {
     await Firebase.initializeApp();
     print('firebase is initialized');
