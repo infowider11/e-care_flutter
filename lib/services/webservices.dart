@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert' as convert;
 import 'dart:developer';
 import 'package:flutter/cupertino.dart';
@@ -8,7 +9,44 @@ import 'package:http/http.dart' as http;
 import 'api_urls.dart';
 
 class Webservices {
-
+// /// add by dipanshu
+//   static Future<Map<String, dynamic>>intervalProviderToCheckBlockStatus(String url, {Map<String, dynamic>? request}) async {
+//
+//      Map<String, dynamic> tempRequest = {};
+//      if(request!=null){
+//        request.forEach((key, value) {
+//          if(value!=null){
+//            tempRequest['$key'] = value;
+//          }
+//        });
+//      }
+//      try{
+//        log('the request for url $url is $tempRequest');
+//        late http.Response response;
+//        if(request==null){
+//          response = await http.get(Uri.parse(url));
+//        }else{
+//          response = await http.post(Uri.parse(url), body: tempRequest);
+//        }
+//        if (response.statusCode == 200) {
+//          var jsonResponse = convert.jsonDecode(response.body);
+//          return jsonResponse;
+//          if (jsonResponse['status'] == 1) {
+//            log('the respognse for url: $url is ${jsonResponse}');
+//            return jsonResponse['data'] ?? jsonResponse['content']??{};
+//          } else {
+//            log('Error in response for url $url -----${response.body}');
+//          }
+//        }else{
+//          print('error in status code ${response.statusCode}');
+//          log(response.body);
+//        }
+//      }catch(e){
+//        print('inside catch block. Error in getting response for search doctors 546745 $e');
+//      }
+//
+//      return {};
+//   }
 
   static Future<http.Response> getsouthAfrikabanks() async {
     String url = 'https://api.paystack.co/bank?country=south africa';

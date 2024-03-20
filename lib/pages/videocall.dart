@@ -1,3 +1,4 @@
+import 'package:ecare/constants/global_keys.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -9,8 +10,10 @@ import '../../widgets/CustomTexts.dart';
 // import '../../widgets/customLoader.dart';
 // import '../constants/global_data.dart';
 // import '../functions/showSnackbar.dart';
+import '../constants/navigation.dart';
 import '../functions/global_Var.dart';
 import '../services/api_urls.dart';
+import '../services/custom_navigation_services.dart';
 import '../services/webservices.dart';
 import '../widgets/loader.dart';
 import '../widgets/showSnackbar.dart';
@@ -452,7 +455,8 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
                                               // var res =
                                               // await Webservices.get(ApiUrls.endCall+widget.bookingId.toString());
                                               print('call end----$res');
-                                              Navigator.pop(context, true);
+                                              CustomNavigation.pop(MyGlobalKeys.navigatorKey.currentContext!,true);
+                                              // Navigator.pop(context, true);
                                             },
                                           ),
                                         ],

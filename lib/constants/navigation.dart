@@ -16,4 +16,9 @@ Future pushAndPopAll({required  BuildContext context, required Widget screen,})a
   Navigator.pushAndRemoveUntil(context,  MaterialPageRoute(builder: (context){
     return screen;
   }), (route) => false);
+
+}
+
+Future popPage({required  BuildContext context})async {
+  return Navigator.pop(context);
 }

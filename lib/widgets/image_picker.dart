@@ -37,17 +37,18 @@ Future<File?> pickImage(bool isGallery) async {
     try {
     croppedFile = await ImageCropper().cropImage(
           cropStyle: CropStyle.circle,
-          // aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+          // aspectRatio: CropAspectRatio(ratioX: 9, ratioY: 16),
           compressQuality: length > 100000 ? length > 200000 ? length > 300000
               ? length > 400000 ? 5 : 10
               : 20 : 30 : 50,
           sourcePath: pickedFile.path,
           aspectRatioPresets: [
             CropAspectRatioPreset.square,
-            // CropAspectRatioPreset.ratio3x2,
-            // CropAspectRatioPreset.original,
-            // CropAspectRatioPreset.ratio4x3,
-            // CropAspectRatioPreset.ratio16x9
+            CropAspectRatioPreset.ratio3x2,
+            CropAspectRatioPreset.original,
+            CropAspectRatioPreset.ratio4x3,
+            CropAspectRatioPreset.ratio16x9
+
           ],
           androidUiSettings: AndroidUiSettings(
               activeControlsWidgetColor: MyColors.primaryColor,
@@ -69,7 +70,6 @@ Future<File?> pickImage(bool isGallery) async {
       _imageFile = croppedFile!.path;
       image = File(croppedFile.path);
     }catch(e){
-      showSnackbar('dddkk $e');
       _imageFile = pickedFile!.path;
       image = File(pickedFile.path);
     }

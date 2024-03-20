@@ -50,7 +50,7 @@ class _BookedVisitState extends State<BookedVisit>
   TextEditingController email = TextEditingController();
   TextEditingController review = TextEditingController();
   late TabController _tabController;
-
+ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
   String paystackPublicKey =
       'pk_test_c9873b01e7f63337f4e6818c1bf64b9b834566a1'; // test public key
   bool _inProgress = false;
@@ -266,904 +266,925 @@ class _BookedVisitState extends State<BookedVisit>
 
   @override
   Widget build(BuildContext context) {
-
     log('sdlkfjsfj ${confirms}');
-    return DefaultTabController(
-      animationDuration: Duration(seconds: 1),
-      initialIndex: 4,
-      length: 5,
-      child: Scaffold(
-        appBar: AppBar(
-          leading: BackButton(
-            color: Colors.black,
-          ),
-          backgroundColor: MyColors.BgColor,
-          bottom: PreferredSize(
-            preferredSize: _tabBar.preferredSize,
-            child: ColoredBox(
-              color: MyColors.lightBlue.withOpacity(0.11),
-              child: _tabBar,
-            ),
-          ),
-        ),
-        body: load
-            ? CustomLoader()
-            : TabBarView(
-                controller: _tabController,
-                children: [
-                  // ElevatedButton(
-                  //     style: ButtonStyle(),
-                  //     onPressed: () async {
-                  //       chargeCard(null);
-                  //     },
-                  //     child: Text('Pay')),
-                  Container(
-                    color: MyColors.BgColor,
-                    child: SingleChildScrollView(
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        children: [
-                          for (var i = 0; i < pending.length; i++)
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => bookingdetail(
-                                              booking_id:
-                                                  pending[i]['id'].toString(),
-                                            )));
-                                // Navigator.push(context, bookingdetail());
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(bottom: 10),
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  // color: MyColors.lightBlue.withOpacity(0.11),
-                                  color: MyColors.surface3,
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CustomCircularImage(
-                                        imageUrl: pending[i]['doctor_data']
-                                            ['profile_image']),
-                                    hSizedBox2,
-                                    Expanded(
-                                        child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Expanded(
+    return ValueListenableBuilder<bool>(
+      valueListenable:callStatusLoad ,
+      builder: (context, value, child) =>
+
+       Stack(
+         children: [
+           DefaultTabController(
+            animationDuration: Duration(seconds: 1),
+            initialIndex: 4,
+            length: 5,
+            child: Scaffold(
+              appBar: AppBar(
+                leading: BackButton(
+                  color: Colors.black,
+                ),
+                backgroundColor: MyColors.BgColor,
+                bottom: PreferredSize(
+                  preferredSize: _tabBar.preferredSize,
+                  child: ColoredBox(
+                    color: MyColors.lightBlue.withOpacity(0.11),
+                    child: _tabBar,
+                  ),
+                ),
+              ),
+              body: load
+                  ? CustomLoader()
+                  : TabBarView(
+                      controller: _tabController,
+                      children: [
+                        // ElevatedButton(
+                        //     style: ButtonStyle(),
+                        //     onPressed: () async {
+                        //       chargeCard(null);
+                        //     },
+                        //     child: Text('Pay')),
+                        Container(
+                          color: MyColors.BgColor,
+                          child: SingleChildScrollView(
+                            padding: EdgeInsets.all(16),
+                            child: Column(
+                              children: [
+                                for (var i = 0; i < pending.length; i++)
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => bookingdetail(
+                                                    booking_id:
+                                                        pending[i]['id'].toString(),
+                                                  )));
+                                      // Navigator.push(context, bookingdetail());
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        // color: MyColors.lightBlue.withOpacity(0.11),
+                                        color: MyColors.surface3,
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          CustomCircularImage(
+                                              imageUrl: pending[i]['doctor_data']
+                                                  ['profile_image']),
+                                          hSizedBox2,
+                                          Expanded(
                                               child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment.start,
+                                                      children: [
+                                                        MainHeadingText(
+                                                          text:
+                                                              '${pending[i]['doctor_data']['first_name']}',
+                                                          fontSize: 16,
+                                                          color: MyColors.labelcolor,
+                                                        ),
+                                                        // MainHeadingText(
+                                                        //   text:
+                                                        //   'symptoms: ${pending[i]['symptoms'] ?? '-'}',
+                                                        //   overflow: TextOverflow.ellipsis,
+                                                        //   fontFamily: 'light',
+                                                        //   fontSize: 13,
+                                                        //   height: 1,
+                                                        //   color: MyColors.labelcolor,
+                                                        // ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  MainHeadingText(
+                                                    text:
+                                                        '${pending[i]['price']} ZAR',
+                                                    fontSize: 18,
+                                                  ),
+                                                ],
+                                              ),
+                                              vSizedBox05,
+                                              Row(
                                                 children: [
                                                   MainHeadingText(
                                                     text:
-                                                        '${pending[i]['doctor_data']['first_name']}',
-                                                    fontSize: 16,
+                                                        '${pending[i]['slot_data']['date']}',
+                                                    fontSize: 11,
+                                                    fontFamily: 'bold',
                                                     color: MyColors.labelcolor,
                                                   ),
-                                                  // MainHeadingText(
-                                                  //   text:
-                                                  //   'symptoms: ${pending[i]['symptoms'] ?? '-'}',
-                                                  //   overflow: TextOverflow.ellipsis,
-                                                  //   fontFamily: 'light',
-                                                  //   fontSize: 13,
-                                                  //   height: 1,
-                                                  //   color: MyColors.labelcolor,
-                                                  // ),
+                                                  hSizedBox,
+                                                  MainHeadingText(
+                                                    text:
+                                                        '${DateFormat.jm().format(DateFormat('hh:mm').parse(pending[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(pending[i]['slot_data']['end_time']))}',
+                                                    fontSize: 11,
+                                                    fontFamily: 'medium',
+                                                    color: MyColors.primaryColor,
+                                                  )
                                                 ],
                                               ),
-                                            ),
-                                            MainHeadingText(
-                                              text:
-                                                  '${pending[i]['price']} ZAR',
-                                              fontSize: 18,
-                                            ),
-                                          ],
-                                        ),
-                                        vSizedBox05,
-                                        Row(
-                                          children: [
-                                            MainHeadingText(
-                                              text:
-                                                  '${pending[i]['slot_data']['date']}',
-                                              fontSize: 11,
-                                              fontFamily: 'bold',
-                                              color: MyColors.labelcolor,
-                                            ),
-                                            hSizedBox,
-                                            MainHeadingText(
-                                              text:
-                                                  '${DateFormat.jm().format(DateFormat('hh:mm').parse(pending[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(pending[i]['slot_data']['end_time']))}',
-                                              fontSize: 11,
-                                              fontFamily: 'medium',
-                                              color: MyColors.primaryColor,
-                                            )
-                                          ],
-                                        ),
-                                        MainHeadingText(
-                                          text:
-                                              'Pending approval from healthcare Provider.',
-                                          fontSize: 12,
-                                          color: Colors.red,
-                                        )
-                                      ],
-                                    )),
-                                  ],
-                                ),
-                              ),
+                                              MainHeadingText(
+                                                text:
+                                                    'Pending approval from healthcare Provider.',
+                                                fontSize: 12,
+                                                color: Colors.red,
+                                              )
+                                            ],
+                                          )),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                if (pending.length == 0)
+                                  Center(
+                                    child: Text('No Data Found.'),
+                                  ),
+                              ],
                             ),
-                          if (pending.length == 0)
-                            Center(
-                              child: Text('No Data Found.'),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    color: MyColors.BgColor,
-                    child: SingleChildScrollView(
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        children: [
-                          for (var i = 0; i < acceptedBookings.length; i++)
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => bookingdetail(
-                                              booking_id: acceptedBookings[i]
-                                                      ['id']
-                                                  .toString(),
-                                            )));
-                                // Navigator.push(context, bookingdetail());
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(bottom: 10),
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: MyColors.surface3,
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CustomCircularImage(
-                                        imageUrl: acceptedBookings[i]
-                                            ['doctor_data']['profile_image']),
-                                    hSizedBox,
-                                    Expanded(
-                                        child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                                child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                MainHeadingText(
-                                                  text:
-                                                      '${acceptedBookings[i]['doctor_data']['first_name']}',
-                                                  fontSize: 16,
-                                                  color: MyColors.labelcolor,
-                                                ),
-                                                // MainHeadingText(
-                                                //   text:
-                                                //   'symptoms: ${accpeted[i]['symptoms'] ?? '-'}',
-                                                //   // overflow: TextOverflow.ellipsis,
-                                                //   fontFamily: 'light',
-                                                //   fontSize: 13,
-                                                //   height: 1,
-                                                //   color: MyColors.labelcolor,
-                                                //   overflow: TextOverflow.ellipsis,
-                                                // ),
-                                              ],
-                                            )),
-                                            MainHeadingText(
-                                              text:
-                                                  '${getPrice(acceptedBookings[i]['price']).toStringAsFixed(2)} ZAR',
-                                              fontSize: 18,
-                                            ),
-                                          ],
-                                        ),
-                                        vSizedBox05,
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                                flex: 8,
-                                                child: Row(
-                                                  children: [
-                                                    MainHeadingText(
-                                                      text:
-                                                          '${acceptedBookings[i]['slot_data']['date']}',
-                                                      fontSize: 11,
-                                                      fontFamily: 'semibold',
-                                                      color:
-                                                          MyColors.labelcolor,
-                                                    ),
-                                                    hSizedBox05,
-                                                    MainHeadingText(
-                                                      text:
-                                                          '${DateFormat.jm().format(DateFormat('hh:mm').parse(acceptedBookings[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(acceptedBookings[i]['slot_data']['end_time']))}',
-                                                      fontSize: 11,
-                                                      fontFamily: 'medium',
-                                                      color:
-                                                          MyColors.primaryColor,
-                                                    ),
-                                                  ],
-                                                )),
-                                          ],
-                                        ),
-                                        // vSizedBox05,
-                                        MainHeadingText(
-                                          text:
-                                          acceptedBookings[i]['is_payment'] ==
-                                              '2'?'Your payment is currently being processed. Once we receive confirmation from your bank, it will be automatically reflected as confirmed in the "Confirmed" tab of your "My Consultation" section. Please note that this process may take up to 30 minutes. If the payment status does not update within that time, kindly click on the "Payment processing" button to refresh the status of your payment.':'To confirm your booking, please click the "Pay Now" button to proceed to our secure payment portal.'
-                                              '\nPlease note that all cancellations made 24 hours prior to the scheduled consultation will be refunded in full. Unfortunately, cancellations made within 24 hours of your scheduled consultation will not be refunded.',
-                                          fontSize: 12,
-                                          color: Colors.green,
-                                          textAlign: TextAlign.justify,
-                                        ),
-                                        vSizedBox,
-                                        if (acceptedBookings[i]['is_payment'] ==
-                                            '2')
-                                          RoundEdgedButton(
-                                            text: 'Payment Processing',
-                                            // text: 'Payment is under process.',
-                                            color: Colors.orangeAccent,
-                                            verticalPadding: 4,
-                                            height: 40,
-                                            onTap: () async {
-                                              setState(() {
-                                                load = true;
-                                              });
+                          ),
+                        ),
+                        Container(
+                          color: MyColors.BgColor,
+                          child: SingleChildScrollView(
+                            padding: EdgeInsets.all(16),
+                            child: Column(
+                              children: [
+                                for (var i = 0; i < acceptedBookings.length; i++)
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => bookingdetail(
+                                                    booking_id: acceptedBookings[i]
+                                                            ['id']
+                                                        .toString(),
+                                                  )));
+                                      // Navigator.push(context, bookingdetail());
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: MyColors.surface3,
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          CustomCircularImage(
+                                              imageUrl: acceptedBookings[i]
+                                                  ['doctor_data']['profile_image']),
+                                          hSizedBox,
+                                          Expanded(
+                                              child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                      child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      MainHeadingText(
+                                                        text:
+                                                            '${acceptedBookings[i]['doctor_data']['first_name']}',
+                                                        fontSize: 16,
+                                                        color: MyColors.labelcolor,
+                                                      ),
+                                                      // MainHeadingText(
+                                                      //   text:
+                                                      //   'symptoms: ${accpeted[i]['symptoms'] ?? '-'}',
+                                                      //   // overflow: TextOverflow.ellipsis,
+                                                      //   fontFamily: 'light',
+                                                      //   fontSize: 13,
+                                                      //   height: 1,
+                                                      //   color: MyColors.labelcolor,
+                                                      //   overflow: TextOverflow.ellipsis,
+                                                      // ),
+                                                    ],
+                                                  )),
+                                                  MainHeadingText(
+                                                    text:
+                                                        '${getPrice(acceptedBookings[i]['price']).toStringAsFixed(2)} ZAR',
+                                                    fontSize: 18,
+                                                  ),
+                                                ],
+                                              ),
+                                              vSizedBox05,
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                      flex: 8,
+                                                      child: Row(
+                                                        children: [
+                                                          MainHeadingText(
+                                                            text:
+                                                                '${acceptedBookings[i]['slot_data']['date']}',
+                                                            fontSize: 11,
+                                                            fontFamily: 'semibold',
+                                                            color:
+                                                                MyColors.labelcolor,
+                                                          ),
+                                                          hSizedBox05,
+                                                          MainHeadingText(
+                                                            text:
+                                                                '${DateFormat.jm().format(DateFormat('hh:mm').parse(acceptedBookings[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(acceptedBookings[i]['slot_data']['end_time']))}',
+                                                            fontSize: 11,
+                                                            fontFamily: 'medium',
+                                                            color:
+                                                                MyColors.primaryColor,
+                                                          ),
+                                                        ],
+                                                      )),
+                                                ],
+                                              ),
+                                              // vSizedBox05,
+                                              MainHeadingText(
+                                                text:
+                                                acceptedBookings[i]['is_payment'] ==
+                                                    '2'?'Your payment is currently being processed. Once we receive confirmation from your bank, it will be automatically reflected as confirmed in the "Confirmed" tab of your "My Consultation" section. Please note that this process may take up to 30 minutes. If the payment status does not update within that time, kindly click on the "Payment processing" button to refresh the status of your payment.':'To confirm your booking, please click the "Pay Now" button to proceed to our secure payment portal.'
+                                                    '\nPlease note that all cancellations made 24 hours prior to the scheduled consultation will be refunded in full. Unfortunately, cancellations made within 24 hours of your scheduled consultation will not be refunded.',
+                                                fontSize: 12,
+                                                color: Colors.green,
+                                                textAlign: TextAlign.justify,
+                                              ),
+                                              vSizedBox,
+                                              if (acceptedBookings[i]['is_payment'] ==
+                                                  '2')
+                                                RoundEdgedButton(
+                                                  text: 'Payment Processing',
+                                                  // text: 'Payment is under process.',
+                                                  color: Colors.orangeAccent,
+                                                  verticalPadding: 4,
+                                                  height: 40,
+                                                  onTap: () async {
+                                                    setState(() {
+                                                      load = true;
+                                                    });
 
-                                              await changeBookingStatus(
-                                                  transactionId:
-                                                      acceptedBookings[i]
-                                                          ['transaction_id'],
-                                                  bookingId: acceptedBookings[i]
-                                                      ['id']);
-                                              get_lists();
-                                            },
-                                          )
-                                        else
-                                          RoundEdgedButton(
-                                            width: 150,
-                                            text: 'Pay Now',
-                                            color: Colors.green,
-                                            // width: 50,
-                                            // isSolid: false,
-                                            onTap: () async {
-                                              await payment_popup(
-                                                acceptedBookings[i]['id']
-                                                    .toString(),
-                                                getPrice(acceptedBookings[i]
-                                                    ['price']),
-                                                doctorData: acceptedBookings[i]
-                                                    ['doctor_data'],
-                                              );
-                                            },
-                                          ),
-                                      ],
-                                    )),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          if (acceptedBookings.length == 0)
-                            Center(
-                              child: Text('No Data Found.'),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    color: MyColors.BgColor,
-                    child: SingleChildScrollView(
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        children: [
-                          for (var i = 0; i < confirms.length; i++)
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => bookingdetail(
-                                              booking_id:
-                                                  confirms[i]['id'].toString(),
-                                            )));
-                                // Navigator.push(context, bookingdetail());
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(bottom: 10),
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: MyColors.surface3,
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CustomCircularImage(
-                                        imageUrl: confirms[i]['doctor_data']
-                                            ['profile_image']),
-                                    hSizedBox,
-                                    Expanded(
-                                        child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                                child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                MainHeadingText(
-                                                  text:
-                                                      '${confirms[i]['doctor_data']['first_name']}',
-                                                  fontSize: 16,
-                                                  color: MyColors.labelcolor,
-                                                ),
-                                                // MainHeadingText(
-                                                //   text:
-                                                //   'symptoms: ${accpeted[i]['symptoms'] ?? '-'}',
-                                                //   // overflow: TextOverflow.ellipsis,
-                                                //   fontFamily: 'light',
-                                                //   fontSize: 13,
-                                                //   height: 1,
-                                                //   color: MyColors.labelcolor,
-                                                //   overflow: TextOverflow.ellipsis,
-                                                // ),
-                                              ],
-                                            )),
-                                            MainHeadingText(
-                                              text:
-                                                  '${confirms[i]['price']} ZAR',
-                                              fontSize: 18,
-                                            ),
-                                          ],
-                                        ),
-                                        vSizedBox05,
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                                flex: 8,
-                                                child: Row(
-                                                  children: [
-                                                    MainHeadingText(
-                                                      text:
-                                                          '${confirms[i]['slot_data']['date']}',
-                                                      fontSize: 11,
-                                                      fontFamily: 'semibold',
-                                                      color:
-                                                          MyColors.labelcolor,
-                                                    ),
-                                                    hSizedBox05,
-                                                    MainHeadingText(
-                                                      text:
-                                                          '${DateFormat.jm().format(DateFormat('hh:mm').parse(confirms[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(confirms[i]['slot_data']['end_time']))}',
-                                                      fontSize: 11,
-                                                      fontFamily: 'medium',
-                                                      color:
-                                                          MyColors.primaryColor,
-                                                    ),
-                                                  ],
-                                                )),
-                                          ],
-                                        ),
-                                        vSizedBox,
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              // flex: 4,
-                                              child: RoundEdgedButton(
-                                                // width: 80,
-                                                //height: 50,
-                                                height: 60,
-                                                horizontalPadding: 0.0,
-                                                text: 'Chat',
-                                                // width: 50,
-                                                isSolid: false,
-                                                onTap: () {
-                                                  push(
-                                                      context: context,
-                                                      screen: ChatPage(
-                                                        other_user_id: current_user[
-                                                                        'type']
-                                                                    .toString() ==
-                                                                '1'
-                                                            ? confirms[i][
-                                                                        'user_data']
-                                                                    ['id']
-                                                                .toString()
-                                                            : confirms[i][
-                                                                        'doctor_data']
-                                                                    ['id']
-                                                                .toString(),
-                                                        booking_id: confirms[i]
-                                                                ['id']
-                                                            .toString(),
-                                                      ));
-                                                },
-                                              ),
-                                            ),
-                                            hSizedBox,
-                                            if (confirms[i]['is_join']
-                                                        .toString() ==
-                                                    '0' &&
-                                                compare_time(confirms[i]
-                                                                ['slot_data']
-                                                            ['date'] +
-                                                        ' ' +
-                                                        confirms[i]['slot_data']
-                                                            ['start_time']) ==
-                                                    true)
-                                              Expanded(
-                                                // flex: 4,
-                                                child: RoundEdgedButton(
-                                                  // width: 100,
-                                                  // height: 10,
-                                                  height: 60,
-                                                  text: 'Join',
-                                                  horizontalPadding: 0.0,
-                                                  // width: 50,
-                                                  isSolid: false,
-                                                  onTap: () async {
-                                                    var res = await Webservices
-                                                        .get(ApiUrls.PickCall +
-                                                            confirms[i]['id']
-                                                                .toString());
-                                                    print(
-                                                        'pickup call-----$res');
-                                                    push(
-                                                        context: context,
-                                                        screen: VideoCallScreen(
-                                                          name: confirms[i][
-                                                                  'doctor_data']
-                                                              ['first_name'],
-                                                          bookingId: confirms[i]
-                                                                  ['id']
-                                                              .toString(),
-                                                          userId: confirms[i][
-                                                                      'doctor_data']
-                                                                  ['id']
-                                                              .toString(),
-                                                        ));
-                                                  },
-                                                ),
-                                              ),
-                                            hSizedBox,
-                                            if (confirms[i]['is_join']
-                                                        .toString() ==
-                                                    '0' &&
-                                                ismarkascomlete(confirms[i]
-                                                                ['slot_data']
-                                                            ['date'] +
-                                                        ' ' +
-                                                        confirms[i]['slot_data']
-                                                            ['start_time']) ==
-                                                    true)
-                                              Expanded(
-                                                child: RoundEdgedButton(
-                                                  // width: 100,
-                                                  // height: 10,
-                                                  text: 'Mark as Complete',
-                                                  // width: 50,
-                                                  height: 60,
-                                                  isSolid: false,
-                                                  horizontalPadding: 0.0,
-                                                  onTap: () async {
-                                                    EasyLoading.show(
-                                                        status: null,
-                                                        maskType:
-                                                            EasyLoadingMaskType
-                                                                .black);
-                                                    var res = await Webservices
-                                                        .get(ApiUrls
-                                                                .mark_as_complete +
-                                                            confirms[i]['id']
-                                                                .toString());
-                                                    print(
-                                                        'booking complete   $res');
-                                                    await EasyLoading.dismiss();
+                                                    await changeBookingStatus(
+                                                        transactionId:
+                                                            acceptedBookings[i]
+                                                                ['transaction_id'],
+                                                        bookingId: acceptedBookings[i]
+                                                            ['id']);
                                                     get_lists();
                                                   },
+                                                )
+                                              else
+                                                RoundEdgedButton(
+                                                  width: 150,
+                                                  text: 'Pay Now',
+                                                  color: Colors.green,
+                                                  // width: 50,
+                                                  // isSolid: false,
+                                                  onTap: () async {
+                                                    await payment_popup(
+                                                      acceptedBookings[i]['id']
+                                                          .toString(),
+                                                      getPrice(acceptedBookings[i]
+                                                          ['price']),
+                                                      doctorData: acceptedBookings[i]
+                                                          ['doctor_data'],
+                                                    );
+                                                  },
                                                 ),
-                                              ),
-                                          ],
-                                        ),
-                                        Column(
-                                          children: [
-                                            vSizedBox,
-                                            if (confirms[i]['is_refund_request']
-                                                    .toString() ==
-                                                '0')
-                                              RoundEdgedButton(
-                                                height: 60.0,
-                                                text:
-                                                    'Request a refund and cancel your booking',
-                                                isSolid: false,
-                                                onTap: () async {
-                                                  ask_a_refund(
-                                                      context,
-                                                      confirms[i]['id']
-                                                          .toString());
-                                                },
-                                              ),
-                                            if (confirms[i]['is_refund_request']
-                                                    .toString() ==
-                                                '1')
-                                              RoundEdgedButton(
-                                                text: 'Pending Refund',
-                                                color: Colors.red,
-                                                onTap: () async {},
-                                              ),
-                                            if (confirms[i]['is_refund_request']
-                                                    .toString() ==
-                                                '2')
-                                              RoundEdgedButton(
-                                                text: 'Refunded',
-                                                color: Colors.green,
-                                                onTap: () async {},
-                                              )
-                                          ],
-                                        )
-                                      ],
-                                    )),
-                                  ],
-                                ),
-                              ),
+                                            ],
+                                          )),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                if (acceptedBookings.length == 0)
+                                  Center(
+                                    child: Text('No Data Found.'),
+                                  ),
+                              ],
                             ),
-                          if (confirms.length == 0)
-                            Center(
-                              child: Text('No Data Found.'),
-                            ),
-                          vSizedBox2,
-                          vSizedBox2,
-
-                          // Container(
-                          //   margin: EdgeInsets.only(bottom: 15),
-                          //   padding: EdgeInsets.all(16),
-                          //   decoration: BoxDecoration(
-                          //     color: MyColors.lightBlue.withOpacity(0.11),
-                          //     borderRadius: BorderRadius.circular(15),
-                          //   ),
-                          //   child: Row(
-                          //     children: [
-                          //       Image.asset('assets/images/23.png', width: 50,),
-                          //       hSizedBox2,
-                          //       Column(
-                          //         crossAxisAlignment: CrossAxisAlignment.start,
-                          //         children: [
-                          //           MainHeadingText(text: 'John Smith', fontSize: 14, ),
-                          //           MainHeadingText(text: 'symptoms: Cold cough', fontFamily: 'light', fontSize: 14, ),
-                          //           Row(
-                          //             children: [
-                          //               MainHeadingText(text: '10 Aug, 2022', fontSize: 14, fontFamily: 'bold', color: MyColors.bordercolor,),
-                          //               hSizedBox,
-                          //               MainHeadingText(text: '8:00 pm - 9:00 pm', fontSize: 14, fontFamily: 'light', color: MyColors.bordercolor,)
-                          //             ],
-                          //           )
-                          //         ],
-                          //       )
-                          //     ],
-                          //   ),
-                          // ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    color: MyColors.BgColor,
-                    child: SingleChildScrollView(
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        children: [
-                          for (var i = 0; i < completeds.length; i++)
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => bookingdetail(
-                                              booking_id: completeds[i]['id']
-                                                  .toString(),
-                                            )));
-                                // Navigator.push(context, bookingdetail());
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(bottom: 10),
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: MyColors.surface3,
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CustomCircularImage(
-                                        imageUrl: completeds[i]['doctor_data']
-                                            ['profile_image']),
-                                    hSizedBox,
-                                    Expanded(
-                                        child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                                child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                MainHeadingText(
-                                                  text:
-                                                      '${completeds[i]['doctor_data']['first_name']}',
-                                                  fontSize: 16,
-                                                  color: MyColors.labelcolor,
-                                                ),
-                                                // MainHeadingText(
-                                                //   text:
-                                                //   'symptoms: ${accpeted[i]['symptoms'] ?? '-'}',
-                                                //   // overflow: TextOverflow.ellipsis,
-                                                //   fontFamily: 'light',
-                                                //   fontSize: 13,
-                                                //   height: 1,
-                                                //   color: MyColors.labelcolor,
-                                                //   overflow: TextOverflow.ellipsis,
-                                                // ),
-                                              ],
-                                            )),
-                                            MainHeadingText(
-                                              text:
-                                                  '${completeds[i]['price']} ZAR',
-                                              fontSize: 18,
-                                            ),
-                                          ],
-                                        ),
-                                        vSizedBox05,
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                                flex: 8,
-                                                child: Row(
-                                                  children: [
-                                                    MainHeadingText(
-                                                      text:
-                                                          '${completeds[i]['slot_data']['date']}',
-                                                      fontSize: 11,
-                                                      fontFamily: 'semibold',
-                                                      color:
-                                                          MyColors.labelcolor,
+                          ),
+                        ),
+                        Container(
+                          color: MyColors.BgColor,
+                          child: SingleChildScrollView(
+                            padding: EdgeInsets.all(16),
+                            child: Column(
+                              children: [
+                                for (var i = 0; i < confirms.length; i++)
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => bookingdetail(
+                                                    booking_id:
+                                                        confirms[i]['id'].toString(),
+                                                  )));
+                                      // Navigator.push(context, bookingdetail());
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: MyColors.surface3,
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          CustomCircularImage(
+                                              imageUrl: confirms[i]['doctor_data']
+                                                  ['profile_image']),
+                                          hSizedBox,
+                                          Expanded(
+                                              child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                      child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      MainHeadingText(
+                                                        text:
+                                                            '${confirms[i]['doctor_data']['first_name']}',
+                                                        fontSize: 16,
+                                                        color: MyColors.labelcolor,
+                                                      ),
+                                                      // MainHeadingText(
+                                                      //   text:
+                                                      //   'symptoms: ${accpeted[i]['symptoms'] ?? '-'}',
+                                                      //   // overflow: TextOverflow.ellipsis,
+                                                      //   fontFamily: 'light',
+                                                      //   fontSize: 13,
+                                                      //   height: 1,
+                                                      //   color: MyColors.labelcolor,
+                                                      //   overflow: TextOverflow.ellipsis,
+                                                      // ),
+                                                    ],
+                                                  )),
+                                                  MainHeadingText(
+                                                    text:
+                                                        '${confirms[i]['price']} ZAR',
+                                                    fontSize: 18,
+                                                  ),
+                                                ],
+                                              ),
+                                              vSizedBox05,
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                      flex: 8,
+                                                      child: Row(
+                                                        children: [
+                                                          MainHeadingText(
+                                                            text:
+                                                                '${confirms[i]['slot_data']['date']}',
+                                                            fontSize: 11,
+                                                            fontFamily: 'semibold',
+                                                            color:
+                                                                MyColors.labelcolor,
+                                                          ),
+                                                          hSizedBox05,
+                                                          MainHeadingText(
+                                                            text:
+                                                                '${DateFormat.jm().format(DateFormat('hh:mm').parse(confirms[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(confirms[i]['slot_data']['end_time']))}',
+                                                            fontSize: 11,
+                                                            fontFamily: 'medium',
+                                                            color:
+                                                                MyColors.primaryColor,
+                                                          ),
+                                                        ],
+                                                      )),
+                                                ],
+                                              ),
+                                              vSizedBox,
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    // flex: 4,
+                                                    child: RoundEdgedButton(
+                                                      // width: 80,
+                                                      //height: 50,
+                                                      height: 60,
+                                                      horizontalPadding: 0.0,
+                                                      text: 'Chat',
+                                                      // width: 50,
+                                                      isSolid: false,
+                                                      onTap: () {
+                                                        push(
+                                                            context: context,
+                                                            screen: ChatPage(
+                                                              other_user_id: current_user[
+                                                                              'type']
+                                                                          .toString() ==
+                                                                      '1'
+                                                                  ? confirms[i][
+                                                                              'user_data']
+                                                                          ['id']
+                                                                      .toString()
+                                                                  : confirms[i][
+                                                                              'doctor_data']
+                                                                          ['id']
+                                                                      .toString(),
+                                                              booking_id: confirms[i]
+                                                                      ['id']
+                                                                  .toString(),
+                                                            ));
+                                                      },
                                                     ),
-                                                    hSizedBox05,
-                                                    MainHeadingText(
+                                                  ),
+                                                  hSizedBox,
+                                                  if (confirms[i]['is_join']
+                                                              .toString() ==
+                                                          '0' &&
+                                                      compare_time(confirms[i]
+                                                                      ['slot_data']
+                                                                  ['date'] +
+                                                              ' ' +
+                                                              confirms[i]['slot_data']
+                                                                  ['start_time']) ==
+                                                          true)
+                                                    Expanded(
+                                                      // flex: 4,
+                                                      child: RoundEdgedButton(
+                                                        // width: 100,
+                                                        // height: 10,
+                                                        height: 60,
+                                                        text: 'Join',
+                                                        horizontalPadding: 0.0,
+                                                        // width: 50,
+                                                        isSolid: false,
+                                                        onTap: () async {
+                                                          callStatusLoad.value=true;
+                                                          var res = await Webservices.get(ApiUrls.callStatus+
+                                                              '?bookingId=${confirms[i]['id']}');
+                                                          callStatusLoad.value=false;
+                                                          print('res---I am here ');
+                                                        print('res---${res['data']['status']}');
+                                                        if(res['data']['status']=="0"){
+
+                                                          var res = await Webservices
+                                                              .get(ApiUrls.PickCall +
+                                                                  confirms[i]['id']
+                                                                      .toString());
+                                                          print(
+                                                              'pickup call-----$res');
+                                                          push(
+                                                              context: context,
+                                                              screen: VideoCallScreen(
+                                                                name: confirms[i][
+                                                                        'doctor_data']
+                                                                    ['first_name'],
+                                                                bookingId: confirms[i]
+                                                                        ['id']
+                                                                    .toString(),
+                                                                userId: confirms[i][
+                                                                            'doctor_data']
+                                                                        ['id']
+                                                                    .toString(),
+                                                              ));
+                                                        }else{
+                                                          showSnackbar('Please wait for doctor to start call');
+                                                        }
+
+                                                        },
+                                                      ),
+                                                    ),
+                                                  hSizedBox,
+                                                  if (confirms[i]['is_join']
+                                                              .toString() ==
+                                                          '0' &&
+                                                      ismarkascomlete(confirms[i]
+                                                                      ['slot_data']
+                                                                  ['date'] +
+                                                              ' ' +
+                                                              confirms[i]['slot_data']
+                                                                  ['start_time']) ==
+                                                          true)
+                                                    Expanded(
+                                                      child: RoundEdgedButton(
+                                                        // width: 100,
+                                                        // height: 10,
+                                                        text: 'Mark as Complete',
+                                                        // width: 50,
+                                                        height: 60,
+                                                        isSolid: false,
+                                                        horizontalPadding: 0.0,
+                                                        onTap: () async {
+                                                          EasyLoading.show(
+                                                              status: null,
+                                                              maskType:
+                                                                  EasyLoadingMaskType
+                                                                      .black);
+                                                          var res = await Webservices
+                                                              .get(ApiUrls
+                                                                      .mark_as_complete +
+                                                                  confirms[i]['id']
+                                                                      .toString());
+                                                          print(
+                                                              'booking complete   $res');
+                                                          await EasyLoading.dismiss();
+                                                          get_lists();
+                                                        },
+                                                      ),
+                                                    ),
+                                                ],
+                                              ),
+                                              Column(
+                                                children: [
+                                                  vSizedBox,
+                                                  if (confirms[i]['is_refund_request']
+                                                          .toString() ==
+                                                      '0')
+                                                    RoundEdgedButton(
+                                                      height: 60.0,
                                                       text:
-                                                          '${DateFormat.jm().format(DateFormat('hh:mm').parse(completeds[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(completeds[i]['slot_data']['end_time']))}',
-                                                      fontSize: 11,
-                                                      fontFamily: 'medium',
-                                                      color:
-                                                          MyColors.primaryColor,
+                                                          'Request a refund and cancel your booking',
+                                                      isSolid: false,
+                                                      onTap: () async {
+                                                        ask_a_refund(
+                                                            context,
+                                                            confirms[i]['id']
+                                                                .toString());
+                                                      },
+                                                    ),
+                                                  if (confirms[i]['is_refund_request']
+                                                          .toString() ==
+                                                      '1')
+                                                    RoundEdgedButton(
+                                                      text: 'Pending Refund',
+                                                      color: Colors.red,
+                                                      onTap: () async {},
+                                                    ),
+                                                  if (confirms[i]['is_refund_request']
+                                                          .toString() ==
+                                                      '2')
+                                                    RoundEdgedButton(
+                                                      text: 'Refunded',
+                                                      color: Colors.green,
+                                                      onTap: () async {},
+                                                    )
+                                                ],
+                                              )
+                                            ],
+                                          )),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                if (confirms.length == 0)
+                                  Center(
+                                    child: Text('No Data Found.'),
+                                  ),
+                                vSizedBox2,
+                                vSizedBox2,
+
+                                // Container(
+                                //   margin: EdgeInsets.only(bottom: 15),
+                                //   padding: EdgeInsets.all(16),
+                                //   decoration: BoxDecoration(
+                                //     color: MyColors.lightBlue.withOpacity(0.11),
+                                //     borderRadius: BorderRadius.circular(15),
+                                //   ),
+                                //   child: Row(
+                                //     children: [
+                                //       Image.asset('assets/images/23.png', width: 50,),
+                                //       hSizedBox2,
+                                //       Column(
+                                //         crossAxisAlignment: CrossAxisAlignment.start,
+                                //         children: [
+                                //           MainHeadingText(text: 'John Smith', fontSize: 14, ),
+                                //           MainHeadingText(text: 'symptoms: Cold cough', fontFamily: 'light', fontSize: 14, ),
+                                //           Row(
+                                //             children: [
+                                //               MainHeadingText(text: '10 Aug, 2022', fontSize: 14, fontFamily: 'bold', color: MyColors.bordercolor,),
+                                //               hSizedBox,
+                                //               MainHeadingText(text: '8:00 pm - 9:00 pm', fontSize: 14, fontFamily: 'light', color: MyColors.bordercolor,)
+                                //             ],
+                                //           )
+                                //         ],
+                                //       )
+                                //     ],
+                                //   ),
+                                // ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          color: MyColors.BgColor,
+                          child: SingleChildScrollView(
+                            padding: EdgeInsets.all(16),
+                            child: Column(
+                              children: [
+                                for (var i = 0; i < completeds.length; i++)
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => bookingdetail(
+                                                    booking_id: completeds[i]['id']
+                                                        .toString(),
+                                                  )));
+                                      // Navigator.push(context, bookingdetail());
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: MyColors.surface3,
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          CustomCircularImage(
+                                              imageUrl: completeds[i]['doctor_data']
+                                                  ['profile_image']),
+                                          hSizedBox,
+                                          Expanded(
+                                              child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                      child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      MainHeadingText(
+                                                        text:
+                                                            '${completeds[i]['doctor_data']['first_name']}',
+                                                        fontSize: 16,
+                                                        color: MyColors.labelcolor,
+                                                      ),
+                                                      // MainHeadingText(
+                                                      //   text:
+                                                      //   'symptoms: ${accpeted[i]['symptoms'] ?? '-'}',
+                                                      //   // overflow: TextOverflow.ellipsis,
+                                                      //   fontFamily: 'light',
+                                                      //   fontSize: 13,
+                                                      //   height: 1,
+                                                      //   color: MyColors.labelcolor,
+                                                      //   overflow: TextOverflow.ellipsis,
+                                                      // ),
+                                                    ],
+                                                  )),
+                                                  MainHeadingText(
+                                                    text:
+                                                        '${completeds[i]['price']} ZAR',
+                                                    fontSize: 18,
+                                                  ),
+                                                ],
+                                              ),
+                                              vSizedBox05,
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                      flex: 8,
+                                                      child: Row(
+                                                        children: [
+                                                          MainHeadingText(
+                                                            text:
+                                                                '${completeds[i]['slot_data']['date']}',
+                                                            fontSize: 11,
+                                                            fontFamily: 'semibold',
+                                                            color:
+                                                                MyColors.labelcolor,
+                                                          ),
+                                                          hSizedBox05,
+                                                          MainHeadingText(
+                                                            text:
+                                                                '${DateFormat.jm().format(DateFormat('hh:mm').parse(completeds[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(completeds[i]['slot_data']['end_time']))}',
+                                                            fontSize: 11,
+                                                            fontFamily: 'medium',
+                                                            color:
+                                                                MyColors.primaryColor,
+                                                          ),
+                                                        ],
+                                                      )),
+                                                ],
+                                              ),
+                                              if (completeds[i]['rate'].toString() ==
+                                                  '0')
+                                                Row(
+                                                  children: [
+                                                    RoundEdgedButton(
+                                                      width: 100,
+                                                      // height: 10,
+                                                      text: 'Rate',
+                                                      // width: 50,
+                                                      isSolid: false,
+                                                      onTap: () async {
+                                                        rating_sheet(completeds[i]
+                                                                ['id']
+                                                            .toString());
+                                                      },
                                                     ),
                                                   ],
-                                                )),
-                                          ],
-                                        ),
-                                        if (completeds[i]['rate'].toString() ==
-                                            '0')
-                                          Row(
-                                            children: [
-                                              RoundEdgedButton(
-                                                width: 100,
-                                                // height: 10,
-                                                text: 'Rate',
-                                                // width: 50,
-                                                isSolid: false,
-                                                onTap: () async {
-                                                  rating_sheet(completeds[i]
-                                                          ['id']
-                                                      .toString());
-                                                },
-                                              ),
+                                                ),
+                                              Column(
+                                                children: [
+                                                  vSizedBox,
+                                                  // if (completeds[i]
+                                                  //             ['is_refund_request']
+                                                  //         .toString() ==
+                                                  //     '0')
+                                                  //   RoundEdgedButton(
+                                                  //     text: 'Ask a Refund',
+                                                  //     isSolid: false,
+                                                  //     onTap: () async {
+                                                  //       ask_a_refund(
+                                                  //           context,
+                                                  //           completeds[i]['id']
+                                                  //               .toString());
+                                                  //     },
+                                                  //   ),
+                                                  // if (completeds[i]
+                                                  //             ['is_refund_request']
+                                                  //         .toString() ==
+                                                  //     '1')
+                                                  //   RoundEdgedButton(
+                                                  //     text: 'Pending Refund',
+                                                  //     color: Colors.red,
+                                                  //     onTap: () async {},
+                                                  //   ),
+                                                  // if (completeds[i]
+                                                  //             ['is_refund_request']
+                                                  //         .toString() ==
+                                                  //     '2')
+                                                  //   RoundEdgedButton(
+                                                  //     text: 'Refunded',
+                                                  //     color: Colors.green,
+                                                  //     onTap: () async {},
+                                                  //   )
+                                                ],
+                                              )
                                             ],
-                                          ),
-                                        Column(
-                                          children: [
-                                            vSizedBox,
-                                            // if (completeds[i]
-                                            //             ['is_refund_request']
-                                            //         .toString() ==
-                                            //     '0')
-                                            //   RoundEdgedButton(
-                                            //     text: 'Ask a Refund',
-                                            //     isSolid: false,
-                                            //     onTap: () async {
-                                            //       ask_a_refund(
-                                            //           context,
-                                            //           completeds[i]['id']
-                                            //               .toString());
-                                            //     },
-                                            //   ),
-                                            // if (completeds[i]
-                                            //             ['is_refund_request']
-                                            //         .toString() ==
-                                            //     '1')
-                                            //   RoundEdgedButton(
-                                            //     text: 'Pending Refund',
-                                            //     color: Colors.red,
-                                            //     onTap: () async {},
-                                            //   ),
-                                            // if (completeds[i]
-                                            //             ['is_refund_request']
-                                            //         .toString() ==
-                                            //     '2')
-                                            //   RoundEdgedButton(
-                                            //     text: 'Refunded',
-                                            //     color: Colors.green,
-                                            //     onTap: () async {},
-                                            //   )
-                                          ],
-                                        )
-                                      ],
-                                    )),
-                                  ],
-                                ),
-                              ),
+                                          )),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                if (completeds.length == 0)
+                                  Center(
+                                    child: Text('No Data Found.'),
+                                  ),
+                                // Container(
+                                //   margin: EdgeInsets.only(bottom: 15),
+                                //   padding: EdgeInsets.all(16),
+                                //   decoration: BoxDecoration(
+                                //     color: MyColors.lightBlue.withOpacity(0.11),
+                                //     borderRadius: BorderRadius.circular(15),
+                                //   ),
+                                //   child: Row(
+                                //     children: [
+                                //       Image.asset('assets/images/23.png', width: 50,),
+                                //       hSizedBox2,
+                                //       Column(
+                                //         crossAxisAlignment: CrossAxisAlignment.start,
+                                //         children: [
+                                //           MainHeadingText(text: 'John Smith', fontSize: 14, ),
+                                //           MainHeadingText(text: 'symptoms: Cold cough', fontFamily: 'light', fontSize: 14, ),
+                                //           Row(
+                                //             children: [
+                                //               MainHeadingText(text: '10 Aug, 2022', fontSize: 14, fontFamily: 'bold', color: MyColors.bordercolor,),
+                                //               hSizedBox,
+                                //               MainHeadingText(text: '8:00 pm - 9:00 pm', fontSize: 14, fontFamily: 'light', color: MyColors.bordercolor,)
+                                //             ],
+                                //           )
+                                //         ],
+                                //       )
+                                //     ],
+                                //   ),
+                                // ),
+                              ],
                             ),
-                          if (completeds.length == 0)
-                            Center(
-                              child: Text('No Data Found.'),
-                            ),
-                          // Container(
-                          //   margin: EdgeInsets.only(bottom: 15),
-                          //   padding: EdgeInsets.all(16),
-                          //   decoration: BoxDecoration(
-                          //     color: MyColors.lightBlue.withOpacity(0.11),
-                          //     borderRadius: BorderRadius.circular(15),
-                          //   ),
-                          //   child: Row(
-                          //     children: [
-                          //       Image.asset('assets/images/23.png', width: 50,),
-                          //       hSizedBox2,
-                          //       Column(
-                          //         crossAxisAlignment: CrossAxisAlignment.start,
-                          //         children: [
-                          //           MainHeadingText(text: 'John Smith', fontSize: 14, ),
-                          //           MainHeadingText(text: 'symptoms: Cold cough', fontFamily: 'light', fontSize: 14, ),
-                          //           Row(
-                          //             children: [
-                          //               MainHeadingText(text: '10 Aug, 2022', fontSize: 14, fontFamily: 'bold', color: MyColors.bordercolor,),
-                          //               hSizedBox,
-                          //               MainHeadingText(text: '8:00 pm - 9:00 pm', fontSize: 14, fontFamily: 'light', color: MyColors.bordercolor,)
-                          //             ],
-                          //           )
-                          //         ],
-                          //       )
-                          //     ],
-                          //   ),
-                          // ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(16),
-                    color: MyColors.BgColor,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          for (var i = 0; i < rejects.length; i++)
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => bookingdetail(
-                                              booking_id:
-                                                  rejects[i]['id'].toString(),
-                                            )));
-                                // Navigator.push(context, bookingdetail());
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(bottom: 10),
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: MyColors.lightBlue.withOpacity(0.11),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Row(
-                                  children: [
-                                    CustomCircularImage(
-                                        imageUrl: rejects[i]['doctor_data']
-                                            ['profile_image']),
-                                    hSizedBox2,
-                                    Expanded(
-                                        child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              child: MainHeadingText(
-                                                text:
-                                                    '${rejects[i]['doctor_data']['first_name']}',
-                                                fontSize: 14,
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(16),
+                          color: MyColors.BgColor,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                for (var i = 0; i < rejects.length; i++)
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => bookingdetail(
+                                                    booking_id:
+                                                        rejects[i]['id'].toString(),
+                                                  )));
+                                      // Navigator.push(context, bookingdetail());
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: MyColors.lightBlue.withOpacity(0.11),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          CustomCircularImage(
+                                              imageUrl: rejects[i]['doctor_data']
+                                                  ['profile_image']),
+                                          hSizedBox2,
+                                          Expanded(
+                                              child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: MainHeadingText(
+                                                      text:
+                                                          '${rejects[i]['doctor_data']['first_name']}',
+                                                      fontSize: 14,
+                                                    ),
+                                                  ),
+                                                  MainHeadingText(
+                                                    text:
+                                                        '${rejects[i]['price']} ZAR',
+                                                    fontSize: 15,
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                            MainHeadingText(
-                                              text:
-                                                  '${rejects[i]['price']} ZAR',
-                                              fontSize: 15,
-                                            ),
-                                          ],
-                                        ),
-                                        // MainHeadingText(
-                                        //   text:
-                                        //       'symptoms: ${rejects[i]['symptoms'] ?? '-'}',
-                                        //   overflow: TextOverflow.ellipsis,
-                                        //   fontFamily: 'light',
-                                        //   fontSize: 14,
-                                        // ),
-                                        Row(
-                                          children: [
-                                            MainHeadingText(
-                                              text:
-                                                  '${rejects[i]['slot_data']['date']}',
-                                              fontSize: 14,
-                                              fontFamily: 'bold',
-                                              color: MyColors.bordercolor,
-                                            ),
-                                            hSizedBox,
-                                            MainHeadingText(
-                                              text:
-                                                  '${DateFormat.jm().format(DateFormat('hh:mm').parse(rejects[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(rejects[i]['slot_data']['end_time']))}',
-                                              fontSize: 14,
-                                              fontFamily: 'light',
-                                              color: MyColors.bordercolor,
-                                            )
-                                          ],
-                                        ),
-                                        MainHeadingText(
-                                          text:
-                                              'Reason: ${rejects[i]['reject_reason'] ?? '-'}',
-                                          fontSize: 10,
-                                          color: Colors.green,
-                                        )
-                                      ],
-                                    )),
-                                  ],
-                                ),
-                              ),
+                                              // MainHeadingText(
+                                              //   text:
+                                              //       'symptoms: ${rejects[i]['symptoms'] ?? '-'}',
+                                              //   overflow: TextOverflow.ellipsis,
+                                              //   fontFamily: 'light',
+                                              //   fontSize: 14,
+                                              // ),
+                                              Row(
+                                                children: [
+                                                  MainHeadingText(
+                                                    text:
+                                                        '${rejects[i]['slot_data']['date']}',
+                                                    fontSize: 14,
+                                                    fontFamily: 'bold',
+                                                    color: MyColors.bordercolor,
+                                                  ),
+                                                  hSizedBox,
+                                                  MainHeadingText(
+                                                    text:
+                                                        '${DateFormat.jm().format(DateFormat('hh:mm').parse(rejects[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(rejects[i]['slot_data']['end_time']))}',
+                                                    fontSize: 14,
+                                                    fontFamily: 'light',
+                                                    color: MyColors.bordercolor,
+                                                  )
+                                                ],
+                                              ),
+                                              MainHeadingText(
+                                                text:
+                                                    'Reason: ${rejects[i]['reject_reason'] ?? '-'}',
+                                                fontSize: 10,
+                                                color: Colors.green,
+                                              )
+                                            ],
+                                          )),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                if (rejects.length == 0)
+                                  Center(
+                                    child: Text('No Data Found.'),
+                                  ),
+                              ],
                             ),
-                          if (rejects.length == 0)
-                            Center(
-                              child: Text('No Data Found.'),
-                            ),
-                        ],
-                      ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-      ),
+            ),
+                 ),
+           if(value)const Center(child: CircularProgressIndicator()),
+         ],
+       ),
     );
   }
 

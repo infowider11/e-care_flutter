@@ -3,7 +3,7 @@ class ApiUrls{
   // static const baseUrl = 'https://e-care.co.za/api/';
   static const baseUrl = 'https://e-care.co.za/staging/api/';
   // static const userApi = baseUrl +  'User_api/';
-  //
+
 
   static const String getSpecialistCategory = baseUrl + 'get-specialist-category';
   static const String get_language = baseUrl + 'get-language';
@@ -99,6 +99,7 @@ class ApiUrls{
   static const String listIcdNotes = baseUrl + 'icdCode_list';
   static const String deleteIcdNotes = baseUrl + 'delete_icdCode';
   static const String usericdCode_list = baseUrl + 'usericdCode_list';
+  static const String callStatus = baseUrl + 'call-status';
 
 
 // static const String  getSpecialistCategory = baseUrl + 'get-specialist-category';
