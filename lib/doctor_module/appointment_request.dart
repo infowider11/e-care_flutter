@@ -123,7 +123,16 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
     super.initState();
     get_lists();
   }
-
+  ismarkascomlete(String date_time) {
+    DateTime dt1 = DateTime.parse(date_time);
+    DateTime dt2 = DateTime.now();
+    Duration d = dt1.difference(dt2);
+    print('comprea************${d.inMinutes}');
+    if (d.inMinutes < -120) {
+      return true;
+    }
+    return false;
+  }
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -595,19 +604,9 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                       mainAxisAlignment:
                                                           MainAxisAlignment.end,
                                                       children: [
-                                                        if (confirms[i]['is_join']
-                                                                    .toString() ==
-                                                                '0' &&
-                                                            compare_time(confirms[i]
-                                                                            [
-                                                                            'slot_data']
-                                                                        [
-                                                                        'date'] +
-                                                                    ' ' +
-                                                                    confirms[i][
-                                                                            'slot_data']
-                                                                        [
-                                                                        'start_time']))
+                                                        if (confirms[i]['is_join'].toString() == '0' &&
+                                                            compare_time(confirms[i]['slot_data']['date'] + ' ' +
+                                                                    confirms[i]['slot_data']['start_time']))
                                                           RoundEdgedButton(
                                                             text: 'Start',
                                                             borderRadius: 100,
@@ -624,26 +623,38 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                                 .primaryColor,
                                                             onTap: () async {
                                                               push(
-                                                                  context:
-                                                                      context,
-                                                                  screen:
-                                                                      VideoCallScreen(
-                                                                    name: confirms[i]
-                                                                            [
-                                                                            'user_data']
-                                                                        [
-                                                                        'first_name'],
-                                                                    bookingId: confirms[i]
-                                                                            [
-                                                                            'id']
-                                                                        .toString(),
-                                                                    userId: confirms[i]['user_data']
-                                                                            [
-                                                                            'id']
-                                                                        .toString(),
+                                                                  context: context,
+                                                                  screen: VideoCallScreen(
+                                                                    name: confirms[i]['user_data']['first_name'],
+                                                                    bookingId: confirms[i]['id'].toString(),
+                                                                    userId: confirms[i]['user_data']['id'].toString(),
                                                                   ));
                                                               // showSnackbar( 'Comming Soon.');
                                                             },
+                                                          ),
+                                                        if (confirms[i]['is_join'].toString() == '0' &&
+                                                            ismarkascomlete(confirms[i]['slot_data']['date'] + ' ' + confirms[i]['slot_data']
+                                                                ['start_time']) == true)
+                                                          Expanded(
+                                                            child: RoundEdgedButton(
+                                                              height: 35,
+                                                              text: 'Mark as Complete',
+                                                              color: Colors.transparent,
+                                                              textColor: MyColors.primaryColor,
+                                                              bordercolor: MyColors.primaryColor,
+                                                              borderRadius: 100,
+                                                              horizontalPadding: 0.0,
+                                                              onTap: () async {
+                                                                EasyLoading.show(
+                                                                    status: null,
+                                                                    maskType:
+                                                                    EasyLoadingMaskType.black);
+                                                                var res = await Webservices.get(ApiUrls .mark_as_complete + confirms[i]['id'].toString());
+                                                                print('booking complete   $res');
+                                                                await EasyLoading.dismiss();
+                                                                get_lists();
+                                                              },
+                                                            ),
                                                           ),
                                                         hSizedBox,
                                                         RoundEdgedButton(

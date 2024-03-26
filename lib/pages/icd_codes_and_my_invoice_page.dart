@@ -178,14 +178,14 @@ class ICDCodesAndMyInvoicePageState extends State<ICDCodesAndMyInvoicePage>
                         //   maskType: EasyLoadingMaskType.black,
                         // );
                         var time = DateTime.now();
-                        print('skldfjkljasflkasdjl aaaa ${invoiceList[i]['invoice_attachment']}');
-                        try{
-                          downloadCsvFile(Uri.parse(invoiceList[i]['invoice_attachment']));
-                        }catch(e){
-                          print('skldfjkljasflkasdjl Error in catch block $e');
-                        }
-                        print('skldfjkljasflkasdjl dsf');
-                        return;
+                        // print('skldfjkljasflkasdjl aaaa ${invoiceList[i]['invoice_attachment']}');
+                        // try{
+                        //   downloadCsvFile(Uri.parse(invoiceList[i]['invoice_attachment']));
+                        // }catch(e){
+                        //   print('skldfjkljasflkasdjl Error in catch block $e');
+                        // }
+                        // print('skldfjkljasflkasdjl dsf');
+                        // return;
                         await savePdfToStorage1(invoiceList[i]['invoice_attachment'],'pdf',
                             '${time.millisecond}_invoice_attachment.pdf');
                         // EasyLoading.dismiss();

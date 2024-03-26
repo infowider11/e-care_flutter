@@ -164,7 +164,7 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
 
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
-                          childAspectRatio: 0.85,
+                          childAspectRatio: 1/1.3,
                         ),
                         itemBuilder: (context, i){
                           return GestureDetector(
@@ -182,9 +182,9 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
                                       temp: widget.temp,
                                     ))),
                             child: Container(
-                              height: 220,
-                              width: 170,
-                              padding: EdgeInsets.all(10),
+                              // height: 220,
+                              // width: 170,
+                              padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
                               decoration: BoxDecoration(
                                   color: MyColors.white,
                                   border: Border.all(
@@ -196,10 +196,12 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     ClipRRect(
-                                      borderRadius: BorderRadius.circular(50),
+                                      borderRadius: BorderRadius.circular(100),
                                       child: Image.network(
                                         lists[i]['profile_image'],
-                                        width: 60,
+                                        width: 70,
+                                        height: 70,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                     // Image.asset(
@@ -241,27 +243,11 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
                                       fontFamily: 'semibold',
                                     ),
                                     // vSizedBox05,
-                                    Row(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        MainHeadingText(
-                                          text: 'Next Available:',
-                                          fontSize: 12,
-                                          fontFamily: 'light',
-                                          color: MyColors.primaryColor,
-                                        ),
-                                        Expanded(
-                                          child: MainHeadingText(
-                                            text:
-                                            '${lists[i]['slot_date']} ${DateFormat.jm().format(DateFormat("hh:mm").parse(lists[i]['slot']))}',
-                                            fontSize: 12,
-                                            fontFamily: 'light',
-                                            color: MyColors.primaryColor,
-                                          ),
-                                        ),
-                                      ],
+                                    MainHeadingText(
+                                      text: 'Next Available:${lists[i]['slot_date']} ${DateFormat.jm().format(DateFormat("hh:mm").parse(lists[i]['slot']))}',
+                                      fontSize: 12,
+                                      fontFamily: 'light',
+                                      color: MyColors.primaryColor,
                                     ),
                                   ],
                                 ),
