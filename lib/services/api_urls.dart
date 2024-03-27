@@ -67,6 +67,7 @@ class ApiUrls{
   static const String editBankAccount = baseUrl + 'editBankAccount';
   static const String bookingslist = baseUrl + 'prescription_BookingList?user_id=';
   static const String delete_prescription = baseUrl + 'delete_prescription';
+  static const String deleteBooking = baseUrl + 'delete-booking';
 
   // new api assuming now
   static const String send_notification_toprovider = baseUrl + 'send_notification_toprovider';

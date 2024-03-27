@@ -26,6 +26,7 @@ import '../services/api_urls.dart';
 import '../services/pay_stack/flutter_paystack_services.dart';
 import '../services/pay_stack/modals/FlutterPayStackInitializeTransactionResponseModal.dart';
 import '../services/pay_stack/payment_page.dart';
+import '../widgets/custom_confirmation_dialog.dart';
 import 'ErrorLogPage.dart';
 import 'bookingDetail.dart';
 import 'chat.dart';
@@ -983,15 +984,16 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                       )),
                                                 ],
                                               ),
-                                              if (completeds[i]['rate'].toString() ==
-                                                  '0')
+
                                                 Row(
                                                   children: [
+                                                    if (completeds[i]['rate'].toString() == '0')
                                                     RoundEdgedButton(
                                                       width: 100,
                                                       // height: 10,
                                                       text: 'Rate',
                                                       // width: 50,
+                                                      horizontalPadding: 0,
                                                       isSolid: false,
                                                       onTap: () async {
                                                         rating_sheet(completeds[i]
@@ -999,45 +1001,76 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                             .toString());
                                                       },
                                                     ),
+
+                                                    RoundEdgedButton(
+                                                      width: 100,
+                                                      // height: 10,
+                                                      text: 'Delete',
+                                                      // width: 50,
+                                                      isSolid: false,
+                                                      horizontalPadding: 0,
+                                                      horizontalMargin: 15,
+                                                      verticalMargin: 05,
+                                                      onTap: () async {
+                                                        Map<String, dynamic> data = {
+                                                          'booking_id': completeds[i]['id'],
+                                                          'type': '2',
+                                                        };
+                                                        bool? result= await showCustomConfirmationDialog(
+                                                          headingMessage: 'Are you sure',
+                                                          description: 'You want to delete'
+                                                        ) ;
+                                                       if(result==true){
+                                                         setState(() {
+                                                           load = true;
+                                                         });
+                                                         var res = await Webservices.postData(
+                                                             apiUrl: ApiUrls.deleteBooking,
+                                                             body: data,
+                                                             context: context).then((value) => get_lists(shouldCheckAcceptedBookingStatus: true));
+                                                       }
+                                                      },
+                                                    ),
                                                   ],
                                                 ),
-                                              Column(
-                                                children: [
-                                                  vSizedBox,
-                                                  // if (completeds[i]
-                                                  //             ['is_refund_request']
-                                                  //         .toString() ==
-                                                  //     '0')
-                                                  //   RoundEdgedButton(
-                                                  //     text: 'Ask a Refund',
-                                                  //     isSolid: false,
-                                                  //     onTap: () async {
-                                                  //       ask_a_refund(
-                                                  //           context,
-                                                  //           completeds[i]['id']
-                                                  //               .toString());
-                                                  //     },
-                                                  //   ),
-                                                  // if (completeds[i]
-                                                  //             ['is_refund_request']
-                                                  //         .toString() ==
-                                                  //     '1')
-                                                  //   RoundEdgedButton(
-                                                  //     text: 'Pending Refund',
-                                                  //     color: Colors.red,
-                                                  //     onTap: () async {},
-                                                  //   ),
-                                                  // if (completeds[i]
-                                                  //             ['is_refund_request']
-                                                  //         .toString() ==
-                                                  //     '2')
-                                                  //   RoundEdgedButton(
-                                                  //     text: 'Refunded',
-                                                  //     color: Colors.green,
-                                                  //     onTap: () async {},
-                                                  //   )
-                                                ],
-                                              )
+
+                                              // Column(
+                                              //   children: [
+                                              //     vSizedBox,
+                                              //     // if (completeds[i]
+                                              //     //             ['is_refund_request']
+                                              //     //         .toString() ==
+                                              //     //     '0')
+                                              //     //   RoundEdgedButton(
+                                              //     //     text: 'Ask a Refund',
+                                              //     //     isSolid: false,
+                                              //     //     onTap: () async {
+                                              //     //       ask_a_refund(
+                                              //     //           context,
+                                              //     //           completeds[i]['id']
+                                              //     //               .toString());
+                                              //     //     },
+                                              //     //   ),
+                                              //     // if (completeds[i]
+                                              //     //             ['is_refund_request']
+                                              //     //         .toString() ==
+                                              //     //     '1')
+                                              //     //   RoundEdgedButton(
+                                              //     //     text: 'Pending Refund',
+                                              //     //     color: Colors.red,
+                                              //     //     onTap: () async {},
+                                              //     //   ),
+                                              //     // if (completeds[i]
+                                              //     //             ['is_refund_request']
+                                              //     //         .toString() ==
+                                              //     //     '2')
+                                              //     //   RoundEdgedButton(
+                                              //     //     text: 'Refunded',
+                                              //     //     color: Colors.green,
+                                              //     //     onTap: () async {},
+                                              //     //   )
+                                              //   ],
+                                              // )
                                             ],
                                           )),
                                         ],
@@ -1158,11 +1191,47 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                   )
                                                 ],
                                               ),
-                                              MainHeadingText(
-                                                text:
-                                                    'Reason: ${rejects[i]['reject_reason'] ?? '-'}',
-                                                fontSize: 10,
-                                                color: Colors.green,
+                                              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  MainHeadingText(
+                                                    text:
+                                                        'Reason: ${rejects[i]['reject_reason'] ?? '-'}',
+                                                    fontSize: 10,
+                                                    color: Colors.green,
+                                                  ),
+                                                  RoundEdgedButton(
+                                                    text: 'Delete',
+                                                    borderRadius: 100,
+                                                    width: 70,
+                                                    height: 25,
+                                                    verticalPadding: 0,
+                                                    color: Colors.transparent,
+                                                    textColor: MyColors.primaryColor,
+                                                    bordercolor: MyColors.primaryColor,
+                                                    horizontalPadding: 0,
+                                                    horizontalMargin: 10,
+                                                    verticalMargin: 05,
+                                                    onTap: () async {
+                                                      Map<String, dynamic> data = {
+                                                        'booking_id': rejects[i]['id'],
+                                                        'type': '2',
+                                                      };
+                                                      bool? result= await showCustomConfirmationDialog(
+                                                          headingMessage: 'Are you sure',
+                                                          description: 'You want to delete'
+                                                      ) ;
+                                                      if(result==true){
+                                                        setState(() {
+                                                          load = true;
+                                                        });
+                                                        var res = await Webservices.postData(
+                                                            apiUrl: ApiUrls.deleteBooking,
+                                                            body: data,
+                                                            context: context).then((value) => get_lists());
+                                                      }
+                                                    },
+                                                  ),
+                                                ],
                                               )
                                             ],
                                           )),
@@ -1513,4 +1582,6 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
       },
     );
   }
+
+
 }

@@ -28,6 +28,7 @@ import '../services/api_urls.dart';
 import '../services/auth.dart';
 import '../services/webservices.dart';
 import '../widgets/buttons.dart';
+import '../widgets/custom_confirmation_dialog.dart';
 import 'notification.dart';
 
 class AppointmentRequest extends StatefulWidget {
@@ -1031,43 +1032,74 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                   )
                                                 ],
                                               ),
-                                              // MainHeadingText(text: 'Waiting for payment',fontSize: 10,color: Colors.green,),
-                                              Container(
-                                                child: Column(
-                                                  children: [
-                                                    vSizedBox2,
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      children: [
-                                                        RoundEdgedButton(
-                                                          text: 'Rating',
-                                                          borderRadius: 100,
-                                                          width: 70,
-                                                          height: 35,
-                                                          horizontalPadding: 0,
-                                                          verticalPadding: 0,
-                                                          color: Colors
-                                                              .transparent,
-                                                          textColor: MyColors
-                                                              .primaryColor,
-                                                          bordercolor: MyColors
-                                                              .primaryColor,
-                                                          onTap: () async {
-                                                            push(
-                                                                context:
-                                                                    context,
-                                                                screen: UserReviewPage(
-                                                                    booking_id: completeds[i]
-                                                                            [
-                                                                            'id']
-                                                                        .toString()));
-                                                          },
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
+                                              vSizedBox2,
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  RoundEdgedButton(
+                                                    text: 'Rating',
+                                                    borderRadius: 100,
+                                                    width: 70,
+                                                    height: 35,
+                                                    horizontalPadding: 0,
+                                                    verticalPadding: 0,
+                                                    horizontalMargin: 10,
+                                                    color: Colors
+                                                        .transparent,
+                                                    textColor: MyColors
+                                                        .primaryColor,
+                                                    bordercolor: MyColors
+                                                        .primaryColor,
+                                                    onTap: () async {
+                                                      push(
+                                                          context:
+                                                          context,
+                                                          screen: UserReviewPage(
+                                                              booking_id: completeds[i]
+                                                              [
+                                                              'id']
+                                                                  .toString()));
+                                                    },
+                                                  ),
+                                                  RoundEdgedButton(
+                                                    text: 'Delete',
+                                                    borderRadius: 100,
+                                                    width: 70,
+                                                    height: 35,
+                                                    verticalPadding: 0,
+                                                    color: Colors
+                                                        .transparent,
+                                                    textColor: MyColors
+                                                        .primaryColor,
+                                                    bordercolor: MyColors
+                                                        .primaryColor,
+                                                    horizontalPadding: 0,
+
+                                                    verticalMargin: 05,
+                                                    onTap: () async {
+                                                      Map<String, dynamic> data = {
+                                                        'booking_id': completeds[i]['id'],
+                                                        'type': '1',
+                                                      };
+                                                      bool? result= await showCustomConfirmationDialog(
+                                                          headingMessage: 'Are you sure',
+                                                          description: 'You want to delete'
+                                                      ) ;
+                                                      if(result==true){
+                                                        setState(() {
+                                                          load = true;
+                                                        });
+                                                        var res = await Webservices.postData(
+                                                            apiUrl: ApiUrls.deleteBooking,
+                                                            body: data,
+                                                            context: context).then((value) => get_lists());
+                                                      }
+                                                    },
+                                                  ),
+
+
+                                                ],
                                               ),
                                             ],
                                           )),
@@ -1163,11 +1195,47 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                             )
                                           ],
                                         ),
-                                        MainHeadingText(
-                                          text:
-                                              'Reason: ${rejects[i]['reject_reason'] ?? '-'}',
-                                          fontSize: 10,
-                                          color: Colors.green,
+                                        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            MainHeadingText(
+                                              text:
+                                                  'Reason: ${rejects[i]['reject_reason'] ?? '-'}',
+                                              fontSize: 10,
+                                              color: Colors.green,
+                                            ),
+                                            RoundEdgedButton(
+                                              text: 'Delete',
+                                              borderRadius: 100,
+                                              width: 70,
+                                              height: 25,
+                                              verticalPadding: 0,
+                                              color: Colors.transparent,
+                                              textColor: MyColors.primaryColor,
+                                              bordercolor: MyColors.primaryColor,
+                                              horizontalPadding: 0,
+                                              horizontalMargin: 10,
+                                              verticalMargin: 05,
+                                              onTap: () async {
+                                                Map<String, dynamic> data = {
+                                                  'booking_id': rejects[i]['id'],
+                                                  'type': '1',
+                                                };
+                                                bool? result= await showCustomConfirmationDialog(
+                                                    headingMessage: 'Are you sure',
+                                                    description: 'You want to delete'
+                                                ) ;
+                                                if(result==true){
+                                                  setState(() {
+                                                    load = true;
+                                                  });
+                                                  var res = await Webservices.postData(
+                                                      apiUrl: ApiUrls.deleteBooking,
+                                                      body: data,
+                                                      context: context).then((value) => get_lists());
+                                                }
+                                              },
+                                            ),
+                                          ],
                                         )
                                       ],
                                     )),
