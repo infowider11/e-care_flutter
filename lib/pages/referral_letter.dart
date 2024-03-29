@@ -182,16 +182,14 @@ class Referral_Letter_PageState extends State<Referral_Letter_Page> with TickerP
                 child: Text('Yes'),
                 onPressed: () async {
                   Map<String, dynamic> data = {
-                    'user_id':
-                    await getCurrentUserId(),
-                    'id': id.toString(),
+                    'type': '1',
                     'booking_id':
                     booking_id.toString(),
                   };
                   var res =
                   await Webservices.postData(
                       apiUrl: ApiUrls
-                          .delete_refral,
+                          .deleteReferal,
                       body: data,
                       context: context);
                   print('res----${res}');

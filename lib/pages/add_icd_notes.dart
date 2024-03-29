@@ -57,16 +57,20 @@ class _AddIcdNotesState
   TextEditingController quantity = TextEditingController();
   TextEditingController desc = TextEditingController();
   List bookings = [];
+
+  List getBookings = [0];
   String booking_id = '';
   ByteData _img = ByteData(0);
   var color = Colors.red;
   var strokeWidth = 5.0;
   final _sign = GlobalKey<SignatureState>();
-  List<TextEditingController> _controller = List.generate(1, (i) => TextEditingController());
+  List<TextEditingController> _controller = List.generate(
+      1, (i) => TextEditingController());
+
   // List lists = [];
 
   List<IcdNotesContainerModal> icdNotesContainers = [];
-
+  List<IcdNotesContainerModal> deleteIcdCodeId = [];
 
 
   TextEditingController patientIdNumberController = TextEditingController();
@@ -76,13 +80,15 @@ class _AddIcdNotesState
 
   @override
   void initState() {
+    ///commented by manish
     widget.is_update==false?icdNotesContainers.add(IcdNotesContainerModal(descriptionController: TextEditingController(), icdCodeController: TextEditingController(),costController: TextEditingController(),procedureCode: TextEditingController(),)):[];
     get_bookings();
     if (widget.booking_id != null && widget.booking_id != 'null') {
       booking_id = widget.booking_id!;
     }
+
     ///commented by manish
-    // if(widget.data!=null){
+    // if(widget.is_update==true){
     //   booking_id=widget.data!['booking_id'].toString();
     //   for(int i=0;i<widget.data!['prescription_medicine'].length;i++){
     //     // Map row = {
@@ -102,18 +108,47 @@ class _AddIcdNotesState
     //   // lists = widget.data!['prescription_medicine'];
     // }
     ///
+    if (widget.is_update == true)
+      getIcdDetails();
     super.initState();
   }
+
+  getIcdDetails() {
+    booking_id= widget.data!['id'];
+    patientIdNumberController.text = widget.data!['patient_id_number'] ?? '';
+    patientMedicalAidNameController.text = widget.data!['patient_medical_aid_name'] ?? '';
+    patientMedicalAidNumberController.text = widget.data!['patient_medical_aid_number'] ?? '';
+    patientMedicalAidDetailController.text = widget.data!['patient_medical_aid_detail'] ?? '';
+    if(widget.data!['icdCode'].isNotEmpty){
+    for(int i = 0;i< widget.data!['icdCode'].length;i++){
+    icdNotesContainers.add(IcdNotesContainerModal(
+      id: widget.data!['icdCode'][i]['id'],
+      doctor_id: widget.data!['icdCode'][i]['doctor_id'],
+      descriptionController: TextEditingController(text:widget.data!['icdCode'][i]['description']??""),
+      icdCodeController: TextEditingController(text:widget.data!['icdCode'][i]['icd_code']??""),
+      procedureCode: TextEditingController(text:widget.data!['icdCode'][i]['procedure_code']??''),
+      costController  : TextEditingController(text:widget.data!['icdCode'][i]['cost']??''),));
+  }}else{
+      icdNotesContainers.add(IcdNotesContainerModal(
+        descriptionController: TextEditingController(),
+        icdCodeController: TextEditingController(),costController: TextEditingController(),
+        procedureCode: TextEditingController(),));
+}}
   Map? selectedBookingData;
   get_bookings() async {
     bookings = await Webservices.getList(
         ApiUrls.bookingslist + await getCurrentUserId());
-    print('-------- ${bookings}');
+    print('bookings-------- ${bookings}');
     for(int i = 0;i<bookings.length;i++){
       bookings[i]['${ApiVariableKeys.temp_name}'] = getName(prefixText: 'Booking', doctorLastName: bookings[i][ApiVariableKeys.doctor_data][ApiVariableKeys.last_name], userLastName: '${bookings[i][ApiVariableKeys.user_data][ApiVariableKeys.last_name]}', dateTimeConsultation: '${bookings[i]['${ApiVariableKeys.slot_data}'][ApiVariableKeys.date_with_time]}');
       print('the booking data is ${bookings[i]}');
+      if(widget.is_update==true){
+        bookings[i]['${ApiVariableKeys.temp_name}'] = getName(prefixText: 'Booking', doctorLastName: bookings[i][ApiVariableKeys.doctor_data][ApiVariableKeys.last_name], userLastName: '${bookings[i][ApiVariableKeys.user_data][ApiVariableKeys.last_name]}', dateTimeConsultation: '${bookings[i]['${ApiVariableKeys.consult_dateTime}']}');
+
+      }
       if(bookings[i]['id']==widget.booking_id){
         selectedBookingData = bookings[i];
+        print('bookings-------- ${widget.booking_id}-----${selectedBookingData}');
       }
     }
     setState(() {});
@@ -121,6 +156,7 @@ class _AddIcdNotesState
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: MyColors.scaffold,
@@ -155,6 +191,23 @@ class _AddIcdNotesState
                     color: Colors.black,
                     fontFamily: 'regular',
                   ),
+                  if(widget.is_update==true)
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 14,vertical: 13),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: MyColors.bordercolor),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: ParagraphText(
+                      text:  getName(
+                          prefixText: 'Booking',
+                          doctorLastName:widget.data!['doctor_data']['last_name'],
+                          userLastName: '${widget.data!['user_lastname']}',
+                          dateTimeConsultation: '${widget.data!['consult_dateTime']}'),
+                    )
+                  ),
+                  if(widget.is_update==false)
                   Container(
                     padding: EdgeInsets.all(0.0),
                     decoration: BoxDecoration(
@@ -163,9 +216,10 @@ class _AddIcdNotesState
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: CustomDropdownButton(
-
                       height: 70,
                       isextra_text: true,
+                      enable: widget.is_update==true?false:true,
+
                       // extra_text: getName(prefixText: 'Booking', doctorLastName: value['${ApiVariableKeys.doctor_lastname}'], userLastName: userLastName, dateTimeConsultation: dateTimeConsultation),
                       // extra_text: 'Booking',
                       // extra_text: 'Booking id #',
@@ -213,11 +267,23 @@ class _AddIcdNotesState
                   CustomTextFieldmaxlines(controller: patientMedicalAidDetailController, hintText: 'Additional Medical Aid Detail (If Available)', maxLines: 3,),
                   vSizedBox,
                   for(int i=0;i<icdNotesContainers.length;i++)
-                    icdNotesContainers[i].showContainer(onRemove:  i>=1?(){
-                      icdNotesContainers.removeAt(i);
-                                      setState(() {
+                    icdNotesContainers[i].showContainer(onRemove:  i>=1?()async{
+                      deleteIcdCodeId.add(icdNotesContainers.removeAt(i));
 
-                                      });
+                      setState(() {});
+                      // if(widget.is_update==true){
+                      //   deleteIcdCodeId.add(IcdNotesContainerModal(
+                      //     id: icdNotesContainers[i].id,
+                      //     doctor_id: icdNotesContainers[i].doctor_id,
+                      //     descriptionController:icdNotesContainers[i].descriptionController,
+                      //     icdCodeController: icdNotesContainers[i].icdCodeController,
+                      //     costController: icdNotesContainers[i].costController,
+                      //     procedureCode: icdNotesContainers[i].procedureCode,
+                      //   ));
+                      //
+                      // }
+
+
                     }:null),
                     // Padding(
                     //   padding: const EdgeInsets.only(bottom: 5.0),
@@ -266,17 +332,11 @@ class _AddIcdNotesState
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Container(),
+                      if(widget.is_update==false)
                       TextButton(
                           style: ButtonStyle(
                           ),
                           onPressed: (){
-                            // Map row = {
-                            //   'medicines':TextEditingController(),
-                            //   'dosage':TextEditingController(),
-                            //   'duration':TextEditingController(),
-                            //   'medicine_id':'',
-                            // };
-                            // lists.add(row);
                             icdNotesContainers.add(IcdNotesContainerModal(descriptionController: TextEditingController(), icdCodeController: TextEditingController(),costController: TextEditingController(),procedureCode: TextEditingController(),));
                             setState(() {
 
@@ -285,36 +345,6 @@ class _AddIcdNotesState
                           ,child: Text('Add More'))
                     ],
                   ),
-
-                  // CustomTextField(
-                  //     controller: name,
-                  //     label: 'Prescriptions Name',
-                  //     showlabel: true,
-                  //     labelcolor: MyColors.onsurfacevarient,
-                  //     hintText: ''),
-                  // vSizedBox,
-                  // CustomTextField(
-                  //     controller: table_name,
-                  //     label: 'Tablet Name',
-                  //     showlabel: true,
-                  //     labelcolor: MyColors.onsurfacevarient,
-                  //     hintText: ''),
-                  // vSizedBox,
-                  // CustomTextField(
-                  //     controller: quantity,
-                  //     label: 'Quantity',
-                  //     keyboardType: TextInputType.number,
-                  //     showlabel: true,
-                  //     labelcolor: MyColors.onsurfacevarient,
-                  //     hintText: ''),
-                  // vSizedBox,
-                  // CustomTextField(
-                  //   controller: desc,
-                  //   label: 'Decription',
-                  //   showlabel: true,
-                  //   labelcolor: MyColors.onsurfacevarient,
-                  //   hintText: '',
-                  // ),
                   vSizedBox,
                 ],
               ),
@@ -427,11 +457,7 @@ class _AddIcdNotesState
                       Map<String, dynamic> files = {};
                       Map<String, dynamic> data = {
                         'doctor_id': await getCurrentUserId(),
-                        'booking_id': booking_id.toString(),
-                        // 'prescription_name': name.text,
-                        // 'tablet_name': table_name.text,
-                        // 'quantity': quantity.text,
-                        // 'description': desc.text,
+                        'booking_id':booking_id.toString(),
                       };
                       /// manish work here
                       if(patientIdNumberController.text.isNotEmpty){
@@ -447,6 +473,11 @@ class _AddIcdNotesState
                         data['patient_medical_aid_detail'] = patientMedicalAidDetailController.text;
                       }
                       for(int i=0;i<icdNotesContainers.length;i++){
+                        if(widget.is_update==true){
+                          data['id[${i}]'] = icdNotesContainers[i].id;
+
+                        }
+
                         data['icd_code[${i}]'] = icdNotesContainers[i].icdCodeController.text;
 
                         data['procedure_code[${i}]'] = icdNotesContainers[i].procedureCode.text;
@@ -454,17 +485,17 @@ class _AddIcdNotesState
 
                         data['description[${i}]'] =icdNotesContainers[i].descriptionController.text;
 
-                        ///commented by manish
-                        // if(widget.is_update==true)
-                        //   data['id[${i}]'] = lists[i]['medicine_id'].toString();
                       }
                       if(_img.buffer.lengthInBytes != 0){
                         files['signature_image'] = file;
                       }
 
-                      if(widget.is_update==true){
-                        data['id'] = widget.data!['id'].toString();
-                      }
+                      // if(widget.is_update==true){
+                      // for(int i=0; i<icdNotesContainers.length;i++){
+                      //   icdNotesContainers.removeAt(i);
+                      //   setState(() {});
+                      // }
+                      // }
                       print('passing data---- ${data}');
 
                       EasyLoading.show(
@@ -473,17 +504,26 @@ class _AddIcdNotesState
                           apiUrl: widget.is_update==false?ApiUrls.addIcdNotes:ApiUrls.editIcdNotes,
                           body: data,files: files,
                           context: context);
-                      print('add-----${res}');
                       EasyLoading.dismiss();
+                      if(widget.is_update==true){
+                        for(int i=0;i<deleteIcdCodeId.length;i++){
+                          Map<String, dynamic> data = {
+                            'booking_id': widget.data!['id'].toString(),
+                            'doctor_id': deleteIcdCodeId[i].doctor_id,
+                            'id':deleteIcdCodeId[i].id,
+                          };
+                          var res = await Webservices.postData(
+                              apiUrl: ApiUrls.deletIcdCode,
+                              body: data,
+                              context: context);
+                        }
+                      }
+
                       if (res['status'].toString() == '1') {
                         Navigator.of(context).pop();
                         showSnackbar(res['message']);
                       }
                     }
-                    // Navigator.push(
-                    // context,
-                    // MaterialPageRoute(
-                    //     builder: (context) => Prescriptions_Doctor_Page()))
                   },
                 ),
               )

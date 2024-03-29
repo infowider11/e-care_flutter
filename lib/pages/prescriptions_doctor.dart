@@ -91,7 +91,7 @@ class Prescriptions_Doctor_PageState extends State<Prescriptions_Doctor_Page>
                       children: [
                         vSizedBox2,
                         MainHeadingText(
-                          text: 'Prescriptions ',
+                          text: 'Prescriptions',
                           fontSize: 32,
                           fontFamily: 'light',
                         ),
@@ -488,16 +488,13 @@ class Prescriptions_Doctor_PageState extends State<Prescriptions_Doctor_Page>
                 child: Text('Yes'),
                 onPressed: () async {
                   Map<String, dynamic> data = {
-                    'user_id':
-                    await getCurrentUserId(),
-                    'id': id.toString(),
-                    'booking_id':
-                    booking_id.toString(),
+                    'prescription_id':id,
+                    'booking_id': booking_id.toString(),
+                    'type':'1'
                   };
                   var res =
                   await Webservices.postData(
-                      apiUrl: ApiUrls
-                          .delete_prescription,
+                      apiUrl: ApiUrls.deletePrescription,
                       body: data,
                       context: context);
                   print('res----${res}');

@@ -12,6 +12,7 @@ class IcdNotesContainerModal{
   TextEditingController costController;
   TextEditingController procedureCode;
   String? id;
+  String? doctor_id;
 
   IcdNotesContainerModal({
    required this.descriptionController,
@@ -19,6 +20,7 @@ class IcdNotesContainerModal{
     required this.costController,
     required this.procedureCode,
     this.id,
+    this.doctor_id,
   });
 
 

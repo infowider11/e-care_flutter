@@ -30,6 +30,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../constants/api_variable_keys.dart';
+import '../widgets/custom_confirmation_dialog.dart';
 import '../widgets/showSnackbar.dart';
 import 'bookingDetail.dart';
 
@@ -171,33 +172,39 @@ class ICDCodesAndMyInvoicePageState extends State<ICDCodesAndMyInvoicePage>
                       'Download invoices from your Healthcare Practitioner here'),
                   vSizedBox4,
                   for (int i = 0; i < invoiceList.length; i++)
-                    InkWell(
-                      onTap: () async{
-                        // EasyLoading.show(
-                        //   status: null,
-                        //   maskType: EasyLoadingMaskType.black,
-                        // );
-                        var time = DateTime.now();
-                        // print('skldfjkljasflkasdjl aaaa ${invoiceList[i]['invoice_attachment']}');
-                        // try{
-                        //   downloadCsvFile(Uri.parse(invoiceList[i]['invoice_attachment']));
-                        // }catch(e){
-                        //   print('skldfjkljasflkasdjl Error in catch block $e');
-                        // }
-                        // print('skldfjkljasflkasdjl dsf');
-                        // return;
-                        await savePdfToStorage1(invoiceList[i]['invoice_attachment'],'pdf',
-                            '${time.millisecond}_invoice_attachment.pdf');
-                        // EasyLoading.dismiss();
-                      },
-                      child: ListUI01(
-                          // heading: 'Invoice',
-                          heading: 'Invoice: ${invoiceList[i][ApiVariableKeys.doctor_lastname]}/${invoiceList[i][ApiVariableKeys.user_lastname]}/${invoiceList[i][ApiVariableKeys.consult_dateTime]}',
-                          // subheading: '${invoiceList[i]['time_ago']??''}',
-                          subheading: '${invoiceList[i]['date']} ${invoiceList[i]['time']}',
-                          borderColor: MyColors.white,
-                          image: 'assets/images/file.png'),
-                    ),
+                    ListUI02(
+                        heading: 'Invoice: ${invoiceList[i][ApiVariableKeys.doctor_lastname]}/${invoiceList[i][ApiVariableKeys.user_lastname]}/${invoiceList[i][ApiVariableKeys.consult_dateTime]}',
+                        // subheading: '${invoiceList[i]['time_ago']??''}',
+                        subheading: '${invoiceList[i]['date']} ${invoiceList[i]['time']}',
+                        borderColor: MyColors.white,
+                        is_edit: false,
+                        isIcon: false,
+                        deleteonTap: () async{
+                          Map<String, dynamic> data = {
+                            'booking_id':invoiceList[i]['id'].toString(),
+                            'type':'2'
+                          };
+                          bool? result= await showCustomConfirmationDialog(
+                              headingMessage: 'Are you sure',
+                              description: 'You want to delete'
+                          ) ;
+                          if(result==true){
+                            setState(() {
+                              load = true;
+                            });
+                            var res = await Webservices.postData(apiUrl: ApiUrls.deleteInvoice,
+                                body: data,
+                                context: context);
+                            print('res----${res}');
+                            getInvoiceList();
+                          }},
+                        sendonTap: () async{
+                          var time = DateTime.now();
+                          await savePdfToStorage1(invoiceList[i]['invoice_attachment'],'pdf',
+                              '${time.millisecond}_invoice_attachment.pdf');
+                          // EasyLoading.dismiss();
+                        },
+                        image: 'assets/images/file.png'),
                   if (invoiceList.length == 0)
                     Center(
                       child: Text('No data found.'),
@@ -225,28 +232,37 @@ class ICDCodesAndMyInvoicePageState extends State<ICDCodesAndMyInvoicePage>
                       'Download statements from your Healthcare Practitioner here'),
                   vSizedBox4,
                   for (int i = 0; i < icdNotes.length; i++)
-                    InkWell(
-                      onTap: () async{
-                        // EasyLoading.show(
-                        //   status: null,
-                        //   maskType: EasyLoadingMaskType.black,
-                        // );
-                        var time = DateTime.now();
-                        await savePdfToStorage1(icdNotes[i]['pdf_url'],'pdf',
-                            '${time.millisecond}_STATEMENT_WITH_ICD10_CODE.pdf');
-                        // EasyLoading.dismiss();
-                      },
-                      child: ListUI01(
-                          heading: 'STATEMENT: ${icdNotes[i][ApiVariableKeys.doctor_lastname]}/${icdNotes[i][ApiVariableKeys.user_lastname]}',
-                          // heading: 'STATEMENT: ${icdNotes[i]['doctor_data']['last_name'].toString()}/',
-                          // heading: 'STATEMENT: ${icdNotes[i]['doctor_data']['first_name']}',
-                          subheading: '${icdNotes[i][ApiVariableKeys.consult_dateTime]}',
-                          // subheading: '',
-                          // subheading: '${icdNotes[i]['date']} ${icdNotes[i]['time']}',
-                          // subheading: '${icdNotes[i]['icd_code']??''}',
-                          borderColor: MyColors.white,
-                          image: 'assets/images/file.png'),
-                    ),
+                    ListUI02(
+                        heading: 'STATEMENT: ${icdNotes[i][ApiVariableKeys.doctor_lastname]}/${icdNotes[i][ApiVariableKeys.user_lastname]}',
+                        subheading: '${icdNotes[i][ApiVariableKeys.consult_dateTime]}',
+                        borderColor: MyColors.white,
+                        is_edit: false,
+                        isIcon: false,
+                        deleteonTap: () async{
+                          Map<String, dynamic> data = {
+                            'booking_id':icdNotes[i]['booking_id'].toString(),
+                            'type':'2'
+                          };
+                          bool? result= await showCustomConfirmationDialog(
+                              headingMessage: 'Are you sure',
+                              description: 'You want to delete'
+                          ) ;
+                          if(result==true){
+                            setState(() {
+                              load = true;
+                            });
+                            var res = await Webservices.postData(apiUrl: ApiUrls.deleteIcd,
+                                body: data,
+                                context: context);
+                            print('res----${res}');
+                            getIcdCodeList();
+                          }},
+                        sendonTap: () async{
+                          var time = DateTime.now();
+                          await savePdfToStorage1(icdNotes[i]['pdf_url'],'pdf',
+                              '${time.millisecond}_STATEMENT_WITH_ICD10_CODE.pdf');
+                        },
+                        image: 'assets/images/file.png'),
                   if (icdNotes.length == 0)
                     Center(
                       child: Text('No data found.'),

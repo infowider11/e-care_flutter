@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart' as badges;
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/custom_circular_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
@@ -19,10 +20,12 @@ class ListUI01 extends StatelessWidget {
   final bool isIcon;
   final bool isRightText;
   final bool isimage;
+  final bool isDelete;
   final bool? networkimage;
   final bool isthirdHead;
   final double imgWidth;
   final Function()? onPressed;
+  final Function()? deleteTap;
   final Function(String)? onSelected;
   final String? badge_count;
   ListUI01({
@@ -38,12 +41,13 @@ class ListUI01 extends StatelessWidget {
     this.borderColor = MyColors.borderColor2,
     this.thirdHeadColor = MyColors.green,
     this.isIcon = true,
+    this.isDelete = false,
     this.isRightText = false,
     this.isthirdHead = false,
     this.onPressed,
     this.isimage = true,
     this.thirdHead = 'Confirmed',
-    this.imgWidth = 40,
+    this.imgWidth = 40, this.deleteTap,
   }) : super(key: key);
 
   @override
@@ -117,12 +121,30 @@ class ListUI01 extends StatelessWidget {
                         // ),
                       ],
                     ),
-                    MainHeadingText(
-                      text: subheading,
-                      color: MyColors.headingcolor,
-                      fontFamily: 'light',
-                      fontSize: 14,
-                      overflow: TextOverflow.ellipsis,
+                    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: MainHeadingText(
+                            text: subheading,
+                            color: MyColors.headingcolor,
+                            fontFamily: 'light',
+                            fontSize: 14,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        if(isDelete)
+                          RoundEdgedButton(
+                            fontSize: 10,
+                            onTap: deleteTap,
+                            color: Colors.red,
+                            text: 'Delete',
+                            width: 60,
+                            verticalPadding: 0,
+                            horizontalPadding: 0,
+                            height: 25,
+                          ),
+                      ],
                     ),
                     if (isthirdHead)
                       MainHeadingText(

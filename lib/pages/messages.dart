@@ -1,6 +1,7 @@
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/navigation.dart';
 import 'package:ecare/constants/sized_box.dart';
+import 'package:ecare/functions/global_Var.dart';
 import 'package:ecare/pages/chat.dart';
 import 'package:ecare/pages/payment_method.dart';
 import 'package:ecare/pages/profile_edit.dart';
@@ -14,6 +15,7 @@ import 'package:ecare/widgets/setting_list.dart';
 import 'package:flutter/material.dart';
 
 import '../services/webservices.dart';
+import '../widgets/custom_confirmation_dialog.dart';
 
 class MessagePage extends StatefulWidget {
   const MessagePage({Key? key}) : super(key: key);
@@ -39,7 +41,11 @@ class _MessagePageState extends State<MessagePage> {
     setState(() {
       load = true;
     });
-    var res = await Webservices.get(ApiUrls.chat_list+await getCurrentUserId());
+    Map<String, dynamic> data = {
+      'user_id': await getCurrentUserId(),
+      'type': user_Data!['type'],
+    };
+    var res = await Webservices.get('${ApiUrls.chat_list+await getCurrentUserId()}&type=${user_Data!['type']}');
     print('get chat-----$res');
     if(res['status'].toString()=='1'){
       lists=res['data'];
@@ -113,7 +119,7 @@ class _MessagePageState extends State<MessagePage> {
                 ),
               ),
             ),
-
+            if(!load)
             for (var i = 0; i < lists.length; i++)
               GestureDetector(
                   onTap: () async{
@@ -133,6 +139,27 @@ class _MessagePageState extends State<MessagePage> {
                     subheading: '${lists[i]['message']}',
                     badge_count: '${lists[i]['unread']??'0'}',
                     isIcon: false,
+                    isDelete: true,
+                    deleteTap: () async{
+                      Map<String, dynamic> data = {
+                        'booking_id': lists[i]['booking_id'].toString(),
+                        'type':user_Data!['type'],
+                      };
+                      bool? result= await showCustomConfirmationDialog(
+                          headingMessage: 'Are you sure',
+                          description: 'You want to delete'
+                      ) ;
+                      if(result==true){
+                        setState(() {
+                          load = true;
+                        });
+                        var res = await Webservices.postData(
+                            apiUrl: ApiUrls.deleteChat,
+                            body: data,
+                            context: context);
+                        get_chat_list();
+                      }
+                    },
                     rightText: '${lists[i]['create_date']}',
                     isRightText: true,
                   )),

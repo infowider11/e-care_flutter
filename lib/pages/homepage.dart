@@ -56,8 +56,9 @@ class _HomepageState extends State<Homepage> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    get_videos();
+   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+     get_videos();
+   });
     super.initState();
   }
 

@@ -179,11 +179,9 @@ class Consultation_Notes_PageState extends State<Consultation_Notes_Page> with T
                 child: Text('Yes'),
                 onPressed: () async {
                   Map<String, dynamic> data = {
-                    'user_id':
-                    await getCurrentUserId(),
+                    'user_id': await getCurrentUserId(),
                     'note_id': id.toString(),
-                    'booking_id':
-                    booking_id.toString(),
+                    'booking_id': booking_id.toString(),
                   };
                   var res =
                   await Webservices.postData(

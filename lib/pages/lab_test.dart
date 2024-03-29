@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:ecare/constants/api_variable_keys.dart';
+import 'package:ecare/functions/global_Var.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/constans.dart';
@@ -22,12 +23,14 @@ import 'package:ecare/widgets/list_ui_1.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:intl/intl.dart';
 import '../functions/get_folder_directory.dart';
+import '../widgets/custom_confirmation_dialog.dart';
 import '../widgets/showSnackbar.dart';
 import 'bookingDetail.dart';
 
@@ -42,7 +45,7 @@ class LabTestPage extends StatefulWidget {
 
 class LabTestPageState extends State<LabTestPage>
     with TickerProviderStateMixin {
-  TabBar get _tabBar => TabBar(
+  TabBar get _tabBar => const TabBar(
         padding: EdgeInsets.symmetric(horizontal: 0),
         labelPadding: EdgeInsets.symmetric(horizontal: 0),
         tabs: <Widget>[
@@ -100,6 +103,9 @@ class LabTestPageState extends State<LabTestPage>
       referralList = res['data'];
       setState(() {});
     }
+    setState(() {
+      load = false;
+    });
   }
 
   getPrescriptionList() async {
@@ -109,6 +115,7 @@ class LabTestPageState extends State<LabTestPage>
     Map<String, dynamic> data = {
       'user_id': await getCurrentUserId(),
       'booking_id': '',
+      // 'type': user_Data!['type'],
     };
     var res = await Webservices.postData(
         apiUrl: ApiUrls.get_precriptions, body: data, context: context);
@@ -139,7 +146,7 @@ class LabTestPageState extends State<LabTestPage>
         backgroundColor: MyColors.scaffold,
         appBar: AppBar(
           centerTitle: true,
-          title: MainHeadingText(
+          title: const MainHeadingText(
             text: 'My Prescriptions/Referral Notes',
             fontSize: 20,
             fontFamily: 'light',
@@ -154,7 +161,7 @@ class LabTestPageState extends State<LabTestPage>
           ),
         ),
         body: load
-            ? CustomLoader()
+            ? const CustomLoader()
             : TabBarView(children: [
                 Container(
                   child: SingleChildScrollView(
@@ -163,9 +170,9 @@ class LabTestPageState extends State<LabTestPage>
                       children: [
                         for (int i = 0; i < prescriptionList.length; i++)
                           Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 8, horizontal: 8.0),
-                            margin: EdgeInsets.all(5.0),
+                            margin: const EdgeInsets.all(5.0),
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(16),
@@ -175,7 +182,7 @@ class LabTestPageState extends State<LabTestPage>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(
-                                  flex: 2,
+                                  flex: 1,
                                   child: GestureDetector(
                                     behavior: HitTestBehavior.translucent,
                                     onTap: () {
@@ -219,77 +226,66 @@ class LabTestPageState extends State<LabTestPage>
                                             hSizedBox,
                                           ],
                                         ),
-
                                       ],
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  flex: 1,
-                                  child: RoundEdgedButton(
-                                    text: 'Download',
-                                    width: 110,
-                                    height: 30,
-                                    fontSize: 9,
-                                    onTap: ()async{
-                                      await savePdfToStorage1(
-                                          prescriptionList[i]['pdf_url'],
-                                          'pdf',
-                                          '${prescriptionList[i]['id']}_prescription_pdf.pdf');
-                                    },
-                                  ),
+                                hSizedBox05,
+                                Row(mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    RoundEdgedButton(
+                                      fontSize: 10,
+                                      onTap:()async{
+                                        await savePdfToStorage1(
+                                            prescriptionList[i]['pdf_url'],
+                                            'pdf',
+                                            '${prescriptionList[i]['id']}_prescription_pdf.pdf');
+                                      },
+
+                                      text: 'Download',
+                                      width: 70,
+                                      verticalPadding: 0,
+                                      horizontalPadding: 0,
+                                      height: 30,
+                                    ),
+                                    hSizedBox,
+                                    RoundEdgedButton(
+                                      fontSize: 10,
+                                      color: Colors.red,
+                                      text: 'Delete',
+                                      width: 70,
+                                      onTap: () async{
+                                        Map<String, dynamic> data = {
+                                          'prescription_id': prescriptionList[i]['id'].toString(),
+                                          'booking_id': prescriptionList[i]['booking_id'].toString(),
+                                          'type': '2',
+                                        };
+                                        bool? result= await showCustomConfirmationDialog(
+                                            headingMessage: 'Are you sure',
+                                            description: 'You want to delete'
+                                        ) ;
+                                        if(result==true){
+                                          setState(() {
+                                            load = true;
+                                          });
+                                          var res = await Webservices.postData(
+                                              apiUrl: ApiUrls.deletePrescription,
+                                              body: data,
+                                              context: context).then((value) => getPrescriptionList());
+                                        }
+                                      },
+                                      verticalPadding: 0,
+                                      horizontalPadding: 0,
+                                      height: 30,
+                                    ),
+                                  ],
                                 ),
-                                // Expanded(
-                                //   flex: 0,
-                                //   child: PopupMenuButton<int>(
-                                //     shape: RoundedRectangleBorder(
-                                //         borderRadius:
-                                //             BorderRadius.circular(20.0)),
-                                //     itemBuilder: (context) => [
-                                //       PopupMenuItem(
-                                //         value: 2,
-                                //         // row with two children
-                                //         child: Row(
-                                //           children: [
-                                //             SizedBox(
-                                //               width: 10,
-                                //             ),
-                                //             Text(
-                                //               "Download",
-                                //               style: TextStyle(
-                                //                   fontFamily: 'bold',
-                                //                   color: MyColors.primaryColor),
-                                //             )
-                                //           ],
-                                //         ),
-                                //       ),
-                                //     ],
-                                //     offset: Offset(100, 50),
-                                //     color: MyColors.white,
-                                //     elevation: 0,
-                                //     // on selected we show the dialog box
-                                //     onSelected: (value) async {
-                                //       // if value 1 show dialog
-                                //       if (value == 1) {
-                                //       } else if (value == 2) {
-                                //         // EasyLoading.show(
-                                //         //   status: null,
-                                //         //   maskType: EasyLoadingMaskType.black,
-                                //         // );
-                                //         await savePdfToStorage1(
-                                //             lists[i]['pdf_url'],
-                                //             'pdf',
-                                //             '${lists[i]['id']}_prescription_pdf.pdf');
-                                //         // EasyLoading.dismiss();
-                                //       } else if (value == 3) {}
-                                //     },
-                                //   ),
-                                // ),
+
                               ],
                             ),
                           ),
                         if (prescriptionList.length == 0)
-                          Center(
+                          const Center(
                             heightFactor: 5.0,
                             child: Text('No Data Found.'),
                           )
@@ -304,9 +300,9 @@ class LabTestPageState extends State<LabTestPage>
                       children: [
                         for (int i = 0; i < referralList.length; i++)
                           Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 8, horizontal: 8.0),
-                            margin: EdgeInsets.all(5.0),
+                            margin: const EdgeInsets.all(5.0),
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(16),
@@ -348,21 +344,54 @@ class LabTestPageState extends State<LabTestPage>
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  flex: 1,
-                                  child: RoundEdgedButton(
+                                Row(mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    RoundEdgedButton(
                                       text: 'Download',
-                                      width: 110,
+                                      width: 70,
                                       height: 30,
                                       fontSize: 10,
-                                    onTap: () async{
-                                      await savePdfToStorage1(
-                                          referralList[i]['pdf_url'],
-                                          'pdf',
-                                          '${referralList[i]['id']}_referral.pdf');
-                                    },
-                                  ),
-                                )
+                                      verticalPadding: 0,
+                                      horizontalPadding: 0,
+                                      onTap: () async{
+                                        await savePdfToStorage1(
+                                            referralList[i]['pdf_url'],
+                                            'pdf',
+                                            '${referralList[i]['id']}_referral.pdf');
+                                      },
+                                    ),
+                                    hSizedBox,
+                                    RoundEdgedButton(
+                                      fontSize: 10,
+                                      onTap: () async{
+                                        Map<String, dynamic> data = {
+                                          'booking_id': referralList[i]['booking_id'].toString(),
+                                          'type': '2',
+                                        };
+                                        bool? result= await showCustomConfirmationDialog(
+                                            headingMessage: 'Are you sure',
+                                            description: 'You want to delete'
+                                        ) ;
+                                        if(result==true){
+                                          setState(() {
+                                            load = true;
+                                          });
+                                          var res = await Webservices.postData(
+                                              apiUrl: ApiUrls.deleteReferal,
+                                              body: data,
+                                              context: context).then((value) => getReferralList());
+                                        }
+                                      },
+                                      color: Colors.red,
+                                      text: 'Delete',
+                                      width: 70,
+                                      verticalPadding: 0,
+                                      horizontalPadding: 0,
+                                      height: 30,
+                                    ),
+                                  ],
+                                ),
+
                                 // Expanded(
                                 //   flex: 0,
                                 //   child: PopupMenuButton<int>(
@@ -413,7 +442,7 @@ class LabTestPageState extends State<LabTestPage>
                             ),
                           ),
                         if (referralList.length == 0)
-                          Center(
+                          const Center(
                             heightFactor: 2.0,
                             child: Text('No data found.'),
                           ),
@@ -508,7 +537,7 @@ class LabTestPageState extends State<LabTestPage>
   showAlertDialog(BuildContext context, String id) {
     // set up the button
     Widget okButton = TextButton(
-      child: Text("Yes"),
+      child: const Text("Yes"),
       onPressed: () async {
         await EasyLoading.show(
             status: null, maskType: EasyLoadingMaskType.black);
@@ -522,7 +551,7 @@ class LabTestPageState extends State<LabTestPage>
     );
 
     Widget noButton = TextButton(
-      child: Text("No"),
+      child: const Text("No"),
       onPressed: () {
         Navigator.pop(context);
       },
@@ -530,8 +559,8 @@ class LabTestPageState extends State<LabTestPage>
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Remove Document"),
-      content: Text("Are you sure?"),
+      title: const Text("Remove Document"),
+      content: const Text("Are you sure?"),
       actions: [
         okButton,
         noButton,

@@ -94,15 +94,23 @@ class ApiUrls{
   static const String refundrequest = baseUrl + 'refund-request';
   static const String invoice_list = baseUrl + 'invoice-list?user_id=';
   static const String delete_sick_note = baseUrl + 'delete_sick_note';
+
+
   static const String change_booking_status = baseUrl + 'change_booking_status';
   static const String addIcdNotes = baseUrl + 'addIcdCode';
   static const String editIcdNotes = baseUrl + 'editIcdCode';
   static const String listIcdNotes = baseUrl + 'icdCode_list';
   static const String deleteIcdNotes = baseUrl + 'delete_icdCode';
-  static const String usericdCode_list = baseUrl + 'usericdCode_list';
+  // static const String usericdCode_list = baseUrl + 'usericdCode_list';
+  static const String usericdCode_list = baseUrl + 'booking-icd-code-list';
   static const String callStatus = baseUrl + 'call-status';
-
-
+  static const String deleteInvoice = baseUrl + 'delete-invoice';
+  static const String deleteIcd = baseUrl + 'delete-icd';
+  static const String deletePrescription = baseUrl + 'delete-prescription';
+  static const String deleteChat = baseUrl + 'delete-chat';
+  static const String deleteReferal = baseUrl + 'delete-referal';
+  static const String new_delete_sick_note = baseUrl + 'delete-sick-note';
+  static const String deletIcdCode = baseUrl + 'delete_icdCode';
 // static const String  getSpecialistCategory = baseUrl + 'get-specialist-category';
 
 }

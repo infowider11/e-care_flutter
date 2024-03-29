@@ -240,12 +240,8 @@ class _bookingdetailState extends State<bookingdetail> {
                       context: context,
                       screen:AddIcdNotes(
                         booking_id: info
-                        ['id']
-                            .toString(),
-                        doctorName: '${info[
-                        'user_data']
-                        [
-                        'first_name']}',
+                        ['id'].toString(),
+                        doctorName: '${info['user_data']['first_name']}',
                       ),
                     );
                   }

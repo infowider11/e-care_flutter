@@ -27,6 +27,7 @@ import '../constants/api_variable_keys.dart';
 import '../services/api_urls.dart';
 import '../services/auth.dart';
 import '../services/webservices.dart';
+import '../widgets/custom_confirmation_dialog.dart';
 import '../widgets/showSnackbar.dart';
 import 'addsick.dart';
 import 'bookingDetail.dart';
@@ -118,16 +119,30 @@ class SickNotesPageState extends State<SickNotesPage>
                       get_lists();
                     },
                     sendonTap: () async{
-                      // EasyLoading.show(
-                      //   status: null,
-                      //   maskType: EasyLoadingMaskType.black,
-                      // );
                       await savePdfToStorage1(sickNoteList[i]['sick_pdf'], 'pdf',
                           '${sickNoteList[i]['id']}_sick_note.pdf');
-                      // EasyLoading.dismiss();
                     },
-                    deleteonTap: () {
-                      delete(sickNoteList[i]['id'].toString(),sickNoteList[i]['booking_id'].toString());
+                    deleteonTap: () async{
+                      Map<String, dynamic> data = {
+                        'booking_id':sickNoteList[i]['booking_id'].toString(),
+                        'type':user_Data!['type']
+                      };
+                      bool? result= await showCustomConfirmationDialog(
+                          headingMessage: 'Are you sure',
+                          description: 'You want to delete'
+                      ) ;
+                      if(result==true){
+                        setState(() {
+                          load = true;
+                        });
+                        var res = await Webservices.postData(apiUrl: ApiUrls.new_delete_sick_note,
+                            body: data,
+                            context: context);
+                        print('res----${res}');
+                        get_lists();
+                      }
+
+                      // delete(sickNoteList[i]['id'].toString(),sickNoteList[i]['booking_id'].toString(),sickNoteList[i]['booking_details']['user_data']['type']);
                     },
                     isimage: false,
                     isIcon: false,
@@ -266,7 +281,7 @@ class SickNotesPageState extends State<SickNotesPage>
     return downloadfolderpath;
   }
 
-  Future<void> delete(String id,String booking_id) async{
+  Future<void> delete(String id,String booking_id,String type) async{
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -283,6 +298,7 @@ class SickNotesPageState extends State<SickNotesPage>
                     'id': id.toString(),
                     'booking_id':
                     booking_id.toString(),
+                    'type':type
                   };
                   var res =
                   await Webservices.postData(

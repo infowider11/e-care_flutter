@@ -8,6 +8,7 @@ import 'CustomTexts.dart';
 class CustomDropdownButton<T> extends StatelessWidget {
   final String? text;
   final bool isLabel;
+  final bool enable;
   final Color labelColor;
   final List<T> items;
   final T? selectedItem;
@@ -41,6 +42,7 @@ class CustomDropdownButton<T> extends StatelessWidget {
     this.bgColor = Colors.transparent,
     this.extra_text,
     this.isextra_text = false,
+    this.enable = false,
     this.isLabel = true,
     this.itemMapKey = 'title',
     this.fieldColor=Colors.transparent,
@@ -70,7 +72,7 @@ class CustomDropdownButton<T> extends StatelessWidget {
           // padding: EdgeInsets.only(left: 16, top: 0),
           child:  DropdownSearch<T>(
             validator: validator,
-
+            enabled: enable,
             // popupBackgroundColor: Colors.transparent,
             // popupElevation: 0,
             // // dro

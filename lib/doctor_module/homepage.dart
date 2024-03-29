@@ -638,13 +638,8 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                             push(
                                               context: context,
                                               screen:AddIcdNotes(
-                                                booking_id: todays_app[i]
-                                                ['id']
-                                                    .toString(),
-                                                doctorName: '${todays_app[i][
-                                                'user_data']
-                                                [
-                                                'first_name']}',
+                                                booking_id: todays_app[i]['id'].toString(),
+                                                doctorName: '${todays_app[i]['user_data']['first_name']}',
                                               ),
                                             );
                                           }

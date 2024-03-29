@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:ecare/functions/download_file.dart';
+import 'package:ecare/pages/add_icd_notes.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/constans.dart';
@@ -29,6 +30,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../constants/api_variable_keys.dart';
+import '../widgets/custom_confirmation_dialog.dart';
 import '../widgets/showSnackbar.dart';
 import 'bookingDetail.dart';
 
@@ -71,9 +73,12 @@ class IcdCodesPageState extends State<IcdCodesPage>
 
   // ?doctor_id=23&booking_id=2
   getIcdCodes() async {
+    setState(() {
+      load = true;
+    });
     icdNotes = await Webservices.getList(ApiUrls.usericdCode_list+'?user_id=${await getCurrentUserId()}&type=1');
     setState(() {
-
+      load = false;
     });
   }
 
@@ -135,27 +140,47 @@ class IcdCodesPageState extends State<IcdCodesPage>
                     'Download statements with ICD-10 codes here'),
                 vSizedBox4,
                 for (int i = 0; i < icdNotes.length; i++)
-                  InkWell(
-                    onTap: () async{
-                      // EasyLoading.show(
-                      //   status: null,
-                      //   maskType: EasyLoadingMaskType.black,
-                      // );
-                      var time = DateTime.now();
-                      await savePdfToStorage1(icdNotes[i]['pdf_url'],'pdf',
-                          '${time.millisecond}_STATEMENT_WITH_ICD10_CODE.pdf');
-                      // EasyLoading.dismiss();
-                    },
-                    child: ListUI01(
-                        heading: 'STATEMENT: ${icdNotes[i][ApiVariableKeys.doctor_lastname]}/${icdNotes[i][ApiVariableKeys.user_lastname]}',
-                        // heading: 'STATEMENT: ${icdNotes[i]['doctor_data']['first_name']})',
-                        // heading: 'STATEMENT #${icdNotes[i]['icd_code']}',
-                        subheading: '${icdNotes[i][ApiVariableKeys.consult_dateTime]}',
-                        // subheading: '${icdNotes[i]['date']} ${icdNotes[i]['time']}',
-                        // subheading: '${icdNotes[i]['icd_code']??''}',
-                        borderColor: MyColors.white,
-                        image: 'assets/images/file.png'),
-                  ),
+                  ListUI02(
+                      heading: 'STATEMENT: ${icdNotes[i][ApiVariableKeys.doctor_lastname]}/${icdNotes[i][ApiVariableKeys.user_lastname]}',
+                      // heading: 'STATEMENT: ${icdNotes[i]['doctor_data']['first_name']})',
+                      // heading: 'STATEMENT #${icdNotes[i]['icd_code']}',
+                      subheading: '${icdNotes[i][ApiVariableKeys.consult_dateTime]}',
+                      // subheading: '${icdNotes[i]['date']} ${icdNotes[i]['time']}',
+                      // subheading: '${icdNotes[i]['icd_code']??''}',
+                      borderColor: MyColors.white,
+                      editonTap: () async{
+                        await push(context: context, screen: AddIcdNotes(
+                          is_update: true,
+                          data: icdNotes[i],
+                        ));
+                        getIcdCodes();
+                      },
+                      sendonTap: () async{
+                        var time = DateTime.now();
+                        await savePdfToStorage1(icdNotes[i]['pdf_url'],'pdf',
+                            '${time.millisecond}_STATEMENT_WITH_ICD10_CODE.pdf');
+                      },
+                      isIcon: false,
+                      deleteonTap: () async{
+                        Map<String, dynamic> data = {
+                          'booking_id': icdNotes[i]['id'].toString(),
+                          'type': '1',
+                        };
+                        bool? result= await showCustomConfirmationDialog(
+                            headingMessage: 'Are you sure',
+                            description: 'You want to delete'
+                        ) ;
+                        if(result==true){
+                          setState(() {
+                            load = true;
+                          });
+                          var res = await Webservices.postData(
+                              apiUrl: ApiUrls.deleteIcd,
+                              body: data,
+                              context: context).then((value) => getIcdCodes());
+                        }
+                      },
+                      image: 'assets/images/file.png'),
                 if (icdNotes.length == 0)
                   Center(
                     child: Text('No data found.'),
