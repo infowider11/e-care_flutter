@@ -30,6 +30,7 @@ import 'package:path_provider/path_provider.dart';
 import '../services/api_urls.dart';
 import '../services/auth.dart';
 import '../services/webservices.dart';
+import '../widgets/custom_confirmation_dialog.dart';
 import '../widgets/showSnackbar.dart';
 
 class Referral_Letter_Page extends StatefulWidget {
@@ -113,8 +114,24 @@ class Referral_Letter_PageState extends State<Referral_Letter_Page> with TickerP
                           '${lists[i]['id']}_refrral.pdf');
                       // EasyLoading.dismiss();
                     },
-                    deleteonTap: () {
-                      delete(lists[i]['id'].toString(),lists[i]['booking_id'].toString());
+                    deleteonTap: () async{
+                      Map<String, dynamic> data = {
+                        'type': '1',
+                        'booking_id': lists[i]['booking_id'].toString(),
+                      };
+                      bool? result= await showCustomConfirmationDialog(
+                        headingMessage: 'Are you sure you want to delete?',
+                      ) ;
+                      if(result==true) {
+                        var res =
+                        await Webservices.postData(
+                            apiUrl: ApiUrls
+                                .deleteReferal,
+                            body: data,
+                            context: context);
+                        get_lists();
+                      }
+                      // delete(lists[i]['id'].toString(),lists[i]['booking_id'].toString());
                     },
                     isimage: false,
                     isIcon: false,

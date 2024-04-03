@@ -29,6 +29,7 @@ import '../constants/api_variable_keys.dart';
 import '../services/api_urls.dart';
 import '../services/auth.dart';
 import '../services/webservices.dart';
+import '../widgets/custom_confirmation_dialog.dart';
 import '../widgets/showSnackbar.dart';
 
 class Consultation_Notes_Page extends StatefulWidget {
@@ -109,8 +110,26 @@ class Consultation_Notes_PageState extends State<Consultation_Notes_Page> with T
                           '${consultationNotes[i]['id']}_notes.pdf');
                       // EasyLoading.dismiss();
                     },
-                    deleteonTap: () {
-                      delete(consultationNotes[i]['id'].toString(),'');
+                    deleteonTap: () async{
+                      Map<String, dynamic> data = {
+                        'user_id': await getCurrentUserId(),
+                        'note_id': consultationNotes[i]['id'].toString(),
+                        'booking_id': '',
+                      };
+                      bool? result= await showCustomConfirmationDialog(
+                        headingMessage: 'Are you sure you want to delete?',
+                      ) ;
+                      if(result==true) {
+
+                        var res =
+                        await Webservices.postData(
+                            apiUrl: ApiUrls
+                                .delete_consultation_note,
+                            body: data,
+                            context: context);
+                        getConsultationNotes();
+                      }
+                      // delete(consultationNotes[i]['id'].toString(),'');
                     },
                     subheading: '${consultationNotes[i][ApiVariableKeys.consult_dateTime]}',
                     // subheading: '${DateFormat.yMMMd().add_jm().format(DateTime.parse(consultationNotes[i]['created_at']))}',

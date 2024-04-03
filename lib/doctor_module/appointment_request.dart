@@ -1083,8 +1083,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                         'type': '1',
                                                       };
                                                       bool? result= await showCustomConfirmationDialog(
-                                                          headingMessage: 'Are you sure',
-                                                          description: 'You want to delete'
+                                                          headingMessage: 'Are you sure you want to delete?',
+                                                          // description: 'You want to delete'
                                                       ) ;
                                                       if(result==true){
                                                         setState(() {
@@ -1221,8 +1221,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                   'type': '1',
                                                 };
                                                 bool? result= await showCustomConfirmationDialog(
-                                                    headingMessage: 'Are you sure',
-                                                    description: 'You want to delete'
+                                                    headingMessage: 'Are you sure you want to delete?',
+                                                    // description: 'You want to delete'
                                                 ) ;
                                                 if(result==true){
                                                   setState(() {

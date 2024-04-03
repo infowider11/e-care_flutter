@@ -1017,8 +1017,8 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                           'type': '2',
                                                         };
                                                         bool? result= await showCustomConfirmationDialog(
-                                                          headingMessage: 'Are you sure',
-                                                          description: 'You want to delete'
+                                                          headingMessage:'Are you sure you want to delete?',
+                                                          // description: 'You want to delete'
                                                         ) ;
                                                        if(result==true){
                                                          setState(() {
@@ -1217,8 +1217,8 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                         'type': '2',
                                                       };
                                                       bool? result= await showCustomConfirmationDialog(
-                                                          headingMessage: 'Are you sure',
-                                                          description: 'You want to delete'
+                                                          headingMessage: 'Are you sure you want to delete?',
+
                                                       ) ;
                                                       if(result==true){
                                                         setState(() {

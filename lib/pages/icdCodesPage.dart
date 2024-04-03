@@ -167,8 +167,8 @@ class IcdCodesPageState extends State<IcdCodesPage>
                           'type': '1',
                         };
                         bool? result= await showCustomConfirmationDialog(
-                            headingMessage: 'Are you sure',
-                            description: 'You want to delete'
+                            headingMessage:'Are you sure you want to delete?',
+
                         ) ;
                         if(result==true){
                           setState(() {

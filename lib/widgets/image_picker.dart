@@ -33,49 +33,50 @@ Future<File?> pickImage(bool isGallery) async {
     print('the length is');
     // print('size : ${length}');
     print('size: ${await pickedFile.readAsBytes()}');
-    File? croppedFile;
-    try {
-    croppedFile = await ImageCropper().cropImage(
-          cropStyle: CropStyle.circle,
-          // aspectRatio: CropAspectRatio(ratioX: 9, ratioY: 16),
-          compressQuality: length > 100000 ? length > 200000 ? length > 300000
-              ? length > 400000 ? 5 : 10
-              : 20 : 30 : 50,
-          sourcePath: pickedFile.path,
-          aspectRatioPresets: [
-            CropAspectRatioPreset.square,
-            CropAspectRatioPreset.ratio3x2,
-            CropAspectRatioPreset.original,
-            CropAspectRatioPreset.ratio4x3,
-            CropAspectRatioPreset.ratio16x9
-
-          ],
-          androidUiSettings: AndroidUiSettings(
-              activeControlsWidgetColor: MyColors.primaryColor,
-              toolbarTitle: 'Adjust your Post',
-              toolbarColor: MyColors.primaryColor,
-              toolbarWidgetColor: MyColors.white,
-              initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: true),
-          iosUiSettings: IOSUiSettings(
-            minimumAspectRatio: 1.0,
-          ));
-
-
-    }catch(e){
-      print('cropper--image ---$e');
-      showSnackbar('Something went wrong $e');
-    }
+    // File? croppedFile;
+    // try {
+    // croppedFile = await ImageCropper().cropImage(
+    //       cropStyle: CropStyle.circle,
+    //       // aspectRatio: CropAspectRatio(ratioX: 9, ratioY: 16),
+    //       compressQuality: length > 100000 ? length > 200000 ? length > 300000
+    //           ? length > 400000 ? 5 : 10
+    //           : 20 : 30 : 50,
+    //       sourcePath: pickedFile.path,
+    //       aspectRatioPresets: [
+    //         CropAspectRatioPreset.square,
+    //         CropAspectRatioPreset.ratio3x2,
+    //         CropAspectRatioPreset.original,
+    //         CropAspectRatioPreset.ratio4x3,
+    //         CropAspectRatioPreset.ratio16x9
+    //
+    //       ],
+    //       androidUiSettings: AndroidUiSettings(
+    //           activeControlsWidgetColor: MyColors.primaryColor,
+    //           toolbarTitle: 'Adjust your Post',
+    //           toolbarColor: MyColors.primaryColor,
+    //           toolbarWidgetColor: MyColors.white,
+    //           initAspectRatio: CropAspectRatioPreset.original,
+    //           lockAspectRatio: true),
+    //       iosUiSettings: IOSUiSettings(
+    //         minimumAspectRatio: 1.0,
+    //       ));
+    //
+    //
+    // }catch(e){
+    //   print('cropper--image ---$e');
+    //   showSnackbar('Something went wrong $e');
+    // }
     try{
-      _imageFile = croppedFile!.path;
-      image = File(croppedFile.path);
-    }catch(e){
       _imageFile = pickedFile!.path;
       image = File(pickedFile.path);
+    }catch(e){
+      print('there is error in  image picker $e');
+      // _imageFile = pickedFile!.path;
+      // image = File(pickedFile.path);
     }
 
 
-    print('---croppedFile----$croppedFile');
+    // print('---croppedFile----$croppedFile');
     print('image image------$image');
     // setState(() {
     // });

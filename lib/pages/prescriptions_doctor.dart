@@ -26,6 +26,7 @@ import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 
 import '../constants/api_variable_keys.dart';
 import '../services/auth.dart';
+import '../widgets/custom_confirmation_dialog.dart';
 import '../widgets/showSnackbar.dart';
 import 'bookingDetail.dart';
 import 'package:intl/intl.dart';
@@ -193,8 +194,25 @@ class Prescriptions_Doctor_PageState extends State<Prescriptions_Doctor_Page>
                                   '${prescriptionList[i]['id']}_prescription.pdf');
                               // EasyLoading.dismiss();
                             },
-                            deleteonTap: () {
-                              delete(prescriptionList[i]['id'].toString(),prescriptionList[i]['booking_id'].toString());
+                            deleteonTap: () async{
+                              Map<String, dynamic> data = {
+                                'prescription_id': prescriptionList[i]['id']
+                                    .toString(),
+                                'booking_id': prescriptionList[i]['booking_id']
+                                    .toString(),
+                                'type': '1'
+                              };
+                              bool? result= await showCustomConfirmationDialog(
+                                headingMessage: 'Are you sure you want to delete?',
+                              ) ;
+                              if(result==true) {
+                                var res = await Webservices.postData(
+                                    apiUrl: ApiUrls.deletePrescription,
+                                    body: data,
+                                    context: context);
+                                get_lists();
+                              }
+                              // delete(prescriptionList[i]['id'].toString(),prescriptionList[i]['booking_id'].toString());
                             },
                             isimage: false,
                             isIcon: false,
