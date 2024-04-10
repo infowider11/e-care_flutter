@@ -145,9 +145,10 @@ class _Add_sicknoteState extends State<Add_sicknote> {
                       // extra_text: 'Booking Id #',
                       isextra_text: true,
                       margin: 0.0,
+                      enable: widget.is_update==true?false:true,
                       isLabel: false,
                       onChanged: ((dynamic value) {
-                        print('select bank ---- ${value}');
+                        print('select banksss ---dhjgk- ${value}');
                         booking_id = value['id'].toString();
                         get_booking_detail(booking_id);
                         setState(() {});

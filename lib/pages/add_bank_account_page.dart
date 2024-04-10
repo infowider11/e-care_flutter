@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:ecare/functions/global_Var.dart';
+import 'package:ecare/functions/print_function.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/services/pay_stack/flutter_paystack_services.dart';
 import 'package:ecare/services/webservices.dart';
@@ -98,6 +99,7 @@ class _AddBankAccountPageState extends State<AddBankAccountPage> {
 
   @override
   Widget build(BuildContext context) {
+    myCustomPrintStatement('sdflashd ${Banks}');
     return Scaffold(
       backgroundColor: MyColors.scaffold,
       appBar: appBar(
@@ -145,12 +147,32 @@ class _AddBankAccountPageState extends State<AddBankAccountPage> {
                         setState(() {});
                       }),
                       items: Banks,
+                      // items: Banks,
                       hint: 'Bank Name',
                       itemMapKey: 'name',
                       text: '',
                     ),
                   ),
                   vSizedBox,
+                  // CustomDropdownButton1(
+                  //   margin: 0.0,
+                  //   selectedItem: selected_bank??null,
+                  //   isLabel: false,
+                  //   onChanged: ((dynamic value) {
+                  //     print('select bank ---- ${value}');
+                  //     selected_bank = value;
+                  //     if(current_user['is_bank_account_added'].toString()=='0'){
+                  //       bankCodeController.text = value['code'].toString();
+                  //     }
+                  //     setState(() {});
+                  //   }),
+                  //   items: Banks,
+                  //   // items: Banks,
+                  //   hint: 'Bank Name',
+                  //   itemMapKey: 'name',
+                  //   text: '',
+                  // ),
+                  // vSizedBox,
                   // CustomTextField(
                   //     controller: banknameController, hintText: 'Bank Name'),
                   // vSizedBox,

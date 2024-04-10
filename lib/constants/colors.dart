@@ -4,6 +4,8 @@ const full = 'MediaQuery.of(context).size.width';
 class MyColors{
   static const Color primaryColor = Color(0xFF00A2EA);
   static const Color secondarycolor = Color(0xFF17BC84);
+  static Color blackColor50 = Colors.black.withOpacity(0.5);
+  static Color redColor =Color(0xFFBA1A1A);
   static const Color red = Color(0xFFBA1A1A);
   static const Color yellow = Color(0xFFF5C30E);
   static const Color other = Color(0xFF363C49);
