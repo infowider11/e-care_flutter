@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
+// import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/constans.dart';
 import 'package:ecare/constants/image_urls.dart';
@@ -26,6 +26,7 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 
 import '../constants/api_variable_keys.dart';
+import '../functions/get_folder_directory.dart';
 import '../services/api_urls.dart';
 import '../services/auth.dart';
 import '../services/webservices.dart';
@@ -171,7 +172,7 @@ class Consultation_Notes_PageState extends State<Consultation_Notes_Page> with T
 
 
   downloadfolderpath() async {
-    var dir = await DownloadsPathProvider.downloadsDirectory;
+    var dir = await getCustomDownloadsDirectory();
     String downloadfolderpath = '';
     if (dir != null) {
       downloadfolderpath = dir.path;

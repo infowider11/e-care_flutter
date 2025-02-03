@@ -10,3 +10,13 @@ Future<Directory?> getFolderDirectory()async{
   return getExternalStorageDirectory();
 
 }
+
+
+Future<Directory?> getCustomDownloadsDirectory()async{
+  if(Platform.isIOS ||Platform.isMacOS){
+    var directory = await getTemporaryDirectory();
+    return directory;
+  }
+  return getExternalStorageDirectory();
+
+}

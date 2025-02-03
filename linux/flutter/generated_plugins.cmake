@@ -3,6 +3,9 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  file_selector_linux
+  flutter_timezone
+  open_file_linux
   sentry_flutter
   url_launcher_linux
 )

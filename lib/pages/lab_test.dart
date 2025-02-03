@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
+// import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:ecare/constants/api_variable_keys.dart';
 import 'package:ecare/functions/global_Var.dart';
 import 'package:ecare/services/api_urls.dart';
@@ -519,7 +519,7 @@ class LabTestPageState extends State<LabTestPage>
   }
 
   downloadfolderpath() async {
-    var dir = await DownloadsPathProvider.downloadsDirectory;
+    var dir = await getCustomDownloadsDirectory();
     String downloadfolderpath = '';
     if (dir != null) {
       downloadfolderpath = dir.path;

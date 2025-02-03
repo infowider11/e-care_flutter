@@ -22,9 +22,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart';
-import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
+// import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 
 import '../constants/api_variable_keys.dart';
+import '../functions/get_folder_directory.dart';
 import '../services/auth.dart';
 import '../widgets/custom_confirmation_dialog.dart';
 import '../widgets/showSnackbar.dart';
@@ -479,7 +480,7 @@ class Prescriptions_Doctor_PageState extends State<Prescriptions_Doctor_Page>
   }
 
   downloadfolderpath() async {
-    var dir = await DownloadsPathProvider.downloadsDirectory;
+    var dir = await getCustomDownloadsDirectory();
     String downloadfolderpath = '';
     if (dir != null) {
       downloadfolderpath = dir.path;

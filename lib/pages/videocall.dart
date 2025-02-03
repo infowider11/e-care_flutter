@@ -1,10 +1,11 @@
+import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:ecare/constants/global_keys.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:agora_rtc_engine/rtc_engine.dart';
-import 'package:agora_rtc_engine/rtc_local_view.dart' as RtcLocalView;
-import 'package:agora_rtc_engine/rtc_remote_view.dart' as RtcRemoteView;
+// import 'package:agora_rtc_engine/rtc_engine.dart' ;
+// import 'package:agora_rtc_engine/rtc_local_view.dart' as RtcLocalView;
+// import 'package:agora_rtc_engine/rtc_remote_view.dart' as RtcRemoteView;
 
 import '../../widgets/CustomTexts.dart';
 // import '../../widgets/customLoader.dart';
@@ -107,7 +108,8 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     });
 
     // creates the engine
-    _engine = await RtcEngine.create(appId);
+    // _engine = await RtcEngine.create(appId);
+    _engine = await createAgoraRtcEngine();
 
     print('the engine is created');
     await _engine!.setEnableSpeakerphone(
@@ -116,10 +118,10 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
 
 
 
-    _engine!.setEventHandler(RtcEngineEventHandler(cameraReady: () {
+    _engine!.registerEventHandler(RtcEngineEventHandler(onCameraReady: () {
       print('fsdddd');
 
-    }, localAudioStateChanged: (ss, error) {
+    }, onLocalAudioStateChanged: (connection,ss, error) {
       _engine!.isSpeakerphoneEnabled().then((value) {
         isSpeakerEnabled = value;
         try {
@@ -128,22 +130,23 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
           print('Error in catch block 2343 $e');
         }
       });
-    }, localVideoStats: (df) {
+    },
+      onLocalVideoStats: (connection,df) {
       print('local video stats');
       print(df.captureBrightnessLevel);
-    }, joinChannelSuccess: (String channel, int uid, int elapsed) {
+    }, onJoinChannelSuccess: (connection,int uid, ) {
       print('Local user $uid joined');
       setState(() {});
-    }, rejoinChannelSuccess: (string, int1, int2) {
+    }, onRejoinChannelSuccess: (connection, int1) {
       print('rejoined fffff');
-    }, userEnableVideo: (a, isenbla) {
+    }, onUserEnableVideo: (rtcconnection,a, isenbla) {
       print('The user ghass enabled $a $isenbla');
-    }, userJoined: (int uid, int elapsed) {
+    }, onUserJoined: (connection,int uid, int elapsed) {
       print('Remote user $uid joined');
       setState(() {
         _remoteUid = uid;
       });
-    }, userOffline: (int uid, UserOfflineReason reason) async {
+    }, onUserOffline: (connection,int uid, UserOfflineReasonType reason) async {
       print('Remote user $uid left');
       _remoteUid = null;
       // await Webservices.postData(apiUrl: ApiUrls.endCall, body: request, context: context);
@@ -152,12 +155,13 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
       setState(() {
         _remoteUid = null;
       });
-    },rtcStats: (stats) async{
+    },
+      onRtcStats: (connection,stats) async{
       //updates every two seconds
       // if (_showStats) {
       //   _stats = stats;
       // int d = await stats.duration;
-      call_duration = await stats.duration;
+      call_duration = await stats?.duration??0;
 
       setState(() {
 
@@ -182,11 +186,18 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
 
   Widget _renderRemoteView() {
     if (_remoteUid != null) {
-      return RtcRemoteView.SurfaceView(
-        uid: _remoteUid!,
-        channelId: channelName,
-        mirrorMode: VideoMirrorMode.Auto,
+      return AgoraVideoView(
+        controller: VideoViewController.remote(
+          rtcEngine: _engine!,
+          canvas: VideoCanvas(uid: _remoteUid),
+          connection: RtcConnection(channelId: channelName),
+        ),
       );
+      // return RtcRemoteView.SurfaceView(
+      //   uid: _remoteUid!,
+      //   channelId: channelName,
+      //   mirrorMode: VideoMirrorMode.Auto,
+      // );
     } else {
       return Center(
         child: ParagraphText(
@@ -205,24 +216,34 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
       ),
-      child: RtcLocalView.SurfaceView(),
+      child: AgoraVideoView(
+        controller: VideoViewController(
+          rtcEngine: _engine!,
+          canvas: const VideoCanvas(uid: 0),
+        ),
+      ),
+      // child: RtcLocalView.SurfaceView(),
     );
   }
 
   joinChannel() async {
     try {
-      await _engine!.joinChannel(
-        token,
-        channelName,
-        null,
-        0,
-      );
+      await _engine!.joinChannel(token:token??'',channelId:  channelName,uid: 0, options: ChannelMediaOptions());
+      // await _engine!.joinChannel(
+      //   token,
+      //   channelName,
+      //   null,
+      //   0,
+      // );
+      print('the join  channel is called');
       await _engine!.setCameraAutoFocusFaceModeEnabled(true);
-      await _engine!.enableRemoteSuperResolution(_remoteUid!, true);
+      // await _engine!.enableRemo(_remoteUid!, true);
+      ///TODO: uncomment in the end manish 0510
+      // await _engine!.enableRemoteSuperResolution(_remoteUid!, true);
     } catch (e) {
       print('inside catch block234 $e');
       await _engine!.leaveChannel();
-      await _engine!.joinChannel(token, channelName, null, 0);
+      await _engine!.joinChannel(token:token??'',channelId:  channelName,uid: 0, options: ChannelMediaOptions());
       await _engine!.setCameraAutoFocusFaceModeEnabled(true);
       // await _engine!.enableRemoteSuperResolution(_remoteUid!, true);
     }
@@ -238,7 +259,8 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   @override
   void dispose() {
     // TODO: implement dispose
-    _engine?.destroy();
+    _engine?.leaveChannel();
+    _engine?.release();
     super.dispose();
   }
 
@@ -466,13 +488,15 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
                                   try {
                                     if (_remoteUid != null) {
                                       await _engine!.leaveChannel();
-                                      await _engine!.joinChannel(token, channelName, null, 0);
+                                      await _engine!.joinChannel(token:token??'',channelId:  channelName,uid: 0, options: ChannelMediaOptions());
+                                      // await _engine!.joinChannel(token, channelName, null, 0);
                                       // await _engine!.setCameraAutoFocusFaceModeEnabled(true);
                                       _remoteUid = null;
                                     } else {
                                       try {
                                         await _engine!.leaveChannel();
-                                        await _engine!.joinChannel(token, channelName, null, 0);
+                                        await _engine!.joinChannel(token:token??'',channelId:  channelName,uid: 0, options: ChannelMediaOptions());
+                                        // await _engine!.joinChannel(token, channelName, null, 0);
                                         // await _engine!.setCameraAutoFocusFaceModeEnabled(true);
                                         _remoteUid = null;
                                       } catch (e) {

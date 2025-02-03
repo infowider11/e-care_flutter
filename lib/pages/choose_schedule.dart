@@ -81,7 +81,7 @@ class _ChooseScheduleState extends State<ChooseSchedule> {
           CalendarEvent(
               eventName: '${res['data'][i]['slot_data'].length.toString()} Slot',
               eventDate: DateTime.parse(res['data'][i]['date']+' '+res['data'][i]['start_time']),
-              eventBackgroundColor: MyColors.secondarycolor),
+              eventBackgroundColor: MyColors.secondarycolor, eventTextStyle: TextStyle()),
         );
       }
     }

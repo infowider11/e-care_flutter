@@ -1,11 +1,13 @@
-import 'package:contacts_service/contacts_service.dart';
+// import 'package:contacts_service/contacts_service.dart';
 import 'package:ecare/pages/setting.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sms/flutter_sms.dart';
+import 'package:flutter_contacts_service/flutter_contacts_service.dart';
+// import 'package:flutter_sms/flutter_sms.dart';
 import 'package:permission_handler/permission_handler.dart';
+// import 'package:sms_advanced/sms_advanced.dart';
 
 import '../constants/colors.dart';
 import '../constants/sized_box.dart';
@@ -23,7 +25,7 @@ class DoctorInvitePage extends StatefulWidget {
 class _DoctorInvitePageState extends State<DoctorInvitePage> {
   Map userData={};
   bool load=false;
-  List<Contact> contacts = [];
+  List<ContactInfo> contacts = [];
 
   @override
   void initState() {
@@ -38,7 +40,7 @@ class _DoctorInvitePageState extends State<DoctorInvitePage> {
     setState(() {
       load=true;
     });
-      contacts = await ContactsService.getContacts(withThumbnails: true);
+      contacts = await FlutterContactsService.getContacts(withThumbnails: true);
     print('contact list----${contacts}');
     setState(() {
       load=false;
@@ -182,7 +184,8 @@ class _DoctorInvitePageState extends State<DoctorInvitePage> {
                               var msg = 'Hello, \nOne of your friend username has been invited you to e care app,'
                                   'Install it by clicking below link. https://bluediamondresearch.com/WEB01/e_care/admin \n'
                                   'Thanks'+'\n${contacts[i].displayName}';
-                              _sendSMS(msg,[getPhone(contacts[i].phones)]);
+                              ///TODO: uncomment in the end manish 0510
+                              // _sendSMS(msg,[getPhone(contacts[i].phones)]);
                             },
                             child: Container(
                               padding: EdgeInsets.all(10),
@@ -219,11 +222,16 @@ class _DoctorInvitePageState extends State<DoctorInvitePage> {
 
   }
 
-  void _sendSMS(String message, List<String> recipents) async {
-    String _result = await sendSMS(message: message, recipients: recipents)
-        .catchError((onError) {
-      print(onError);
-    });
-    print(_result);
-  }
+  // void _sendSMS(String message, List<String> recipents) async {
+  //   SmsSender sender = new SmsSender();
+  //   // String address = someAddress();
+  //   for(var client in recipents){
+  //     sender.sendSms(new SmsMessage(client, 'Hello flutter world!'));
+  //   }
+  //   // String _result = await sendSMS(message: message, recipients: recipents)
+  //   //     .catchError((onError) {
+  //   //   print(onError);
+  //   // });
+  //   // print(_result);
+  // }
 }

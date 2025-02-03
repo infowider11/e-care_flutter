@@ -3,7 +3,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
+// import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:ecare/constants/navigation.dart';
 import 'package:ecare/functions/global_Var.dart';
 import 'package:ecare/services/webservices.dart';
@@ -158,7 +158,7 @@ savePdfToStorage1(
           //return null;
         }
       }else{
-        Share.shareFiles([savedPDF.path], text: 'PDF').then((value) {
+        Share.shareXFiles([XFile(savedPDF.path)], text: 'PDF').then((value) {
           // print('sharing----- $value');
           EasyLoading.dismiss();
         });

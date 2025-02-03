@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
+// import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:ecare/constants/api_variable_keys.dart';
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/constans.dart';
@@ -27,6 +27,7 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../functions/get_folder_directory.dart';
 import '../services/api_urls.dart';
 import '../services/auth.dart';
 import '../services/webservices.dart';
@@ -172,7 +173,7 @@ class Referral_Letter_PageState extends State<Referral_Letter_Page> with TickerP
 
 
   downloadfolderpath() async {
-    var dir = await DownloadsPathProvider.downloadsDirectory;
+    var dir = await getCustomDownloadsDirectory();
     String downloadfolderpath = '';
     if (dir != null) {
       downloadfolderpath = dir.path;

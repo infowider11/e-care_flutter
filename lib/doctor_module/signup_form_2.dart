@@ -1,14 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/doctor_module/appointment_request.dart';
-import 'package:ecare/doctor_module/homepage.dart';
-import 'package:ecare/doctor_module/myecare.dart';
 import 'package:ecare/doctor_module/pending_verification.dart';
 import 'package:ecare/functions/navigation_functions.dart';
 import 'package:ecare/pages/loginpage.dart';
