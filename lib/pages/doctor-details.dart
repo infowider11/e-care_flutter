@@ -302,7 +302,8 @@ class _DoctorDetailsState extends State<DoctorDetails> {
   }
 
   Future<String> change_date_formate(String date) async {
-    var dateTime = Jiffy(date, "yyyy-mm-dd").yMMMMd;
+    var dateTime = Jiffy.parseFromDateTime(DateTime.tryParse(date)??DateTime.now()).yMMMMd;
+    // var dateTime = Jiffy(date, "yyyy-mm-dd").yMMMMd;
     return dateTime;
   }
 }

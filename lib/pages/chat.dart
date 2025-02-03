@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
+// import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/pages/payment_method.dart';
@@ -564,57 +564,58 @@ class _ChatPageState extends State<ChatPage> {
     });
   }
 
-  Future<String> savePdfToStorage(
-      String url, targetPath, targetFilename) async {
-    //comment out the next two lines to prevent the device from getting
-    // the image from the web in order to prove that the picture is
-    // coming from the device instead of the web.
+  // Future<String> savePdfToStorage(
+  //     String url, targetPath, targetFilename) async {
+  //   //comment out the next two lines to prevent the device from getting
+  //   // the image from the web in order to prove that the picture is
+  //   // coming from the device instead of the web.
+  //
+  //   // var targetPath = await getPathToDowload();
+  //
+  //   var response = await get(Uri.parse(url)); // <--2
+  //
+  //   print('the url is__________________________________$url');
+  //
+  //   String path = await downloadfolderpath();
+  //   // String path = '/storage/emulated/0/Download';
+  //
+  //   var firstPath = targetPath;
+  //   var filePathAndName = path + '/' + targetFilename;
+  //   //comment out the next three lines to prevent the image from being saved
+  //   //to the device to show that it's coming from the internet
+  //
+  //   // final taskId = await FlutterDownloader.enqueue(
+  //   //     url:url,
+  //   //     savedDir: path,
+  //   //     showNotification: true, // show download progress in status bar (for Android)
+  //   //     openFileFromNotification: true, // click on notification to open downloaded file (for Android)
+  //   //     fileName: targetFilename
+  //   // );
+  //   // await Directory(firstPath).create(recursive: true);
+  //   //
+  //   //
+  //   // // <-- 1
+  //   File file2 = new File(filePathAndName); // <-- 2
+  //   file2.writeAsBytesSync(response.bodyBytes);
+  //   print(' the file name is $filePathAndName'); // <-- 3;
+  //   showSnackbar('Pdf downloaded successfully.');
+  //   return filePathAndName;
+  // }
+  ///
 
-    // var targetPath = await getPathToDowload();
-
-    var response = await get(Uri.parse(url)); // <--2
-
-    print('the url is__________________________________$url');
-
-    String path = await downloadfolderpath();
-    // String path = '/storage/emulated/0/Download';
-
-    var firstPath = targetPath;
-    var filePathAndName = path + '/' + targetFilename;
-    //comment out the next three lines to prevent the image from being saved
-    //to the device to show that it's coming from the internet
-
-    // final taskId = await FlutterDownloader.enqueue(
-    //     url:url,
-    //     savedDir: path,
-    //     showNotification: true, // show download progress in status bar (for Android)
-    //     openFileFromNotification: true, // click on notification to open downloaded file (for Android)
-    //     fileName: targetFilename
-    // );
-    // await Directory(firstPath).create(recursive: true);
-    //
-    //
-    // // <-- 1
-    File file2 = new File(filePathAndName); // <-- 2
-    file2.writeAsBytesSync(response.bodyBytes);
-    print(' the file name is $filePathAndName'); // <-- 3;
-    showSnackbar('Pdf downloaded successfully.');
-    return filePathAndName;
-  }
-
-  downloadfolderpath() async {
-    var dir = await DownloadsPathProvider.downloadsDirectory;
-    String downloadfolderpath = '';
-    if (dir != null) {
-      downloadfolderpath = dir.path;
-      print(
-          'downloadfolderpath---------${downloadfolderpath}'); //output: /storage/emulated/0/Download
-      setState(() {
-        //refresh UI
-      });
-    } else {
-      print("No download folder found.");
-    }
-    return downloadfolderpath;
-  }
+  // downloadfolderpath() async {
+  //   var dir = await DownloadsPathProvider.downloadsDirectory;
+  //   String downloadfolderpath = '';
+  //   if (dir != null) {
+  //     downloadfolderpath = dir.path;
+  //     print(
+  //         'downloadfolderpath---------${downloadfolderpath}'); //output: /storage/emulated/0/Download
+  //     setState(() {
+  //       //refresh UI
+  //     });
+  //   } else {
+  //     print("No download folder found.");
+  //   }
+  //   return downloadfolderpath;
+  // }
 }

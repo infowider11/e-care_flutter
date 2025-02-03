@@ -98,23 +98,23 @@ Future logout() async{
   globel_timer?.cancel();
   return true;
 }
-
-Future<String> savePdfToStorage12( // old
-    String url, targetPath, targetFilename) async {
-  var response = await http.get(Uri.parse(url));
-  print('auth the url is__________________________________$url');
-  String path = await downloadfolderpath();
-  // String path = '/storage/emulated/0/Download';
-  var firstPath = targetPath;
-  var filePathAndName = path + '/' + targetFilename;
-  File file2 = new File(filePathAndName); // <-- 2
-  file2.writeAsBytesSync(response.bodyBytes);
-  print(' the file name is $filePathAndName'); // <-- 3;
-  showSnackbar('Pdf downloaded successfully.');
-  return filePathAndName;
-}
-
-
+//
+// Future<String> savePdfToStorage12( // old
+//     String url, targetPath, targetFilename) async {
+//   var response = await http.get(Uri.parse(url));
+//   print('auth the url is__________________________________$url');
+//   String path = await downloadfolderpath();
+//   // String path = '/storage/emulated/0/Download';
+//   var firstPath = targetPath;
+//   var filePathAndName = path + '/' + targetFilename;
+//   File file2 = new File(filePathAndName); // <-- 2
+//   file2.writeAsBytesSync(response.bodyBytes);
+//   print(' the file name is $filePathAndName'); // <-- 3;
+//   showSnackbar('Pdf downloaded successfully.');
+//   return filePathAndName;
+// }
+//
+///
 savePdfToStorage1(
     String pdfUrl, targetPath, targetFilename) async {
   print('downloading pdf $pdfUrl');
@@ -175,7 +175,7 @@ savePdfToStorage1(
     // return null;
   }
 }
-
+///
 savePdfToStorageForAndroid(
     String url, targetPath, targetFilename) async {
   // var status = await Permission.storage.request();
@@ -239,22 +239,6 @@ savePdfToStorageForAndroid(
 }
 
 
-
-// downloadfolderpath() async {
-//   var dir = await DownloadsPathProvider.downloadsDirectory;
-//   String downloadfolderpath = '';
-//   if (dir != null) {
-//     downloadfolderpath = dir.path;
-//     print(
-//         'downloadfolderpath---------${downloadfolderpath}'); //output: /storage/emulated/0/Download
-//     // setState(() {
-//     //   //refresh UI
-//     // });
-//   } else {
-//     print("No download folder found.");
-//   }
-//   return downloadfolderpath;
-// }
 downloadfolderpath() async{
   var downloadsDirectory = Platform.isAndroid
       ? '/storage/emulated/0/Download' // Android downloads directory
