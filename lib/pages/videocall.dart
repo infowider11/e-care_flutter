@@ -1,17 +1,13 @@
+import 'dart:math';
+
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:ecare/constants/global_keys.dart';
+import 'package:ecare/functions/print_function.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-// import 'package:agora_rtc_engine/rtc_engine.dart' ;
-// import 'package:agora_rtc_engine/rtc_local_view.dart' as RtcLocalView;
-// import 'package:agora_rtc_engine/rtc_remote_view.dart' as RtcRemoteView;
 
 import '../../widgets/CustomTexts.dart';
-// import '../../widgets/customLoader.dart';
-// import '../constants/global_data.dart';
-// import '../functions/showSnackbar.dart';
-import '../constants/navigation.dart';
 import '../functions/global_Var.dart';
 import '../services/api_urls.dart';
 import '../services/custom_navigation_services.dart';
@@ -41,7 +37,8 @@ class VideoCallScreen extends StatefulWidget {
 }
 
 class _VideoCallScreenState extends State<VideoCallScreen> {
-  static const String appId = 'b958b622ad394c88bc00e2c45e37e0c0';//'19b5c3689459408683d08b11e477c40c';
+  // static const String appId = 'b958b622ad394c88bc00e2c45e37e0c0';//'19b5c3689459408683d08b11e477c40c';
+  static const String appId = '272699c3499e429d9a7477b7491b0e40';//new app id of ecare client
   int? _remoteUid;
   bool? isSpeakerEnabled;
   bool isBackCameraEnabled = true;
@@ -49,10 +46,9 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   bool isVideoEnabled = true;
   int call_duration=0;
 
-  RtcEngine? _engine;
-  // RtcStats _stats = RtcStats();
-  // RtcStats _stats = RtcStats();
+  int attempts = 0;
 
+  RtcEngine? _engine;
   bool load = false;
   String? token = null;
   String channelName = '';
@@ -72,32 +68,25 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
       var jsonResponse = await Webservices.postData(
           apiUrl: ApiUrls.StartCall, body: request, context: context);
 
-      print('call start----$jsonResponse');
+      myCustomPrintStatement('call start----$jsonResponse');
 
       if (jsonResponse['status'] == 1) {
-        // token =null;
-        // token = jsonResponse['data']['id'];
-        // calling_id = jsonResponse['data']['id'];
         setState(() {
 
         });
-        // channelName = widget.bookingId + 'test';
       } else {
-        // showSnackbar('Some Error Occured');
-        // Navigator.pop(context);
-       // return;
+
       }
     } else {
-      // calling_id = widget.token!;
+
       setState(() {
 
       });
-      // token = widget.token!=null?widget.token.toString():'0';
-      // channelName = widget.bookingId + 'test';
+
     }
     channelName = '_prasoon_' + widget.bookingId;
-    print('token---$token');
-    print('channelName----$channelName');
+    myCustomPrintStatement('token---$token');
+    myCustomPrintStatement('channelName----$channelName');
     // token =
     // '007eJxTYIg7+PvBwdAp4mY3tk7XsDRVuMptyXDA6bMp99qQKBH79jUKDEnGyanmiUZmFsmWySappkmJxqnmhqbGRoZJphYGxkZJKsE8yfOW8CYvUT/FwsgAgSA+M4OhkTEDAwDCYx1x';
     // // token = widget.bookingId;
@@ -110,16 +99,23 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     // creates the engine
     // _engine = await RtcEngine.create(appId);
     _engine = await createAgoraRtcEngine();
+    await _engine?.initialize(RtcEngineContext(
+      appId: appId,
+      channelProfile: ChannelProfileType.channelProfileLiveBroadcasting,
+    )
+    );
 
-    print('the engine is created');
-    await _engine!.setEnableSpeakerphone(
-        true);
-    await _engine!.enableVideo();
+    myCustomPrintStatement('the engine is created with app id ${appId}');
+    // await _engine!.setEnableSpeakerphone(
+    //     true);
+    // await _engine!.enableVideo();
 
 
 
-    _engine!.registerEventHandler(RtcEngineEventHandler(onCameraReady: () {
-      print('fsdddd');
+    _engine!.registerEventHandler(
+        RtcEngineEventHandler(
+          onCameraReady: () {
+      myCustomPrintStatement('fsdddd');
 
     }, onLocalAudioStateChanged: (connection,ss, error) {
       _engine!.isSpeakerphoneEnabled().then((value) {
@@ -127,27 +123,27 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
         try {
           setState(() {});
         } catch (e) {
-          print('Error in catch block 2343 $e');
+          myCustomPrintStatement('Error in catch block 2343 $e');
         }
       });
     },
       onLocalVideoStats: (connection,df) {
-      print('local video stats');
-      print(df.captureBrightnessLevel);
+      myCustomPrintStatement('local video stats');
+      myCustomPrintStatement(df.captureBrightnessLevel);
     }, onJoinChannelSuccess: (connection,int uid, ) {
-      print('Local user $uid joined');
+      myCustomPrintStatement('Local user $uid joined');
       setState(() {});
     }, onRejoinChannelSuccess: (connection, int1) {
-      print('rejoined fffff');
+      myCustomPrintStatement('rejoined fffff');
     }, onUserEnableVideo: (rtcconnection,a, isenbla) {
-      print('The user ghass enabled $a $isenbla');
+      myCustomPrintStatement('The user ghass enabled $a $isenbla');
     }, onUserJoined: (connection,int uid, int elapsed) {
-      print('Remote user $uid joined');
+      myCustomPrintStatement('Remote user $uid joined');
       setState(() {
         _remoteUid = uid;
       });
     }, onUserOffline: (connection,int uid, UserOfflineReasonType reason) async {
-      print('Remote user $uid left');
+      myCustomPrintStatement('Remote user $uid left');
       _remoteUid = null;
       // await Webservices.postData(apiUrl: ApiUrls.endCall, body: request, context: context);
       await _engine!.leaveChannel();
@@ -168,17 +164,28 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
       });
       if(await stats.duration==300){ // 5 min. condition
         // var res = await Webservices.get(ApiUrls.mark_as_complete+widget.bookingId.toString());
-        // print('mark as complete---- ${res}');
+        // myCustomPrintStatement('mark as complete---- ${res}');
       }
 
-      print('updates every two seconds************call_duration******${call_duration}');
+      myCustomPrintStatement('updates every two seconds************call_duration******${call_duration}');
         setState(() {});
       // }
     },));
 
-    print('about to join channel with name $channelName and token $token');
+    await _engine!.setClientRole(role: ClientRoleType.clientRoleBroadcaster);
+    myCustomPrintStatement('about to join channel with name $channelName and token $token');
 
-    await joinChannel();
+    await _engine!.enableVideo();
+    await _engine!.enableAudio();
+    await _engine!.setCameraAutoFocusFaceModeEnabled(true);
+    await _engine!.setDefaultAudioRouteToSpeakerphone(true);
+    await _engine!.startPreview();
+    var randomId = Random().hashCode;
+    randomId =  1 ;
+    myCustomPrintStatement('joining with ${randomId}');
+    attempts = 0;
+    await joiningChannel();
+    // await joinChannel();
     setState(() {
       load = false;
     });
@@ -226,28 +233,58 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     );
   }
 
-  joinChannel() async {
-    try {
-      await _engine!.joinChannel(token:token??'',channelId:  channelName,uid: 0, options: ChannelMediaOptions());
-      // await _engine!.joinChannel(
-      //   token,
-      //   channelName,
-      //   null,
-      //   0,
-      // );
-      print('the join  channel is called');
-      await _engine!.setCameraAutoFocusFaceModeEnabled(true);
-      // await _engine!.enableRemo(_remoteUid!, true);
-      ///TODO: uncomment in the end manish 0510
-      // await _engine!.enableRemoteSuperResolution(_remoteUid!, true);
-    } catch (e) {
-      print('inside catch block234 $e');
-      await _engine!.leaveChannel();
-      await _engine!.joinChannel(token:token??'',channelId:  channelName,uid: 0, options: ChannelMediaOptions());
-      await _engine!.setCameraAutoFocusFaceModeEnabled(true);
-      // await _engine!.enableRemoteSuperResolution(_remoteUid!, true);
+
+  joiningChannel()async{
+
+    // var cidepOr = VideoCallProvider();
+    // var video = Provider.of<VideoCallProvider>(context, listen: false);
+    try{
+      print('trying to join channel ${channelName} attempt: ${attempts}');
+      await _engine!.joinChannel(
+        token: "",
+        channelId: channelName,
+        // uid: userData==null?randomId:userData!.userId,
+        uid: 0,
+        options: const ChannelMediaOptions(),
+      );
+      attempts = 0;
+    }catch(e){
+      print('trying to join channel attempt failed: ${attempts}..$e');
+      if(attempts<3){
+        await Future.delayed(Duration(seconds: 2));
+        attempts++;
+        joiningChannel();
+      }else{
+        myCustomLogStatements('Popping .....1');
+        CustomNavigation.popUntil(MyGlobalKeys.navigatorKey.currentContext!, (route)=>route.isFirst);
+        await Future.delayed(Duration(seconds: 2));
+        showSnackbar('The live stream may have been ended');
+      }
     }
   }
+
+  // joinChannel() async {
+  //   try {
+  //     await _engine!.joinChannel(token:token??'',channelId:  channelName,uid: 0, options: ChannelMediaOptions());
+  //     // await _engine!.joinChannel(
+  //     //   token,
+  //     //   channelName,
+  //     //   null,
+  //     //   0,
+  //     // );
+  //     myCustomPrintStatement('the join  channel is called');
+  //     await _engine!.setCameraAutoFocusFaceModeEnabled(true);
+  //     // await _engine!.enableRemo(_remoteUid!, true);
+  //     ///TODO: uncomment in the end manish 0510
+  //     // await _engine!.enableRemoteSuperResolution(_remoteUid!, true);
+  //   } catch (e) {
+  //     myCustomPrintStatement('inside catch block234 $e');
+  //     await _engine!.leaveChannel();
+  //     await _engine!.joinChannel(token:token??'',channelId:  channelName,uid: 0, options: ChannelMediaOptions());
+  //     await _engine!.setCameraAutoFocusFaceModeEnabled(true);
+  //     // await _engine!.enableRemoteSuperResolution(_remoteUid!, true);
+  //   }
+  // }
 
   @override
   void initState() {
@@ -313,7 +350,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async{
-        print('back button---');
+        myCustomPrintStatement('back button---');
         showAlertDialog(context);
         return false;
 
@@ -390,12 +427,12 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
 
                                 isSpeakerEnabled =
                                 await _engine!.isSpeakerphoneEnabled();
-                                print('the speaker is $isSpeakerEnabled');
+                                myCustomPrintStatement('the speaker is $isSpeakerEnabled');
                                 await _engine!.setEnableSpeakerphone(
                                     !isSpeakerEnabled!);
                                 isSpeakerEnabled =
                                 await _engine!.isSpeakerphoneEnabled();
-                                print(
+                                myCustomPrintStatement(
                                     'the speaker new  is $isSpeakerEnabled');
                                 setState(() {});
                               },
@@ -476,7 +513,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
                                               await Webservices.postData(apiUrl: ApiUrls.endCall,body: data, context: context);
                                               // var res =
                                               // await Webservices.get(ApiUrls.endCall+widget.bookingId.toString());
-                                              print('call end----$res');
+                                              myCustomPrintStatement('call end----$res');
                                               CustomNavigation.pop(MyGlobalKeys.navigatorKey.currentContext!,true);
                                               // Navigator.pop(context, true);
                                             },
@@ -500,13 +537,13 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
                                         // await _engine!.setCameraAutoFocusFaceModeEnabled(true);
                                         _remoteUid = null;
                                       } catch (e) {
-                                        print('Error in catch block 32 $e');
+                                        myCustomPrintStatement('Error in catch block 32 $e');
                                       }
                                     }
 
                                     Navigator.pop(context);
                                   } catch (e) {
-                                    print('Error in catch block34 $e');
+                                    myCustomPrintStatement('Error in catch block34 $e');
                                   }
                                 }
                               },
@@ -567,7 +604,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
                             child: IconButton(
                               onPressed: () async {
                                 // await joinChannel();
-                                print('video enable');
+                                myCustomPrintStatement('video enable');
 
                                 if (!isVideoEnabled) {
                                   await _engine!.enableVideo();
@@ -591,11 +628,11 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
                           // IconButton(
                           //   onPressed: () async {
                           //     // await joinChannel();
-                          //     print('video enable');
+                          //     myCustomPrintStatement('video enable');
                           //     await _engine!.enableLocalVideo(true);
                           //     await _engine!.enableVideo();
                           //     // await _engine!.enableVirtualBackground(true, VirtualBackgroundSource(color:20));
-                          //     print('video ${_engine}');
+                          //     myCustomPrintStatement('video ${_engine}');
                           //     // await _engine!.video
                           //   },
                           //   icon: Icon(
@@ -685,10 +722,10 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
             //             IconButton(
             //               onPressed: () async {
             //                 // await joinChannel();
-            //                 print('video enable');
+            //                 myCustomPrintStatement('video enable');
             //                 // await _engine!.enableLocalVideo(true);
             //                 await _engine!.enableVideo();
-            //                 print('video ${_engine}');
+            //                 myCustomPrintStatement('video ${_engine}');
             //                 // await _engine!.video
             //               },
             //               icon: Icon(
@@ -700,11 +737,11 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
             //             // IconButton(
             //             //   onPressed: () async {
             //             //     // await joinChannel();
-            //             //     print('video enable');
+            //             //     myCustomPrintStatement('video enable');
             //             //     await _engine!.enableLocalVideo(true);
             //             //     await _engine!.enableVideo();
             //             //     // await _engine!.enableVirtualBackground(true, VirtualBackgroundSource(color:20));
-            //             //     print('video ${_engine}');
+            //             //     myCustomPrintStatement('video ${_engine}');
             //             //     // await _engine!.video
             //             //   },
             //             //   icon: Icon(

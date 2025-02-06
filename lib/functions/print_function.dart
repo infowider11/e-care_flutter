@@ -10,6 +10,7 @@ void myCustomPrintStatement(Object? data, {bool showPrint = false, bool override
     if(kDebugMode || overrideDebugCondition){
 
       print(data);
+      log('Video calling : $data');
       return;
     }
   }

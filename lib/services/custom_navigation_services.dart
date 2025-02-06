@@ -27,4 +27,8 @@ class CustomNavigation{
     return Navigator.pop(context, result);
   }
 
+  static Future popUntil<T extends Object?>(BuildContext context,RoutePredicate predicate)async{
+    return Navigator.popUntil(context, predicate);
+  }
+
 }
