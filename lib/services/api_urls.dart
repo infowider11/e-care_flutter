@@ -25,6 +25,8 @@ class ApiUrls{
   static const String homevideo = baseUrl + 'home-video?type=';
   static const String editcallstatus = baseUrl + 'edit-call-status';
   static const String CreateSlot = baseUrl + 'CreateSlot';
+  static const String createBulkSlots = baseUrl + 'BulkCreateSlot';
+  // static const String createBulkSlots = baseUrl + 'BulkCreateSlot';
   static const String getslot = baseUrl + 'get-slot?user_id=';
   static const String deleteslot = baseUrl + 'delete-slot';
   static const String interval = baseUrl + 'interval';

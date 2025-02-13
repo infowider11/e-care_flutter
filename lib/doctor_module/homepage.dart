@@ -1,5 +1,6 @@
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/navigation.dart';
+import 'package:ecare/doctor_module/create_bulk_slot.dart';
 import 'package:ecare/doctor_module/create_slot.dart';
 import 'package:ecare/doctor_module/notification.dart';
 import 'package:ecare/functions/global_Var.dart';
@@ -273,6 +274,35 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                   child: Center(
                     child: MainHeadingText(
                       text: 'Create/Modify your slots',
+                      fontFamily: 'light',
+                      color: MyColors.white,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ),
+              vSizedBox,
+              GestureDetector(
+                onTap: () {
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => CreateSlot()));
+                  // return;
+                  if (user_Data!['is_bank_account_added'].toString() == '1') {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => CreateBulkSlot()));
+                  } else {
+                    // showSnackbar("Please add bank account first");
+                    push(context: context, screen: AddBankAccountPage());
+                  }
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: MyColors.primaryColor),
+                  child: Center(
+                    child: MainHeadingText(
+                      text: 'Create Slots in Bulk',
                       fontFamily: 'light',
                       color: MyColors.white,
                       fontSize: 14,

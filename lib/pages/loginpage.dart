@@ -196,6 +196,7 @@ class _LoginPageState extends State<LoginPage> {
                 hintcolor: MyColors.headingcolor,
                 suffixheight: 18,
               ),
+
               vSizedBox4,
               RoundEdgedButton(
                 onTap: () async{

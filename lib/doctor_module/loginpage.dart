@@ -34,6 +34,7 @@ class DoctorLoginPage extends StatefulWidget {
 
 class _DoctorLoginPageState extends State<DoctorLoginPage> {
   TextEditingController email = TextEditingController();
+  TextEditingController hpcsaController = TextEditingController();
   TextEditingController password = TextEditingController();
   bool load = false;
   bool invalid_user_detail = false;
@@ -107,18 +108,35 @@ class _DoctorLoginPageState extends State<DoctorLoginPage> {
                   suffixheight: 18,
                 ),
                 vSizedBox4,
+                CustomTextField(
+                  controller: hpcsaController,
+                  hintText: 'HPCSA Number',
+                  prefixIcon: MyImages.profile,
+                  showlabeltop: true,
+                  label: 'HPCSA',
+                  labelfont: 12,
+                  labelcolor: MyColors.paragraphcolor,
+                  bgColor: Colors.transparent,
+                  fontsize: 16,
+                  hintcolor: MyColors.headingcolor,
+                  suffixheight: 16,
+                ),
+                vSizedBox4,
                 load
                     ? CustomLoader()
                     : RoundEdgedButton(
                         text: 'Login',
                         onTap: () async {
-                          if (validateEmail(email.text, context) == null &&
+                          if (
+                          validateEmail(email.text, context) == null &&
+                              validateString(hpcsaController.text,"Please enter hpcsa number", context) == null &&
                               validateString(password.text,
                                       "Please enter your password.", context) ==
                                   null) {
                             Map<String, dynamic> data = {
                               "email": email.text.trim(),
                               "password": password.text,
+                              "hpcsa_no": hpcsaController.text,
                               'type': '1'
                             };
                             await EasyLoading.show(

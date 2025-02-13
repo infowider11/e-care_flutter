@@ -1355,12 +1355,14 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                       showSnackbar('Payment Failed!!!');
                     }
                   } else {
-                    showSnackbar(
-                        'Somting went wrong please try again later. Manish');
+                    
+                    showSnackbar('Your transaction is failed due to some error. Please try again after some time.');
+                    // showSnackbar(
+                    //     'Somting went wrong please try again later.');
                     print('ksdklfsja');
-                    push(
-                        context: MyGlobalKeys.navigatorKey.currentContext!,
-                        screen: ErrorLogPage());
+                    // push(
+                    //     context: MyGlobalKeys.navigatorKey.currentContext!,
+                    //     screen: ErrorLogPage());
                   }
                 }
               },
