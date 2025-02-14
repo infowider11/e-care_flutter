@@ -2,7 +2,10 @@ import 'dart:math';
 
 import 'package:ecare/Services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
+import 'package:ecare/constants/navigation.dart';
 import 'package:ecare/constants/sized_box.dart';
+import 'package:ecare/doctor_module/bulk_slot_preview.dart';
+import 'package:ecare/functions/print_function.dart';
 import 'package:ecare/modals/slot_preview_modal.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/webservices.dart';
@@ -31,43 +34,81 @@ class CreateBulkSlot extends StatefulWidget {
 
 class _CreateBulkSlotState extends State<CreateBulkSlot> {
   TextEditingController dateController = TextEditingController();
+  TextEditingController endDateController = TextEditingController();
   TextEditingController startTimeController = TextEditingController();
   TextEditingController endTimeController = TextEditingController();
-  DateTime selectedDate = DateTime.now();
+  DateTime selectedStartDate = DateTime.now();
+  DateTime selectedEndDate = DateTime.now();
   TimeOfDay start_timestamp = TimeOfDay(hour: 7, minute: 0);
   TimeOfDay end_timestamp = TimeOfDay(hour: 18, minute: 0);
   List slots = [];
   bool load = false;
   int s_time = 0;
-
+  List<int> weekdaysAvailable = [];
+  List weekdays = [
+    {
+      "title": "Monday",
+      "value": false,
+      "day": 1,
+    },
+    {
+      "title": "Tuesday",
+      "value": false,
+      "day": 2,
+    },
+    {
+      "title": "Wednesday",
+      "value": false,
+      "day": 3,
+    },
+    {
+      "title": "Thursday",
+      "value": false,
+      "day": 4,
+    },
+    {
+      "title": "Friday",
+      "value": false,
+      "day": 5,
+    },
+    {
+      "title": "Saturday",
+      "value": false,
+      "day": 6,
+    },
+    {
+      "title": "Sunday",
+      "value": false,
+      "day": 7,
+    },
+  ];
   ValueNotifier<List<SlotPreviewModal>> slotsListNotifier = ValueNotifier([]);
   DateFormat formatter = DateFormat('yyyy-MM-dd');
 
-  initializeTimes(){
-    s_time =
-        (start_timestamp.minute) + ((start_timestamp.hour) * 60);
+  initializeTimes() {
+    s_time = (start_timestamp.minute) + ((start_timestamp.hour) * 60);
 
-
-  String time = start_timestamp.format(context);
-  print('picked----$time');
-  startTimeController.text = time;
+    String time = start_timestamp.format(context);
+    print('picked----$time');
+    startTimeController.text = time;
     String endTime = end_timestamp.format(context);
-  endTimeController.text = endTime;
+    endTimeController.text = endTime;
 
-
-    String formatted = formatter.format(selectedDate);
+    String formatted = formatter.format(selectedStartDate);
+    String formattedend = formatter.format(selectedEndDate);
     dateController.text = formatted;
-
-  setState(() {});
+    endDateController.text = formattedend;
+    checkWeekdaysInRange(selectedStartDate, selectedEndDate);
   }
 
-
-  Map<String, dynamic> getSlots(){
+  Map<String, dynamic> getSlots() {
     Map<String, dynamic> request = {};
 
-    for(int index = 0;index<slotsListNotifier.value.length;index++){
-      request['start_time'][index] = slotsListNotifier.value[index].fromTimeText(context);
-      request['end_time'][index] = slotsListNotifier.value[index].toTimeText(context);
+    for (int index = 0; index < slotsListNotifier.value.length; index++) {
+      request['start_time[$index]'] =
+          slotsListNotifier.value[index].fromTimeText(context);
+      request['end_time[$index]'] =
+          slotsListNotifier.value[index].toTimeText(context);
     }
 
     return request;
@@ -94,7 +135,7 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((event){
+    WidgetsBinding.instance.addPostFrameCallback((event) {
       get_slots();
       initializeTimes();
     });
@@ -131,33 +172,74 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                     child: Column(
                       children: [
                         // DropDown(label: 'Select Date', islabel: true, hint: '01-08-2022',),
-                        GestureDetector(
-                          onTap: () async {
-                            var m = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime.now(),
-                              lastDate: DateTime(DateTime.now().year + 105),
-                            );
-                            if (m != null) {
-                              // DateFormat formatter = DateFormat('yyyy-MM-dd');
-                              String formatted = formatter.format(m);
-                              dateController.text = formatted;
-                              selectedDate = m;
-                              // print('checking date------${formatted}');
-                            }
-                          },
-                          child: CustomTextField(
-                            controller: dateController,
-                            hintText: 'Select Date',
-                            label: 'Select Date',
-                            showlabel: true,
-                            enabled: false,
-                            fontsize: 16,
-                            suffixheight: 16,
-                          ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () async {
+                                  var m = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime.now(),
+                                    lastDate:
+                                        DateTime(DateTime.now().year + 105),
+                                  );
+                                  if (m != null) {
+                                    // DateFormat formatter = DateFormat('yyyy-MM-dd');
+                                    String formatted = formatter.format(m);
+                                    dateController.text = formatted;
+                                    selectedStartDate = m;
+                                    checkWeekdaysInRange(
+                                        selectedStartDate, selectedEndDate);
+                                    // print('checking date------${formatted}');
+                                  }
+                                },
+                                child: CustomTextField(
+                                  controller: dateController,
+                                  hintText: 'Select Start Date',
+                                  label: 'Select Start Date',
+                                  showlabel: true,
+                                  enabled: false,
+                                  fontsize: 16,
+                                  suffixheight: 16,
+                                ),
+                              ),
+                            ),
+                            hSizedBox,
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () async {
+                                  var m = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime.now(),
+                                    lastDate:
+                                        DateTime(DateTime.now().year + 105),
+                                  );
+                                  if (m != null) {
+                                    // DateFormat formatter = DateFormat('yyyy-MM-dd');
+                                    String formatted = formatter.format(m);
+                                    endDateController.text = formatted;
+                                    selectedEndDate = m;
+                                    checkWeekdaysInRange(selectedStartDate, m);
+                                    // print('checking date------${formatted}');
+                                  }
+                                },
+                                child: CustomTextField(
+                                  controller: endDateController,
+                                  hintText: 'Select End Date',
+                                  label: 'Select End Date',
+                                  showlabel: true,
+                                  enabled: false,
+                                  fontsize: 16,
+                                  suffixheight: 16,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         vSizedBox,
+
                         Row(
                           children: [
                             Expanded(
@@ -168,7 +250,8 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                                     initialEntryMode:
                                         TimePickerEntryMode.inputOnly,
                                     context: context,
-                                    initialTime: start_timestamp??TimeOfDay(hour: 7, minute: 0),
+                                    initialTime: start_timestamp ??
+                                        TimeOfDay(hour: 7, minute: 0),
                                   );
                                   if (picked != null) {
                                     setState(() {
@@ -201,7 +284,8 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                                     initialEntryMode:
                                         TimePickerEntryMode.inputOnly,
                                     context: context,
-                                        initialTime: end_timestamp??TimeOfDay(hour: 18, minute: 0),
+                                    initialTime: end_timestamp ??
+                                        TimeOfDay(hour: 18, minute: 0),
                                     // initialTime: TimeOfDay.now(),
                                     // errorInvalidText: 'error'
                                   );
@@ -211,9 +295,9 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                                     print('picked----$time');
                                     int a = picked.minute + (picked.hour * 60);
                                     print('a ---$a');
-                                      endTimeController.text = time;
-                                      end_timestamp = picked;
-                                      setState(() {});
+                                    endTimeController.text = time;
+                                    end_timestamp = picked;
+                                    setState(() {});
                                     // }
                                   }
                                 },
@@ -228,28 +312,136 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                             ),
                           ],
                         ),
+                        vSizedBox,
+                        const Align(
+                          alignment: Alignment.topLeft,
+                          child: ParagraphText(
+                            text: "Repeat Availability:",
+                            fontSize: 14,
+                            color: MyColors.headingcolor,
+                            fontFamily: 'regular',
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Wrap(
+                            // direction: Axis.horizontal,
+                            // textDirection: TextDirection.ltr,
+                            spacing: 20,
+
+                            children: [
+                              for (int i = 0; i < weekdays.length; i++)
+                                if (weekdaysAvailable
+                                    .contains(weekdays[i]['day']))
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 3,
+                                    padding: EdgeInsets.only(bottom: 5),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              weekdays[i]['value'] =
+                                                  !weekdays[i]['value'];
+                                            });
+                                          },
+                                          child: Container(
+                                            height: 18,
+                                            width: 18,
+                                            decoration: BoxDecoration(
+                                                color: weekdays[i]['value']
+                                                    ? MyColors.primaryColor
+                                                    : null,
+                                                border: Border.all(
+                                                  color: MyColors.primaryColor,
+                                                )),
+                                            child: weekdays[i]['value']
+                                                ? Icon(
+                                                    Icons.done,
+                                                    size: 12,
+                                                    color: MyColors.white,
+                                                  )
+                                                : null,
+                                          ),
+                                        ),
+                                        hSizedBox,
+                                        ParagraphText(
+                                          text: weekdays[i]['title'],
+                                          fontSize: 12,
+                                          color: MyColors.headingcolor,
+                                          fontFamily: 'regular',
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                            ],
+                          ),
+                        ),
                         vSizedBox2,
                         RoundEdgedButton(
                           text: 'Get Preview',
                           onTap: () {
+                            if (weekdaysAvailable.isEmpty) {
+                              showSnackbar("Please select repeat availibity ");
+                              return;
+                            }
                             List<SlotPreviewModal> list = [];
-                            int startMinute =
-                                ((start_timestamp?.hour ?? 0) * 60) +
-                                    (start_timestamp?.minute ?? 0);
-                            int endMinute = ((end_timestamp?.hour ?? 0) * 60) +
-                                (end_timestamp?.minute ?? 0);
 
-                            for(int i = startMinute;i<=endMinute-30;i=i+30){
-                              list.add(
-                                SlotPreviewModal(
-                                  from: TimeOfDay(hour: (i/60).floor(), minute: i%60),
+                            for (var j = 0;
+                                j <=
+                                    selectedEndDate
+                                            .difference(selectedStartDate)
+                                            .inDays +
+                                        1;
+                                j++) {
+                              int startMinute =
+                                  ((start_timestamp?.hour ?? 0) * 60) +
+                                      (start_timestamp?.minute ?? 0);
+                              int endMinute =
+                                  ((end_timestamp?.hour ?? 0) * 60) +
+                                      (end_timestamp?.minute ?? 0);
 
-                                  to: TimeOfDay(hour: ((i+30)/60).floor(), minute: (i+30)%60),
-                                  dateTime: selectedDate!,
-                                ),
-                              );
+                              for (int i = startMinute;
+                                  i <= endMinute - 30;
+                                  i = i + 30) {
+                                var indexExist = weekdays.indexWhere(
+                                  (element) =>
+                                      element["day"] ==
+                                      selectedStartDate
+                                          .add(Duration(days: j))
+                                          .weekday,
+                                );
+                                if (indexExist != -1 &&
+                                    weekdays[indexExist]['value']) {
+                                  list.add(
+                                    SlotPreviewModal(
+                                      from: TimeOfDay(
+                                          hour: (i / 60).floor(),
+                                          minute: i % 60),
+                                      to: TimeOfDay(
+                                          hour: ((i + 30) / 60).floor(),
+                                          minute: (i + 30) % 60),
+                                      dateTime: selectedStartDate
+                                          .add(Duration(days: j))!,
+                                    ),
+                                  );
+                                }
+                              }
                             }
                             slotsListNotifier.value = list;
+                            push(
+                                context: context,
+                                screen: BulkSlotPreview(
+                                  slotList: list,
+                                  endDate: endDateController.text,
+                                  startDate: dateController.text,
+                                ));
                             print('the total slots are ${list.length}');
                           },
                         ),
@@ -259,23 +451,30 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                           onTap: () async {
                             print('the url is ${ApiUrls.createBulkSlots}');
                             if (dateController.text == '') {
-                              showSnackbar('Please Select Date.');
+                              showSnackbar('Please Select Start Date.');
+                            } else if (endDateController.text == '') {
+                              showSnackbar('Please Select End Date.');
                             } else if (startTimeController.text == '') {
                               showSnackbar('Please Select Start Time.');
                             } else if (endTimeController.text == '') {
                               showSnackbar('Please Select End Time.');
+                            } else if (weekdaysAvailable.isEmpty) {
+                              showSnackbar("Please select repeat availibity ");
+                              return;
                             } else {
-                              // DateTime startDateTime =  DateTime(selectedDate!.year, selectedDate!.month, selectedDate!.day, start_timestamp!.hour, start_timestamp!.minute);
-                              // DateTime endDateTime =  DateTime(selectedDate!.year, selectedDate!.month, selectedDate!.day, end_timestamp!.hour, end_timestamp!.minute);
+                              // DateTime startDateTime =  DateTime(selectedStartDate!.year, selectedStartDate!.month, selectedStartDate!.day, start_timestamp!.hour, start_timestamp!.minute);
+                              // DateTime endDateTime =  DateTime(selectedStartDate!.year, selectedStartDate!.month, selectedStartDate!.day, end_timestamp!.hour, end_timestamp!.minute);
 
                               Map<String, dynamic> data = {
                                 'user_id': await getCurrentUserId(),
                                 'date': dateController.text.toString(),
+                                'end_date': endDateController.text.toString(),
                                 // 'start_time': startTimeController.text.toString(),
                                 // 'end_time': endTimeController.text.toString(),
                               };
 
                               data.addAll(getSlots());
+                              myCustomLogStatements("bulk slot is this $data");
                               await EasyLoading.show(
                                 status: null,
                                 maskType: EasyLoadingMaskType.black,
@@ -297,95 +496,6 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                           },
                         ),
                       ],
-                    ),
-                  ),
-                  Divider(
-                    color: Colors.black,
-                    height: 50.0,
-                  ),
-                  SubHeadingText(text: 'Slot Preview'),
-                  vSizedBox,
-                  SizedBox(
-                    height: 400,
-                    child: ValueListenableBuilder<List<SlotPreviewModal>>(
-                      valueListenable: slotsListNotifier,
-                      builder: (context, slotList, child) {
-                        return ListView.builder(
-                          itemCount: slotList.length,
-                          itemBuilder: (context,index){
-                            return Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Container(
-                                alignment: Alignment.topLeft,
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                  color: MyColors.lightBlue.withOpacity(0.11),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                padding: EdgeInsets.all(16.0),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text('Date: ${slotList[index].dateTime.toString()}'),
-                                          Text(
-                                              'Start Time: ${DateFormat.jm().format(DateFormat('hh:mm').parse(slotList[index].from.format(context)))}'),
-                                          Text(
-                                              'End Time: ${DateFormat.jm().format(DateFormat('hh:mm').parse(slotList[index].to.format(context)))}'),
-                                          // if (slots[i]['is_booked'].toString() ==
-                                          //     '1')
-                                            Text(
-                                              'You already have a booking of this slot. You are not able to delete or edit this.',
-                                              style:
-                                              TextStyle(color: Colors.green),
-                                            ),
-                                        ],
-                                      ),
-                                    ),
-                                    // if (slots[i]['is_booked'].toString() == '0')
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.end,
-                                          children: [
-                                            Stack(
-                                              children: [
-                                                Positioned(
-
-                                                    child: IconButton(
-                                                      onPressed: ()  async{
-
-                                                      bool? result = await showCustomConfirmationDialog(headingMessage: 'Are your sure?');
-                                                      if(result==true){
-                                                        slotsListNotifier.value.removeAt(index);
-                                                        slotsListNotifier.notifyListeners();
-                                                      }
-                                                        // remove_slot(
-                                                        //     context,
-                                                        //     slots[i]['id']
-                                                        //         .toString()),
-                                                      },
-                                                      icon: Icon(Icons
-                                                          .restore_from_trash_rounded),
-                                                      color: Colors.red,
-                                                    ))
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      }
                     ),
                   ),
                   Divider(
@@ -521,5 +631,32 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
 
   conver12hoursFormat(time) {
     // String time  = DateFormat("h:mma").format(time);
+  }
+
+  void checkWeekdaysInRange(DateTime startDate, DateTime endDate) {
+    weekdaysAvailable.clear();
+
+    for (DateTime date = startDate;
+        date.isBefore(endDate.add(Duration(days: 1)));
+        date = date.add(Duration(days: 1))) {
+      weekdaysAvailable.add(date.weekday);
+    }
+    myCustomLogStatements(
+        "weekdaysAvailable    ---- ${startDate} ${endDate} ${weekdaysAvailable}");
+    if (endDate.day == startDate.day &&
+        endDate.month == startDate.month &&
+        endDate.year == startDate.year) {
+      weekdaysAvailable = [weekdaysAvailable[0]];
+    }
+    for (var i = 0; i < weekdays.length; i++) {
+      if (weekdaysAvailable.contains(weekdays[i]['day'])) {
+        weekdays[i]['value'] = true;
+      } else {
+        weekdays[i]['value'] = false;
+      }
+    }
+    weekdaysAvailable = weekdaysAvailable.toSet().toList();
+    myCustomLogStatements("weekdaysAvailable    ---- ${weekdaysAvailable}");
+    setState(() {});
   }
 }
