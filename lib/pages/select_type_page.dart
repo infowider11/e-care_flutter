@@ -23,7 +23,7 @@ class _Select_Type_PageState extends State<Select_Type_Page> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(horizontal: 0),
+        padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -35,9 +35,9 @@ class _Select_Type_PageState extends State<Select_Type_Page> {
             vSizedBox6,
             GestureDetector(
               onTap: (){
-                push(context: context, screen: LoginPage());
+                push(context: context, screen: const LoginPage());
               },
-              child: StaffList(
+              child: const StaffList(
                 text: 'Client/Patient',
                 subtext: 'Select if you are a Healthcare user',
                 fontSize: 14,
@@ -49,13 +49,25 @@ class _Select_Type_PageState extends State<Select_Type_Page> {
             vSizedBox05,
             GestureDetector(
               onTap: (){
-                push(context: context, screen: DoctorLoginPage());
+                push(context: context, screen: const DoctorLoginPage());
               },
-              child: StaffList(
+              child: const StaffList(
                 text: 'Healthcare Practitioner',
                 subtext: 'Select if you are a Healthcare provider',
                 fontSize: 14,
                 image: MyImages.practitioner,
+                // popupmenu: true,
+              ),
+            ),vSizedBox,
+            GestureDetector(
+              onTap: (){
+                push(context: context, screen: const LoginPage(loginWihtHealthCareProviderCode: true,));
+              },
+              child: const StaffList(
+                text: 'Direct access to my personal Healthcare Provider',
+                subtext: 'For patients with a personal code provided by their healthcare provider only',
+                fontSize: 14,
+                image: MyImages.client_icon,
                 // popupmenu: true,
               ),
             ),

@@ -25,22 +25,22 @@ import '../widgets/customtextfield.dart';
 
 class CreateBulkSlot extends StatefulWidget {
   const CreateBulkSlot({
-    Key? key,
+  required  Key key,
   }) : super(key: key);
 
   @override
-  State<CreateBulkSlot> createState() => _CreateBulkSlotState();
+  State<CreateBulkSlot> createState() => CreateBulkSlotState();
 }
 
-class _CreateBulkSlotState extends State<CreateBulkSlot> {
+class CreateBulkSlotState extends State<CreateBulkSlot> {
   TextEditingController dateController = TextEditingController();
   TextEditingController endDateController = TextEditingController();
   TextEditingController startTimeController = TextEditingController();
   TextEditingController endTimeController = TextEditingController();
   DateTime selectedStartDate = DateTime.now();
   DateTime selectedEndDate = DateTime.now();
-  TimeOfDay start_timestamp = TimeOfDay(hour: 7, minute: 0);
-  TimeOfDay end_timestamp = TimeOfDay(hour: 18, minute: 0);
+  TimeOfDay start_timestamp = const TimeOfDay(hour: 7, minute: 0);
+  TimeOfDay end_timestamp = const TimeOfDay(hour: 18, minute: 0);
   List slots = [];
   bool load = false;
   int s_time = 0;
@@ -151,13 +151,13 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
           title: 'Bulk Slot Creation',
           fontsize: 20),
       body: load
-          ? CustomLoader()
+          ? const CustomLoader()
           : SingleChildScrollView(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  headingText(
+                  const headingText(
                     text:
                         'You can select the start time and end time of your availability. We will automatically create slots of 30 minutes from your start time and end time.',
                     fontSize: 15,
@@ -165,7 +165,7 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                   ),
                   vSizedBox4,
                   Container(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                         color: MyColors.lightBlue.withOpacity(0.11),
                         borderRadius: BorderRadius.circular(15)),
@@ -251,7 +251,7 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                                         TimePickerEntryMode.inputOnly,
                                     context: context,
                                     initialTime: start_timestamp ??
-                                        TimeOfDay(hour: 7, minute: 0),
+                                        const TimeOfDay(hour: 7, minute: 0),
                                   );
                                   if (picked != null) {
                                     setState(() {
@@ -285,7 +285,7 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                                         TimePickerEntryMode.inputOnly,
                                     context: context,
                                     initialTime: end_timestamp ??
-                                        TimeOfDay(hour: 18, minute: 0),
+                                        const TimeOfDay(hour: 18, minute: 0),
                                     // initialTime: TimeOfDay.now(),
                                     // errorInvalidText: 'error'
                                   );
@@ -336,7 +336,7 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                                   Container(
                                     width:
                                         MediaQuery.of(context).size.width / 3,
-                                    padding: EdgeInsets.only(bottom: 5),
+                                    padding: const EdgeInsets.only(bottom: 5),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment:
@@ -362,7 +362,7 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                                                   color: MyColors.primaryColor,
                                                 )),
                                             child: weekdays[i]['value']
-                                                ? Icon(
+                                                ? const Icon(
                                                     Icons.done,
                                                     size: 12,
                                                     color: MyColors.white,
@@ -387,9 +387,14 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                         RoundEdgedButton(
                           text: 'Get Preview',
                           onTap: () {
+                            var dateTime = DateFormat("yyyy-MM-dd h:mm a").parse("${dateController.text} ${startTimeController.text}");
                             if (weekdaysAvailable.isEmpty) {
                               showSnackbar("Please select repeat availibity ");
                               return;
+                            }else if(!dateTime.isAfter(DateTime.now())){
+                              showSnackbar("Please select repeat availibity ");
+                              return;
+
                             }
                             List<SlotPreviewModal> list = [];
 
@@ -435,6 +440,7 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                               }
                             }
                             slotsListNotifier.value = list;
+                            print('the total slots are ${list.length}');
                             push(
                                 context: context,
                                 screen: BulkSlotPreview(
@@ -442,7 +448,6 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                                   endDate: endDateController.text,
                                   startDate: dateController.text,
                                 ));
-                            print('the total slots are ${list.length}');
                           },
                         ),
                         vSizedBox2,
@@ -498,7 +503,7 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                       ],
                     ),
                   ),
-                  Divider(
+                  const Divider(
                     color: Colors.black,
                     height: 50.0,
                   ),
@@ -507,7 +512,7 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        MainHeadingText(text: 'Slot List'),
+                        const MainHeadingText(text: 'Slot List'),
                         for (int i = 0; i < slots.length; i++)
                           Padding(
                             padding: const EdgeInsets.all(10.0),
@@ -518,7 +523,7 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                                 color: MyColors.lightBlue.withOpacity(0.11),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
-                              padding: EdgeInsets.all(16.0),
+                              padding: const EdgeInsets.all(16.0),
                               child: Row(
                                 children: [
                                   Expanded(
@@ -533,7 +538,7 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                                             'End Time: ${DateFormat.jm().format(DateFormat('hh:mm').parse(slots[i]['end_time']))}'),
                                         if (slots[i]['is_booked'].toString() ==
                                             '1')
-                                          Text(
+                                          const Text(
                                             'You already have a booking of this slot. You are not able to delete or edit this.',
                                             style:
                                                 TextStyle(color: Colors.green),
@@ -561,7 +566,7 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                                                       slots[i]['id']
                                                           .toString()),
                                                 },
-                                                icon: Icon(Icons
+                                                icon: const Icon(Icons
                                                     .restore_from_trash_rounded),
                                                 color: Colors.red,
                                               ))
@@ -575,7 +580,7 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
                             ),
                           ),
                         if (slots.length == 0 && !load)
-                          Center(
+                          const Center(
                             child: Text('No slot yet.'),
                           )
                       ],
@@ -637,8 +642,8 @@ class _CreateBulkSlotState extends State<CreateBulkSlot> {
     weekdaysAvailable.clear();
 
     for (DateTime date = startDate;
-        date.isBefore(endDate.add(Duration(days: 1)));
-        date = date.add(Duration(days: 1))) {
+        date.isBefore(endDate.add(const Duration(days: 1)));
+        date = date.add(const Duration(days: 1))) {
       weekdaysAvailable.add(date.weekday);
     }
     myCustomLogStatements(

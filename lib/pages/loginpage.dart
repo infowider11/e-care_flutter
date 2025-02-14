@@ -28,9 +28,9 @@ import '../services/onesignal.dart';
 import '../tabs.dart';
 import 'package:flutter/foundation.dart';
 
-
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  final bool loginWihtHealthCareProviderCode ; 
+  const LoginPage({Key? key ,  this.loginWihtHealthCareProviderCode = false}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -40,26 +40,30 @@ class UserData {
   UserData({this.uid});
   final String? uid;
 }
+
 final firebaseAuth = FirebaseAuth.instance;
 
 class _LoginPageState extends State<LoginPage> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  TextEditingController hpcsaController = TextEditingController();
+
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final CollectionReference _userCollection = FirebaseFirestore.instance.collection('users');
+  final CollectionReference _userCollection =
+      FirebaseFirestore.instance.collection('users');
 
-  bool invalid_user_detail=false;
+  bool invalid_user_detail = false;
   String? invalid_user_text;
-  bool show_pass=false;
+  bool show_pass = false;
 
-  addUserToFirebase(Map data) async{
-    DocumentReference documentReferencer =
-    _userCollection.doc();
-    QuerySnapshot user  =await _userCollection.where("email", isEqualTo: data['email']).get();
+  addUserToFirebase(Map data) async {
+    DocumentReference documentReferencer = _userCollection.doc();
+    QuerySnapshot user =
+        await _userCollection.where("email", isEqualTo: data['email']).get();
     print('the user is ${user.docs.length}');
 
     print(user);
-    if(user.docs.length==0){
+    if (user.docs.length == 0) {
       await documentReferencer
           .set(data)
           .whenComplete(() => print("Notes item added to the database"))
@@ -67,19 +71,15 @@ class _LoginPageState extends State<LoginPage> {
     }
     print('user added');
     //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>HomePage()));
-
   }
 
   void _signInWithGoogle() async {
-    await EasyLoading.show(
-      status: null,
-      maskType: EasyLoadingMaskType.black
-    );
+    await EasyLoading.show(status: null, maskType: EasyLoadingMaskType.black);
     GoogleSignIn googleSignIn = GoogleSignIn();
     GoogleSignInAccount? googleAccount = await googleSignIn.signIn();
     if (googleAccount != null) {
       GoogleSignInAuthentication googleAuth =
-      await googleAccount.authentication;
+          await googleAccount.authentication;
       final authResult = await firebaseAuth.signInWithCredential(
         GoogleAuthProvider.credential(
           idToken: googleAuth.idToken,
@@ -90,50 +90,59 @@ class _LoginPageState extends State<LoginPage> {
       print('the user data is ${authResult}');
       Map<String, dynamic> data = {
         'uid': authResult.user?.uid,
-        'name':authResult.user?.displayName,
-        'email':authResult.user?.email??'',
+        'name': authResult.user?.displayName,
+        'email': authResult.user?.email ?? '',
         // 'fname':authResult.additionalUserInfo.
       };
       await googleSignIn.disconnect();
       print('google login successfully-------------- ${data}');
-      Map<String,dynamic> request = {
-        'email':authResult.user?.email??'',
-        'google_id':authResult.user?.uid
+      Map<String, dynamic> request = {
+        'email': authResult.user?.email ?? '',
+        'google_id': authResult.user?.uid
       };
-      var res = await Webservices.postData(apiUrl: ApiUrls.socialsignup, body: request, context: context,);
+      var res = await Webservices.postData(
+        apiUrl: ApiUrls.socialsignup,
+        body: request,
+        context: context,
+      );
       print('social api res------ ${res}');
       EasyLoading.dismiss();
-      if(res['status'].toString()=='1'){
+      if (res['status'].toString() == '1') {
         updateUserDetails(res['data']);
-        user_Data=res['data'];
-        invalid_user_detail=false;
-        setState(() {
-        });
-        if(!kIsWeb) {
-          String? token =   await get_device_id();
+        user_Data = res['data'];
+        invalid_user_detail = false;
+        setState(() {});
+        if (!kIsWeb) {
+          String? token = await get_device_id();
           print('token-----$token');
-          await Webservices.updateDeviceToken(user_id: user_Data!['id'].toString(), token: token!);
+          await Webservices.updateDeviceToken(
+              user_id: user_Data!['id'].toString(), token: token!);
         }
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) {
-              return tabs_second_page( selectedIndex: 0,);
-            }), (route) {
+          return tabs_second_page(
+            selectedIndex: 0,
+          );
+        }), (route) {
           return false;
         });
-      } else if(res['status'].toString()=='0') {
-        push(context: context, screen: SignUp_Page(
-          is_googleSignin: true,
-          googleSignin_data: data,
-        ));
-      } else if(res['status'].toString()=='2') {
-        showSnackbar( res['message']);
+      } else if (res['status'].toString() == '0') {
+        push(
+            context: context,
+            screen: SignUp_Page(
+              is_googleSignin: true,
+              googleSignin_data: data,
+            ));
+      } else if (res['status'].toString() == '2') {
+        showSnackbar(res['message']);
       } else {
-        showSnackbar( 'Something went wrong.Please try again latter.');
+        showSnackbar('Something went wrong.Please try again latter.');
       }
       // addUserToFirebase(data);
     } else {
       EasyLoading.dismiss();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Something Wrong happened!!')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Something Wrong happened!!')));
     }
   }
 
@@ -142,10 +151,12 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: MyColors.scaffold,
-      appBar: appBar(context: context, ),
+      appBar: appBar(
+        context: context,
+      ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -155,14 +166,22 @@ class _LoginPageState extends State<LoginPage> {
                 width: MediaQuery.of(context).size.width,
               ),
               vSizedBox4,
-              MainHeadingText(text: 'Login', fontSize: 32, fontFamily: 'light', color: MyColors.primaryColor,),
-              if(invalid_user_detail)
-              headingText(text: '$invalid_user_text',color: MyColors.red,),
+              const MainHeadingText(
+                text: 'Login',
+                fontSize: 32,
+                fontFamily: 'light',
+                color: MyColors.primaryColor,
+              ),
+              if (invalid_user_detail)
+                headingText(
+                  text: '$invalid_user_text',
+                  color: MyColors.red,
+                ),
               vSizedBox4,
               CustomTextField(
-                  controller: email,
-                  hintText: 'Email Address',
-                  prefixIcon: MyImages.profile,
+                controller: email,
+                hintText: 'Email Address',
+                prefixIcon: MyImages.profile,
                 showlabeltop: true,
                 label: 'Email',
                 labelfont: 12,
@@ -179,13 +198,13 @@ class _LoginPageState extends State<LoginPage> {
                 prefixIcon: MyImages.password,
                 showlabeltop: true,
                 suffix: IconButton(
-                  onPressed: (){
-                    show_pass=!show_pass;
-                    setState(() {
-
-                    });
+                  onPressed: () {
+                    show_pass = !show_pass;
+                    setState(() {});
                   },
-                  icon: show_pass?Icon(Icons.visibility_off):Icon(Icons.visibility),
+                  icon: show_pass
+                      ? const Icon(Icons.visibility_off)
+                      : const Icon(Icons.visibility),
                 ),
                 obscureText: !show_pass,
                 label: 'Password',
@@ -196,84 +215,105 @@ class _LoginPageState extends State<LoginPage> {
                 hintcolor: MyColors.headingcolor,
                 suffixheight: 18,
               ),
+              if(widget.loginWihtHealthCareProviderCode)
+              vSizedBox4,
+              if(widget.loginWihtHealthCareProviderCode)
+              CustomTextField(
+                controller: hpcsaController,
+                hintText: 'HPCSA Number',
+                prefixIcon: MyImages.profile,
+                showlabeltop: true,
+                label: 'HPCSA',
+                labelfont: 12,
+                labelcolor: MyColors.paragraphcolor,
+                bgColor: Colors.transparent,
+                fontsize: 16,
+                hintcolor: MyColors.headingcolor,
+                suffixheight: 16,
+              ),
 
               vSizedBox4,
               RoundEdgedButton(
-                onTap: () async{
-                  if(
-                      validateEmail(email.text,context)==null
-                      &&
-                      validateString(password.text, 'Please Enter Password', context)==null)
-                  {
-                      Map<String,dynamic> data = {
-                        'email':email.text.trim(),
-                        'password':password.text,
-                        'type':'2'
-                      };
-                      await EasyLoading.show(
-                        status: null,
-                        maskType: EasyLoadingMaskType.black,
-                      );
-                      var res = await Webservices.postData(apiUrl: ApiUrls.login, body: data, context: context);
-                      print('login successfully----$res');
-                      EasyLoading.dismiss();
-                      if(res['status'].toString()=='1'){
-                        updateUserDetails(res['data']);
-                        user_Data=res['data'];
-                        invalid_user_detail=false;
-                        setState(() {
-                        });
-                        if(!kIsWeb) {
-                          String? token =   await get_device_id();
-                          print('token-----$token');
-                          await Webservices.updateDeviceToken(user_id: user_Data!['id'].toString(), token: token!);
-                        }
-                        // if(res['data']['is_verified'].toString()=='1') {
-                        //   Navigator.of(context).pushAndRemoveUntil(
-                        //       MaterialPageRoute(builder: (context) {
-                        //         return tabs_second_page( selectedIndex: 0,);
-                        //       }), (route) {
-                        //     return false;
-                        //   });
-                        // }
-                        // else {
-                        //   Navigator.of(context).pushAndRemoveUntil(
-                        //       MaterialPageRoute(builder: (context) {
-                        //         return PendingVerificationPage(
-                        //           id: res['data']['id'].toString(),
-                        //         );
-                        //       }), (route) {
-                        //     return false;
-                        //   });
-                        // }
-                        // updateUserDetails(res['data']);
-
-                            Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(builder: (context) {
-                                    return tabs_second_page( selectedIndex: 0,);
-                                  }), (route) {
-                                return false;
-                              });
-
-                      }
-                      else {
-                        setState(() {
-                          invalid_user_text=res['message'];
-                          invalid_user_detail=true;
-                        });
-                        // showSnackbar( res['message']);
-                      }
+                onTap: () async {
+                  if(widget.loginWihtHealthCareProviderCode){
+                    showSnackbar("Comming Soon.....");
+                    return ;
                   }
-                    // push(context: context, screen: tabs_second_page(selectedIndex: 0,));
-                  },
+                  if (validateEmail(email.text, context) == null &&
+                      validateString(password.text, 'Please Enter Password',
+                              context) ==
+                          null) {
+                    Map<String, dynamic> data = {
+                      'email': email.text.trim(),
+                      'password': password.text,
+                      'type': '2'
+                    };
+                    await EasyLoading.show(
+                      status: null,
+                      maskType: EasyLoadingMaskType.black,
+                    );
+                    var res = await Webservices.postData(
+                        apiUrl: ApiUrls.login, body: data, context: context);
+                    print('login successfully----$res');
+                    EasyLoading.dismiss();
+                    if (res['status'].toString() == '1') {
+                      updateUserDetails(res['data']);
+                      user_Data = res['data'];
+                      invalid_user_detail = false;
+                      setState(() {});
+                      if (!kIsWeb) {
+                        String? token = await get_device_id();
+                        print('token-----$token');
+                        await Webservices.updateDeviceToken(
+                            user_id: user_Data!['id'].toString(),
+                            token: token!);
+                      }
+                      // if(res['data']['is_verified'].toString()=='1') {
+                      //   Navigator.of(context).pushAndRemoveUntil(
+                      //       MaterialPageRoute(builder: (context) {
+                      //         return tabs_second_page( selectedIndex: 0,);
+                      //       }), (route) {
+                      //     return false;
+                      //   });
+                      // }
+                      // else {
+                      //   Navigator.of(context).pushAndRemoveUntil(
+                      //       MaterialPageRoute(builder: (context) {
+                      //         return PendingVerificationPage(
+                      //           id: res['data']['id'].toString(),
+                      //         );
+                      //       }), (route) {
+                      //     return false;
+                      //   });
+                      // }
+                      // updateUserDetails(res['data']);
+
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (context) {
+                        return tabs_second_page(
+                          selectedIndex: 0,
+                        );
+                      }), (route) {
+                        return false;
+                      });
+                    } else {
+                      setState(() {
+                        invalid_user_text = res['message'];
+                        invalid_user_detail = true;
+                      });
+                      // showSnackbar( res['message']);
+                    }
+                  }
+                  // push(context: context, screen: tabs_second_page(selectedIndex: 0,));
+                },
                 text: 'Login',
               ),
               vSizedBox4,
               GestureDetector(
-                onTap: (){
-                  push(context: context, screen: ForgotPasswordPage());
+                onTap: () {
+                  push(context: context, screen: const ForgotPasswordPage());
                 },
-                child: Center(
+                child: const Center(
                   child: ParagraphText(
                     text: 'Forgot Password?',
                     fontFamily: 'semibold',
@@ -327,15 +367,15 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ParagraphText(
-                      text: 'If you don’t have an Account? ',
+                  const ParagraphText(
+                    text: 'If you don’t have an Account? ',
                   ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       push(context: context, screen: SignUp_Page());
                     },
-                    child: ParagraphText(
-                        text: 'Sign up',
+                    child: const ParagraphText(
+                      text: 'Sign up',
                       fontFamily: 'semibold',
                       underlined: true,
                     ),

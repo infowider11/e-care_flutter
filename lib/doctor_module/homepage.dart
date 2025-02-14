@@ -1,4 +1,5 @@
 import 'package:ecare/constants/colors.dart';
+import 'package:ecare/constants/global_keys.dart';
 import 'package:ecare/constants/navigation.dart';
 import 'package:ecare/doctor_module/create_bulk_slot.dart';
 import 'package:ecare/doctor_module/create_slot.dart';
@@ -289,7 +290,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                   // return;
                   if (user_Data!['is_bank_account_added'].toString() == '1') {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => CreateBulkSlot()));
+                        MaterialPageRoute(builder: (context) => CreateBulkSlot(key: MyGlobalKeys.createBulkSlotPage,)));
                   } else {
                     // showSnackbar("Please add bank account first");
                     push(context: context, screen: AddBankAccountPage());

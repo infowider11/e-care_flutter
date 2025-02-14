@@ -1,4 +1,6 @@
 import 'package:ecare/constants/colors.dart';
+import 'package:ecare/constants/global_keys.dart';
+import 'package:ecare/constants/navigation.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/functions/print_function.dart';
 import 'package:ecare/modals/slot_preview_modal.dart';
@@ -17,9 +19,13 @@ import 'package:intl/intl.dart';
 
 class BulkSlotPreview extends StatefulWidget {
   final List<SlotPreviewModal> slotList;
-  final String  startDate;
-  final String  endDate;
-  const BulkSlotPreview({super.key, required this.slotList,required this.endDate,required this.startDate});
+  final String startDate;
+  final String endDate;
+  const BulkSlotPreview(
+      {super.key,
+      required this.slotList,
+      required this.endDate,
+      required this.startDate});
 
   @override
   State<BulkSlotPreview> createState() => _BulkSlotPreviewState();
@@ -46,48 +52,46 @@ class _BulkSlotPreviewState extends State<BulkSlotPreview> {
             appBarColor: MyColors.BgColor,
             title: 'Bulk Slot Preview',
             fontsize: 20),
-            bottomNavigationBar:  RoundEdgedButton(
-                          text: 'Create Slot',
-                          onTap: () async {
-                           
-                            
-                              // DateTime startDateTime =  DateTime(selectedStartDate!.year, selectedStartDate!.month, selectedStartDate!.day, start_timestamp!.hour, start_timestamp!.minute);
-                              // DateTime endDateTime =  DateTime(selectedStartDate!.year, selectedStartDate!.month, selectedStartDate!.day, end_timestamp!.hour, end_timestamp!.minute);
+        bottomNavigationBar: RoundEdgedButton(
+          horizontalMargin: 20,
+          verticalMargin: 10,
+          text: 'Create Slot',
+          onTap: () async {
+            // DateTime startDateTime =  DateTime(selectedStartDate!.year, selectedStartDate!.month, selectedStartDate!.day, start_timestamp!.hour, start_timestamp!.minute);
+            // DateTime endDateTime =  DateTime(selectedStartDate!.year, selectedStartDate!.month, selectedStartDate!.day, end_timestamp!.hour, end_timestamp!.minute);
 
-                              Map<String, dynamic> data = {
-                                'user_id': await getCurrentUserId(),
-                                'date': widget.startDate,
-                                'end_date': widget.endDate
-                                // 'start_time': startTimeController.text.toString(),
-                                // 'end_time': endTimeController.text.toString(),
-                              };
+            Map<String, dynamic> data = {
+              'user_id': await getCurrentUserId(),
+              'date': widget.startDate,
+              'end_date': widget.endDate
+              // 'start_time': startTimeController.text.toString(),
+              // 'end_time': endTimeController.text.toString(),
+            };
 
-                              data.addAll(getSlots());
-                              myCustomLogStatements("bulk slot is this $data");
-                              await EasyLoading.show(
-                                status: null,
-                                maskType: EasyLoadingMaskType.black,
-                              );
-                              var res = await Webservices.postData(
-                                apiUrl: ApiUrls.createBulkSlots,
-                                body: data,
-                              );
-                              print('create---slot$res');
-                              EasyLoading.dismiss();
-                              if (res['status'].toString() == '1') {
-                         
-                                // get_slots();
-                                showSnackbar(res['message']);
-                              }
-                            
-                          },
-                        ),
+            data.addAll(getSlots());
+            myCustomLogStatements("bulk slot is this $data");
+            await EasyLoading.show(
+              status: null,
+              maskType: EasyLoadingMaskType.black,
+            );
+            var res = await Webservices.postData(
+              apiUrl: ApiUrls.createBulkSlots,
+              body: data,
+            );
+            print('create---slot$res');
+            EasyLoading.dismiss();
+            if (res['status'].toString() == '1') {
+              popPage(context: context);
+              MyGlobalKeys.createBulkSlotPage.currentState!.get_slots();
+              showSnackbar(res['message']);
+            }
+          },
+        ),
         body: ValueListenableBuilder<List<SlotPreviewModal>>(
             valueListenable: slotsListNotifier,
             builder: (context, slotList, child) {
               return ListView.builder(
                 itemCount: slotList.length,
-                
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -103,8 +107,7 @@ class _BulkSlotPreviewState extends State<BulkSlotPreview> {
                         children: [
                           Expanded(
                             child: Column(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                     'Date: ${slotList[index].dateTime.toString()}'),
@@ -125,13 +128,14 @@ class _BulkSlotPreviewState extends State<BulkSlotPreview> {
                           // if (slots[i]['is_booked'].toString() == '0')
                           IconButton(
                             onPressed: () async {
-                              bool? result =
-                                  await showCustomConfirmationDialog(
-                                      headingMessage: 'Are your sure?',
-                                      description:
-                                          "You want remove this slot");
+                              bool? result = await showCustomConfirmationDialog(
+                                  headingMessage: 'Are your sure?',
+                                  description: "You want remove this slot");
                               if (result == true) {
                                 slotsListNotifier.value.removeAt(index);
+                                if (slotsListNotifier.value.isEmpty) {
+                                  popPage(context: context);
+                                }
                                 slotsListNotifier.notifyListeners();
                               }
                               // remove_slot(
@@ -150,6 +154,7 @@ class _BulkSlotPreviewState extends State<BulkSlotPreview> {
               );
             }));
   }
+
   Map<String, dynamic> getSlots() {
     Map<String, dynamic> request = {};
 
