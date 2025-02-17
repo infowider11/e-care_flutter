@@ -25,15 +25,15 @@ class _Appointment_Detail_PageState extends State<Appointment_Detail_Page> {
       backgroundColor: MyColors.BgColor,
       appBar: appBar(
         context: context,
-        appBarColor: Color(0xFE00A2EA).withOpacity(0.1),
+        appBarColor: const Color(0xFE00A2EA).withOpacity(0.1),
       ),
       body: Stack(
         children: [
           SingleChildScrollView(
             child: Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.all(16),
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage('assets/images/patter.png', ),
                     alignment: Alignment.topCenter,
@@ -50,7 +50,7 @@ class _Appointment_Detail_PageState extends State<Appointment_Detail_Page> {
                       children: [
                         Image.asset('assets/images/23.png', width: 85,),
                         hSizedBox2,
-                        Column(
+                        const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             vSizedBox,
@@ -65,7 +65,7 @@ class _Appointment_Detail_PageState extends State<Appointment_Detail_Page> {
                     ),
                   ),
                   vSizedBox4,
-                  MainHeadingText(text: 'Uploaded Documents'),
+                  const MainHeadingText(text: 'Uploaded Documents'),
                   vSizedBox,
                   ListUI01(heading: 'test Document Name', image: 'assets/images/file.png', isIcon: false),
                   ListUI01(heading: 'test Document Name', image: 'assets/images/file.png', isIcon: false),
@@ -74,12 +74,12 @@ class _Appointment_Detail_PageState extends State<Appointment_Detail_Page> {
                   vSizedBox,
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
-                      color: Color(0xFE00A2EA).withOpacity(0.1),
+                      color: const Color(0xFE00A2EA).withOpacity(0.1),
                     ),
-                    child: Column(
+                    child: const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MainHeadingText(text: 'About Patient', fontFamily: 'light', fontSize: 24,),
@@ -110,12 +110,12 @@ class _Appointment_Detail_PageState extends State<Appointment_Detail_Page> {
 
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
-                      color: Color(0xFE00A2EA).withOpacity(0.1),
+                      color: const Color(0xFE00A2EA).withOpacity(0.1),
                     ),
-                    child: Column(
+                    child: const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MainHeadingText(text: 'serious medical conditions in the family', fontFamily: 'light', fontSize: 16,),
@@ -133,10 +133,10 @@ class _Appointment_Detail_PageState extends State<Appointment_Detail_Page> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: RoundEdgedButton(
                 text: 'Upload Documents',
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => UploadDocument())),)
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const UploadDocument())),)
               ,
             ),
           )

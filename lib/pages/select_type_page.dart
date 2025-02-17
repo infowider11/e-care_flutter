@@ -2,11 +2,9 @@ import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/doctor_module/loginpage.dart';
 import 'package:ecare/pages/loginpage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../constants/image_urls.dart';
 import '../functions/navigation_functions.dart';
-import '../widgets/CustomTexts.dart';
 import '../widgets/lists.dart';
 class Select_Type_Page extends StatefulWidget {
   const Select_Type_Page({Key? key}) : super(key: key);

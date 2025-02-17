@@ -7,12 +7,10 @@ import 'package:ecare/doctor_module/notification.dart';
 import 'package:ecare/functions/global_Var.dart';
 import 'package:ecare/pages/add_bank_account_page.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
-import 'package:ecare/widgets/appointment_request_block.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:intl/intl.dart';
 
 import '../pages/add_icd_notes.dart';
@@ -126,7 +124,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
   getDetail() async {
     // userData = await getUserDetails();
     var id = await getCurrentUserId();
-    var res = await Webservices.get('${ApiUrls.get_user_by_id}?user_id=${id}');
+    var res = await Webservices.get('${ApiUrls.get_user_by_id}?user_id=$id');
     print(' $res');
     if (res['status'].toString() == '1') {
       user_Data = res['data'];
@@ -142,7 +140,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
       backgroundColor: MyColors.BgColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xFE00A2EA).withOpacity(0.1),
+        backgroundColor: const Color(0xFE00A2EA).withOpacity(0.1),
         title: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(200),
@@ -172,7 +170,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                         fontFamily: 'light',
                         fontSize: 15,
                       ),
-                      MainHeadingText(
+                      const MainHeadingText(
                         text: 'Welcome Back!',
                         fontFamily: 'light',
                         color: MyColors.primaryColor,
@@ -209,22 +207,22 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
               badges.Badge(
                 position: badges.BadgePosition.topEnd(top:5,end:2),
                 showBadge: unread_noti_count!=0?true:false,
-                badgeContent: Text('${unread_noti_count}',style: TextStyle(color: Colors.white),),
+                badgeContent: Text('$unread_noti_count',style: const TextStyle(color: Colors.white),),
                 child: IconButton(
-                  icon: Icon(Icons.chat),
+                  icon: const Icon(Icons.chat),
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => MessagePage()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const MessagePage()));
                   },
                 ),
               ),
               badges.Badge(
                 position: badges.BadgePosition.topEnd(top: 5, end: 2),
                 showBadge: unread_noti_count!=0?true:false,
-                badgeContent: Text('${unread_noti_count}',style: TextStyle(color: Colors.white),),
+                badgeContent: Text('$unread_noti_count',style: const TextStyle(color: Colors.white),),
                 child: IconButton(
-                  icon: Icon(Icons.notifications),
+                  icon: const Icon(Icons.notifications),
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => DoctorNotificationPage()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const DoctorNotificationPage()));
                   },
                 ),
               ),
@@ -232,8 +230,8 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.all(16),
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
               'assets/images/patter.png',
@@ -261,18 +259,18 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                   // return;
                   if (user_Data!['is_bank_account_added'].toString() == '1') {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => CreateSlot()));
+                        MaterialPageRoute(builder: (context) => const CreateSlot()));
                   } else {
                     // showSnackbar("Please add bank account first");
-                    push(context: context, screen: AddBankAccountPage());
+                    push(context: context, screen: const AddBankAccountPage());
                   }
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: MyColors.primaryColor),
-                  child: Center(
+                  child: const Center(
                     child: MainHeadingText(
                       text: 'Create/Modify your slots',
                       fontFamily: 'light',
@@ -293,17 +291,17 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                         MaterialPageRoute(builder: (context) => CreateBulkSlot(key: MyGlobalKeys.createBulkSlotPage,)));
                   } else {
                     // showSnackbar("Please add bank account first");
-                    push(context: context, screen: AddBankAccountPage());
+                    push(context: context, screen: const AddBankAccountPage());
                   }
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: MyColors.primaryColor),
-                  child: Center(
+                  child: const Center(
                     child: MainHeadingText(
-                      text: 'Create Slots in Bulk',
+                      text: 'Generate Multiple Slots',
                       fontFamily: 'light',
                       color: MyColors.white,
                       fontSize: 14,
@@ -312,8 +310,8 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                 ),
               ),
               vSizedBox,
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 0),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 0),
                 child: ParagraphText(
                   textAlign: TextAlign.center,
                   text:
@@ -322,12 +320,12 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                 ),
               ),
               vSizedBox4,
-              MainHeadingText(
+              const MainHeadingText(
                 text: 'Appointment Request',
                 fontSize: 16,
                 fontFamily: 'light',
               ),
-              MainHeadingText(
+              const MainHeadingText(
                 text:
                     'All appointment requests made between 7:00 AM and 8:00 PM should be accepted within 2 hours of the request. Failure to accept the appointment within this time frame will result in an automatic cancellation of the appointment.'
                         '\nSimilarly, all appointment requests made between 8:00 PM and 7:00 AM should be accepted by 8:00 AM the following day. If not accepted by that time, the appointment will be automatically canceled.',
@@ -349,8 +347,8 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                     )));
                       },
                       child: Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        padding: EdgeInsets.all(10),
+                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           // color: MyColors.lightBlue.withOpacity(0.11),
                           color: MyColors.surface3,
@@ -482,12 +480,12 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                       ),
                     ),
                   if (incoming.length == 0 && !load)
-                    Center(
+                    const Center(
                       heightFactor: 5.0,
                       child: Text('No Appointment Yet.'),
                     ),
                   if (load)
-                    Center(
+                    const Center(
                       heightFactor: 5.0,
                       child: CustomLoader(
                         color: MyColors.secondarycolor,
@@ -496,12 +494,12 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                 ],
               ),
               vSizedBox,
-              MainHeadingText(
+              const MainHeadingText(
                 text: 'Today\'s Appointments',
                 fontSize: 16,
                 fontFamily: 'light',
               ),
-              ParagraphText(
+              const ParagraphText(
                 text:
                     'As the healthcare provider, it is your responsibility to initiate the video consultation at the scheduled time.'
                    '\nPlease remember to upload any necessary sick notes or referral letters during the consultation or as soon as possible after the consultation has ended.',
@@ -526,7 +524,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                     child: Column(
                       children: [
                         Container(
-                          padding: EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: MyColors.lightBlue.withOpacity(0.11)),
@@ -561,7 +559,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                       PopupMenuButton<int>(
                                         itemBuilder: (context) => [
                                           // PopupMenuItem 1
-                                          PopupMenuItem(
+                                          const PopupMenuItem(
                                             value: 1,
                                             // row with 2 children
                                             child: Row(
@@ -573,7 +571,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                               ],
                                             ),
                                           ),
-                                          PopupMenuItem(
+                                          const PopupMenuItem(
                                             value: 2,
                                             // row with two children
                                             child: Row(
@@ -585,7 +583,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                               ],
                                             ),
                                           ),
-                                          PopupMenuItem(
+                                          const PopupMenuItem(
                                             value: 3,
                                             // row with two children
                                             child: Row(
@@ -597,7 +595,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                               ],
                                             ),
                                           ),
-                                          PopupMenuItem(
+                                          const PopupMenuItem(
                                             value: 4,
                                             // row with two children
                                             child: Row(
@@ -609,7 +607,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                               ],
                                             ),
                                           ),
-                                          PopupMenuItem(
+                                          const PopupMenuItem(
                                             value: 5,
                                             // row with two children
                                             child: Row(
@@ -622,7 +620,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                             ),
                                           ),
                                         ],
-                                        offset: Offset(0, 58),
+                                        offset: const Offset(0, 58),
                                         color: MyColors.white,
                                         elevation: 0,
                                         // on selected we show the dialog box
@@ -803,12 +801,12 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                   ),
                 ),
               if (todays_app.length == 0 && !load2)
-                Center(
+                const Center(
                   heightFactor: 5.0,
                   child: Text('No Appointment Yet.'),
                 ),
               if (load2)
-                Center(
+                const Center(
                   heightFactor: 5.0,
                   child: CustomLoader(
                     color: MyColors.secondarycolor,
@@ -818,7 +816,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
 
               // confirmed booking...
               vSizedBox,
-              MainHeadingText(
+              const MainHeadingText(
                 text: 'Confirmed Appointment',
                 fontSize: 16,
                 fontFamily: 'light',
@@ -838,7 +836,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                     child: Column(
                       children: [
                         Container(
-                          padding: EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: MyColors.lightBlue.withOpacity(0.11)),
@@ -873,7 +871,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                           PopupMenuButton<int>(
                                             itemBuilder: (context) => [
                                               // PopupMenuItem 1
-                                              PopupMenuItem(
+                                              const PopupMenuItem(
                                                 value: 1,
                                                 // row with 2 children
                                                 child: Row(
@@ -885,7 +883,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                   ],
                                                 ),
                                               ),
-                                              PopupMenuItem(
+                                              const PopupMenuItem(
                                                 value: 2,
                                                 // row with two children
                                                 child: Row(
@@ -897,7 +895,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                   ],
                                                 ),
                                               ),
-                                              PopupMenuItem(
+                                              const PopupMenuItem(
                                                 value: 3,
                                                 // row with two children
                                                 child: Row(
@@ -909,7 +907,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                   ],
                                                 ),
                                               ),
-                                              PopupMenuItem(
+                                              const PopupMenuItem(
                                                 value: 4,
                                                 // row with two children
                                                 child: Row(
@@ -921,7 +919,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                   ],
                                                 ),
                                               ),
-                                              PopupMenuItem(
+                                              const PopupMenuItem(
                                                 value: 5,
                                                 // row with 2 children
                                                 child: Row(
@@ -934,7 +932,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                 ),
                                               ),
                                             ],
-                                            offset: Offset(0, 58),
+                                            offset: const Offset(0, 58),
                                             color: MyColors.white,
                                             elevation: 0,
                                             // on selected we show the dialog box
@@ -1111,12 +1109,12 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                   ),
                 ),
               if (confirms.length == 0 && !load)
-                Center(
+                const Center(
                   heightFactor: 5.0,
                   child: Text('No Appointment Yet.'),
                 ),
               if (load)
-                Center(
+                const Center(
                   heightFactor: 5.0,
                   child: CustomLoader(
                     color: MyColors.secondarycolor,
@@ -1128,7 +1126,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
 
               // completed booking...
               vSizedBox,
-              MainHeadingText(
+              const MainHeadingText(
                 text: 'Completed Appointment',
                 fontSize: 16,
                 fontFamily: 'light',
@@ -1148,7 +1146,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                     child: Column(
                       children: [
                         Container(
-                          padding: EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: MyColors.lightBlue.withOpacity(0.11)),
@@ -1183,7 +1181,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                           PopupMenuButton<int>(
                                             itemBuilder: (context) => [
                                               // PopupMenuItem 1
-                                              PopupMenuItem(
+                                              const PopupMenuItem(
                                                 value: 1,
                                                 // row with 2 children
                                                 child: Row(
@@ -1195,7 +1193,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                   ],
                                                 ),
                                               ),
-                                              PopupMenuItem(
+                                              const PopupMenuItem(
                                                 value: 2,
                                                 // row with two children
                                                 child: Row(
@@ -1207,7 +1205,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                   ],
                                                 ),
                                               ),
-                                              PopupMenuItem(
+                                              const PopupMenuItem(
                                                 value: 3,
                                                 // row with two children
                                                 child: Row(
@@ -1219,7 +1217,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                   ],
                                                 ),
                                               ),
-                                              PopupMenuItem(
+                                              const PopupMenuItem(
                                                 value: 4,
                                                 // row with two children
                                                 child: Row(
@@ -1232,7 +1230,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                 ),
                                               ),
                                             ],
-                                            offset: Offset(0, 58),
+                                            offset: const Offset(0, 58),
                                             color: MyColors.white,
                                             elevation: 0,
                                             // on selected we show the dialog box
@@ -1365,12 +1363,12 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                   ),
                 ),
               if (completeds.length == 0 && !load)
-                Center(
+                const Center(
                   heightFactor: 5.0,
                   child: Text('No Appointment Yet.'),
                 ),
               if (load)
-                Center(
+                const Center(
                   heightFactor: 5.0,
                   child: CustomLoader(
                     color: MyColors.secondarycolor,
@@ -1389,7 +1387,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
   acceptpopup(BuildContext context, String b_id, String s_id, p_id) {
     // set up the buttons
     Widget cancelButton = TextButton(
-      child: Text(
+      child: const Text(
         "No",
         style: TextStyle(color: Colors.red),
       ),
@@ -1400,7 +1398,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
       },
     );
     Widget continueButton = TextButton(
-      child: Text(
+      child: const Text(
         "Yes",
         style: TextStyle(color: Colors.green),
       ),
@@ -1428,8 +1426,8 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Accept"),
-      content: Text("Are you sure?"),
+      title: const Text("Accept"),
+      content: const Text("Are you sure?"),
       actions: [
         cancelButton,
         continueButton,
@@ -1451,7 +1449,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Reject'),
+            title: const Text('Reject'),
             content: TextField(
               onChanged: (value) {
                 setState(() {
@@ -1459,11 +1457,11 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                 });
               },
               controller: reason,
-              decoration: InputDecoration(hintText: "Reject Reason..."),
+              decoration: const InputDecoration(hintText: "Reject Reason..."),
             ),
             actions: <Widget>[
               TextButton(
-                child: Text(
+                child: const Text(
                   "No",
                   style: TextStyle(color: Colors.red),
                 ),
@@ -1475,7 +1473,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
               ),
 
               TextButton(
-                child: Text(
+                child: const Text(
                   "Yes",
                   style: TextStyle(color: Colors.green),
                 ),

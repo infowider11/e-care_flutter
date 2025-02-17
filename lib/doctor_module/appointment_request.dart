@@ -53,9 +53,9 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
 
   TabBar get _tabBar => TabBar(
         controller: _tabcontroller,
-        padding: EdgeInsets.symmetric(horizontal: 0),
-        labelPadding: EdgeInsets.symmetric(horizontal: 0),
-        tabs: <Widget>[
+        padding: const EdgeInsets.symmetric(horizontal: 0),
+        labelPadding: const EdgeInsets.symmetric(horizontal: 0),
+        tabs: const <Widget>[
           Tab(
             child: MainHeadingText(
               text: 'Incoming',
@@ -142,7 +142,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: MainHeadingText(
+          title: const MainHeadingText(
             text: 'Appointments',
             fontSize: 26,
             fontFamily: 'light',
@@ -152,9 +152,9 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
               onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => DoctorNotificationPage())),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                      builder: (context) => const DoctorNotificationPage())),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Icon(
                   Icons.notifications,
                   size: 24,
@@ -172,12 +172,12 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
           ),
         ),
         body: load
-            ? CustomLoader()
+            ? const CustomLoader()
             : TabBarView(
               controller: _tabcontroller,
                 children: [
                   Container(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     color: MyColors.BgColor,
                     child: SingleChildScrollView(
                       child: Column(
@@ -194,8 +194,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                             )));
                               },
                               child: Container(
-                                margin: EdgeInsets.only(bottom: 10),
-                                padding: EdgeInsets.all(10),
+                                margin: const EdgeInsets.only(bottom: 10),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   // color: MyColors.lightBlue.withOpacity(0.11),
                                   color: MyColors.surface3,
@@ -337,7 +337,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                               ),
                             ),
                           if (incoming.length == 0)
-                            Center(
+                            const Center(
                               child: Text('No data found.'),
                             ),
                           vSizedBox8,
@@ -347,7 +347,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                   ),
                   Container(
                     color: MyColors.BgColor,
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
@@ -367,7 +367,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                 child: Column(
                                   children: [
                                     Container(
-                                      padding: EdgeInsets.all(16),
+                                      padding: const EdgeInsets.all(16),
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10),
@@ -431,13 +431,13 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                   )
                                                 ],
                                               ),
-                                              MainHeadingText(
+                                              const MainHeadingText(
                                                 text: 'Waiting for payment',
                                                 fontSize: 10,
                                                 color: Colors.green,
                                               ),
                                               Container(
-                                                child: Column(
+                                                child: const Column(
                                                   children: [
                                                     vSizedBox2,
                                                     Row(
@@ -498,7 +498,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                               ),
                             ),
                           if (accpeted.length == 0)
-                            Center(
+                            const Center(
                               child: Text('No data found.'),
                             ),
                         ],
@@ -507,9 +507,9 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                   ),
                   Container(
                     color: MyColors.BgColor,
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     child: SingleChildScrollView(
-                      physics: ClampingScrollPhysics(),
+                      physics: const ClampingScrollPhysics(),
                       child: Column(
                         children: [
                           for (var i = 0; i < confirms.length; i++)
@@ -528,7 +528,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                 child: Column(
                                   children: [
                                     Container(
-                                      padding: EdgeInsets.all(16),
+                                      padding: const EdgeInsets.all(16),
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10),
@@ -705,12 +705,12 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                     vSizedBox,
                                                   PopupMenuButton<int>(
                                                     child:Container(
-                                                      padding: EdgeInsets.all(10.0),
+                                                      padding: const EdgeInsets.all(10.0),
                                                       decoration: BoxDecoration(
                                                         border: Border.all(color: MyColors.primaryColor),
                                                         borderRadius: BorderRadius.circular(20.0),
                                                       ),
-                                                      child: Text('Add Consultation Documents',style: TextStyle(
+                                                      child: const Text('Add Consultation Documents',style: TextStyle(
                                                         color: MyColors.primaryColor
                                                       ),),
                                                     ),
@@ -721,7 +721,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                     clipBehavior: Clip.none,
                                                     itemBuilder: (context) => [
                                                       // PopupMenuItem 1
-                                                      PopupMenuItem(
+                                                      const PopupMenuItem(
                                                         value: 1,
                                                         // row with 2 children
                                                         child: Row(
@@ -733,7 +733,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                           ],
                                                         ),
                                                       ),
-                                                      PopupMenuItem(
+                                                      const PopupMenuItem(
                                                         value: 2,
                                                         // row with two children
                                                         child: Row(
@@ -745,7 +745,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                           ],
                                                         ),
                                                       ),
-                                                      PopupMenuItem(
+                                                      const PopupMenuItem(
                                                         value: 3,
                                                         // row with two children
                                                         child: Row(
@@ -757,7 +757,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                           ],
                                                         ),
                                                       ),
-                                                      PopupMenuItem(
+                                                      const PopupMenuItem(
                                                         value: 4,
                                                         // row with two children
                                                         child: Row(
@@ -769,7 +769,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                           ],
                                                         ),
                                                       ),
-                                                      PopupMenuItem(
+                                                      const PopupMenuItem(
                                                         value: 5,
                                                         // row with 2 children
                                                         child: Row(
@@ -782,7 +782,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                         ),
                                                       ),
                                                     ],
-                                                    offset: Offset(0, 58),
+                                                    offset: const Offset(0, 58),
                                                     color: MyColors.white,
                                                     elevation: 0,
                                                     // on selected we show the dialog box
@@ -854,7 +854,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                               ),
                             ),
                           if (confirms.length == 0)
-                            Center(
+                            const Center(
                               child: Text('No data found.'),
                             ),
                         ],
@@ -863,7 +863,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                   ),
                   Container(
                     color: MyColors.BgColor,
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
@@ -883,7 +883,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                 child: Column(
                                   children: [
                                     Container(
-                                      padding: EdgeInsets.all(16),
+                                      padding: const EdgeInsets.all(16),
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10),
@@ -925,7 +925,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                   PopupMenuButton<int>(
                                                     itemBuilder: (context) => [
                                                       // PopupMenuItem 1
-                                                      PopupMenuItem(
+                                                      const PopupMenuItem(
                                                         value: 1,
                                                         // row with 2 children
                                                         child: Row(
@@ -937,7 +937,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                           ],
                                                         ),
                                                       ),
-                                                      PopupMenuItem(
+                                                      const PopupMenuItem(
                                                         value: 2,
                                                         // row with two children
                                                         child: Row(
@@ -949,7 +949,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                           ],
                                                         ),
                                                       ),
-                                                      PopupMenuItem(
+                                                      const PopupMenuItem(
                                                         value: 3,
                                                         // row with two children
                                                         child: Row(
@@ -961,7 +961,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                           ],
                                                         ),
                                                       ),
-                                                      PopupMenuItem(
+                                                      const PopupMenuItem(
                                                         value: 4,
                                                         // row with two children
                                                         child: Row(
@@ -974,7 +974,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                         ),
                                                       ),
                                                     ],
-                                                    offset: Offset(0, 58),
+                                                    offset: const Offset(0, 58),
                                                     color: MyColors.white,
                                                     elevation: 0,
                                                     // on selected we show the dialog box
@@ -1114,7 +1114,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                               ),
                             ),
                           if (completeds.length == 0)
-                            Center(
+                            const Center(
                               child: Text('No data found.'),
                             ),
                         ],
@@ -1123,7 +1123,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                   ),
                   Container(
                     color: MyColors.BgColor,
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
@@ -1139,8 +1139,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                             )));
                               },
                               child: Container(
-                                margin: EdgeInsets.only(bottom: 10),
-                                padding: EdgeInsets.all(10),
+                                margin: const EdgeInsets.only(bottom: 10),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   color: MyColors.lightBlue.withOpacity(0.11),
                                   borderRadius: BorderRadius.circular(15),
@@ -1247,7 +1247,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                               ),
                             ),
                           if (rejects.length == 0)
-                            Center(
+                            const Center(
                               child: Text('No Data Found.'),
                             ),
                         ],
@@ -1263,7 +1263,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
   acceptpopup(BuildContext context, String b_id, String s_id, p_id) {
     // set up the buttons
     Widget cancelButton = TextButton(
-      child: Text(
+      child: const Text(
         "No",
         style: TextStyle(color: Colors.red),
       ),
@@ -1274,7 +1274,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
       },
     );
     Widget continueButton = TextButton(
-      child: Text(
+      child: const Text(
         "Yes",
         style: TextStyle(color: Colors.green),
       ),
@@ -1303,8 +1303,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Accept"),
-      content: Text("Are you sure?"),
+      title: const Text("Accept"),
+      content: const Text("Are you sure?"),
       actions: [
         cancelButton,
         continueButton,
@@ -1326,7 +1326,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Reject'),
+            title: const Text('Reject'),
             content: TextField(
               onChanged: (value) {
                 setState(() {
@@ -1334,11 +1334,11 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                 });
               },
               controller: reason,
-              decoration: InputDecoration(hintText: "Reject Reason..."),
+              decoration: const InputDecoration(hintText: "Reject Reason..."),
             ),
             actions: <Widget>[
               TextButton(
-                child: Text(
+                child: const Text(
                   "No",
                   style: TextStyle(color: Colors.red),
                 ),
@@ -1350,7 +1350,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
               ),
 
               TextButton(
-                child: Text(
+                child: const Text(
                   "Yes",
                   style: TextStyle(color: Colors.green),
                 ),

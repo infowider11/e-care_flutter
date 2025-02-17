@@ -6,6 +6,7 @@ import 'package:ecare/functions/print_function.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../widgets/CustomTexts.dart';
 import '../functions/global_Var.dart';
@@ -99,7 +100,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     // creates the engine
     // _engine = await RtcEngine.create(appId);
     _engine = await createAgoraRtcEngine();
-    await _engine?.initialize(RtcEngineContext(
+    await _engine?.initialize(const RtcEngineContext(
       appId: appId,
       channelProfile: ChannelProfileType.channelProfileLiveBroadcasting,
     )
@@ -251,13 +252,13 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     }catch(e){
       print('trying to join channel attempt failed: ${attempts}..$e');
       if(attempts<3){
-        await Future.delayed(Duration(seconds: 2));
+        await Future.delayed(const Duration(seconds: 2));
         attempts++;
         joiningChannel();
       }else{
         myCustomLogStatements('Popping .....1');
         CustomNavigation.popUntil(MyGlobalKeys.navigatorKey.currentContext!, (route)=>route.isFirst);
-        await Future.delayed(Duration(seconds: 2));
+        await Future.delayed(const Duration(seconds: 2));
         showSnackbar('The live stream may have been ended');
       }
     }
@@ -304,8 +305,12 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   showAlertDialog(BuildContext context) {
     // set up the button
     Widget okButton = TextButton(
-      child: Text("Yes"),
+      child: const Text("Yes"),
       onPressed: () async{
+            await EasyLoading.show(
+                      status: null,
+                      maskType: EasyLoadingMaskType.black,
+                    );
         if(_engine!=null){
          await _engine!.leaveChannel();
          Map<String,dynamic> data = {
@@ -318,20 +323,21 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
         setState(() {
           _remoteUid = null;
         });
+         EasyLoading.dismiss();
         Navigator.pop(context, true);
         Navigator.pop(context);
       },
     );
     Widget noButton = TextButton(
-      child: Text("No"),
+      child: const Text("No"),
       onPressed: () {
         Navigator.pop(context);
       },
     );
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Leave Call?",style: TextStyle(color: Colors.red),),
-      content: Text("Are you sure you would like to leave your consultation?"),
+      title: const Text("Leave Call?",style: TextStyle(color: Colors.red),),
+      content: const Text("Are you sure you would like to leave your consultation?"),
       actions: [
         okButton,
         noButton,
@@ -358,7 +364,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
       child: Scaffold(
         // appBar: appBar(context: context, title: 'Manish Talreja'),
         body: load
-            ? CustomLoader()
+            ? const CustomLoader()
             : SafeArea(
           child: Container(
             child: Container(
@@ -411,7 +417,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
                     child: Container(
                       height: 100,
                       // width: 200,
-                      margin: EdgeInsets.only(left: 16, right: 16),
+                      margin: const EdgeInsets.only(left: 16, right: 16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -479,30 +485,34 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
                                     context: context,
                                     builder: (context) {
                                       return AlertDialog(
-                                        insetPadding: EdgeInsets.symmetric(
+                                        insetPadding: const EdgeInsets.symmetric(
                                             horizontal: 32, vertical: 32),
                                         contentPadding:
-                                        EdgeInsets.symmetric(
+                                        const EdgeInsets.symmetric(
                                             horizontal: 32,
                                             vertical: 32),
-                                        buttonPadding: EdgeInsets.symmetric(
+                                        buttonPadding: const EdgeInsets.symmetric(
                                           horizontal: 32,
                                         ),
-                                        title: SubHeadingText(
+                                        title: const SubHeadingText(
                                           text: 'Are you sure?',
                                         ),
                                         actions: [
                                           GestureDetector(
                                             child:
-                                            SubHeadingText(text: 'No'),
+                                            const SubHeadingText(text: 'No'),
                                             onTap: () {
                                               Navigator.pop(context);
                                             },
                                           ),
                                           GestureDetector(
                                             child:
-                                            SubHeadingText(text: 'Yes'),
+                                            const SubHeadingText(text: 'Yes'),
                                             onTap: () async{
+                                                  await EasyLoading.show(
+                      status: null,
+                      maskType: EasyLoadingMaskType.black,
+                    );
                                               // await _engine!.
                                               Map<String,dynamic> data = {
                                                 'booking_id':widget.bookingId.toString(),
@@ -511,6 +521,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
                                               };
                                               var res =
                                               await Webservices.postData(apiUrl: ApiUrls.endCall,body: data, context: context);
+                                              EasyLoading.dismiss();
                                               // var res =
                                               // await Webservices.get(ApiUrls.endCall+widget.bookingId.toString());
                                               myCustomPrintStatement('call end----$res');
@@ -525,14 +536,14 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
                                   try {
                                     if (_remoteUid != null) {
                                       await _engine!.leaveChannel();
-                                      await _engine!.joinChannel(token:token??'',channelId:  channelName,uid: 0, options: ChannelMediaOptions());
+                                      await _engine!.joinChannel(token:token??'',channelId:  channelName,uid: 0, options: const ChannelMediaOptions());
                                       // await _engine!.joinChannel(token, channelName, null, 0);
                                       // await _engine!.setCameraAutoFocusFaceModeEnabled(true);
                                       _remoteUid = null;
                                     } else {
                                       try {
                                         await _engine!.leaveChannel();
-                                        await _engine!.joinChannel(token:token??'',channelId:  channelName,uid: 0, options: ChannelMediaOptions());
+                                        await _engine!.joinChannel(token:token??'',channelId:  channelName,uid: 0, options: const ChannelMediaOptions());
                                         // await _engine!.joinChannel(token, channelName, null, 0);
                                         // await _engine!.setCameraAutoFocusFaceModeEnabled(true);
                                         _remoteUid = null;
@@ -547,7 +558,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
                                   }
                                 }
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.call_end,
                                 size: 40,
                                 color: Colors.white,

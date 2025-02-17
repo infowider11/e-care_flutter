@@ -53,17 +53,17 @@ class _DoctorVideoCallState extends State<DoctorVideoCall> {
                               vSizedBox2,
                               GestureDetector(
                                 onTap: (){
-                                  push(context: context, screen: Add_Prescriptions_Doctor_Page());
+                                  push(context: context, screen: const Add_Prescriptions_Doctor_Page());
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 10),
-                                  padding: EdgeInsets.symmetric(vertical: 16),
-                                  decoration: BoxDecoration(
+                                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                                  padding: const EdgeInsets.symmetric(vertical: 16),
+                                  decoration: const BoxDecoration(
                                       border: Border(
                                           bottom: BorderSide(color: MyColors.onsurfacevarient, width: 1)
                                       )
                                   ),
-                                  child: Row(
+                                  child: const Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       MainHeadingText(text: 'Add Prescription', color: MyColors.onsurfacevarient, fontSize: 14, fontFamily: 'light',),
@@ -74,17 +74,17 @@ class _DoctorVideoCallState extends State<DoctorVideoCall> {
                               ),
                               GestureDetector(
                                 onTap: (){
-                                  push(context: context, screen: Add_Sick_Notes_Page());
+                                  push(context: context, screen: const Add_Sick_Notes_Page());
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 10),
-                                  padding: EdgeInsets.symmetric(vertical: 16),
-                                  decoration: BoxDecoration(
+                                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                                  padding: const EdgeInsets.symmetric(vertical: 16),
+                                  decoration: const BoxDecoration(
                                       border: Border(
                                           bottom: BorderSide(color: MyColors.onsurfacevarient, width: 1)
                                       )
                                   ),
-                                  child: Row(
+                                  child: const Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       MainHeadingText(text: 'Add Sick note', color: MyColors.onsurfacevarient, fontSize: 14, fontFamily: 'light',),
@@ -95,17 +95,17 @@ class _DoctorVideoCallState extends State<DoctorVideoCall> {
                               ),
                               GestureDetector(
                                 onTap: (){
-                                  push(context: context, screen: Add_Referral_Letter_Page());
+                                  push(context: context, screen: const Add_Referral_Letter_Page());
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 10),
-                                  padding: EdgeInsets.symmetric(vertical: 16),
-                                  decoration: BoxDecoration(
+                                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                                  padding: const EdgeInsets.symmetric(vertical: 16),
+                                  decoration: const BoxDecoration(
                                       border: Border(
                                           bottom: BorderSide(color: MyColors.onsurfacevarient, width: 1)
                                       )
                                   ),
-                                  child: Row(
+                                  child: const Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       MainHeadingText(text: 'Add Referral letter', color: MyColors.onsurfacevarient, fontSize: 14, fontFamily: 'light',),
@@ -116,17 +116,17 @@ class _DoctorVideoCallState extends State<DoctorVideoCall> {
                               ),
                               GestureDetector(
                                 onTap: (){
-                                  push(context: context, screen: Add_Consultation_Notes_Page());
+                                  push(context: context, screen: const Add_Consultation_Notes_Page());
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 10),
-                                  padding: EdgeInsets.symmetric(vertical: 16),
+                                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                                  padding: const EdgeInsets.symmetric(vertical: 16),
                                   // decoration: BoxDecoration(
                                   //     border: Border(
                                   //         bottom: BorderSide(color: MyColors.onsurfacevarient, width: 1)
                                   //     )
                                   // ),
-                                  child: Row(
+                                  child: const Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       MainHeadingText(text: 'Add consultation notes', color: MyColors.onsurfacevarient, fontSize: 14, fontFamily: 'light',),
@@ -152,7 +152,7 @@ class _DoctorVideoCallState extends State<DoctorVideoCall> {
                           borderRadius: BorderRadius.circular(100),
                           color: MyColors.bordercolor
                         ),
-                        child: Icon(Icons.video_call, color: MyColors.white, size: 30),
+                        child: const Icon(Icons.video_call, color: MyColors.white, size: 30),
                       ),
                       hSizedBox2,
                       GestureDetector(
@@ -162,9 +162,9 @@ class _DoctorVideoCallState extends State<DoctorVideoCall> {
                           height: 75,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
-                            color: Color(0xFEDE3730)
+                            color: const Color(0xFEDE3730)
                           ),
-                          child: Icon(Icons.call_rounded, color: MyColors.white, size: 40),
+                          child: const Icon(Icons.call_rounded, color: MyColors.white, size: 40),
                         ),
                       ),
                       hSizedBox2,
@@ -175,7 +175,7 @@ class _DoctorVideoCallState extends State<DoctorVideoCall> {
                           borderRadius: BorderRadius.circular(100),
                             color: MyColors.bordercolor
                         ),
-                        child: Icon(Icons.mic_off_rounded, color: MyColors.white, size: 30),
+                        child: const Icon(Icons.mic_off_rounded, color: MyColors.white, size: 30),
                       ),
                     ],
                   ),

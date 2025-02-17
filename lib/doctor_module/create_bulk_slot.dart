@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:ecare/Services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/navigation.dart';
@@ -12,11 +10,8 @@ import 'package:ecare/services/webservices.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
-import 'package:ecare/widgets/custom_confirmation_dialog.dart';
-import 'package:ecare/widgets/dropdown.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:ecare/widgets/showSnackbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
@@ -25,7 +20,7 @@ import '../widgets/customtextfield.dart';
 
 class CreateBulkSlot extends StatefulWidget {
   const CreateBulkSlot({
-  required  Key key,
+    required Key key,
   }) : super(key: key);
 
   @override
@@ -39,8 +34,8 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
   TextEditingController endTimeController = TextEditingController();
   DateTime selectedStartDate = DateTime.now();
   DateTime selectedEndDate = DateTime.now();
-  TimeOfDay start_timestamp = const TimeOfDay(hour: 7, minute: 0);
-  TimeOfDay end_timestamp = const TimeOfDay(hour: 18, minute: 0);
+  TimeOfDay start_timestamp =  TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute + 5 );
+  TimeOfDay end_timestamp =  TimeOfDay(hour: DateTime.now().hour + 2, minute: DateTime.now().minute + 5);
   List slots = [];
   bool load = false;
   int s_time = 0;
@@ -148,7 +143,7 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
       appBar: appBar(
           context: context,
           appBarColor: MyColors.BgColor,
-          title: 'Bulk Slot Creation',
+          title: 'Generate Multiple Slot',
           fontsize: 20),
       body: load
           ? const CustomLoader()
@@ -159,11 +154,11 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                 children: [
                   const headingText(
                     text:
-                        'You can select the start time and end time of your availability. We will automatically create slots of 30 minutes from your start time and end time.',
+                        'Please specify your daily start and end times for availability. The app will automatically create 30-minute appointment slots within this timeframe for patients to book.',
                     fontSize: 15,
                     fontFamily: 'light',
                   ),
-                  vSizedBox4,
+                  vSizedBox2,
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
@@ -385,16 +380,23 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                         ),
                         vSizedBox2,
                         RoundEdgedButton(
-                          text: 'Get Preview',
+                          text: 'Preview Availability',
                           onTap: () {
-                            var dateTime = DateFormat("yyyy-MM-dd h:mm a").parse("${dateController.text} ${startTimeController.text}");
+                            var dateTime = DateFormat("yyyy-MM-dd h:mm a").parse(
+                                "${dateController.text} ${startTimeController.text}");
+                            var endDateTime = DateFormat("yyyy-MM-dd h:mm a").parse(
+                                "${endDateController.text} ${endTimeController.text}");
+                            myCustomLogStatements(
+                                "date time $weekdaysAvailable $dateTime  ${dateTime.isAfter(DateTime.now())}");
                             if (weekdaysAvailable.isEmpty) {
                               showSnackbar("Please select repeat availibity ");
                               return;
-                            }else if(!dateTime.isAfter(DateTime.now())){
-                              showSnackbar("Please select repeat availibity ");
+                            } else if (!dateTime.isAfter(DateTime.now())) {
+                              showSnackbar("Please select future start time.");
                               return;
-
+                            } else if (endDateTime.isBefore(dateTime)) {
+                              showSnackbar("Please select future end time.");
+                              return;
                             }
                             List<SlotPreviewModal> list = [];
 
@@ -452,8 +454,13 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                         ),
                         vSizedBox2,
                         RoundEdgedButton(
-                          text: 'Create Slot',
+                          text: 'Generate Slots',
                           onTap: () async {
+                            var dateTime = DateFormat("yyyy-MM-dd h:mm a").parse(
+                                "${dateController.text} ${startTimeController.text}");
+                            var endDateTime = DateFormat("yyyy-MM-dd h:mm a").parse(
+                                "${endDateController.text} ${endTimeController.text}");
+
                             print('the url is ${ApiUrls.createBulkSlots}');
                             if (dateController.text == '') {
                               showSnackbar('Please Select Start Date.');
@@ -465,6 +472,12 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                               showSnackbar('Please Select End Time.');
                             } else if (weekdaysAvailable.isEmpty) {
                               showSnackbar("Please select repeat availibity ");
+                              return;
+                            } else if (!dateTime.isAfter(DateTime.now())) {
+                              showSnackbar("Please select future start time.");
+                              return;
+                            } else if (endDateTime.isBefore(dateTime)) {
+                              showSnackbar("Please select future end time.");
                               return;
                             } else {
                               // DateTime startDateTime =  DateTime(selectedStartDate!.year, selectedStartDate!.month, selectedStartDate!.day, start_timestamp!.hour, start_timestamp!.minute);

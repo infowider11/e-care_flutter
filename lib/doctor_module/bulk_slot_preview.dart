@@ -1,18 +1,15 @@
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/global_keys.dart';
 import 'package:ecare/constants/navigation.dart';
-import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/functions/print_function.dart';
 import 'package:ecare/modals/slot_preview_modal.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/webservices.dart';
-import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/custom_confirmation_dialog.dart';
 import 'package:ecare/widgets/showSnackbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
@@ -50,12 +47,12 @@ class _BulkSlotPreviewState extends State<BulkSlotPreview> {
         appBar: appBar(
             context: context,
             appBarColor: MyColors.BgColor,
-            title: 'Bulk Slot Preview',
+            title: 'Multiple Slot Preview',
             fontsize: 20),
         bottomNavigationBar: RoundEdgedButton(
           horizontalMargin: 20,
           verticalMargin: 10,
-          text: 'Create Slot',
+          text: 'Generate Slots',
           onTap: () async {
             // DateTime startDateTime =  DateTime(selectedStartDate!.year, selectedStartDate!.month, selectedStartDate!.day, start_timestamp!.hour, start_timestamp!.minute);
             // DateTime endDateTime =  DateTime(selectedStartDate!.year, selectedStartDate!.month, selectedStartDate!.day, end_timestamp!.hour, end_timestamp!.minute);

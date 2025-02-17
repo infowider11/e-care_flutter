@@ -129,7 +129,7 @@ class _DoctorLoginPageState extends State<DoctorLoginPage> {
                         onTap: () async {
                           if (
                           validateEmail(email.text, context) == null &&
-                              validateString(hpcsaController.text,"Please enter hpcsa number", context) == null &&
+                              // validateString(hpcsaController.text,"Please enter hpcsa number", context) == null &&
                               validateString(password.text,
                                       "Please enter your password.", context) ==
                                   null) {

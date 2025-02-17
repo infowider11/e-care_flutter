@@ -33,9 +33,9 @@ bool cpass =false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Change Password'),),
+      appBar: AppBar(title: const Text('Change Password'),),
       body:SingleChildScrollView(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Column(
           
           children: [
@@ -54,7 +54,7 @@ bool cpass =false;
 
                   });
                 },
-                icon: old?Icon(Icons.visibility_off):Icon(Icons.visibility),
+                icon: old?const Icon(Icons.visibility_off):const Icon(Icons.visibility),
               ),
               labelfont: 12,
               labelcolor: MyColors.paragraphcolor,
@@ -74,7 +74,7 @@ bool cpass =false;
 
                   });
                 },
-                icon: newpass?Icon(Icons.visibility_off):Icon(Icons.visibility),
+                icon: newpass?const Icon(Icons.visibility_off):const Icon(Icons.visibility),
               ),
               hintText: '**********',
               prefixIcon: MyImages.password,
@@ -98,7 +98,7 @@ bool cpass =false;
 
                   });
                 },
-                icon: cpass?Icon(Icons.visibility_off):Icon(Icons.visibility),
+                icon: cpass?const Icon(Icons.visibility_off):const Icon(Icons.visibility),
               ),
               hintText: '**********',
               prefixIcon: MyImages.password,

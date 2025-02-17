@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:ecare/Services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
@@ -8,10 +7,8 @@ import 'package:ecare/services/webservices.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
-import 'package:ecare/widgets/dropdown.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:ecare/widgets/showSnackbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
@@ -71,13 +68,13 @@ class _CreateSlotState extends State<CreateSlot> {
           title: widget.isBulk?'Bulk Slot Creation':'Create Slot',
           fontsize: 20),
       body: load
-          ? CustomLoader()
+          ? const CustomLoader()
           : SingleChildScrollView(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  headingText(
+                  const headingText(
                     text:
                         'Each consultation time slot may only be between 15 minutes and 60 minutes in duration. Any time slots created shorter than 15 minutes or longer than 60 minutes will not be accepted by the system.',
                     fontSize: 15,
@@ -85,7 +82,7 @@ class _CreateSlotState extends State<CreateSlot> {
                   ),
                   vSizedBox4,
                   Container(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                         color: MyColors.lightBlue.withOpacity(0.11),
                         borderRadius: BorderRadius.circular(15)),
@@ -244,7 +241,7 @@ class _CreateSlotState extends State<CreateSlot> {
                       ],
                     ),
                   ),
-                  Divider(
+                  const Divider(
                     color: Colors.black,
                     height: 50.0,
                   ),
@@ -253,7 +250,7 @@ class _CreateSlotState extends State<CreateSlot> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        MainHeadingText(text: 'Slot List'),
+                        const MainHeadingText(text: 'Slot List'),
                         for (int i = 0; i < slots.length; i++)
                           Padding(
                             padding: const EdgeInsets.all(10.0),
@@ -264,7 +261,7 @@ class _CreateSlotState extends State<CreateSlot> {
                                 color: MyColors.lightBlue.withOpacity(0.11),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
-                              padding: EdgeInsets.all(16.0),
+                              padding: const EdgeInsets.all(16.0),
                               child: Row(
                                 children: [
                                   Expanded(
@@ -279,7 +276,7 @@ class _CreateSlotState extends State<CreateSlot> {
                                             'End Time: ${DateFormat.jm().format(DateFormat('hh:mm').parse(slots[i]['end_time']))}'),
                                         if (slots[i]['is_booked'].toString() ==
                                             '1')
-                                          Text(
+                                          const Text(
                                             'You already have a booking of this slot. You are not able to delete or edit this.',
                                             style:
                                                 TextStyle(color: Colors.green),
@@ -307,7 +304,7 @@ class _CreateSlotState extends State<CreateSlot> {
                                                       slots[i]['id']
                                                           .toString()),
                                                 },
-                                                icon: Icon(Icons
+                                                icon: const Icon(Icons
                                                     .restore_from_trash_rounded),
                                                 color: Colors.red,
                                               ))
@@ -321,7 +318,7 @@ class _CreateSlotState extends State<CreateSlot> {
                             ),
                           ),
                         if (slots.length == 0 && !load)
-                          Center(
+                          const Center(
                             child: Text('No slot yet.'),
                           )
                       ],

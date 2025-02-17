@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
 import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/functions/navigation_functions.dart';
@@ -14,16 +13,13 @@ import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
 import 'package:ecare/widgets/showSnackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../doctor_module/forgot.dart';
-import '../doctor_module/pending_verification.dart';
 import '../functions/global_Var.dart';
 import '../services/auth.dart';
-import '../services/firebase_push_notifications.dart';
 import '../services/onesignal.dart';
 import '../tabs.dart';
 import 'package:flutter/foundation.dart';
@@ -220,10 +216,10 @@ class _LoginPageState extends State<LoginPage> {
               if(widget.loginWihtHealthCareProviderCode)
               CustomTextField(
                 controller: hpcsaController,
-                hintText: 'HPCSA Number',
+                hintText: 'Healthcare Provider code',
                 prefixIcon: MyImages.profile,
                 showlabeltop: true,
-                label: 'HPCSA',
+                label: 'Healthcare Provider code',
                 labelfont: 12,
                 labelcolor: MyColors.paragraphcolor,
                 bgColor: Colors.transparent,
