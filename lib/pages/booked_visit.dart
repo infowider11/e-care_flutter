@@ -81,38 +81,38 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
         automaticIndicatorColorAdjustment: false,
         enableFeedback: false,
         controller: _tabController,
-        padding: EdgeInsets.symmetric(horizontal: 0),
-        labelPadding: EdgeInsets.symmetric(horizontal: 0),
+        padding: const EdgeInsets.symmetric(horizontal: 0),
+        labelPadding: const EdgeInsets.symmetric(horizontal: 0),
         tabs: <Widget>[
-          Tab(
+          const Tab(
             child: MainHeadingText(
               text: 'Pending',
               color: MyColors.onsurfacevarient,
               fontSize: 11,
             ),
           ),
-          Tab(
+          const Tab(
             child: MainHeadingText(
               text: 'Accepted',
               color: MyColors.onsurfacevarient,
               fontSize: 11,
             ),
           ),
-          Tab(
+          const Tab(
             child: MainHeadingText(
               text: 'Confirmed',
               color: MyColors.onsurfacevarient,
               fontSize: 11,
             ),
           ),
-          Tab(
+          const Tab(
             child: MainHeadingText(
               text: 'Completed',
               color: MyColors.onsurfacevarient,
               fontSize: 11,
             ),
           ),
-          Tab(
+          const Tab(
             child: MainHeadingText(
               text: 'Rejected',
               color: MyColors.onsurfacevarient,
@@ -275,12 +275,12 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
        Stack(
          children: [
            DefaultTabController(
-            animationDuration: Duration(seconds: 1),
+            animationDuration: const Duration(seconds: 1),
             initialIndex: 4,
             length: 5,
             child: Scaffold(
               appBar: AppBar(
-                leading: BackButton(
+                leading: const BackButton(
                   color: Colors.black,
                 ),
                 backgroundColor: MyColors.BgColor,
@@ -293,7 +293,7 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                 ),
               ),
               body: load
-                  ? CustomLoader()
+                  ? const CustomLoader()
                   : TabBarView(
                       controller: _tabController,
                       children: [
@@ -306,7 +306,7 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                         Container(
                           color: MyColors.BgColor,
                           child: SingleChildScrollView(
-                            padding: EdgeInsets.all(16),
+                            padding: const EdgeInsets.all(16),
                             child: Column(
                               children: [
                                 for (var i = 0; i < pending.length; i++)
@@ -322,8 +322,8 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                       // Navigator.push(context, bookingdetail());
                                     },
                                     child: Container(
-                                      margin: EdgeInsets.only(bottom: 10),
-                                      padding: EdgeInsets.all(10),
+                                      margin: const EdgeInsets.only(bottom: 10),
+                                      padding: const EdgeInsets.all(10),
                                       decoration: BoxDecoration(
                                         // color: MyColors.lightBlue.withOpacity(0.11),
                                         color: MyColors.surface3,
@@ -393,7 +393,7 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                   )
                                                 ],
                                               ),
-                                              MainHeadingText(
+                                              const MainHeadingText(
                                                 text:
                                                     'Pending approval from healthcare Provider.',
                                                 fontSize: 12,
@@ -406,7 +406,7 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                     ),
                                   ),
                                 if (pending.length == 0)
-                                  Center(
+                                  const Center(
                                     child: Text('No Data Found.'),
                                   ),
                               ],
@@ -416,7 +416,7 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                         Container(
                           color: MyColors.BgColor,
                           child: SingleChildScrollView(
-                            padding: EdgeInsets.all(16),
+                            padding: const EdgeInsets.all(16),
                             child: Column(
                               children: [
                                 for (var i = 0; i < acceptedBookings.length; i++)
@@ -433,8 +433,8 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                       // Navigator.push(context, bookingdetail());
                                     },
                                     child: Container(
-                                      margin: EdgeInsets.only(bottom: 10),
-                                      padding: EdgeInsets.all(10),
+                                      margin: const EdgeInsets.only(bottom: 10),
+                                      padding: const EdgeInsets.all(10),
                                       decoration: BoxDecoration(
                                         color: MyColors.surface3,
                                         borderRadius: BorderRadius.circular(15),
@@ -569,7 +569,7 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                     ),
                                   ),
                                 if (acceptedBookings.length == 0)
-                                  Center(
+                                  const Center(
                                     child: Text('No Data Found.'),
                                   ),
                               ],
@@ -579,7 +579,7 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                         Container(
                           color: MyColors.BgColor,
                           child: SingleChildScrollView(
-                            padding: EdgeInsets.all(16),
+                            padding: const EdgeInsets.all(16),
                             child: Column(
                               children: [
                                 for (var i = 0; i < confirms.length; i++)
@@ -595,8 +595,8 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                       // Navigator.push(context, bookingdetail());
                                     },
                                     child: Container(
-                                      margin: EdgeInsets.only(bottom: 10),
-                                      padding: EdgeInsets.all(10),
+                                      margin: const EdgeInsets.only(bottom: 10),
+                                      padding: const EdgeInsets.all(10),
                                       decoration: BoxDecoration(
                                         color: MyColors.surface3,
                                         borderRadius: BorderRadius.circular(15),
@@ -853,7 +853,7 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                     ),
                                   ),
                                 if (confirms.length == 0)
-                                  Center(
+                                  const Center(
                                     child: Text('No Data Found.'),
                                   ),
                                 vSizedBox2,
@@ -894,7 +894,7 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                         Container(
                           color: MyColors.BgColor,
                           child: SingleChildScrollView(
-                            padding: EdgeInsets.all(16),
+                            padding: const EdgeInsets.all(16),
                             child: Column(
                               children: [
                                 for (var i = 0; i < completeds.length; i++)
@@ -910,8 +910,8 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                       // Navigator.push(context, bookingdetail());
                                     },
                                     child: Container(
-                                      margin: EdgeInsets.only(bottom: 10),
-                                      padding: EdgeInsets.all(10),
+                                      margin: const EdgeInsets.only(bottom: 10),
+                                      padding: const EdgeInsets.all(10),
                                       decoration: BoxDecoration(
                                         color: MyColors.surface3,
                                         borderRadius: BorderRadius.circular(15),
@@ -1082,7 +1082,7 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                     ),
                                   ),
                                 if (completeds.length == 0)
-                                  Center(
+                                  const Center(
                                     child: Text('No Data Found.'),
                                   ),
                                 // Container(
@@ -1118,7 +1118,7 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           color: MyColors.BgColor,
                           child: SingleChildScrollView(
                             child: Column(
@@ -1136,8 +1136,8 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                       // Navigator.push(context, bookingdetail());
                                     },
                                     child: Container(
-                                      margin: EdgeInsets.only(bottom: 10),
-                                      padding: EdgeInsets.all(10),
+                                      margin: const EdgeInsets.only(bottom: 10),
+                                      padding: const EdgeInsets.all(10),
                                       decoration: BoxDecoration(
                                         color: MyColors.lightBlue.withOpacity(0.11),
                                         borderRadius: BorderRadius.circular(15),
@@ -1176,6 +1176,7 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                               //   fontFamily: 'light',
                                               //   fontSize: 14,
                                               // ),
+                                              if(rejects[i]['slot_data'] != null && rejects[i]['slot_data'].isNotEmpty )
                                               Row(
                                                 children: [
                                                   MainHeadingText(
@@ -1244,7 +1245,7 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                     ),
                                   ),
                                 if (rejects.length == 0)
-                                  Center(
+                                  const Center(
                                     child: Text('No Data Found.'),
                                   ),
                               ],
@@ -1269,12 +1270,12 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
       builder: (BuildContext context) {
         return AlertDialog(
           actionsAlignment: MainAxisAlignment.end,
-          buttonPadding: EdgeInsets.all(0),
-          title: Text(
+          buttonPadding: const EdgeInsets.all(0),
+          title: const Text(
             'Make Payment',
             style: TextStyle(fontSize: 20),
           ),
-          content: SingleChildScrollView(
+          content: const SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -1284,7 +1285,7 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Confirm'),
+              child: const Text('Confirm'),
               onPressed: () async {
                 //TODO: commented to check
                 Navigator.pop(context);
@@ -1368,7 +1369,7 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
               },
             ),
             TextButton(
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -1382,7 +1383,7 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
   ask_a_refund(BuildContext context, String booking_id) {
     // set up the buttons
     Widget YesButton = TextButton(
-      child: Text("Yes"),
+      child: const Text("Yes"),
       onPressed: () async {
         Map<String, dynamic> data = {
           'user_id': await getCurrentUserId(),
@@ -1401,7 +1402,7 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
     );
 
     Widget NoButton = TextButton(
-      child: Text("No"),
+      child: const Text("No"),
       onPressed: () async {
         Navigator.pop(context);
         setState(() {});
@@ -1409,12 +1410,12 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
     );
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      contentPadding: EdgeInsets.all(0.0),
-      title: Text(
+      contentPadding: const EdgeInsets.all(0.0),
+      title: const Text(
         " ",
         style: TextStyle(color: Colors.green),
       ),
-      content: Padding(
+      content: const Padding(
         padding: EdgeInsets.only(left: 23.0),
         child: Text(
             'Are you sure you would like to cancel your booking and request a refund?'
@@ -1463,128 +1464,132 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
       context: context,
       builder: (BuildContext context) {
         return Container(
-            height: MediaQuery.of(context).size.height / 1.9,
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-            decoration: BoxDecoration(
-                color: Color(0xFFF1F4F8),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
-                )),
-            child: load2
-                ? CustomLoader()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // Image.asset(
-                      //   MyImages.ratings,
-                      //   height: 126,
-                      //   fit: BoxFit.fitHeight,
-                      // ),
-                      vSizedBox,
-                      headingText(
-                        text: 'Your Opinion matters to us!',
-                        fontSize: 18,
-                        fontFamily: 'medium',
-                      ),
-                      py4,
-                      ParagraphText(
-                        text: 'Give us a quick review and help us improve?',
-                        fontSize: 17,
-                        color: MyColors.textcolor,
-                      ),
-                      vSizedBox,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          RatingBar.builder(
-                            initialRating: rating, //rating!,
-                            minRating: 1,
-                            direction: Axis.horizontal,
-                            allowHalfRating: true,
-                            itemCount: 5,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                            itemBuilder: (context, _) => Icon(
-                              Icons.star,
-                              color: Colors.amber,
+              height: MediaQuery.of(context).size.height / 1.9,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+              decoration: const BoxDecoration(
+                  color: Color(0xFFF1F4F8),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
+                  )),
+              child: load2
+                  ? const CustomLoader()
+                  :Scaffold(
+                    backgroundColor:  const Color(0xFFF1F4F8),
+          body:  Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // Image.asset(
+                        //   MyImages.ratings,
+                        //   height: 126,
+                        //   fit: BoxFit.fitHeight,
+                        // ),
+                        vSizedBox,
+                        const headingText(
+                          text: 'Your Opinion matters to us!',
+                          fontSize: 18,
+                          fontFamily: 'medium',
+                        ),
+                        py4,
+                        const ParagraphText(
+                          text: 'Give us a quick review and help us improve?',
+                          fontSize: 17,
+                          color: MyColors.textcolor,
+                        ),
+                        vSizedBox,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RatingBar.builder(
+                              initialRating: rating, //rating!,
+                              minRating: 1,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                              itemBuilder: (context, _) => const Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              ),
+                              onRatingUpdate: (rate) {
+                                print('rating------$rate');
+                                rating = rate;
+                                setState(() {});
+                              },
                             ),
-                            onRatingUpdate: (rate) {
-                              print('rating------$rate');
-                              rating = rate;
-                              setState(() {});
-                            },
-                          ),
-                        ],
-                      ),
-
-                      vSizedBox,
-                      CustomTextField(
-                        controller: review,
-                        hintText: 'Review..',
-                        maxLines: 3,
-                      ),
-
-                      vSizedBox2,
-                      RoundEdgedButton(
-                        text: 'Rate Now',
-                        fontSize: 18,
-                        textColor: Colors.white,
-                        color: MyColors.primaryColor,
-                        letterspace: 1,
-                        onTap: () async {
-                          // Navigator.pop(context);
-                          if (rating == 0) {
-                            showSnackbar('Please add rate.');
-                          } else if (review.text == '') {
-                            showSnackbar('Please add review.');
-                          } else {
-                            setState(() {
-                              load2 = true;
-                            });
-                            // if(load==true)
-                            //   CustomLoader();
-                            print('rate now----');
-                            Map<String, dynamic> data = {
-                              'user_id': await getCurrentUserId(),
-                              'booking_id': booking_id.toString(),
-                              'rate': rating.toString(),
-                              'msg': review.text,
-                            };
-                            var res = await Webservices.postData(
-                                apiUrl: ApiUrls.rating,
-                                body: data,
-                                context: context);
-                            print('rate----$res');
-                            setState(() {
-                              load2 = false;
-                            });
-                            if (res['status'].toString() == '1') {
-                              rating = 0;
-                              review.text = '';
-                              get_lists();
-                              setState(() {});
-                              Navigator.of(context).pop();
-                              // showSnackbar('Rated Successfully.');
+                          ],
+                        ),
+          
+                        vSizedBox,
+                        CustomTextField(
+                          controller: review,
+                          hintText: 'Review..',
+                          maxLines: 3,
+                        ),
+          
+                        vSizedBox2,
+                        RoundEdgedButton(
+                          text: 'Rate Now',
+                          fontSize: 18,
+                          textColor: Colors.white,
+                          color: MyColors.primaryColor,
+                          letterspace: 1,
+                          onTap: () async {
+                            // Navigator.pop(context);
+                            if (rating == 0) {
+                              showSnackbar('Please add rate.');
+                            } else if (review.text == '') {
+                              showSnackbar('Please add review.');
+                            } else {
+                              setState(() {
+                                load2 = true;
+                              });
+                              // if(load==true)
+                              //   CustomLoader();
+                              print('rate now----');
+                              Map<String, dynamic> data = {
+                                'user_id': await getCurrentUserId(),
+                                'booking_id': booking_id.toString(),
+                                'rate': rating.toString(),
+                                'msg': review.text,
+                              };
+                              var res = await Webservices.postData(
+                                  apiUrl: ApiUrls.rating,
+                                  body: data,
+                                  context: context);
+                              print('rate----$res');
+                              setState(() {
+                                load2 = false;
+                              });
+                              if (res['status'].toString() == '1') {
+                                rating = 0;
+                                review.text = '';
+                                get_lists();
+                                setState(() {});
+                                Navigator.of(context).pop();
+                                // showSnackbar('Rated Successfully.');
+                              }
                             }
-                          }
-                        },
-                      ),
-                      vSizedBox,
-                      TextButton(
-                          onPressed: () {
-                            rating = 0;
-                            setState(() {});
-                            Navigator.pop(context);
                           },
-                          child: ParagraphText(
-                            text: 'Not Now',
-                            color: MyColors.primaryColor,
-                            underlined: true,
-                            fontFamily: 'medium',
-                            fontSize: 18,
-                          ))
-                    ],
-                  ));
+                        ),
+                        vSizedBox,
+                        TextButton(
+                            onPressed: () {
+                              rating = 0;
+                              setState(() {});
+                              Navigator.pop(context);
+                            },
+                            child: const ParagraphText(
+                              text: 'Not Now',
+                              color: MyColors.primaryColor,
+                              underlined: true,
+                              fontFamily: 'medium',
+                              fontSize: 18,
+                            ))
+                      ],
+                    )),);
+        
       },
     );
   }

@@ -1,4 +1,5 @@
 import 'package:ecare/constants/constans.dart';
+import 'package:ecare/functions/print_function.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
@@ -73,7 +74,11 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
       // ''
     };
     var res = await Webservices.postData(
-        apiUrl: ApiUrls.search_doctor, body: data, context: context,showSuccessMessage: false,showErrorMessage: false);
+        apiUrl: ApiUrls.search_doctor,
+        body: data,
+        context: context,
+        showSuccessMessage: false,
+        showErrorMessage: false);
     print('search data-----$res');
     if (res['status'].toString() == '1') {
       lists = res['data'];
@@ -125,7 +130,8 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
                       children: [
                         Expanded(
                           child: MainHeadingText(
-                            text: (widget.cate!['title'] == 'General Medical Doctor')
+                            text: (widget.cate!['title'] ==
+                                    'General Medical Doctor')
                                 ? 'Choose Doctor'
                                 : 'Choose ${widget.sub_cate!['title']}',
                             fontFamily: 'light',
@@ -158,33 +164,38 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
                   ),
                   Expanded(
                     child: GridView.builder(
-                      itemCount: lists.length,
+                        itemCount: lists.length,
                         padding: const EdgeInsets.all(10),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
-
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
-                          childAspectRatio: 1/1.3,
+                          childAspectRatio: 1 / 1.3,
                         ),
-                        itemBuilder: (context, i){
+                        itemBuilder: (context, i) {
                           return GestureDetector(
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DoctorDetails(
-                                      head_neck: widget.head_neck,
-                                      symptoms: widget.symptoms,
-                                      doc_id: lists[i]['id'],
-                                      cate: widget.cate,
-                                      sub_cate: widget.sub_cate,
-                                      other_reason: widget.other_reason,
-                                      days: widget.days,
-                                      temp: widget.temp,
-                                    ))),
+                            onTap: () {
+                              myCustomLogStatements(
+                                  "head_neck: ${widget.head_neck}, symptoms: ${widget.symptoms}, doc_id: ${lists[i]['id']}, cate: ${widget.cate}, sub_cate: ${widget.sub_cate}, other_reason: ${widget.other_reason}, days: ${widget.days},  temp: ${widget.temp},");
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DoctorDetails(
+                                            head_neck: widget.head_neck,
+                                            symptoms: widget.symptoms,
+                                            doc_id: lists[i]['id'],
+                                            cate: widget.cate,
+                                            sub_cate: widget.sub_cate,
+                                            other_reason: widget.other_reason,
+                                            days: widget.days,
+                                            temp: widget.temp,
+                                          )));
+                            },
                             child: Container(
                               // height: 220,
                               // width: 170,
-                              padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
                               decoration: BoxDecoration(
                                   color: MyColors.white,
                                   border: Border.all(
@@ -211,8 +222,8 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
                                     vSizedBox05,
                                     MainHeadingText(
                                       text: lists[i]['specialist_cat']
-                                          .toString() ==
-                                          '1'
+                                                  .toString() ==
+                                              '1'
                                           ? 'Dr.${lists[i]['first_name']} ${lists[i]['last_name']}'
                                           : '${lists[i]['first_name']} ${lists[i]['last_name']}',
                                       fontSize: 14,
@@ -238,13 +249,14 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
                                     vSizedBox05,
                                     MainHeadingText(
                                       text:
-                                      '${lists[i]['consultation_fees']} ZAR',
+                                          '${lists[i]['consultation_fees']} ZAR',
                                       fontSize: 20,
                                       fontFamily: 'semibold',
                                     ),
                                     // vSizedBox05,
                                     MainHeadingText(
-                                      text: 'Next Available:${lists[i]['slot_date']} ${DateFormat.jm().format(DateFormat("hh:mm").parse(lists[i]['slot']))}',
+                                      text:
+                                          'Next Available:${lists[i]['slot_date']} ${DateFormat.jm().format(DateFormat("hh:mm").parse(lists[i]['slot']))}',
                                       fontSize: 12,
                                       fontFamily: 'light',
                                       color: MyColors.primaryColor,
@@ -254,8 +266,7 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
                               ),
                             ),
                           );
-                        }
-                    ),
+                        }),
                   ),
                   // if(lists.length>0)
                   // GridView.count(

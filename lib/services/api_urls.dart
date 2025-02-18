@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings, constant_identifier_names
+
 class ApiUrls{
   // static const baseUrl = 'https://bluediamondresearch.com/WEB01/e_care/api/';
   // static const baseUrl = 'https://e-care.co.za/api/';
@@ -113,6 +115,7 @@ class ApiUrls{
   static const String deleteReferal = baseUrl + 'delete-referal';
   static const String new_delete_sick_note = baseUrl + 'delete-sick-note';
   static const String deletIcdCode = baseUrl + 'delete_icdCode';
+  static const String getDoctorByHpcsa = baseUrl + 'get-doctor-by-hpcsa';
 // static const String  getSpecialistCategory = baseUrl + 'get-specialist-category';
 
 }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecare/pages/doctor-details.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/image_urls.dart';
@@ -25,8 +26,9 @@ import '../tabs.dart';
 import 'package:flutter/foundation.dart';
 
 class LoginPage extends StatefulWidget {
-  final bool loginWihtHealthCareProviderCode ; 
-  const LoginPage({Key? key ,  this.loginWihtHealthCareProviderCode = false}) : super(key: key);
+  final bool loginWihtHealthCareProviderCode;
+  const LoginPage({Key? key, this.loginWihtHealthCareProviderCode = false})
+      : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -137,15 +139,14 @@ class _LoginPageState extends State<LoginPage> {
       // addUserToFirebase(data);
     } else {
       EasyLoading.dismiss();
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Something Wrong happened!!')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Something Wrong happened!!')));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: MyColors.scaffold,
       appBar: appBar(
         context: context,
@@ -211,34 +212,53 @@ class _LoginPageState extends State<LoginPage> {
                 hintcolor: MyColors.headingcolor,
                 suffixheight: 18,
               ),
-              if(widget.loginWihtHealthCareProviderCode)
-              vSizedBox4,
-              if(widget.loginWihtHealthCareProviderCode)
-              CustomTextField(
-                controller: hpcsaController,
-                hintText: 'Healthcare Provider code',
-                prefixIcon: MyImages.profile,
-                showlabeltop: true,
-                label: 'Healthcare Provider code',
-                labelfont: 12,
-                labelcolor: MyColors.paragraphcolor,
-                bgColor: Colors.transparent,
-                fontsize: 16,
-                hintcolor: MyColors.headingcolor,
-                suffixheight: 16,
-              ),
+              if (widget.loginWihtHealthCareProviderCode) vSizedBox4,
+              if (widget.loginWihtHealthCareProviderCode)
+                CustomTextField(
+                  controller: hpcsaController,
+                  hintText: 'Healthcare Provider Code',
+                  prefixIcon: MyImages.profile,
+                  showlabeltop: true,
+                  label: 'Healthcare Provider Code',
+                  labelfont: 12,
+                  labelcolor: MyColors.paragraphcolor,
+                  bgColor: Colors.transparent,
+                  fontsize: 16,
+                  hintcolor: MyColors.headingcolor,
+                  suffixheight: 16,
+                ),
 
               vSizedBox4,
               RoundEdgedButton(
                 onTap: () async {
-                  if(widget.loginWihtHealthCareProviderCode){
-                    showSnackbar("Comming Soon.....");
-                    return ;
-                  }
                   if (validateEmail(email.text, context) == null &&
                       validateString(password.text, 'Please Enter Password',
                               context) ==
                           null) {
+                    if (widget.loginWihtHealthCareProviderCode) {
+                      if (hpcsaController.text.isEmpty) {
+                        showSnackbar("Please Enter Healthcare Provider Code");
+                        return;
+                      }
+                      await EasyLoading.show(
+                        status: null,
+                        maskType: EasyLoadingMaskType.black,
+                      );
+                      var res = await Webservices.postData(
+                        apiUrl:
+                            "${ApiUrls.getDoctorByHpcsa}?hpcsa_no=${hpcsaController.text}",
+                        body: {},
+                      );
+                      EasyLoading.dismiss();
+
+                      if (res['data'] == null || res['data'].isEmpty) {
+                        showSnackbar(
+                            "No Doctor found with this Healthcare Provider Code");
+                        return;
+                      }
+                      doctorDetailsFromHPC = res['data'];
+                    }
+
                     Map<String, dynamic> data = {
                       'email': email.text.trim(),
                       'password': password.text,
@@ -264,25 +284,6 @@ class _LoginPageState extends State<LoginPage> {
                             user_id: user_Data!['id'].toString(),
                             token: token!);
                       }
-                      // if(res['data']['is_verified'].toString()=='1') {
-                      //   Navigator.of(context).pushAndRemoveUntil(
-                      //       MaterialPageRoute(builder: (context) {
-                      //         return tabs_second_page( selectedIndex: 0,);
-                      //       }), (route) {
-                      //     return false;
-                      //   });
-                      // }
-                      // else {
-                      //   Navigator.of(context).pushAndRemoveUntil(
-                      //       MaterialPageRoute(builder: (context) {
-                      //         return PendingVerificationPage(
-                      //           id: res['data']['id'].toString(),
-                      //         );
-                      //       }), (route) {
-                      //     return false;
-                      //   });
-                      // }
-                      // updateUserDetails(res['data']);
 
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(builder: (context) {
@@ -292,6 +293,21 @@ class _LoginPageState extends State<LoginPage> {
                       }), (route) {
                         return false;
                       });
+
+                      Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DoctorDetails(
+                                            head_neck: null,
+                                            symptoms: null,
+                                            doc_id: doctorDetailsFromHPC!['id'],
+                                            cate: {"id": doctorDetailsFromHPC!['specialist_cat'], "title": doctorDetailsFromHPC!['category'],},
+                                            sub_cate: {"id": doctorDetailsFromHPC!['specialist_subcat'], "title": doctorDetailsFromHPC!['subcategory'],},
+                                            other_reason: null,
+                                            days: "",
+                                            temp: "",
+                                          )));
+
                     } else {
                       setState(() {
                         invalid_user_text = res['message'];
@@ -318,6 +334,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
+              vSizedBox4,
               vSizedBox4,
               // Stack(
               //   alignment: Alignment.center,

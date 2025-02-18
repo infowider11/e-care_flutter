@@ -34,8 +34,10 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
   TextEditingController endTimeController = TextEditingController();
   DateTime selectedStartDate = DateTime.now();
   DateTime selectedEndDate = DateTime.now();
-  TimeOfDay start_timestamp =  TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute + 5 );
-  TimeOfDay end_timestamp =  TimeOfDay(hour: DateTime.now().hour + 2, minute: DateTime.now().minute + 5);
+  TimeOfDay start_timestamp =
+      TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute + 5);
+  TimeOfDay end_timestamp = TimeOfDay(
+      hour: DateTime.now().hour + 2, minute: DateTime.now().minute + 5);
   List slots = [];
   bool load = false;
   int s_time = 0;
@@ -101,9 +103,9 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
 
     for (int index = 0; index < slotsListNotifier.value.length; index++) {
       request['start_time[$index]'] =
-          slotsListNotifier.value[index].fromTimeText(context);
+          "${DateFormat('yyyy-MM-dd').format(slotsListNotifier.value[index].dateTime)} ${slotsListNotifier.value[index].fromTimeText(context)}";
       request['end_time[$index]'] =
-          slotsListNotifier.value[index].toTimeText(context);
+          "${DateFormat('yyyy-MM-dd').format(slotsListNotifier.value[index].dateTime)} ${slotsListNotifier.value[index].toTimeText(context)}";
     }
 
     return request;
@@ -398,50 +400,7 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                               showSnackbar("Please select future end time.");
                               return;
                             }
-                            List<SlotPreviewModal> list = [];
-
-                            for (var j = 0;
-                                j <=
-                                    selectedEndDate
-                                            .difference(selectedStartDate)
-                                            .inDays +
-                                        1;
-                                j++) {
-                              int startMinute =
-                                  ((start_timestamp?.hour ?? 0) * 60) +
-                                      (start_timestamp?.minute ?? 0);
-                              int endMinute =
-                                  ((end_timestamp?.hour ?? 0) * 60) +
-                                      (end_timestamp?.minute ?? 0);
-
-                              for (int i = startMinute;
-                                  i <= endMinute - 30;
-                                  i = i + 30) {
-                                var indexExist = weekdays.indexWhere(
-                                  (element) =>
-                                      element["day"] ==
-                                      selectedStartDate
-                                          .add(Duration(days: j))
-                                          .weekday,
-                                );
-                                if (indexExist != -1 &&
-                                    weekdays[indexExist]['value']) {
-                                  list.add(
-                                    SlotPreviewModal(
-                                      from: TimeOfDay(
-                                          hour: (i / 60).floor(),
-                                          minute: i % 60),
-                                      to: TimeOfDay(
-                                          hour: ((i + 30) / 60).floor(),
-                                          minute: (i + 30) % 60),
-                                      dateTime: selectedStartDate
-                                          .add(Duration(days: j))!,
-                                    ),
-                                  );
-                                }
-                              }
-                            }
-                            slotsListNotifier.value = list;
+                            var list = generateBultSlotList();
                             print('the total slots are ${list.length}');
                             push(
                                 context: context,
@@ -482,7 +441,7 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                             } else {
                               // DateTime startDateTime =  DateTime(selectedStartDate!.year, selectedStartDate!.month, selectedStartDate!.day, start_timestamp!.hour, start_timestamp!.minute);
                               // DateTime endDateTime =  DateTime(selectedStartDate!.year, selectedStartDate!.month, selectedStartDate!.day, end_timestamp!.hour, end_timestamp!.minute);
-
+ generateBultSlotList();
                               Map<String, dynamic> data = {
                                 'user_id': await getCurrentUserId(),
                                 'date': dateController.text.toString(),
@@ -493,6 +452,7 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
 
                               data.addAll(getSlots());
                               myCustomLogStatements("bulk slot is this $data");
+
                               await EasyLoading.show(
                                 status: null,
                                 maskType: EasyLoadingMaskType.black,
@@ -504,9 +464,7 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                               print('create---slot$res');
                               EasyLoading.dismiss();
                               if (res['status'].toString() == '1') {
-                                dateController.text = '';
-                                startTimeController.text = '';
-                                endTimeController.text = '';
+                                
                                 get_slots();
                                 showSnackbar(res['message']);
                               }
@@ -649,6 +607,38 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
 
   conver12hoursFormat(time) {
     // String time  = DateFormat("h:mma").format(time);
+  }
+  generateBultSlotList() {
+    List<SlotPreviewModal> list = [];
+
+    for (var j = 0;
+        j <= selectedEndDate.difference(selectedStartDate).inDays + 1;
+        j++) {
+      int startMinute =
+          ((start_timestamp?.hour ?? 0) * 60) + (start_timestamp?.minute ?? 0);
+      int endMinute =
+          ((end_timestamp?.hour ?? 0) * 60) + (end_timestamp?.minute ?? 0);
+
+      for (int i = startMinute; i <= endMinute - 30; i = i + 30) {
+        var indexExist = weekdays.indexWhere(
+          (element) =>
+              element["day"] ==
+              selectedStartDate.add(Duration(days: j)).weekday,
+        );
+        if (indexExist != -1 && weekdays[indexExist]['value']) {
+          list.add(
+            SlotPreviewModal(
+              from: TimeOfDay(hour: (i / 60).floor(), minute: i % 60),
+              to: TimeOfDay(
+                  hour: ((i + 30) / 60).floor(), minute: (i + 30) % 60),
+              dateTime: selectedStartDate.add(Duration(days: j))!,
+            ),
+          );
+        }
+      }
+    }
+    slotsListNotifier.value = list;
+    return list;
   }
 
   void checkWeekdaysInRange(DateTime startDate, DateTime endDate) {

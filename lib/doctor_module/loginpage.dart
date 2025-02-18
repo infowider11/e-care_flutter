@@ -50,7 +50,7 @@ class _DoctorLoginPageState extends State<DoctorLoginPage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -61,7 +61,7 @@ class _DoctorLoginPageState extends State<DoctorLoginPage> {
                   width: MediaQuery.of(context).size.width,
                 ),
                 vSizedBox4,
-                MainHeadingText(
+                const MainHeadingText(
                   text: 'Login',
                   fontSize: 32,
                   fontFamily: 'light',
@@ -94,7 +94,7 @@ class _DoctorLoginPageState extends State<DoctorLoginPage> {
 
                       });
                     },
-                    icon: show_pass?Icon(Icons.visibility_off):Icon(Icons.visibility),
+                    icon: show_pass?const Icon(Icons.visibility_off):const Icon(Icons.visibility),
                   ),
                   hintText: '**********',
                   prefixIcon: MyImages.password,
@@ -108,22 +108,22 @@ class _DoctorLoginPageState extends State<DoctorLoginPage> {
                   suffixheight: 18,
                 ),
                 vSizedBox4,
-                CustomTextField(
-                  controller: hpcsaController,
-                  hintText: 'HPCSA Number',
-                  prefixIcon: MyImages.profile,
-                  showlabeltop: true,
-                  label: 'HPCSA',
-                  labelfont: 12,
-                  labelcolor: MyColors.paragraphcolor,
-                  bgColor: Colors.transparent,
-                  fontsize: 16,
-                  hintcolor: MyColors.headingcolor,
-                  suffixheight: 16,
-                ),
-                vSizedBox4,
+                // CustomTextField(
+                //   controller: hpcsaController,
+                //   hintText: 'HPCSA Number',
+                //   prefixIcon: MyImages.profile,
+                //   showlabeltop: true,
+                //   label: 'HPCSA',
+                //   labelfont: 12,
+                //   labelcolor: MyColors.paragraphcolor,
+                //   bgColor: Colors.transparent,
+                //   fontsize: 16,
+                //   hintcolor: MyColors.headingcolor,
+                //   suffixheight: 16,
+                // ),
+                // vSizedBox4,
                 load
-                    ? CustomLoader()
+                    ? const CustomLoader()
                     : RoundEdgedButton(
                         text: 'Login',
                         onTap: () async {
@@ -136,7 +136,7 @@ class _DoctorLoginPageState extends State<DoctorLoginPage> {
                             Map<String, dynamic> data = {
                               "email": email.text.trim(),
                               "password": password.text,
-                              "hpcsa_no": hpcsaController.text,
+                              // "hpcsa_no": hpcsaController.text,
                               'type': '1'
                             };
                             await EasyLoading.show(
@@ -207,9 +207,9 @@ class _DoctorLoginPageState extends State<DoctorLoginPage> {
                 vSizedBox4,
                 GestureDetector(
                   onTap: () {
-                    push(context: context, screen: ForgotPasswordPage());
+                    push(context: context, screen: const ForgotPasswordPage());
                   },
-                  child: Center(
+                  child: const Center(
                     child: ParagraphText(
                       text: 'Forgot Password?',
                       fontFamily: 'semibold',
@@ -259,14 +259,14 @@ class _DoctorLoginPageState extends State<DoctorLoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ParagraphText(
+                    const ParagraphText(
                       text: 'If you don’t have an Account? ',
                     ),
                     GestureDetector(
                       onTap: () {
-                        push(context: context, screen: SignUp_Page_Doctor());
+                        push(context: context, screen: const SignUp_Page_Doctor());
                       },
-                      child: ParagraphText(
+                      child: const ParagraphText(
                         text: 'Sign up',
                         fontFamily: 'semibold',
                         underlined: true,
