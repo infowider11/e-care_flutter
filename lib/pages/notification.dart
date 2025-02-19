@@ -130,7 +130,7 @@ class _NotificationPageState extends State<NotificationPage> {
                                     onTap: () {
                                       removeNotification(
                                         context,
-                                        id: "",
+                                        id: lists[i]['id'],
                                         onSuccess: (p0) {
                                           lists.removeAt(i);
                                           setState(() {});
@@ -169,16 +169,14 @@ removeNotification(context,
             // The "Yes" button
             TextButton(
                 onPressed: () async {
-                  // Map<String, dynamic> data = {
-                  //   'user_id': await getCurrentUserId(),
-                  //   'notification_id': id.toString(),
-                  // };
+                   var user_id =  await getCurrentUserId();
+                  
                   await EasyLoading.show(
                     status: null,
                     maskType: EasyLoadingMaskType.black,
                   );
                   var res = await Webservices.get(
-                      ApiUrls.deleteNotification + '?slot_id=' + id.toString());
+                      "${ApiUrls.deleteNotification}?user_id=$user_id&msg_id=${id.toString()}" );
                   EasyLoading.dismiss();
                   if (res['status'].toString() == '1') {
                     Navigator.pop(context);

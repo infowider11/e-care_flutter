@@ -1,6 +1,7 @@
-
 import 'package:ecare/Services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
+import 'package:ecare/constants/global_keys.dart';
+import 'package:ecare/constants/navigation.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/webservices.dart';
@@ -33,17 +34,18 @@ class _EditSlotScreenState extends State<EditSlotScreen> {
   bool load = false;
   int s_time = 0;
 
-  
-
   @override
   void initState() {
-   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    date.text = widget.slotData['date'];
-    stime.text = widget.slotData['start_time'];
-    etime.text = widget.slotData['end_time'];
-
-   },)
-   ; super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        date.text = widget.slotData['date'];
+        stime.text = DateFormat.jm()
+            .format(DateFormat('hh:mm').parse(widget.slotData['start_time']));
+        etime.text = DateFormat.jm()
+            .format(DateFormat('hh:mm').parse(widget.slotData['end_time']));
+      },
+    );
+    super.initState();
   }
 
   @override
@@ -53,7 +55,7 @@ class _EditSlotScreenState extends State<EditSlotScreen> {
       appBar: appBar(
           context: context,
           appBarColor: MyColors.BgColor,
-          title:'Edit Slot',
+          title: 'Edit Slot',
           fontsize: 20),
       body: load
           ? const CustomLoader()
@@ -111,8 +113,18 @@ class _EditSlotScreenState extends State<EditSlotScreen> {
                                 onTap: () async {
                                   final TimeOfDay? picked =
                                       await showTimePicker(
-                                      initialEntryMode: TimePickerEntryMode.inputOnly,
+                                    initialEntryMode:
+                                        TimePickerEntryMode.inputOnly,
                                     context: context,
+                                    builder:
+                                        (BuildContext context, Widget? child) {
+                                      return MediaQuery(
+                                        data: MediaQuery.of(context).copyWith(
+                                            alwaysUse24HourFormat:
+                                                false), // Ensures 12-hour format
+                                        child: child!,
+                                      );
+                                    },
                                     initialTime: TimeOfDay.now(),
                                   );
                                   if (picked != null) {
@@ -121,7 +133,9 @@ class _EditSlotScreenState extends State<EditSlotScreen> {
                                           picked.minute + (picked.hour * 60);
                                     });
                                     start_timestamp = picked;
-                                    String time = picked.format(context);
+                                    String time = DateFormat.jm().format(
+                                        DateTime(2025, 02, 19, picked.hour,
+                                            picked.minute));
                                     print('picked----$time');
                                     stime.text = time;
                                     setState(() {});
@@ -143,14 +157,26 @@ class _EditSlotScreenState extends State<EditSlotScreen> {
                                   final TimeOfDay? picked =
                                       await showTimePicker(
                                     // useRootNavigator: false,
-                                    initialEntryMode: TimePickerEntryMode.inputOnly,
+                                    initialEntryMode:
+                                        TimePickerEntryMode.inputOnly,
                                     context: context,
+                                      builder:
+                                        (BuildContext context, Widget? child) {
+                                      return MediaQuery(
+                                        data: MediaQuery.of(context).copyWith(
+                                            alwaysUse24HourFormat:
+                                                false), // Ensures 12-hour format
+                                        child: child!,
+                                      );
+                                    },
                                     initialTime: TimeOfDay.now(),
                                     // errorInvalidText: 'error'
                                   );
                                   if (picked != null) {
                                     print('unformate----${picked}');
-                                    String time = picked.format(context);
+                                    String time = DateFormat.jm().format(
+                                        DateTime(2025, 02, 19, picked.hour,
+                                            picked.minute));
                                     print('picked----$time');
                                     int a = picked.minute + (picked.hour * 60);
                                     print('a ---$a');
@@ -194,13 +220,12 @@ class _EditSlotScreenState extends State<EditSlotScreen> {
                             } else if (etime.text == '') {
                               showSnackbar('Please Select End Time.');
                             } else {
-
                               // DateTime startDateTime =  DateTime(selectedDate!.year, selectedDate!.month, selectedDate!.day, start_timestamp!.hour, start_timestamp!.minute);
                               // DateTime endDateTime =  DateTime(selectedDate!.year, selectedDate!.month, selectedDate!.day, end_timestamp!.hour, end_timestamp!.minute);
 
                               Map<String, dynamic> data = {
+                                'slot_id': widget.slotData['id'],
                                 'user_id': await getCurrentUserId(),
-                                'id':widget.slotData['id'],
                                 'date': date.text.toString(),
                                 'start_time': stime.text.toString(),
                                 'end_time': etime.text.toString(),
@@ -212,7 +237,7 @@ class _EditSlotScreenState extends State<EditSlotScreen> {
                                 maskType: EasyLoadingMaskType.black,
                               );
                               var res = await Webservices.postData(
-                                apiUrl: ApiUrls.editSlot,
+                                apiUrl: ApiUrls.CreateSlot,
                                 body: data,
                               );
                               print('create---slot$res');
@@ -222,6 +247,8 @@ class _EditSlotScreenState extends State<EditSlotScreen> {
                                 stime.text = '';
                                 etime.text = '';
                                 showSnackbar(res['message']);
+                                 MyGlobalKeys.createBulkSlotPage.currentState!.get_slots();
+                                popPage(context: context);
                               }
                             }
                           },
@@ -229,13 +256,9 @@ class _EditSlotScreenState extends State<EditSlotScreen> {
                       ],
                     ),
                   ),
-                  
-                  
                 ],
               ),
             ),
     );
   }
-
-
 }

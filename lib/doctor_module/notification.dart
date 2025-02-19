@@ -149,7 +149,7 @@ class _DoctorNotificationPageState extends State<DoctorNotificationPage> {
                                     onTap: () {
                                       removeNotification(
                                         context,
-                                        id: "",
+                                        id: lists[i]['id'],
                                         onSuccess: (p0) {
                                           lists.removeAt(i);
                                           setState(() {

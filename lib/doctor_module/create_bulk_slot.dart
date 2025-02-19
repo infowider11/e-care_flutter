@@ -86,10 +86,12 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
   initializeTimes() {
     s_time = (start_timestamp.minute) + ((start_timestamp.hour) * 60);
 
-    String time = DateFormat.jm().format(DateTime(2025,02,19,start_timestamp.hour, start_timestamp.minute));
+    String time = DateFormat.jm().format(
+        DateTime(2025, 02, 19, start_timestamp.hour, start_timestamp.minute));
     print('picked----$time');
     startTimeController.text = time;
-    String endTime =DateFormat.jm().format(DateTime(2025,02,19,end_timestamp.hour, end_timestamp.minute));
+    String endTime = DateFormat.jm().format(
+        DateTime(2025, 02, 19, end_timestamp.hour, end_timestamp.minute));
     endTimeController.text = endTime;
 
     String formatted = formatter.format(selectedStartDate);
@@ -248,6 +250,15 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                                     initialEntryMode:
                                         TimePickerEntryMode.inputOnly,
                                     context: context,
+                                    builder:
+                                        (BuildContext context, Widget? child) {
+                                      return MediaQuery(
+                                        data: MediaQuery.of(context).copyWith(
+                                            alwaysUse24HourFormat:
+                                                false), // Ensures 12-hour format
+                                        child: child!,
+                                      );
+                                    },
                                     initialTime: start_timestamp ??
                                         const TimeOfDay(hour: 7, minute: 0),
                                   );
@@ -257,7 +268,9 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                                           picked.minute + (picked.hour * 60);
                                     });
                                     start_timestamp = picked;
-                                     String time =  DateFormat.jm().format(DateTime(2025,02,19,picked.hour, picked.minute));
+                                    String time = DateFormat.jm().format(
+                                        DateTime(2025, 02, 19, picked.hour,
+                                            picked.minute));
                                     // String time = picked.format(context);
                                     print('picked----$time');
                                     startTimeController.text = time;
@@ -283,6 +296,15 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                                     initialEntryMode:
                                         TimePickerEntryMode.inputOnly,
                                     context: context,
+                                    builder:
+                                        (BuildContext context, Widget? child) {
+                                      return MediaQuery(
+                                        data: MediaQuery.of(context).copyWith(
+                                            alwaysUse24HourFormat:
+                                                false), // Ensures 12-hour format
+                                        child: child!,
+                                      );
+                                    },
                                     initialTime: end_timestamp ??
                                         const TimeOfDay(hour: 18, minute: 0),
                                     // initialTime: TimeOfDay.now(),
@@ -292,7 +314,9 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                                     print('unformate----${picked}');
                                     // String time = picked.format(context);
                                     // String time = DateFormat.jm().format(DateFormat('hh:mm').parse(.toString()));
-                                    String time =  DateFormat.jm().format(DateTime(2025,02,19,picked.hour, picked.minute));
+                                    String time = DateFormat.jm().format(
+                                        DateTime(2025, 02, 19, picked.hour,
+                                            picked.minute));
                                     print('asdfasdfasd $time');
                                     // asdfasfas
                                     print('picked----$time');
@@ -526,28 +550,32 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                         InkWell(
+                                        InkWell(
                                           onTap: () => {
                                             remove_slot(context,
                                                 slots[i]['id'].toString()),
                                           },
                                           child: const Icon(
-                                              Icons.restore_from_trash_rounded,
-                                          color: Colors.red,
-                                              ),
-                                        ),vSizedBox05,
+                                            Icons.restore_from_trash_rounded,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        vSizedBox05,
                                         InkWell(
-                                          onTap: ()  {
-                                            push(context: context, screen: EditSlotScreen(slotData: slots[i],));
+                                          onTap: () {
+                                            push(
+                                                context: context,
+                                                screen: EditSlotScreen(
+                                                  slotData: slots[i],
+                                                ));
                                           },
                                           child: const Icon(
-                                              Icons.edit,
-                                              size: 20,
-                                          color: Colors.red,
-                                              ),
+                                            Icons.edit,
+                                            size: 20,
+                                            color: Colors.red,
+                                          ),
                                         ),
                                       ],
                                     ),

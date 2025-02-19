@@ -33,7 +33,7 @@ class ApiUrls{
   // static const String createBulkSlots = baseUrl + 'BulkCreateSlot';
   static const String getslot = baseUrl + 'get-slot?user_id=';
   static const String deleteslot = baseUrl + 'delete-slot';
-  static const String deleteNotification = baseUrl + 'delete-notification';
+  static const String deleteNotification = baseUrl + 'ClearNotification';
   static const String interval = baseUrl + 'interval';
   static const String skip = baseUrl + 'skip';
   static const String Renewhpscano = baseUrl + 'Renew-hpsca-no';
