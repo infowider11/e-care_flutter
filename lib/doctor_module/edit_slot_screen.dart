@@ -1,8 +1,7 @@
+
 import 'package:ecare/Services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/navigation.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/doctor_module/edit_slot_screen.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/webservices.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
@@ -16,47 +15,35 @@ import 'package:intl/intl.dart';
 
 import '../widgets/customtextfield.dart';
 
-class CreateSlot extends StatefulWidget {
-  final bool isBulk;
-  const CreateSlot({Key? key, this.isBulk = false}) : super(key: key);
+class EditSlotScreen extends StatefulWidget {
+  final Map slotData;
+  const EditSlotScreen({Key? key, required this.slotData}) : super(key: key);
 
   @override
-  State<CreateSlot> createState() => _CreateSlotState();
+  State<EditSlotScreen> createState() => _EditSlotScreenState();
 }
 
-class _CreateSlotState extends State<CreateSlot> {
+class _EditSlotScreenState extends State<EditSlotScreen> {
   TextEditingController date = TextEditingController();
   TextEditingController stime = TextEditingController();
   TextEditingController etime = TextEditingController();
   DateTime? selectedDate;
   TimeOfDay? start_timestamp;
   TimeOfDay? end_timestamp;
-  List slots = [];
   bool load = false;
   int s_time = 0;
 
-  get_slots() async {
-    setState(() {
-      load = true;
-    });
-    var res = await Webservices.get(ApiUrls.getslot + await getCurrentUserId());
-    print('list----$res');
-    setState(() {
-      load = false;
-    });
-    if (res['status'].toString() == '1') {
-      slots = res['data'];
-      setState(() {});
-    } else {
-      slots = [];
-    }
-  }
+  
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
-    get_slots();
+   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    date.text = widget.slotData['date'];
+    stime.text = widget.slotData['start_time'];
+    etime.text = widget.slotData['end_time'];
+
+   },)
+   ; super.initState();
   }
 
   @override
@@ -66,7 +53,7 @@ class _CreateSlotState extends State<CreateSlot> {
       appBar: appBar(
           context: context,
           appBarColor: MyColors.BgColor,
-          title: widget.isBulk ? 'Bulk Slot Creation' : 'Create Slot',
+          title:'Edit Slot',
           fontsize: 20),
       body: load
           ? const CustomLoader()
@@ -124,8 +111,7 @@ class _CreateSlotState extends State<CreateSlot> {
                                 onTap: () async {
                                   final TimeOfDay? picked =
                                       await showTimePicker(
-                                    initialEntryMode:
-                                        TimePickerEntryMode.inputOnly,
+                                      initialEntryMode: TimePickerEntryMode.inputOnly,
                                     context: context,
                                     initialTime: TimeOfDay.now(),
                                   );
@@ -157,8 +143,7 @@ class _CreateSlotState extends State<CreateSlot> {
                                   final TimeOfDay? picked =
                                       await showTimePicker(
                                     // useRootNavigator: false,
-                                    initialEntryMode:
-                                        TimePickerEntryMode.inputOnly,
+                                    initialEntryMode: TimePickerEntryMode.inputOnly,
                                     context: context,
                                     initialTime: TimeOfDay.now(),
                                     // errorInvalidText: 'error'
@@ -200,7 +185,7 @@ class _CreateSlotState extends State<CreateSlot> {
                         ),
                         vSizedBox2,
                         RoundEdgedButton(
-                          text: 'Create Slot',
+                          text: 'Edit Slot',
                           onTap: () async {
                             if (date.text == '') {
                               showSnackbar('Please Select Date.');
@@ -209,11 +194,13 @@ class _CreateSlotState extends State<CreateSlot> {
                             } else if (etime.text == '') {
                               showSnackbar('Please Select End Time.');
                             } else {
+
                               // DateTime startDateTime =  DateTime(selectedDate!.year, selectedDate!.month, selectedDate!.day, start_timestamp!.hour, start_timestamp!.minute);
                               // DateTime endDateTime =  DateTime(selectedDate!.year, selectedDate!.month, selectedDate!.day, end_timestamp!.hour, end_timestamp!.minute);
 
                               Map<String, dynamic> data = {
                                 'user_id': await getCurrentUserId(),
+                                'id':widget.slotData['id'],
                                 'date': date.text.toString(),
                                 'start_time': stime.text.toString(),
                                 'end_time': etime.text.toString(),
@@ -225,7 +212,7 @@ class _CreateSlotState extends State<CreateSlot> {
                                 maskType: EasyLoadingMaskType.black,
                               );
                               var res = await Webservices.postData(
-                                apiUrl: ApiUrls.CreateSlot,
+                                apiUrl: ApiUrls.editSlot,
                                 body: data,
                               );
                               print('create---slot$res');
@@ -234,7 +221,6 @@ class _CreateSlotState extends State<CreateSlot> {
                                 date.text = '';
                                 stime.text = '';
                                 etime.text = '';
-                                get_slots();
                                 showSnackbar(res['message']);
                               }
                             }
@@ -243,139 +229,13 @@ class _CreateSlotState extends State<CreateSlot> {
                       ],
                     ),
                   ),
-                  const Divider(
-                    color: Colors.black,
-                    height: 50.0,
-                  ),
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const MainHeadingText(text: 'Slot List'),
-                        for (int i = 0; i < slots.length; i++)
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Container(
-                              alignment: Alignment.topLeft,
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                color: MyColors.lightBlue.withOpacity(0.11),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              padding: const EdgeInsets.all(16.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text('Date: ${slots[i]['date']}'),
-                                        Text(
-                                            'Start Time: ${DateFormat.jm().format(DateFormat('hh:mm').parse(slots[i]['start_time']))}'),
-                                        Text(
-                                            'End Time: ${DateFormat.jm().format(DateFormat('hh:mm').parse(slots[i]['end_time']))}'),
-                                        if (slots[i]['is_booked'].toString() ==
-                                            '1')
-                                          const Text(
-                                            'You already have a booking of this slot. You are not able to delete or edit this.',
-                                            style:
-                                                TextStyle(color: Colors.green),
-                                          ),
-                                      ],
-                                    ),
-                                  ),
-                                  if (slots[i]['is_booked'].toString() == '0')
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        InkWell(
-                                          onTap: () => {
-                                            remove_slot(context,
-                                                slots[i]['id'].toString()),
-                                          },
-                                          child: const Icon(
-                                              Icons.restore_from_trash_rounded,
-                                          color: Colors.red,
-                                              ),
-                                        ),
-                                        // vSizedBox05,
-                                        // InkWell(
-                                        //   onTap: ()  {
-                                        //     push(context: context, screen: EditSlotScreen(slotData: slots[i],));
-                                        //   },
-                                        //   child: const Icon(
-                                        //       Icons.edit,
-                                        //       size: 20,
-                                        //   color: Colors.red,
-                                        //       ),
-                                        // ),
-                                        
-                                      ],
-                                    ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        if (slots.length == 0 && !load)
-                          const Center(
-                            child: Text('No slot yet.'),
-                          )
-                      ],
-                    ),
-                  ),
+                  
+                  
                 ],
               ),
             ),
     );
   }
 
-  remove_slot(context, id) async {
-    showDialog(
-        context: context,
-        builder: (BuildContext ctx) {
-          return AlertDialog(
-            title: const Text('Remove Slot?'),
-            content: const Text('Are you sure to remove?'),
-            actions: [
-              // The "Yes" button
-              TextButton(
-                  onPressed: () async {
-                    Map<String, dynamic> data = {
-                      'user_id': await getCurrentUserId(),
-                      'slot_id': id.toString(),
-                    };
-                    await EasyLoading.show(
-                      status: null,
-                      maskType: EasyLoadingMaskType.black,
-                    );
-                    var res = await Webservices.get(
-                        ApiUrls.deleteslot + '?slot_id=' + id.toString());
-                    EasyLoading.dismiss();
-                    if (res['status'].toString() == '1') {
-                      get_slots();
-                      Navigator.pop(context);
-                    }
-                    setState(() {
-                      // _isShown = false;
-                    });
-                  },
-                  child: const Text('Yes')),
-              TextButton(
-                  onPressed: () {
-                    // Close the dialog
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('No'))
-            ],
-          );
-        });
-  }
 
-  conver12hoursFormat(time) {
-    // String time  = DateFormat("h:mma").format(time);
-  }
 }

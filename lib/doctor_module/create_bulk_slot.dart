@@ -3,6 +3,7 @@ import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/navigation.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/doctor_module/bulk_slot_preview.dart';
+import 'package:ecare/doctor_module/edit_slot_screen.dart';
 import 'package:ecare/functions/print_function.dart';
 import 'package:ecare/modals/slot_preview_modal.dart';
 import 'package:ecare/services/auth.dart';
@@ -85,10 +86,10 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
   initializeTimes() {
     s_time = (start_timestamp.minute) + ((start_timestamp.hour) * 60);
 
-    String time = start_timestamp.format(context);
+    String time = DateFormat.jm().format(DateTime(2025,02,19,start_timestamp.hour, start_timestamp.minute));
     print('picked----$time');
     startTimeController.text = time;
-    String endTime = end_timestamp.format(context);
+    String endTime =DateFormat.jm().format(DateTime(2025,02,19,end_timestamp.hour, end_timestamp.minute));
     endTimeController.text = endTime;
 
     String formatted = formatter.format(selectedStartDate);
@@ -256,7 +257,8 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                                           picked.minute + (picked.hour * 60);
                                     });
                                     start_timestamp = picked;
-                                    String time = picked.format(context);
+                                     String time =  DateFormat.jm().format(DateTime(2025,02,19,picked.hour, picked.minute));
+                                    // String time = picked.format(context);
                                     print('picked----$time');
                                     startTimeController.text = time;
                                     setState(() {});
@@ -288,7 +290,11 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                                   );
                                   if (picked != null) {
                                     print('unformate----${picked}');
-                                    String time = picked.format(context);
+                                    // String time = picked.format(context);
+                                    // String time = DateFormat.jm().format(DateFormat('hh:mm').parse(.toString()));
+                                    String time =  DateFormat.jm().format(DateTime(2025,02,19,picked.hour, picked.minute));
+                                    print('asdfasdfasd $time');
+                                    // asdfasfas
                                     print('picked----$time');
                                     int a = picked.minute + (picked.hour * 60);
                                     print('a ---$a');
@@ -441,7 +447,7 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                             } else {
                               // DateTime startDateTime =  DateTime(selectedStartDate!.year, selectedStartDate!.month, selectedStartDate!.day, start_timestamp!.hour, start_timestamp!.minute);
                               // DateTime endDateTime =  DateTime(selectedStartDate!.year, selectedStartDate!.month, selectedStartDate!.day, end_timestamp!.hour, end_timestamp!.minute);
- generateBultSlotList();
+                              generateBultSlotList();
                               Map<String, dynamic> data = {
                                 'user_id': await getCurrentUserId(),
                                 'date': dateController.text.toString(),
@@ -464,7 +470,6 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                               print('create---slot$res');
                               EasyLoading.dismiss();
                               if (res['status'].toString() == '1') {
-                                
                                 get_slots();
                                 showSnackbar(res['message']);
                               }
@@ -518,33 +523,33 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                                     ),
                                   ),
                                   if (slots[i]['is_booked'].toString() == '0')
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Stack(
-                                            children: [
-                                              Positioned(
-                                                  // top: 10,
-                                                  // right:0,
-                                                  child: IconButton(
-                                                onPressed: () => {
-                                                  remove_slot(
-                                                      context,
-                                                      slots[i]['id']
-                                                          .toString()),
-                                                },
-                                                icon: const Icon(Icons
-                                                    .restore_from_trash_rounded),
-                                                color: Colors.red,
-                                              ))
-                                            ],
-                                          )
-                                        ],
-                                      ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.end,
+                                      children: [
+                                         InkWell(
+                                          onTap: () => {
+                                            remove_slot(context,
+                                                slots[i]['id'].toString()),
+                                          },
+                                          child: const Icon(
+                                              Icons.restore_from_trash_rounded,
+                                          color: Colors.red,
+                                              ),
+                                        ),vSizedBox05,
+                                        InkWell(
+                                          onTap: ()  {
+                                            push(context: context, screen: EditSlotScreen(slotData: slots[i],));
+                                          },
+                                          child: const Icon(
+                                              Icons.edit,
+                                              size: 20,
+                                          color: Colors.red,
+                                              ),
+                                        ),
+                                      ],
                                     ),
                                 ],
                               ),
