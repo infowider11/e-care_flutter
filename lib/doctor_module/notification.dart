@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, avoid_print
+
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/navigation.dart';
 import 'package:ecare/constants/sized_box.dart';
@@ -28,7 +30,7 @@ class _DoctorNotificationPageState extends State<DoctorNotificationPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     get_noti();
     read_noti();
@@ -59,13 +61,13 @@ class _DoctorNotificationPageState extends State<DoctorNotificationPage> {
       backgroundColor: MyColors.BgColor,
       appBar: appBar(context: context),
       body: load
-          ? CustomLoader()
+          ? const CustomLoader()
           : SingleChildScrollView(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  MainHeadingText(
+                  const MainHeadingText(
                     text: 'Notification',
                     fontSize: 32,
                     fontFamily: 'light',
@@ -107,7 +109,7 @@ class _DoctorNotificationPageState extends State<DoctorNotificationPage> {
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           padding:
-                              EdgeInsets.only(top: 10, right: 10, bottom: 10,left: 10),
+                              const EdgeInsets.only(top: 10, right: 10, bottom: 10,left: 10),
                           decoration: BoxDecoration(
                             color: MyColors.lightBlue.withOpacity(0.11),
                             borderRadius: BorderRadius.circular(15),
@@ -167,7 +169,7 @@ class _DoctorNotificationPageState extends State<DoctorNotificationPage> {
                       ),
                     ),
                   if (lists.length == 0)
-                    Center(
+                    const Center(
                       child: Text('No Data Found.'),
                     ),
                 ],

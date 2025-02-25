@@ -1,30 +1,20 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print
+
 import 'dart:io';
 
 // import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:ecare/Services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/doctor_module/signup_form_2.dart';
-import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/privacy_policy.dart';
-import 'package:ecare/pages/question_1_allergies.dart';
-import 'package:ecare/pages/question_1_condition.dart';
-import 'package:ecare/pages/question_1_medication.dart';
-import 'package:ecare/pages/terms_cond_page.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/webservices.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
-import 'package:ecare/widgets/dropdown.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
@@ -73,7 +63,7 @@ class _hpcsaregistrationState extends State<hpcsaregistration> {
   bool isChecked = false;
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     getDetail();
   }
@@ -142,8 +132,8 @@ class _hpcsaregistrationState extends State<hpcsaregistration> {
     return Scaffold(
       backgroundColor: MyColors.scaffold,
       appBar: appBar(context: context, appBarColor: MyColors.BgColor ,title: 'My HPCSA Registration',fontsize: 25),
-      body: load?CustomLoader():SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+      body: load?const CustomLoader():SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -155,7 +145,7 @@ class _hpcsaregistrationState extends State<hpcsaregistration> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ParagraphText(fontSize: 16, text: 'HPCSA registration number '),
+                        const ParagraphText(fontSize: 16, text: 'HPCSA registration number '),
                         vSizedBox,
                         CustomTextField(controller: hpcsa_no, hintText: 'HPSCA01322322',keyboardType: TextInputType.number),
                       ],
@@ -192,7 +182,7 @@ class _hpcsaregistrationState extends State<hpcsaregistration> {
                                 // print('checking date------${formatted}');
                               }
                             },
-                            child: ParagraphText(fontSize: 16, text: 'Expiry Date ',)),
+                            child: const ParagraphText(fontSize: 16, text: 'Expiry Date ',)),
                         vSizedBox,
                         GestureDetector(
                             onTap: () async {
@@ -227,7 +217,7 @@ class _hpcsaregistrationState extends State<hpcsaregistration> {
             ),
 
             vSizedBox2,
-            ParagraphText(fontSize: 16, text: 'Proof of active HPCSA registration (please upload)'),
+            const ParagraphText(fontSize: 16, text: 'Proof of active HPCSA registration (please upload)'),
             vSizedBox,
             Row(
               children: [
@@ -241,7 +231,7 @@ class _hpcsaregistrationState extends State<hpcsaregistration> {
                 hSizedBox,
                 if(proofFile.length>0)
                   // Text('${proofFile[0].toString().split('cache/image_cropper_')[1]}',style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
-                Expanded(child: Text('${basename(proofFile[0].path)}',style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),)),
+                Expanded(child: Text('${basename(proofFile[0].path)}',style: const TextStyle(color: Colors.green,fontWeight: FontWeight.bold),)),
               ],
             ),
             vSizedBox2,

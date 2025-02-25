@@ -1,7 +1,8 @@
+// ignore_for_file: camel_case_types, deprecated_member_use
+
 import 'package:ecare/functions/navigation_functions.dart';
 import 'package:ecare/welcome_next.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -64,9 +65,9 @@ class _Welcome_PageState extends State<Welcome_Page> {
                   topLeft: Radius.circular(36),
                   topRight: Radius.circular(36),
                 )),
-            child:  Column(
+            child:  const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children:const [
+              children:[
                 vSizedBox8,
                 vSizedBox16,
                 MainHeadingText(
@@ -165,9 +166,5 @@ class _Welcome_PageState extends State<Welcome_Page> {
     );
   }
 
-  _toggle() {
-    setState(() {
-      loading = !loading;
-    });
-  }
+  
 }

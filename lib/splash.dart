@@ -1,31 +1,24 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
 import 'dart:convert';
 
 import 'package:ecare/doctor_module/pending_verification.dart';
 import 'package:ecare/functions/global_Var.dart';
-import 'package:ecare/pages/booked_visit.dart';
-import 'package:ecare/pages/chat.dart';
-import 'package:ecare/pages/create-profile.dart';
-import 'package:ecare/pages/messages.dart';
 import 'package:ecare/services/auth.dart';
-import 'package:ecare/services/firebase_push_notifications.dart';
 import 'package:ecare/services/onesignal.dart';
 import 'package:ecare/services/pay_stack/flutter_paystack_services.dart';
 import 'package:ecare/services/webservices.dart';
 import 'package:ecare/tabs.dart';
 import 'package:ecare/tabs_doctor.dart';
 import 'package:ecare/welcome.dart';
-import 'package:firebase_core/firebase_core.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
 // import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../constants/image_urls.dart';
 import 'Services/api_urls.dart';
-import 'constants/global_keys.dart';
 import 'constants/navigation.dart';
-import 'doctor_module/hpcsa-form.dart';
 import 'package:flutter/foundation.dart';
 
 class SplashScreenPage extends StatefulWidget {
@@ -125,16 +118,16 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
             }
           } else {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Welcome_Page()));
+                MaterialPageRoute(builder: (context) => const Welcome_Page()));
           }
         } else {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Welcome_Page()));
+              context, MaterialPageRoute(builder: (context) => const Welcome_Page()));
         }
       });
     } else {
       print('not logged');
-      push(context: context, screen: Welcome_Page());
+      push(context: context, screen: const Welcome_Page());
     }
   }
 

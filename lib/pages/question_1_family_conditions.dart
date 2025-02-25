@@ -1,20 +1,11 @@
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/question_2_allergies.dart';
 import 'package:ecare/pages/question_2_family_conditions.dart';
-import 'package:ecare/pages/question_2_medication.dart';
-import 'package:ecare/pages/relatives.dart';
 import 'package:ecare/pages/review_profile.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
-import 'package:ecare/widgets/customtextfield.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 
 class Question1FamilyConditions extends StatefulWidget {
@@ -42,17 +33,17 @@ class Question1FamilyConditionsState extends State<Question1FamilyConditions>
       backgroundColor: MyColors.scaffold,
       appBar: appBar(context: context),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             vSizedBox2,
-            MainHeadingText(
+            const MainHeadingText(
               text: '5/5',
               fontSize: 35,
             ),
             vSizedBox,
-            ClipRRect(
+            const ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               child: LinearProgressIndicator(
                 minHeight: 10,
@@ -63,14 +54,14 @@ class Question1FamilyConditionsState extends State<Question1FamilyConditions>
               ),
             ),
             vSizedBox2,
-            MainHeadingText(
+            const MainHeadingText(
               text: 'Has anyone in your family had any medical conditions? ',
               fontSize: 32,
               fontFamily: 'light',
             ),
             vSizedBox2,
             //Please only include first degree relatives.
-            ParagraphText(
+            const ParagraphText(
                 fontSize: 16,
                 text:
                     '(parents, siblings, and children).'),
@@ -87,7 +78,7 @@ class Question1FamilyConditionsState extends State<Question1FamilyConditions>
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ReviewProfile())), //ReviewProfile()
+                          builder: (context) => const ReviewProfile())), //ReviewProfile()
                 ),
                 hSizedBox,
                 RoundEdgedButton(

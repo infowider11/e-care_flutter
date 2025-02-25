@@ -1,9 +1,10 @@
+// ignore_for_file: unused_local_variable, avoid_print
+
 import 'dart:math';
 
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/global_keys.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/functions/print_function.dart';
 import 'package:ecare/services/auth.dart';
@@ -98,7 +99,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
 
     // creates the engine
     // _engine = await RtcEngine.create(appId);
-    _engine = await createAgoraRtcEngine();
+    _engine = createAgoraRtcEngine();
     await _engine?.initialize(const RtcEngineContext(
       appId: appId,
       channelProfile: ChannelProfileType.channelProfileLiveBroadcasting,
@@ -178,10 +179,10 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
         // if (_showStats) {
         //   _stats = stats;
         // int d = await stats.duration;
-        call_duration = await stats?.duration ?? 0;
+        call_duration = stats.duration ?? 0;
 
         setState(() {});
-        if (await stats.duration == 300) {
+        if (stats.duration == 300) {
           // 5 min. condition
           // var res = await Webservices.get(ApiUrls.mark_as_complete+widget.bookingId.toString());
           // myCustomPrintStatement('mark as complete---- ${res}');
@@ -233,7 +234,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
                     children: [
                       ClipOval(
                         child: SizedBox.fromSize(
-                          size: Size.fromRadius(65), // Image radius
+                          size: const Size.fromRadius(65), // Image radius
                           child: Image.network(user_Data!['profile_image'],
                               fit: BoxFit.cover),
                         ),
@@ -375,7 +376,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     initForAgora();
     super.initState();
   }

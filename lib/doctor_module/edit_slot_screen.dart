@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, non_constant_identifier_names, avoid_print, unnecessary_brace_in_string_interps
+
 import 'package:ecare/Services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/global_keys.dart';

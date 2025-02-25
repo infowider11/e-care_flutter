@@ -1,17 +1,14 @@
+// ignore_for_file: unused_local_variable, deprecated_member_use, avoid_print
+
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/navigation.dart';
-import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/functions/global_Var.dart';
 import 'package:ecare/pages/chat.dart';
-import 'package:ecare/pages/payment_method.dart';
-import 'package:ecare/pages/profile_edit.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/services/auth.dart';
-import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/list_ui_1.dart';
 import 'package:ecare/widgets/loader.dart';
-import 'package:ecare/widgets/setting_list.dart';
 import 'package:flutter/material.dart';
 
 import '../services/webservices.dart';
@@ -31,7 +28,7 @@ class _MessagePageState extends State<MessagePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     get_chat_list();
   }
@@ -63,7 +60,7 @@ class _MessagePageState extends State<MessagePage> {
     return Scaffold(
       appBar: appBar(context: context,title: 'Message',titlecenter: true,fontfamily: 'bold'),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -78,7 +75,7 @@ class _MessagePageState extends State<MessagePage> {
               padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 10.0),
               child: Container(
                 // height: 200,
-                padding: EdgeInsets.all(5.0),
+                padding: const EdgeInsets.all(5.0),
                 width: MediaQuery.of(context).size.width,
                 // height: 200.0,
                 decoration: BoxDecoration(
@@ -164,12 +161,12 @@ class _MessagePageState extends State<MessagePage> {
                     isRightText: true,
                   )),
               if(lists.length==0&&!load)
-              Center(
+              const Center(
                 child: Text('No chat yet.'),
               ),
               if(load)
-              Padding(
-                padding: const EdgeInsets.only(top: 18.0),
+              const Padding(
+                padding: EdgeInsets.only(top: 18.0),
                 child: CustomLoader(),
               ),
           ],

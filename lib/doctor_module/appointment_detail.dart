@@ -1,7 +1,6 @@
+// ignore_for_file: deprecated_member_use, camel_case_types
+
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/doctor_module/videocall.dart';
-import 'package:ecare/pages/choose_schedule.dart';
-import 'package:ecare/pages/schedule_appointment.dart';
 import 'package:ecare/pages/upload_document.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';

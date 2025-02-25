@@ -1,20 +1,14 @@
+// ignore_for_file: unused_field, must_be_immutable, camel_case_types, library_private_types_in_public_api, avoid_print
+
 import 'dart:async';
 
 import 'package:ecare/doctor_module/appointment_request.dart';
 import 'package:ecare/doctor_module/how_it_works.dart';
-import 'package:ecare/doctor_module/invite-freinds.dart';
 import 'package:ecare/doctor_module/myecare.dart';
-import 'package:ecare/pages/create-profile.dart';
-import 'package:ecare/pages/get_care.dart';
-import 'package:ecare/pages/homepage.dart';
-import 'package:ecare/pages/how_it_works.dart';
-import 'package:ecare/pages/invite-freinds.dart';
-import 'package:ecare/pages/myecare.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/onesignal.dart';
 import 'package:ecare/services/webservices.dart';
 import 'package:ecare/welcome.dart';
-import 'package:ecare/widgets/showSnackbar.dart';
 import 'package:flutter/material.dart';
 
 import 'Services/api_urls.dart';
@@ -38,10 +32,10 @@ class _tabs_third_pageState extends State<tabs_third_page> {
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   static final List<Widget> _widgetOptions = <Widget>[
-    DoctorHowItWorks(),
-    DoctorHomePage(),
-    AppointmentRequest(),
-    DoctorMyECare(),
+    const DoctorHowItWorks(),
+    const DoctorHomePage(),
+    const AppointmentRequest(),
+    const DoctorMyECare(),
     // DoctorInvitePage(),
   ];
 
@@ -53,7 +47,7 @@ class _tabs_third_pageState extends State<tabs_third_page> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     _onItemTapped(widget.initialIndex);
     setNotificationHandler(context);
     super.initState();
@@ -62,7 +56,7 @@ class _tabs_third_pageState extends State<tabs_third_page> {
 
   interval() async {
     String user_id = await getCurrentUserId();
-    globel_timer = Timer.periodic(Duration(seconds: 5), (timer) {
+    globel_timer = Timer.periodic(const Duration(seconds: 5), (timer) {
       Webservices.get('${ApiUrls.interval}?user_id=${user_id}&t=1')
           .then((value) async {
         print('the status is ${value}');
@@ -92,7 +86,7 @@ class _tabs_third_pageState extends State<tabs_third_page> {
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
                     builder: (context) =>
-                        Welcome_Page()),
+                        const Welcome_Page()),
                     (Route<dynamic> route) => false);
             //showSnackbar( 'Blocked By Admin.');
           }
@@ -114,41 +108,41 @@ class _tabs_third_pageState extends State<tabs_third_page> {
         child: _widgetOptions.elementAt(selectedIndex),
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             color: Color(0xFEF6F6F6),
         ),
-        margin: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+        margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         child: BottomNavigationBar(
-          backgroundColor: Color(0xFEE8F0F6),
+          backgroundColor: const Color(0xFEE8F0F6),
           elevation: 0,
           type: BottomNavigationBarType.fixed,
           // showSelectedLabels: false,
           // showUnselectedLabels: false,
           selectedFontSize: 10,
-          selectedLabelStyle: TextStyle(
+          selectedLabelStyle: const TextStyle(
             fontSize: 10,
             fontFamily: 'bold',
             fontWeight: FontWeight.bold,
             color: Color(0xFE999999)
           ),
-          unselectedLabelStyle: TextStyle(
+          unselectedLabelStyle: const TextStyle(
             fontSize: 10,
               fontFamily: 'bold',
               fontWeight: FontWeight.bold,
               color: Color(0xFE999999)
           ),
           unselectedFontSize: 10,
-          unselectedItemColor: Color(0xFE999999),
+          unselectedItemColor: const Color(0xFE999999),
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Transform.translate(
-                offset: Offset(0,0),
-                child: ImageIcon(
+                offset: const Offset(0,0),
+                child: const ImageIcon(
                   AssetImage("assets/images/howitworks.png"),
                   size: 22,
                 ),
               ),
-              activeIcon:  ImageIcon(
+              activeIcon:  const ImageIcon(
                 AssetImage("assets/images/howitworks.png"),
                 size: 22,
               ),
@@ -158,13 +152,13 @@ class _tabs_third_pageState extends State<tabs_third_page> {
 
             BottomNavigationBarItem(
               icon: Transform.translate(
-                offset: Offset(0,0),
-                child: ImageIcon(
+                offset: const Offset(0,0),
+                child: const ImageIcon(
                   AssetImage("assets/images/home.png"),
                   size: 22,
                 ),
               ),
-              activeIcon:  ImageIcon(
+              activeIcon:  const ImageIcon(
                 AssetImage("assets/images/home.png"),
                 size: 22,
               ),
@@ -174,13 +168,13 @@ class _tabs_third_pageState extends State<tabs_third_page> {
 
             BottomNavigationBarItem(
               icon: Transform.translate(
-                offset: Offset(0,0),
-                child: ImageIcon(
+                offset: const Offset(0,0),
+                child: const ImageIcon(
                   AssetImage("assets/images/care.png"),
                   size: 22,
                 ),
               ),
-              activeIcon:  ImageIcon(
+              activeIcon:  const ImageIcon(
                 AssetImage("assets/images/care.png"),
                 size: 22,
               ),
@@ -190,13 +184,13 @@ class _tabs_third_pageState extends State<tabs_third_page> {
 
             BottomNavigationBarItem(
               icon: Transform.translate(
-                offset: Offset(0,0),
-                child: ImageIcon(
+                offset: const Offset(0,0),
+                child: const ImageIcon(
                   AssetImage("assets/images/heart.png"),
                   size: 22,
                 ),
               ),
-              activeIcon:  ImageIcon(
+              activeIcon:  const ImageIcon(
                 AssetImage("assets/images/heart.png"),
                 size: 22,
               ),

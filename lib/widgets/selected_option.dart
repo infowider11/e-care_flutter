@@ -25,7 +25,7 @@ class SelectedBox extends StatelessWidget {
             ),
             vSizedBox,
             Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: MyColors.bordercolor, width: 1),

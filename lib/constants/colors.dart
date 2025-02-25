@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, constant_identifier_names
+
 import 'package:flutter/material.dart';
 const full = 'MediaQuery.of(context).size.width';
 
@@ -5,7 +7,7 @@ class MyColors{
   static const Color primaryColor = Color(0xFF00A2EA);
   static const Color secondarycolor = Color(0xFF17BC84);
   static Color blackColor50 = Colors.black.withOpacity(0.5);
-  static Color redColor =Color(0xFFBA1A1A);
+  static Color redColor =const Color(0xFFBA1A1A);
   static const Color red = Color(0xFFBA1A1A);
   static const Color yellow = Color(0xFFF5C30E);
   static const Color other = Color(0xFF363C49);
@@ -16,7 +18,7 @@ class MyColors{
   static const Color bordercolor = Color(0xFF72787E);
   static const Color labelcolor = Color(0xFF4B5563);
   static const Color disable = Color(0xFFD0D0D0);
-  static Color blackcolor70 = Color(0xFF000000).withOpacity(0.7);
+  static Color blackcolor70 = const Color(0xFF000000).withOpacity(0.7);
   static const Color headingcolor = Color(0xFF1A1C1E);
   static const Color paragraphcolor = Color(0xFF757C81);
   static const Color scaffold = Color(0xFFEFF4F9);

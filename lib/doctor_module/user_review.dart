@@ -1,4 +1,6 @@
 
+// ignore_for_file: unnecessary_brace_in_string_interps, avoid_print
+
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/services/auth.dart';
@@ -25,7 +27,7 @@ class _UserReviewPageState extends State<UserReviewPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     get_reviews();
   }
@@ -55,12 +57,12 @@ class _UserReviewPageState extends State<UserReviewPage> {
     return Scaffold(
       backgroundColor: MyColors.BgColor,
       appBar: appBar(context: context, appBarColor: MyColors.BgColor),
-      body: load?CustomLoader():SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+      body: load?const CustomLoader():SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MainHeadingText(text: 'User Reviews', fontFamily: 'light', fontSize: 32,),
+            const MainHeadingText(text: 'User Reviews', fontFamily: 'light', fontSize: 32,),
             vSizedBox4,
 
             for(int i=0;i<lists.length;i++)
@@ -73,7 +75,7 @@ class _UserReviewPageState extends State<UserReviewPage> {
               time: '${lists[i]['time_ago']}',
             ),
             if(lists.length==0)
-            Center(
+            const Center(
               child: Text('No reviews yet'),
             ),
             // ReviewBlock(),

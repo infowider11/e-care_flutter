@@ -1,9 +1,9 @@
+// ignore_for_file: avoid_print, prefer_is_empty, deprecated_member_use
+
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/pages/choose_schedule.dart';
-import 'package:ecare/pages/schedule_appointment.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
@@ -11,12 +11,12 @@ import 'package:ecare/widgets/customtextfield.dart';
 import 'package:ecare/widgets/dropdown.dart';
 import 'package:ecare/widgets/showSnackbar.dart';
 import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../Services/api_urls.dart';
-import '../constants/image_urls.dart';
 import '../constants/sized_box.dart';
 import '../services/auth.dart';
 import '../services/webservices.dart';
@@ -67,7 +67,7 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
 
   getCategories() async {
     var res = await Webservices.get(ApiUrls.getSpecialistCategory);
-    print('res from catlist---${res}');
+    print('res from catlist---$res');
     allCat = res['data'];
     for (var i = 0; i < res['data'].length; i++) {
       if (res['data'][i]['parent'].toString() == '0') {
@@ -82,8 +82,8 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
   }
 
   getSubCategory(id)  {
-    print('prasoon---subcate----call ${id}');
-    log('sss ${allCat}');
+    print('prasoon---subcate----call $id');
+    log('sss $allCat');
     subCatType = null;
     subCategories = [];
     print("id------------" + id.toString());
@@ -107,9 +107,9 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
     await getCategories();
     var id = await getCurrentUserId();
 
-    await Webservices.get('${ApiUrls.get_user_by_id}?user_id=${id}')
+    await Webservices.get('${ApiUrls.get_user_by_id}?user_id=$id')
         .then((value) async {
-      print('the status is ${value}');
+      print('the status is $value');
       await getSubCategory(value['data']['specialist_cat']);
 
       fname.text = value['data']['first_name'].toString();
@@ -135,22 +135,22 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
       dob.text = value['data']['dob'];
       bio.text = value['data']['biography'];
       print(
-          'gender---------${profile_image[0].runtimeType.toString()} ${image}');
+          'gender---------${profile_image[0].runtimeType.toString()} $image');
       setState(() {
         load = false;
       });
     });
-    Future.delayed(Duration(seconds: 5)).then((value) => {
+    Future.delayed(const Duration(seconds: 5)).then((value) => {
       print('set state'),
       setState(() {
-        print('the sub category list is ${subCategories}');
+        print('the sub category list is $subCategories');
       })
     });
   }
 
   getlangKnown() async {
     var res = await Webservices.get(ApiUrls.get_language);
-    print('res from catlist---${res}');
+    print('res from catlist---$res');
     langKnown = res['data'];
     setState(() {});
     // get(ApiUrls.);
@@ -158,21 +158,21 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
 
   getspecialInterest() async {
     var res = await Webservices.get(ApiUrls.get_specialIntrest);
-    print('res from catlist---${res}');
+    print('res from catlist---$res');
     specialInterest = res['data'];
     setState(() {});
   }
 
   getspecilization() async {
     var res = await Webservices.get(ApiUrls.get_specialization);
-    print('res from catlist---${res}');
+    print('res from catlist---$res');
     specilization = res['data'];
     setState(() {});
   }
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
 
 
@@ -185,14 +185,14 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
       backgroundColor: MyColors.BgColor,
       appBar: appBar(
         context: context,
-        appBarColor: Color(0xFE00A2EA).withOpacity(0.1),
+        appBarColor: const Color(0xFE00A2EA).withOpacity(0.1),
       ),
       body: load
-          ? CustomLoader()
+          ? const CustomLoader()
           : Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.all(16),
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(
                       'assets/images/patter.png',
@@ -239,7 +239,7 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                                   width: 16,
                                 ),
                                 hSizedBox,
-                                ParagraphText(
+                                const ParagraphText(
                                   text: 'Edit Image',
                                   color: MyColors.primaryColor,
                                 )
@@ -267,10 +267,10 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                       labelcolor: MyColors.onsurfacevarient,
                     ),
                     vSizedBox,
-                    Text('Gender'),
+                    const Text('Gender'),
                     CustomDropdownButton(
                         selected: genderr,
-                        items: ['male', 'female'],
+                        items: const ['male', 'female'],
                         hint: 'Gender',
                         onChanged: (value) => {
                               print('commins type----$value'),
@@ -281,14 +281,14 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                     // DropDown(islabel: true, label: 'Gender', hint: 'male',),
 
                     Container(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                           color: MyColors.lightBlue.withOpacity(0.11),
                           borderRadius: BorderRadius.circular(15)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ParagraphText(
+                          const ParagraphText(
                             fontSize: 16,
                             text: 'Select Category',
                             color: MyColors.onsurfacevarient,
@@ -298,7 +298,7 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                           Container(
                             width: MediaQuery.of(context).size.width,
                             height: 55,
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               // color: MyColors.white,
                               border: Border.all(color: MyColors.borderColor2),
@@ -308,9 +308,9 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                               underline: Container(
                                 height: 8,
                               ),
-                              hint: Text('Select Category'),
+                              hint: const Text('Select Category'),
                               value: catType,
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.keyboard_arrow_down_outlined,
                               ),
                               elevation: 0,
@@ -333,7 +333,7 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                           ),
                           vSizedBox2,
                           if (subCategories.length > 0)
-                            ParagraphText(
+                            const ParagraphText(
                               fontSize: 16,
                               text: 'Select Sub Category',
                               color: MyColors.onsurfacevarient,
@@ -343,7 +343,7 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                             Container(
                               width: MediaQuery.of(context).size.width,
                               height: 55,
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 // color: MyColors.white,
                                 border:
@@ -354,9 +354,9 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                                 underline: Container(
                                   height: 8,
                                 ),
-                                hint: Text('Select Sub Category'),
+                                hint: const Text('Select Sub Category'),
                                 value: subCatType,
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.keyboard_arrow_down_outlined,
                                 ),
                                 elevation: 0,
@@ -401,7 +401,7 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                     //     ],
                     //   ),
                     vSizedBox,
-                    Text('Date of Birth'),
+                    const Text('Date of Birth'),
                     vSizedBox,
                     GestureDetector(
                       onTap: () async {
@@ -433,7 +433,7 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                       ),
                     ),
                     vSizedBox2,
-                    Text('Phone Number'),
+                    const Text('Phone Number'),
                     vSizedBox,
                     IntlPhoneField(
                       onChanged: (p) {
@@ -450,7 +450,7 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                             country_short_code = c.code,
                             setState(() {}),
                           }),
-                      dropdownIcon: Icon(
+                      dropdownIcon: const Icon(
                         Icons.phone,
                         color: Colors.transparent,
                       ),
@@ -476,15 +476,15 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           border: OutlineInputBorder(
                               borderSide:
-                                  BorderSide(color: MyColors.bordercolor),
+                                  const BorderSide(color: MyColors.bordercolor),
                               borderRadius: BorderRadius.circular(15)),
                           focusedBorder: OutlineInputBorder(
                               borderSide:
-                                  BorderSide(color: MyColors.bordercolor),
+                                  const BorderSide(color: MyColors.bordercolor),
                               borderRadius: BorderRadius.circular(15)),
                           enabledBorder: OutlineInputBorder(
                               borderSide:
-                                  BorderSide(color: MyColors.bordercolor),
+                                  const BorderSide(color: MyColors.bordercolor),
                               borderRadius: BorderRadius.circular(15))
                           // labelStyle: TextStyle(color:MyColors.paragraphcolor, backgroundColor: Color(0xFFCAE6FF)),
                           // enabledBorder:InputBorder(borderSide: BorderSide(Border.all(color: bordercolor))),
@@ -538,11 +538,11 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                     vSizedBox,
 
                     // vSizedBox,
-                    Text('Language Known'),
+                    const Text('Language Known'),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: 55,
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: MyColors.white,
                         border: Border.all(color: MyColors.borderColor2),
@@ -552,9 +552,9 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                         underline: Container(
                           height: 8,
                         ),
-                        hint: Text('Language Known'),
+                        hint: const Text('Language Known'),
                         value: language_id,
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.keyboard_arrow_down_outlined,
                         ),
                         elevation: 0,
@@ -577,7 +577,7 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                     ),
                     // DropDown(hint: 'Language Known'),
                     vSizedBox,
-                    Text('Special Intrests'),
+                    const Text('Special Intrests'),
                     // Container(
                     //   width: MediaQuery.of(context).size.width,
                     //   height: 55,
@@ -621,7 +621,7 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                     CustomTextField(
                         controller: intrest, hintText: 'Special Intrests'),
                     vSizedBox,
-                    Text('Bio'),
+                    const Text('Bio'),
                     CustomTextField(controller: bio, hintText: 'Bio'),
                     // DropDown(hint: 'Special Intrests',),
                     // vSizedBox,
@@ -754,7 +754,7 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                               files: files,
                               context: context,
                               apiUrl: ApiUrls.edit_profile);
-                          log('res ------${res}');
+                          log('res ------$res');
                           await EasyLoading.dismiss();
 
                           setState(() {

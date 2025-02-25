@@ -1,5 +1,5 @@
 import 'package:ecare/constants/sized_box.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 
 class paymentconsole extends StatefulWidget{
@@ -23,9 +23,9 @@ class _paymentconsole extends State<paymentconsole> {
          child: Column(
            crossAxisAlignment: CrossAxisAlignment.center,
        children: [
-         Text(widget.data,style: TextStyle(color: Colors.black),),
+         Text(widget.data,style: const TextStyle(color: Colors.black),),
          vSizedBox8,
-         Text(widget.url,style: TextStyle(color: Colors.black),),
+         Text(widget.url,style: const TextStyle(color: Colors.black),),
        ],
      )),
     );

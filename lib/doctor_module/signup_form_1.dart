@@ -1,27 +1,22 @@
+// ignore_for_file: deprecated_member_use, prefer_interpolation_to_compose_strings, avoid_print
+
 import 'dart:io';
 
 // import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:ecare/Services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/doctor_module/signup_form_2.dart';
 import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
 import 'package:ecare/pages/privacy_policy.dart';
-import 'package:ecare/pages/question_1_allergies.dart';
-import 'package:ecare/pages/question_1_condition.dart';
-import 'package:ecare/pages/question_1_medication.dart';
 import 'package:ecare/pages/terms_cond_page.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/services/webservices.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
-import 'package:ecare/widgets/dropdown.dart';
-import 'package:flutter/cupertino.dart';
+ import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -68,7 +63,7 @@ class _SignUpForm1State extends State<SignUpForm1> {
   bool isChecked = false;
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     getCategories();
   }
@@ -114,14 +109,14 @@ if(allCat[i]['parent'].toString()==id.toString()){
       backgroundColor: MyColors.scaffold,
       appBar: appBar(context: context, appBarColor: MyColors.BgColor ,title: 'Medical professional registered as:',fontsize: 25),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // MainHeadingText(text: 'Medical professional registered as: ', color: MyColors.onsurfacevarient, fontSize: 16, fontFamily: 'light',),
             // vSizedBox2,
             Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: MyColors.lightBlue.withOpacity(0.11),
                 borderRadius: BorderRadius.circular(15)
@@ -129,13 +124,13 @@ if(allCat[i]['parent'].toString()==id.toString()){
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ParagraphText(fontSize: 16, text: 'Select Category', color: MyColors.onsurfacevarient,),
+                  const ParagraphText(fontSize: 16, text: 'Select Category', color: MyColors.onsurfacevarient,),
                   // DropDown(bgcolor: Colors.transparent),
                   vSizedBox,
                   Container(
                       width: MediaQuery.of(context).size.width,
                       height: 55,
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         // color: MyColors.white,
                         border: Border.all(color: MyColors.borderColor2),
@@ -146,9 +141,9 @@ if(allCat[i]['parent'].toString()==id.toString()){
                       underline: Container(
                         height: 8,
                       ),
-                      hint: Text('Select Category'),
+                      hint: const Text('Select Category'),
                       value: catType,
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.keyboard_arrow_down_outlined,
                       ),
                       elevation: 0,
@@ -173,14 +168,14 @@ if(allCat[i]['parent'].toString()==id.toString()){
                   ),
                   vSizedBox2,
                   if(subCategories.length>0)
-                  ParagraphText(fontSize: 16, text: 'Select Sub Category', color: MyColors.onsurfacevarient,),
+                  const ParagraphText(fontSize: 16, text: 'Select Sub Category', color: MyColors.onsurfacevarient,),
                   vSizedBox,
                   if(subCategories.length>0)
 
                     Container(
                     width: MediaQuery.of(context).size.width,
                     height: 55,
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       // color: MyColors.white,
                       border: Border.all(color: MyColors.borderColor2),
@@ -191,9 +186,9 @@ if(allCat[i]['parent'].toString()==id.toString()){
                       underline: Container(
                         height: 8,
                       ),
-                      hint: Text('Select Sub Category'),
+                      hint: const Text('Select Sub Category'),
                       value: subCatType,
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.keyboard_arrow_down_outlined,
                       ),
                       elevation: 0,
@@ -234,11 +229,11 @@ if(allCat[i]['parent'].toString()==id.toString()){
             // ),
 
             vSizedBox2,
-            ParagraphText(fontSize: 16, text: 'South African ID number/ passport number (if not a South African Citizen)'),
+            const ParagraphText(fontSize: 16, text: 'South African ID number/ passport number (if not a South African Citizen)'),
             vSizedBox,
             CustomTextField(controller: id_number, hintText: 'Write here..'),
             vSizedBox2,
-            ParagraphText(fontSize: 16, text: 'Upload copy of South African ID/Passport'),
+            const ParagraphText(fontSize: 16, text: 'Upload copy of South African ID/Passport'),
             vSizedBox,
             Row(
               children: [
@@ -261,7 +256,7 @@ if(allCat[i]['parent'].toString()==id.toString()){
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ParagraphText(fontSize: 16, text: 'HPCSA registration number '),
+                      const ParagraphText(fontSize: 16, text: 'HPCSA registration number '),
                       vSizedBox,
                       CustomTextField(controller: hpcsa_no, hintText: 'HPSCA01322322',),
                     ],
@@ -298,7 +293,7 @@ if(allCat[i]['parent'].toString()==id.toString()){
                               // print('checking date------${formatted}');
                             }
                           },
-                          child: ParagraphText(fontSize: 16, text: 'Expiry Date ',)),
+                          child: const ParagraphText(fontSize: 16, text: 'Expiry Date ',)),
                       vSizedBox,
                       GestureDetector(
                           onTap: () async {
@@ -332,13 +327,13 @@ if(allCat[i]['parent'].toString()==id.toString()){
               ],
             ),
             vSizedBox2,
-            ParagraphText(fontSize: 16, text: 'Practice number (PCNS) (Optional) '),
+            const ParagraphText(fontSize: 16, text: 'Practice number (PCNS) (Optional) '),
             vSizedBox,
             CustomTextField(controller: pcns_no, hintText: 'HPSCA01322322'),
             vSizedBox,
 
             vSizedBox2,
-            ParagraphText(fontSize: 16, text: 'Proof of active HPCSA registration (please upload) '),
+            const ParagraphText(fontSize: 16, text: 'Proof of active HPCSA registration (please upload) '),
             vSizedBox,
             Row(
               children: [
@@ -374,20 +369,20 @@ if(allCat[i]['parent'].toString()==id.toString()){
                   flex: 11,
                   child: RichText(
                     text:TextSpan(
-                      style: TextStyle(color:Colors.black),
+                      style: const TextStyle(color:Colors.black),
                       children: [
-                        TextSpan(text:"I agree to E-Care "),
+                        const TextSpan(text:"I agree to E-Care "),
                         // GestureDetector(
                         //   onTap: (){},
                         //   child: ,
                         // )
                         TextSpan(
-                            text:"Terms & Conditions ",style:TextStyle(color:MyColors.primaryColor),
-                          recognizer:  new TapGestureRecognizer()..onTap = () => push(context: context, screen: TermsCondPage())
+                            text:"Terms & Conditions ",style:const TextStyle(color:MyColors.primaryColor),
+                          recognizer:  new TapGestureRecognizer()..onTap = () => push(context: context, screen: const TermsCondPage())
                         ),
-                        TextSpan(text:"and"),
-                        TextSpan(text:" Privacy Policy",style:TextStyle(color:MyColors.primaryColor),
-                            recognizer:  new TapGestureRecognizer()..onTap = () => push(context: context, screen: PrivacyPolicy())
+                        const TextSpan(text:"and"),
+                        TextSpan(text:" Privacy Policy",style:const TextStyle(color:MyColors.primaryColor),
+                            recognizer:  new TapGestureRecognizer()..onTap = () => push(context: context, screen: const PrivacyPolicy())
                         ),
 
                       ]
@@ -404,7 +399,7 @@ if(allCat[i]['parent'].toString()==id.toString()){
               ],
             ),
             vSizedBox,
-            ParagraphText(text: 'You will be notified once your account has been verified and is activated for use – This may take up to three business days', fontSize: 12),
+            const ParagraphText(text: 'You will be notified once your account has been verified and is activated for use – This may take up to three business days', fontSize: 12),
             vSizedBox2,
 
             RoundEdgedButton(text: 'Save', onTap: (){

@@ -1,28 +1,18 @@
+// ignore_for_file: must_be_immutable, non_constant_identifier_names, avoid_print
+
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/question_1_allergies.dart';
-import 'package:ecare/pages/question_1_condition.dart';
 import 'package:ecare/pages/question_1_family_conditions.dart';
-import 'package:ecare/pages/question_1_medication.dart';
-import 'package:ecare/pages/question_1_surgeries.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
-import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
-import 'package:ecare/widgets/dropdown.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../services/api_urls.dart';
 import '../services/auth.dart';
 import '../services/webservices.dart';
-import '../widgets/loader.dart';
 import '../widgets/showSnackbar.dart';
 
 class Question2Surgeries extends StatefulWidget {
@@ -75,7 +65,7 @@ class _Question2SurgeriesState extends State<Question2Surgeries> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     myController =
         List.generate(_count, (i) =>  TextEditingController(),growable: true);
@@ -93,7 +83,7 @@ class _Question2SurgeriesState extends State<Question2Surgeries> {
           fontsize: 32,
           fontfamily: 'light'),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -113,7 +103,7 @@ class _Question2SurgeriesState extends State<Question2Surgeries> {
                 child: CustomTextField(
                   controller: myController[i],
                   suffix:i>2?IconButton(
-                    icon: Icon(Icons.remove_circle),
+                    icon: const Icon(Icons.remove_circle),
                     color: Colors.red,
                     onPressed: () {
                       myController.removeAt(i);
@@ -136,12 +126,12 @@ class _Question2SurgeriesState extends State<Question2Surgeries> {
                 // myController =
                 //     List.generate(drug_count, (i) => TextEditingController(),growable: true);
               },
-              icon: Icon(
+              icon: const Icon(
                 // <-- Icon
                 Icons.add_circle,
                 size: 24.0,
               ),
-              label: Text('Add Another'), // <-- Text
+              label: const Text('Add Another'), // <-- Text
             ),
 
             vSizedBox2,
@@ -157,7 +147,7 @@ class _Question2SurgeriesState extends State<Question2Surgeries> {
                         setState(() {}),
                       }),
                   suffix: IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.remove_circle,
                       color: Colors.red,
                     ),
@@ -261,7 +251,7 @@ class _Question2SurgeriesState extends State<Question2Surgeries> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => Question1FamilyConditions()));
+                            builder: (context) => const Question1FamilyConditions()));
                   } else {
                     print('workking---');
                     seleted_arr = [];
@@ -306,7 +296,7 @@ class _Question2SurgeriesState extends State<Question2Surgeries> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  Question1FamilyConditions()));
+                                  const Question1FamilyConditions()));
                     } else {
                       showSnackbar( 'Somting Went Wrong.');
                     }

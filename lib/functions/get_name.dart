@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 String getName({
 
   required String? prefixText,
@@ -8,12 +10,12 @@ String getName({
 }){
   String text = '$doctorLastName/$userLastName';
   if(prefixText!=null){
-    text = '${prefixText} : '+text;
+    text = '$prefixText : '+text;
   }
   if(dateTimeConsultation!=null){
     text+='/$dateTimeConsultation';
   }
-  print('the text is ${text}');
+  print('the text is $text');
   return text;
 
   // 'prefixText: ${consultationNotes[i][ApiVariableKeys.doctor_lastname]}/${consultationNotes[i][ApiVariableKeys.user_lastname]}'

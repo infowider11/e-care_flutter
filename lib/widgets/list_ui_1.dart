@@ -1,7 +1,7 @@
 import 'package:badges/badges.dart' as badges;
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/custom_circular_image.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
@@ -55,7 +55,7 @@ class ListUI01 extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
               color: bgColor,
               borderRadius: BorderRadius.circular(16),
@@ -108,7 +108,7 @@ class ListUI01 extends StatelessWidget {
                             showBadge: true,
                             badgeContent: Text(
                               '${badge_count.toString()}',
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             ),
                             // child: IconButton(
                             //   icon: Icon(Icons.chat),
@@ -205,7 +205,7 @@ class ListUI02 extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 8.0),
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 8.0),
           decoration: BoxDecoration(
               color: bgColor,
               borderRadius: BorderRadius.circular(16),
@@ -293,7 +293,7 @@ class ListUI02 extends StatelessWidget {
                             PopupMenuButton<int>(
                               itemBuilder: (context) => [
                                 // PopupMenuItem 1
-                                PopupMenuItem(
+                                const PopupMenuItem(
                                   value: 1,
                                   // row with 2 children
                                   child: Row(
@@ -306,7 +306,7 @@ class ListUI02 extends StatelessWidget {
                                   ),
                                 ),
                                 // PopupMenuItem 2
-                                PopupMenuItem(
+                                const PopupMenuItem(
                                   value: 2,
                                   // row with two children
                                   child: Row(
@@ -318,7 +318,7 @@ class ListUI02 extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                PopupMenuItem(
+                                const PopupMenuItem(
                                   value: 3,
                                   // row with two children
                                   child: Row(
@@ -331,7 +331,7 @@ class ListUI02 extends StatelessWidget {
                                   ),
                                 ),
                               ],
-                              offset: Offset(0, 58),
+                              offset: const Offset(0, 58),
                               color: MyColors.white,
                               elevation: 0,
                               // on selected we show the dialog box
@@ -346,7 +346,7 @@ class ListUI02 extends StatelessWidget {
                               },
                             );
                           },
-                          icon: Icon(Icons.more_vert),
+                          icon: const Icon(Icons.more_vert),
                         ),
                       // Image.asset('assets/images/download.png', width: 24,),
 

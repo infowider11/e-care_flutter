@@ -1,17 +1,11 @@
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
 import 'package:ecare/pages/question_1_allergies.dart';
 import 'package:ecare/pages/question_2_medication.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
-import 'package:ecare/widgets/customtextfield.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 
 class Question1Medication extends StatefulWidget {
@@ -32,17 +26,17 @@ class Question1MedicationState extends State<Question1Medication>
       backgroundColor: MyColors.scaffold,
       appBar: appBar(context: context),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             vSizedBox2,
-            MainHeadingText(
+            const MainHeadingText(
               text: '1/5',
               fontSize: 35,
             ),
             vSizedBox,
-            ClipRRect(
+            const ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               child: LinearProgressIndicator(
                 minHeight: 10,
@@ -53,13 +47,13 @@ class Question1MedicationState extends State<Question1Medication>
               ),
             ),
             vSizedBox2,
-            MainHeadingText(
+            const MainHeadingText(
               text: 'Are you currently taking any medications? ',
               fontSize: 32,
               fontFamily: 'light',
             ),
             vSizedBox2,
-            ParagraphText(
+            const ParagraphText(
                 fontSize: 16,
                 text:
                     'Please consider any medication you are taking, including those taken on a regular basis.'),
@@ -87,7 +81,7 @@ class Question1MedicationState extends State<Question1Medication>
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => Question2Medication())),
+                          builder: (context) => const Question2Medication())),
                 ),
               ],
             )

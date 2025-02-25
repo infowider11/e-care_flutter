@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:ecare/constants/constans.dart';
 import 'package:ecare/functions/print_function.dart';
 import 'package:ecare/services/api_urls.dart';
@@ -5,12 +7,10 @@ import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/pages/doctor-details.dart';
 import 'package:ecare/pages/filter.dart';
-import 'package:ecare/pages/long_felt_way.dart';
 import 'package:ecare/services/webservices.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
-import 'package:ecare/widgets/customtextfield.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -94,7 +94,7 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     print('cate ${widget.cate}');
     print('sub-cate ${widget.sub_cate}');
@@ -117,7 +117,7 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
       backgroundColor: MyColors.BgColor,
       appBar: appBar(context: context),
       body: load
-          ? CustomLoader()
+          ? const CustomLoader()
           : Container(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -143,7 +143,7 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
                               Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => FilterPage()))
+                                          builder: (context) => const FilterPage()))
                                   .then((value) => {
                                         // if(value){
                                         print('fileter ---- date----${value}'),
@@ -153,7 +153,7 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
                                         // }
                                       });
                             },
-                            child: RoundEdgedButton(
+                            child: const RoundEdgedButton(
                               text: 'Filter',
                               width: 80,
                               fontSize: 16,
@@ -166,7 +166,7 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
                     child: GridView.builder(
                         itemCount: lists.length,
                         padding: const EdgeInsets.all(10),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
@@ -194,7 +194,7 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
                             child: Container(
                               // height: 220,
                               // width: 170,
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 5),
                               decoration: BoxDecoration(
                                   color: MyColors.white,
@@ -239,7 +239,7 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
                                       lists[i]['subcategory'] != false
                                           ? '${lists[i]['category']['title']} (${lists[i]['subcategory']['title']})'
                                           : '${lists[i]['category']['title']}',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 10,
                                         color: MyColors.primaryColor,
                                       ),
@@ -470,7 +470,7 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
 
                   vSizedBox2,
                   if (lists.length == 0)
-                    Center(
+                    const Center(
                       child: Text('No Data Found.'),
                     )
                 ],

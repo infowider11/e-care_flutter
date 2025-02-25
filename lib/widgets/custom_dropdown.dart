@@ -1,8 +1,8 @@
 
+// ignore_for_file: avoid_print
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import '../constants/colors.dart';
-import '../functions/print_function.dart';
 import '../functions/validation_function.dart';
 import 'CustomTexts.dart';
 
@@ -302,7 +302,7 @@ class CustomDropdownButton<T> extends StatelessWidget {
             dropdownDecoratorProps: DropDownDecoratorProps(
               dropdownSearchDecoration: InputDecoration(
 
-                contentPadding: EdgeInsets.symmetric(vertical: 0),
+                contentPadding: const EdgeInsets.symmetric(vertical: 0),
                 // labelText: "Menu mode",
                 // hintText: "$hint",
                 labelText: hint,
@@ -310,7 +310,7 @@ class CustomDropdownButton<T> extends StatelessWidget {
 
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 // labelText: "$hint",
-                hintStyle: TextStyle(color: Color(0xFF999999), fontFamily: 'light'),
+                hintStyle: const TextStyle(color: Color(0xFF999999), fontFamily: 'light'),
                 // border: InputBorder.none,
                 border: InputBorder.none,
                 // border:OutlineInputBorder(
@@ -342,7 +342,7 @@ class CustomDropdownButton<T> extends StatelessWidget {
             ),
 
 
-            dropdownButtonProps: DropdownButtonProps(
+            dropdownButtonProps: const DropdownButtonProps(
               // color: Colors.green,
 
             ),
@@ -367,24 +367,24 @@ class CustomDropdownButton<T> extends StatelessWidget {
                   padding:  EdgeInsets.only(left: leftPadding),
                   child: Text('${(value as Map)['${itemMapKey}']}'),
                 );
-                return Container(
-                  // color: Colors.blue,
-                  child: Column(
-                                            children: [
-                            if(isextra_text==false)
-                            Text((value as Map)['${itemMapKey}']),
-                            if(isextra_text==true)
-                            Text('${extra_text}'+(value as Map)['${itemMapKey}']),
-                            // Divider(),
-                          ],
-                  ),
-                );
+                // return Container(
+                //   // color: Colors.blue,
+                //   child: Column(
+                //                             children: [
+                //             if(isextra_text==false)
+                //             Text((value as Map)['${itemMapKey}']),
+                //             if(isextra_text==true)
+                //             Text('${extra_text}'+(value as Map)['${itemMapKey}']),
+                //             // Divider(),
+                //           ],
+                //   ),
+                // );
 
               }catch(e){
                 print('Error in catch block  5d55 $e');
               }
               return Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     // color:Colors.green,
                     // border: Border(bottom: BorderSide(color: Colors.black12))
                 ),

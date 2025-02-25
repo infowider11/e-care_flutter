@@ -1,16 +1,11 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/pages/doctor-details.dart';
-import 'package:ecare/pages/long_felt_way.dart';
-import 'package:ecare/pages/payment_method.dart';
-import 'package:ecare/pages/videocall.dart';
-import 'package:ecare/services/api_urls.dart';
-import 'package:ecare/services/webservices.dart';
 import 'package:ecare/tabs.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
-import 'package:ecare/widgets/customtextfield.dart';
 import 'package:flutter/material.dart';
 
 class ReviewPage extends StatefulWidget {
@@ -24,7 +19,6 @@ class _ReviewPageState extends State<ReviewPage> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController email = TextEditingController();
     return Scaffold(
       backgroundColor: MyColors.BgColor,
       appBar: appBar(context: context),
@@ -39,16 +33,16 @@ class _ReviewPageState extends State<ReviewPage> {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(50),
+                padding: const EdgeInsets.all(50),
                 decoration: BoxDecoration(
-                    color: Color(0xFE00A2EA).withOpacity(0.1),
+                    color: const Color(0xFE00A2EA).withOpacity(0.1),
                     borderRadius: BorderRadius.circular(16)
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.star_rounded, color: MyColors.primaryColor,),
@@ -59,9 +53,9 @@ class _ReviewPageState extends State<ReviewPage> {
                       ],
                     ),
                     vSizedBox,
-                    MainHeadingText(textAlign: TextAlign.center, text: 'Please rate the service received from your Healthcare provider.', fontSize: 14, color: MyColors.paragraphcolor, fontFamily: 'light',),
+                    const MainHeadingText(textAlign: TextAlign.center, text: 'Please rate the service received from your Healthcare provider.', fontSize: 14, color: MyColors.paragraphcolor, fontFamily: 'light',),
                     vSizedBox2,
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.star_rounded, color: MyColors.primaryColor,),
@@ -72,7 +66,7 @@ class _ReviewPageState extends State<ReviewPage> {
                       ],
                     ),
                     vSizedBox,
-                    MainHeadingText(textAlign: TextAlign.center, text: 'Please rate the quality of your video call', fontSize: 14, color: MyColors.paragraphcolor, fontFamily: 'light',),
+                    const MainHeadingText(textAlign: TextAlign.center, text: 'Please rate the quality of your video call', fontSize: 14, color: MyColors.paragraphcolor, fontFamily: 'light',),
 
                     vSizedBox2,
                     Row(

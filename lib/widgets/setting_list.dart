@@ -17,9 +17,9 @@ class SettingList extends StatelessWidget {
     return GestureDetector(
       onTap: func,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 12),
-        padding: EdgeInsets.symmetric(vertical: 14),
-        decoration: BoxDecoration(
+        margin: const EdgeInsets.symmetric(horizontal: 12),
+        padding: const EdgeInsets.symmetric(vertical: 14),
+        decoration: const BoxDecoration(
           border: Border(
             bottom: BorderSide(
               color: MyColors.bordercolor,
@@ -31,7 +31,7 @@ class SettingList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ParagraphText(text: heading, fontFamily: 'bold', color: MyColors.onsurfacevarient),
-            Icon(Icons.chevron_right_rounded, size: 24, color: MyColors.bordercolor,)
+            const Icon(Icons.chevron_right_rounded, size: 24, color: MyColors.bordercolor,)
           ],
         ),
       ),

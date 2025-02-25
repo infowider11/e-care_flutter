@@ -1,19 +1,11 @@
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/question_1_allergies.dart';
 import 'package:ecare/pages/question_1_condition.dart';
-import 'package:ecare/pages/question_1_medication.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
-import 'package:ecare/widgets/dropdown.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 
 class AddNewCard extends StatefulWidget {
@@ -32,11 +24,11 @@ class _AddNewCardState extends State<AddNewCard> {
       appBar: appBar(context: context),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MainHeadingText(text: 'Add New Card ', fontSize: 32, fontFamily: 'light',),
+              const MainHeadingText(text: 'Add New Card ', fontSize: 32, fontFamily: 'light',),
               vSizedBox4,
               Column(
                 children: [

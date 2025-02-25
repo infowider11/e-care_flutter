@@ -1,12 +1,12 @@
+// ignore_for_file: avoid_print, use_build_context_synchronously
+
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
 import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/doctor_module/pending_verification.dart';
 import 'package:ecare/doctor_module/signup.dart';
 import 'package:ecare/functions/global_Var.dart';
 import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/signup.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/services/webservices.dart';
 import 'package:ecare/tabs_doctor.dart';
@@ -14,12 +14,11 @@ import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../services/auth.dart';
-import '../services/firebase_push_notifications.dart';
 import '../services/onesignal.dart';
 import '../services/validation.dart';
 import '../widgets/loader.dart';
@@ -165,7 +164,7 @@ class _DoctorLoginPageState extends State<DoctorLoginPage> {
                               });
                               if (res['data']['is_verified'].toString() ==
                                   '1') {
-                                String? token =   await get_device_id();
+                                String? token =   get_device_id();
                                 print('token-----$token');
                                 await Webservices.updateDeviceToken(user_id: user_Data!['id'].toString(), token: token!);
                                 Navigator.of(context).pushAndRemoveUntil(

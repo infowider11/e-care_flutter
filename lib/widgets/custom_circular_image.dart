@@ -54,11 +54,11 @@ class CustomCircularImage extends StatelessWidget {
       ),
       child: fileType==CustomFileType.network?CachedNetworkImage(
         imageUrl: imageUrl,
-        placeholder: (context, url) => Padding(
-          padding: const EdgeInsets.all(14.0),
+        placeholder: (context, url) => const Padding(
+          padding: EdgeInsets.all(14.0),
           child: CustomLoader(),
         ),
-        errorWidget: (context, url, error) => Icon(Icons.error),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
       ):null,
 
     );

@@ -1,7 +1,10 @@
+// ignore_for_file: unused_local_variable, unnecessary_null_comparison, avoid_print
+
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'dart:developer';
-import 'package:flutter/cupertino.dart';
+ import 'package:flutter/cupertino.dart';
+
 // import 'package:health_doctor_module/services/api_urls.dart';
 import '/widgets/showSnackbar.dart';
 import 'package:http/http.dart' as http;

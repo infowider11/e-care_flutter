@@ -1,38 +1,27 @@
-import 'dart:io';
+
+// ignore_for_file: avoid_print
 
 // import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:ecare/constants/api_variable_keys.dart';
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/functions/get_name.dart';
 import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/add_prescription.dart';
 import 'package:ecare/pages/add_referral.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/question_2_allergies.dart';
-import 'package:ecare/pages/question_2_medication.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
-import 'package:ecare/widgets/customtextfield.dart';
 import 'package:ecare/widgets/list_ui_1.dart';
 import 'package:ecare/widgets/loader.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:http/http.dart';
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../functions/get_folder_directory.dart';
 import '../services/api_urls.dart';
 import '../services/auth.dart';
 import '../services/webservices.dart';
 import '../widgets/custom_confirmation_dialog.dart';
-import '../widgets/showSnackbar.dart';
 
 class Referral_Letter_Page extends StatefulWidget {
   final String? booking_id;
@@ -51,7 +40,7 @@ class Referral_Letter_PageState extends State<Referral_Letter_Page> with TickerP
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     get_lists();
     super.initState();
   }
@@ -81,16 +70,16 @@ class Referral_Letter_PageState extends State<Referral_Letter_Page> with TickerP
     return Scaffold(
       backgroundColor: MyColors.scaffold,
       appBar: appBar(context: context),
-      body: load?CustomLoader():Stack(
+      body: load?const CustomLoader():Stack(
         children: [
           SingleChildScrollView(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   vSizedBox2,
-                  MainHeadingText(text: 'Referral Letters', fontSize: 32, fontFamily: 'light',),
+                  const MainHeadingText(text: 'Referral Letters', fontSize: 32, fontFamily: 'light',),
                   // vSizedBox2,
                   // ParagraphText(fontSize: 16, text: 'Download documents from your Healthcare Practitioner here'),
                   vSizedBox4,
@@ -124,7 +113,6 @@ class Referral_Letter_PageState extends State<Referral_Letter_Page> with TickerP
                         headingMessage: 'Are you sure you want to delete?',
                       ) ;
                       if(result==true) {
-                        var res =
                         await Webservices.postData(
                             apiUrl: ApiUrls
                                 .deleteReferal,
@@ -139,7 +127,7 @@ class Referral_Letter_PageState extends State<Referral_Letter_Page> with TickerP
                     thirdHeadColor: MyColors.labelcolor,
                   ),
                   if(lists.length==0)
-                  Center(
+                  const Center(
                     heightFactor: 2.0,
                     child: Text('No data found.'),
                   ),
@@ -193,11 +181,11 @@ class Referral_Letter_PageState extends State<Referral_Letter_Page> with TickerP
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Remove'),
+            title: const Text('Remove'),
             content: const Text('Are you sure?'),
             actions: [
               TextButton(
-                child: Text('Yes'),
+                child: const Text('Yes'),
                 onPressed: () async {
                   Map<String, dynamic> data = {
                     'type': '1',
@@ -216,7 +204,7 @@ class Referral_Letter_PageState extends State<Referral_Letter_Page> with TickerP
                 },
               ),
               TextButton(
-                child: Text('No'),
+                child: const Text('No'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },

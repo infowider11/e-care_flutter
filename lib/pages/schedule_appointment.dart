@@ -1,17 +1,14 @@
+// ignore_for_file: unused_local_variable, deprecated_member_use, avoid_print
+
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/navigation.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/pages/doctor-details.dart';
-import 'package:ecare/pages/long_felt_way.dart';
-import 'package:ecare/pages/payment_method.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/webservices.dart';
 import 'package:ecare/tabs.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
-import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
-import 'package:ecare/widgets/customtextfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
@@ -29,25 +26,24 @@ class ScheduleAppoint extends StatefulWidget {
 class _ScheduleAppointState extends State<ScheduleAppoint> {
   @override
   void initState() {
-    // TODO: implement initState
+    
     print('booking data----- ${widget.booking_data}');
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController email = TextEditingController();
     return Scaffold(
       backgroundColor: MyColors.BgColor,
       // appBar: appBar(context: context),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             vSizedBox4,
-            MainHeadingText(
+            const MainHeadingText(
               text: 'Schedule Appointment',
               fontFamily: 'light',
               fontSize: 32,
@@ -55,9 +51,9 @@ class _ScheduleAppointState extends State<ScheduleAppoint> {
             vSizedBox4,
             Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.symmetric(vertical: 50, horizontal: 30),
+              padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
               decoration: BoxDecoration(
-                  color: Color(0xFE00A2EA).withOpacity(0.1),
+                  color: const Color(0xFE00A2EA).withOpacity(0.1),
                   borderRadius: BorderRadius.circular(16)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,7 +90,7 @@ class _ScheduleAppointState extends State<ScheduleAppoint> {
                           'user_id':await getCurrentUserId(),
                           'booking_id':res['data']['id'].toString(),
                         };
-                        var val = await Webservices.postData(apiUrl: ApiUrls.send_notification_toprovider, body: data, context: context);
+                    await Webservices.postData(apiUrl: ApiUrls.send_notification_toprovider, body: data, context: context);
                         print('send noti api------${res}');
                         EasyLoading.dismiss();
                         // Navigator.popUntil(context, (route) => route.isFirst);
@@ -117,7 +113,7 @@ class _ScheduleAppointState extends State<ScheduleAppoint> {
                     width: 170,
                   ),
                   vSizedBox2,
-                  MainHeadingText(
+                  const MainHeadingText(
                     textAlign: TextAlign.center,
                     text:
                         'If your consultation does not take place due to your healthcare provider\'s failure to initiate the call, please contact us via the app or email admin@e-care.co.za within 24 hours of the appointment. We will investigate the issue further, and if appropriate, issue you a refund.',
@@ -136,7 +132,7 @@ class _ScheduleAppointState extends State<ScheduleAppoint> {
   Successpopup(BuildContext context) {
     // set up the buttons
     Widget continueButton = TextButton(
-      child: Text("Continue"),
+      child: const Text("Continue"),
       onPressed: () async {
         Navigator.canPop(context);
         // Navigator.pop(context);
@@ -145,7 +141,7 @@ class _ScheduleAppointState extends State<ScheduleAppoint> {
       },
     );
     // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
+    AlertDialog alert = const AlertDialog(
       title: Text(
         "Provisionally booked",
         style: TextStyle(color: Colors.green),

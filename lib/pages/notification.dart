@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, avoid_print
+
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/navigation.dart';
 import 'package:ecare/constants/sized_box.dart';
@@ -25,7 +27,7 @@ class _NotificationPageState extends State<NotificationPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     get_noti();
     read_noti();

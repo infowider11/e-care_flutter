@@ -1,10 +1,11 @@
 
 
+// ignore_for_file: unnecessary_null_comparison, unused_local_variable, avoid_print
+
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 // import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
-import 'package:ecare/constants/navigation.dart';
 import 'package:ecare/functions/global_Var.dart';
 import 'package:ecare/services/webservices.dart';
 import 'package:flutter/material.dart';
@@ -15,21 +16,20 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../functions/print_function.dart';
 import '../pages/bookingDetail.dart';
 import '../widgets/showSnackbar.dart';
 
 void updateUserDetails(details) async{
-  SharedPreferences shared_User = await SharedPreferences.getInstance();
+  SharedPreferences sharedUser = await SharedPreferences.getInstance();
   String user = jsonEncode(details);
-  shared_User.setString('user_details', user);
+  sharedUser.setString('user_details', user);
 }
 
 Future<Map<String, dynamic>> getUserDetails() async{
-  SharedPreferences shared_User = await SharedPreferences.getInstance();
-  String userMap = await shared_User.getString('user_details')!;
+  SharedPreferences sharedUser = await SharedPreferences.getInstance();
+  String userMap = sharedUser.getString('user_details')!;
   String userS = (userMap==null)?'':userMap;
   // log('this is uer'+userMap!);
   // if(userMap==null){
@@ -45,9 +45,9 @@ Future<Map<String, dynamic>> getUserDetails() async{
 }
 
 Future getCurrentUserId() async{
-  SharedPreferences shared_User = await SharedPreferences.getInstance();
+  SharedPreferences sharedUser = await SharedPreferences.getInstance();
   print('1');
-  String? userMap = await shared_User.getString('user_details');
+  String? userMap = sharedUser.getString('user_details');
   print('2');
   String userS = (userMap==null)?'':userMap;
   print('3');
@@ -76,7 +76,7 @@ Future isUserLoggedIn() async{
   // return false;
 
 
-  String? user = await sharedUser.getString('user_details');
+  String? user = sharedUser.getString('user_details');
   log(user.toString());
   // var d = jsonDecode(user);
   if(user==null){
@@ -84,7 +84,6 @@ Future isUserLoggedIn() async{
   }
   else{
     return true;
-    log('user is already logged in '+user);
   }
   // await FlutterSession().get("user_details", details);
 }
@@ -92,8 +91,8 @@ Future isUserLoggedIn() async{
 Future logout() async{
   print("logout()");
   await Webservices.updateDeviceToken(user_id: await getCurrentUserId(), token: '');
-  SharedPreferences shared_User = await SharedPreferences.getInstance();
-  await shared_User.clear();
+  SharedPreferences sharedUser = await SharedPreferences.getInstance();
+  await sharedUser.clear();
   user_Data={};
   globel_timer?.cancel();
   return true;
@@ -254,7 +253,7 @@ notificationHandling(BuildContext context,Map? data) {
     print('----------------enter--------------');
     Navigator.push(context, MaterialPageRoute(builder: (context){
      return bookingdetail(
-            booking_id: data!['booking_id'].toString(),
+            booking_id: data['booking_id'].toString(),
           );
     }));
     // push(context: context, screen: bookingdetail(

@@ -1,4 +1,6 @@
 
+// ignore_for_file: deprecated_member_use, non_constant_identifier_names, avoid_print
+
 import 'package:ecare/widgets/custom_circular_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -51,10 +53,10 @@ class ReviewBlock extends StatelessWidget {
                       itemCount: 5,
                       itemSize: 15,
                       itemPadding:
-                      EdgeInsets.symmetric(
+                      const EdgeInsets.symmetric(
                           horizontal: 0.0),
                       itemBuilder:
-                          (context, _) => Icon(
+                          (context, _) => const Icon(
                         Icons.star,
                         color: Colors.amber,
                       ),
@@ -76,7 +78,7 @@ class ReviewBlock extends StatelessWidget {
             padding: const EdgeInsets.only(left: 8.0),
             child: Container(
               // width: 100,
-              padding: EdgeInsets.symmetric(horizontal: 16,vertical: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
                 color: MyColors.lightBlue.withOpacity(0.11),

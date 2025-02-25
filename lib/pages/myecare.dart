@@ -1,23 +1,14 @@
-import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/doctor_module/changePassword.dart';
 import 'package:ecare/functions/global_Var.dart';
-import 'package:ecare/pages/booking_status.dart';
 import 'package:ecare/pages/contact_us.dart';
 import 'package:ecare/pages/create-profile.dart';
-import 'package:ecare/pages/document.dart';
-import 'package:ecare/pages/invoice.dart';
 import 'package:ecare/pages/lab_test.dart';
 import 'package:ecare/pages/messages.dart';
 import 'package:ecare/pages/my_health_profile.dart';
 import 'package:ecare/pages/setting.dart';
 import 'package:ecare/pages/sick_notes.dart';
-import 'package:ecare/services/webservices.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
-import 'package:ecare/widgets/appbar.dart';
-import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/custom_circular_image.dart';
-import 'package:ecare/widgets/getCareblocks.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/sized_box.dart';
@@ -25,7 +16,6 @@ import '../services/auth.dart';
 import '../welcome.dart';
 import 'booked_visit.dart';
 import 'icd_codes_and_my_invoice_page.dart';
-import 'my_visit.dart';
 
 class MyECare extends StatefulWidget {
   const MyECare({Key? key}) : super(key: key);
@@ -60,7 +50,7 @@ class _MyECareState extends State<MyECare> {
         actions: <Widget>[
           GestureDetector(
             onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SettingPage())),
+                MaterialPageRoute(builder: (context) => const SettingPage())),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Image.asset('assets/images/menu.png', width: 24),
@@ -71,8 +61,8 @@ class _MyECareState extends State<MyECare> {
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
+          padding: const EdgeInsets.all(16),
+          decoration: const BoxDecoration(
               // image: DecorationImage(
               //   image: AssetImage('assets/images/patter.png', ),
               //   alignment: Alignment.topCenter,
@@ -83,7 +73,7 @@ class _MyECareState extends State<MyECare> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               vSizedBox2,
-              MainHeadingText(
+              const MainHeadingText(
                 text: 'My E-Care',
                 fontSize: 30,
                 fontFamily: 'light',
@@ -96,23 +86,23 @@ class _MyECareState extends State<MyECare> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CreateProfile()));
+                                builder: (context) => const CreateProfile()));
                       } else {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MyHealthProfile()));
+                                builder: (context) => const MyHealthProfile()));
                         // Navigator.push(context, MaterialPageRoute(builder: (context) => CreateProfile()));
                       }
                     },
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.onsurfacevarient, width: 1))),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MainHeadingText(
@@ -176,15 +166,15 @@ class _MyECareState extends State<MyECare> {
 
                   GestureDetector(
                     onTap: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => BookedVisit())),
+                        MaterialPageRoute(builder: (context) => const BookedVisit())),
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.onsurfacevarient, width: 1))),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MainHeadingText(
@@ -227,15 +217,15 @@ class _MyECareState extends State<MyECare> {
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => MessagePage())),
+                            builder: (context) => const MessagePage())),
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.onsurfacevarient, width: 1))),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MainHeadingText(
@@ -283,13 +273,13 @@ class _MyECareState extends State<MyECare> {
                         MaterialPageRoute(
                             builder: (context) => ICDCodesAndMyInvoicePage())),
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.onsurfacevarient, width: 1))),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
@@ -310,17 +300,17 @@ class _MyECareState extends State<MyECare> {
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SickNotesPage(
+                            builder: (context) => const SickNotesPage(
                               is_add_btn: false,
                             ))),
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.onsurfacevarient, width: 1))),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MainHeadingText(
@@ -340,13 +330,13 @@ class _MyECareState extends State<MyECare> {
                           doc_name: 'My Prescriptions & Notes',
                         ))),
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.onsurfacevarient, width: 1))),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MainHeadingText(
@@ -365,15 +355,15 @@ class _MyECareState extends State<MyECare> {
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ContactUsPage())),
+                            builder: (context) => const ContactUsPage())),
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.onsurfacevarient, width: 1))),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MainHeadingText(
@@ -393,10 +383,10 @@ class _MyECareState extends State<MyECare> {
                           context: context,
                           builder: (context1) {
                             return AlertDialog(
-                              title: Text(
+                              title: const Text(
                                 'Logout',
                               ),
-                              content: Text('Are you sure, want to logout?'),
+                              content: const Text('Are you sure, want to logout?'),
                               actions: [
                                 TextButton(
                                     onPressed: () async {
@@ -405,27 +395,27 @@ class _MyECareState extends State<MyECare> {
                                       Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  Welcome_Page()),
+                                                  const Welcome_Page()),
                                           (Route<dynamic> route) => false);
                                     },
-                                    child: Text('logout')),
+                                    child: const Text('logout')),
                                 TextButton(
                                     onPressed: () async {
                                       Navigator.pop(context1);
                                     },
-                                    child: Text('cancel')),
+                                    child: const Text('cancel')),
                               ],
                             );
                           });
                     },
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.onsurfacevarient, width: 1))),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MainHeadingText(

@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+ import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 class CustomNavigation{
   static Future push({required  BuildContext context, required Widget screen,})async{

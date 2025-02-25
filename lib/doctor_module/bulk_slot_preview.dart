@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member, use_build_context_synchronously, deprecated_member_use, avoid_print
+
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/global_keys.dart';
 import 'package:ecare/constants/navigation.dart';
@@ -99,7 +101,7 @@ class _BulkSlotPreviewState extends State<BulkSlotPreview> {
                         color: MyColors.lightBlue.withOpacity(0.11),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      padding: EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Row(
                         children: [
                           Expanded(
@@ -140,7 +142,7 @@ class _BulkSlotPreviewState extends State<BulkSlotPreview> {
                               //     slots[i]['id']
                               //         .toString()),
                             },
-                            icon: Icon(Icons.restore_from_trash_rounded),
+                            icon: const Icon(Icons.restore_from_trash_rounded),
                             color: Colors.red,
                           )
                         ],

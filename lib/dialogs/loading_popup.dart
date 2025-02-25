@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, avoid_print
+
 import 'package:ecare/constants/global_keys.dart';
 import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
@@ -8,7 +10,7 @@ Future showLoadingPopup()async{
   print('Theeeeeee show dialog is');
   return showDialog(context: MyGlobalKeys.navigatorKey.currentContext!, builder: (context){
     return Dialog(
-      insetPadding: EdgeInsets.symmetric(horizontal: 16),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 16),
       backgroundColor: Colors.transparent,
       // backgroundColor: Color(0xFFffffff),
       child: WillPopScope(
@@ -21,7 +23,7 @@ Future showLoadingPopup()async{
             borderRadius: BorderRadius.circular(20),
             color: Colors.white,
           ),
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           height: 520,
           child: Column(
             children: [
@@ -29,7 +31,7 @@ Future showLoadingPopup()async{
               Container(
                 height: 200,
                 width: 200,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
 
                   image:DecorationImage(
                     image:  AssetImage(
@@ -41,7 +43,7 @@ Future showLoadingPopup()async{
               ),
               // Image.asset(MyImages.sessionExpire, height: 200,width: 200,),
               vSizedBox2,
-              ParagraphText(text: 'Your payment is currently being processed. Once we receive confirmation from your bank, it will be automatically reflected as confirmed in the "Confirmed" tab of your "My Consultation" section. Please note that this process may take up to 30 minutes. If the payment status does not update within that time, kindly click on the "Payment processing" button to refresh the status of your payment.', textAlign: TextAlign.center,)
+              const ParagraphText(text: 'Your payment is currently being processed. Once we receive confirmation from your bank, it will be automatically reflected as confirmed in the "Confirmed" tab of your "My Consultation" section. Please note that this process may take up to 30 minutes. If the payment status does not update within that time, kindly click on the "Payment processing" button to refresh the status of your payment.', textAlign: TextAlign.center,)
               // ParagraphText(text: 'Please wait while we are processing your payment. Do not close app till the payment response is fetched', textAlign: TextAlign.center,)
             ],
           ),

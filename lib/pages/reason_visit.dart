@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/pages/long_felt_way.dart';
@@ -5,6 +7,7 @@ import 'package:ecare/pages/other_reason_visit.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
+// ignore: unused_import
 import 'package:ecare/widgets/customtextfield.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +30,7 @@ class _ReasonPageState extends State<ReasonPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     print('working-----${widget.cate}');
     get_subcate();
@@ -61,9 +64,9 @@ class _ReasonPageState extends State<ReasonPage> {
       backgroundColor: MyColors.BgColor,
       appBar: appBar(context: context),
       body: load
-          ? CustomLoader()
+          ? const CustomLoader()
           : SingleChildScrollView(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -106,7 +109,7 @@ class _ReasonPageState extends State<ReasonPage> {
                                   builder: (context) => ReasonVisit(
                                         cate: widget.cate,
                                       ))),
-                          child: ParagraphText(
+                          child: const ParagraphText(
                               text: 'Other Reason',
                               fontSize: 16,
                               color: MyColors.primaryColor)),
@@ -135,7 +138,7 @@ class _ReasonPageState extends State<ReasonPage> {
                         ),
                       ),
                   if (lists.length == 0)
-                    Center(
+                    const Center(
                       child: Text('No Data Found.'),
                     )
                   // vSizedBox,

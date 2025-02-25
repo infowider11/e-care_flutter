@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
-import '../constants/constans.dart';
 import 'CustomTexts.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -96,7 +95,7 @@ class CustomTextField extends StatelessWidget {
           clipBehavior: Clip.none,
           children: [
             if(showlabel)
-              SizedBox(height: 7),
+              const SizedBox(height: 7),
             Container(
               height: height,
               margin: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
@@ -181,9 +180,9 @@ class CustomTextField extends StatelessWidget {
                 top: -10,
                 left: 14,
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 1, horizontal: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 10),
                   decoration: BoxDecoration(
-                    color: Color(0xFFCAE6FF),
+                    color: const Color(0xFFCAE6FF),
                     borderRadius: BorderRadius.circular(10)
                   ),
                   child: ParagraphText(
@@ -280,7 +279,7 @@ class CustomTextFieldmaxlines extends StatelessWidget {
           clipBehavior: Clip.none,
           children: [
             if(showlabel)
-              SizedBox(height: 7),
+              const SizedBox(height: 7),
             Container(
               height: height,
               margin: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
@@ -360,9 +359,9 @@ class CustomTextFieldmaxlines extends StatelessWidget {
                 top: -10,
                 left: 14,
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 1, horizontal: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 10),
                   decoration: BoxDecoration(
-                      color: Color(0xFFCAE6FF),
+                      color: const Color(0xFFCAE6FF),
                       borderRadius: BorderRadius.circular(10)
                   ),
                   child: ParagraphText(
@@ -430,7 +429,7 @@ class CustomTextFieldwithoutshadow extends StatelessWidget {
         Container(
           // height: 45,
           width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.only(top: 1, left: 5,right: 5),
+          margin: const EdgeInsets.only(top: 1, left: 5,right: 5),
           decoration: BoxDecoration(
               // color: MyColors.whiteColor,
               borderRadius: BorderRadius.circular(borderradius)
@@ -476,7 +475,7 @@ class CustomTextFieldwithoutshadow extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 12.0,bottom: 12.0),
                 child: Container(
                   decoration: BoxDecoration(
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                             color: Color(0xFF97989A),
                             offset: Offset(0,4.0),
@@ -553,7 +552,7 @@ class CustomTextFieldapply extends StatelessWidget {
             border: Border.all(color: MyColors.primaryColor),
             // border: Border,
             borderRadius: BorderRadius.circular(30)),
-        padding: EdgeInsets.only(left: 10),
+        padding: const EdgeInsets.only(left: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -568,7 +567,7 @@ class CustomTextFieldapply extends StatelessWidget {
                 textAlign: textAlign,
                 decoration: InputDecoration(
                   hintText: hintText,
-                  hintStyle: TextStyle(fontSize: 16),
+                  hintStyle: const TextStyle(fontSize: 16),
                   border: InputBorder.none,
                   prefixIcon:prefixIcon==null?null:
                   Padding(
@@ -584,7 +583,7 @@ class CustomTextFieldapply extends StatelessWidget {
               ),
             ),
             TextButton(onPressed: (){},
-                child: Text('apply',
+                child: const Text('apply',
                   style: TextStyle(
                       color: Colors.red,
                       fontSize: 15
@@ -633,7 +632,7 @@ class CustomTextFields extends StatelessWidget {
           border: Border.all(color: MyColors.primaryColor),
           // border: Border,
           borderRadius: BorderRadius.circular(30)),
-      padding: EdgeInsets.only(left: 10),
+      padding: const EdgeInsets.only(left: 10),
       child: TextField(
         maxLines: maxLines ?? 1,
         controller: controller,
@@ -641,7 +640,7 @@ class CustomTextFields extends StatelessWidget {
         // textAlign: TextAlign.center,
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(fontSize: 13),
+          hintStyle: const TextStyle(fontSize: 13),
           border: InputBorder.none,
           prefixIcon: Padding(
             padding: const EdgeInsets.all(11.0),
@@ -672,7 +671,7 @@ class CustomTextFieldEditProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 12),
+      margin: const EdgeInsets.symmetric(vertical: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -680,7 +679,7 @@ class CustomTextFieldEditProfile extends StatelessWidget {
           TextField(
             controller: controller,
             decoration: InputDecoration(hintText: hintText,
-                hintStyle: TextStyle(
+                hintStyle: const TextStyle(
                     color: Colors.black,
                     fontSize: 20
                 )

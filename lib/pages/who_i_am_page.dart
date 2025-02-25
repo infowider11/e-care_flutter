@@ -1,32 +1,25 @@
+// ignore_for_file: non_constant_identifier_names, avoid_print
+
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
 import 'package:ecare/pages/privacy_policy.dart';
 import 'package:ecare/pages/select_type_page.dart';
 import 'package:ecare/pages/terms_cond_page.dart';
 import 'package:ecare/services/api_urls.dart';
-import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/webservices.dart';
-import 'package:ecare/tabs.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
 import 'package:ecare/widgets/showSnackbar.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
-import '../doctor_module/pending_verification.dart';
-import '../functions/global_Var.dart';
-import '../services/firebase_push_notifications.dart';
 import '../services/validation.dart';
-import 'create-profile.dart';
 
 class Whoiam_Page extends StatefulWidget {
   final Map pre_data;
@@ -55,7 +48,7 @@ class _Whoiam_PageState extends State<Whoiam_Page> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     print('google login data---- ${widget.googleSignin_data?['email']}');
     if (widget.googleSignin_data != null) {
@@ -126,18 +119,18 @@ class _Whoiam_PageState extends State<Whoiam_Page> {
         body: SingleChildScrollView(
           child: Container(
             // height: MediaQuery.of(context).size.height - 100,
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 vSizedBox,
-                MainHeadingText(
+                const MainHeadingText(
                   text: 'Who am I ?',
                   fontSize: 32,
                   fontFamily: 'light',
                   color: MyColors.primaryColor,
                 ),
-                ParagraphText(
+                const ParagraphText(
                   text: 'Tell us some basic info',
                   fontSize: 16,
                   color: MyColors.paragraphcolor,
@@ -185,7 +178,7 @@ class _Whoiam_PageState extends State<Whoiam_Page> {
                         setState(() {});
                         // print('country-----$country');
                       },
-                      dropdownIcon: Icon(
+                      dropdownIcon: const Icon(
                         Icons.phone,
                         color: Colors.transparent,
                       ),
@@ -194,15 +187,15 @@ class _Whoiam_PageState extends State<Whoiam_Page> {
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           border: OutlineInputBorder(
                               borderSide:
-                                  BorderSide(color: MyColors.bordercolor),
+                                  const BorderSide(color: MyColors.bordercolor),
                               borderRadius: BorderRadius.circular(15)),
                           focusedBorder: OutlineInputBorder(
                               borderSide:
-                                  BorderSide(color: MyColors.bordercolor),
+                                  const BorderSide(color: MyColors.bordercolor),
                               borderRadius: BorderRadius.circular(15)),
                           enabledBorder: OutlineInputBorder(
                               borderSide:
-                                  BorderSide(color: MyColors.bordercolor),
+                                  const BorderSide(color: MyColors.bordercolor),
                               borderRadius: BorderRadius.circular(15))),
                       initialCountryCode: 'ZA', // SOUTH AFRICA
                     ),
@@ -211,11 +204,11 @@ class _Whoiam_PageState extends State<Whoiam_Page> {
                       top: -10,
                       child: Container(
                         padding:
-                            EdgeInsets.symmetric(vertical: 1, horizontal: 10),
+                            const EdgeInsets.symmetric(vertical: 1, horizontal: 10),
                         decoration: BoxDecoration(
-                            color: Color(0xFFCAE6FF),
+                            color: const Color(0xFFCAE6FF),
                             borderRadius: BorderRadius.circular(10)),
-                        child: ParagraphText(
+                        child: const ParagraphText(
                           text: "Phone Number",
                           fontSize: 12,
                           color: MyColors.paragraphcolor,
@@ -226,7 +219,7 @@ class _Whoiam_PageState extends State<Whoiam_Page> {
                   ],
                 ),
                 vSizedBox,
-                MainHeadingText(
+                const MainHeadingText(
                   text: 'Select Gender',
                   fontFamily: 'regular',
                   fontSize: 16,
@@ -241,7 +234,7 @@ class _Whoiam_PageState extends State<Whoiam_Page> {
                         setState(() {});
                       },
                       child: Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               vertical: 8, horizontal: 16),
                           decoration: BoxDecoration(
                               color: (gender == 'male')
@@ -266,7 +259,7 @@ class _Whoiam_PageState extends State<Whoiam_Page> {
                         setState(() {});
                       },
                       child: Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               vertical: 8, horizontal: 16),
                           decoration: BoxDecoration(
                               color: (gender == 'female')
@@ -311,30 +304,30 @@ class _Whoiam_PageState extends State<Whoiam_Page> {
                             flex: 11,
                             child: RichText(
                                 text: TextSpan(
-                                    style: TextStyle(color: Colors.black),
+                                    style: const TextStyle(color: Colors.black),
                                     children: [
-                                      TextSpan(text: "I agree to E-Care "),
+                                      const TextSpan(text: "I agree to E-Care "),
                                       // GestureDetector(
                                       //   onTap: (){},
                                       //   child: ,
                                       // )
                                       TextSpan(
                                           text: "Terms & Conditions ",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: MyColors.primaryColor),
                                           recognizer: new TapGestureRecognizer()
                                             ..onTap = () => push(
                                                 context: context,
-                                                screen: TermsCondPage(userType: '2',))),
-                                      TextSpan(text: "and"),
+                                                screen: const TermsCondPage(userType: '2',))),
+                                      const TextSpan(text: "and"),
                                       TextSpan(
                                           text: " Privacy Policy",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: MyColors.primaryColor),
                                           recognizer: new TapGestureRecognizer()
                                             ..onTap = () => push(
                                                 context: context,
-                                                screen: PrivacyPolicy())),
+                                                screen: const PrivacyPolicy())),
                                     ])
                               // text: 'I agree to E-Care Terms & Conditions and Privacy Policy? ',
                             ),
@@ -361,7 +354,7 @@ class _Whoiam_PageState extends State<Whoiam_Page> {
                           Expanded(
                             flex: 11,
                             child: RichText(
-                                text: TextSpan(
+                                text: const TextSpan(
                                     style: TextStyle(color: Colors.black),
                                     children: [
                                       TextSpan(
@@ -403,7 +396,7 @@ class _Whoiam_PageState extends State<Whoiam_Page> {
       showSnackbar( res['message'],seconds: 60);
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) {
-        return Select_Type_Page();
+        return const Select_Type_Page();
       }), (route) {
         return false;
       });

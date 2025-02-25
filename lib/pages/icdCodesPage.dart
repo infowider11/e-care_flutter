@@ -1,38 +1,22 @@
-import 'dart:io';
+
+// ignore_for_file: unused_local_variable
+// ignore_for_file: must_be_immutable, non_constant_identifier_names
 
 // import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
-import 'package:ecare/functions/download_file.dart';
 import 'package:ecare/pages/add_icd_notes.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/question_2_allergies.dart';
-import 'package:ecare/pages/question_2_medication.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/webservices.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
-import 'package:ecare/widgets/appbar.dart';
-import 'package:ecare/widgets/buttons.dart';
-import 'package:ecare/widgets/customtextfield.dart';
 import 'package:ecare/widgets/list_ui_1.dart';
 import 'package:ecare/widgets/loader.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:http/http.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../constants/api_variable_keys.dart';
 import '../widgets/custom_confirmation_dialog.dart';
-import '../widgets/showSnackbar.dart';
-import 'bookingDetail.dart';
 
 class IcdCodesPage extends StatefulWidget {
   String? doc_name;
@@ -98,7 +82,7 @@ class IcdCodesPageState extends State<IcdCodesPage>
         backgroundColor: MyColors.scaffold,
         appBar: AppBar(
           centerTitle: true,
-          title: MainHeadingText(
+          title: const MainHeadingText(
             text: 'Statement with ICD-10 Notes',
             fontSize: 17,
             fontFamily: 'light',
@@ -120,21 +104,21 @@ class IcdCodesPageState extends State<IcdCodesPage>
           // ),
         ),
         body: load
-            ? CustomLoader()
+            ? const CustomLoader()
             : Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 vSizedBox2,
-                MainHeadingText(
+                const MainHeadingText(
                   text: 'Statements with ICD-10 codes',
                   fontSize: 32,
                   fontFamily: 'light',
                 ),
                 vSizedBox2,
-                ParagraphText(
+                const ParagraphText(
                     fontSize: 16,
                     text:
                     'Download statements with ICD-10 codes here'),
@@ -182,7 +166,7 @@ class IcdCodesPageState extends State<IcdCodesPage>
                       },
                       image: 'assets/images/file.png'),
                 if (icdNotes.length == 0)
-                  Center(
+                  const Center(
                     child: Text('No data found.'),
                   )
               ],

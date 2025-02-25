@@ -1,8 +1,7 @@
-import 'package:ecare/doctor_module/changePassword.dart';
-import 'package:ecare/doctor_module/loginpage.dart';
-import 'package:ecare/doctor_module/payment_method.dart';
+// ignore_for_file: deprecated_member_use, avoid_print
+
+import 'package:ecare/doctor_module/change_password.dart';
 import 'package:ecare/pages/contact_us.dart';
-import 'package:ecare/pages/loginpage.dart';
 import 'package:ecare/pages/privacy_policy.dart';
 import 'package:ecare/pages/terms_cond_page.dart';
 import 'package:ecare/widgets/custom_circular_image.dart';
@@ -28,7 +27,7 @@ class _DoctorSettingPageState extends State<DoctorSettingPage> {
   Map userData = {};
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     getDetail();
   }
@@ -45,8 +44,8 @@ class _DoctorSettingPageState extends State<DoctorSettingPage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        backgroundColor: Color(0xFE00A2EA).withOpacity(0.1),
-        title: Row(
+        backgroundColor: const Color(0xFE00A2EA).withOpacity(0.1),
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             MainHeadingText(
@@ -56,8 +55,8 @@ class _DoctorSettingPageState extends State<DoctorSettingPage> {
         actions: <Widget>[
           GestureDetector(
             // onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SettingPage())),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
               child: Icon(
                 Icons.notifications,
                 size: 24,
@@ -68,7 +67,7 @@ class _DoctorSettingPageState extends State<DoctorSettingPage> {
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
               'assets/images/patter.png',
@@ -78,7 +77,7 @@ class _DoctorSettingPageState extends State<DoctorSettingPage> {
           ),
         ),
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -99,7 +98,7 @@ class _DoctorSettingPageState extends State<DoctorSettingPage> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      MainHeadingText(
+                      const MainHeadingText(
                         text: 'Hello,',
                         fontFamily: 'light',
                         color: MyColors.onsurfacevarient,
@@ -118,14 +117,14 @@ class _DoctorSettingPageState extends State<DoctorSettingPage> {
               vSizedBox4,
 
               Container(
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                    color: Color(0xFED3E5F5),
+                    color: const Color(0xFED3E5F5),
                     borderRadius: BorderRadius.circular(100)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ParagraphText(
+                    const ParagraphText(
                         text: 'My Profile',
                         fontFamily: 'bold',
                         color: MyColors.black),
@@ -134,10 +133,10 @@ class _DoctorSettingPageState extends State<DoctorSettingPage> {
                           await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => DoctorProfileEdit()));
+                                  builder: (context) => const DoctorProfileEdit()));
                           getDetail();
                         },
-                        child: ParagraphText(
+                        child: const ParagraphText(
                           text: 'Edit Profile',
                           color: MyColors.primaryColor,
                           fontFamily: 'semibold',
@@ -150,33 +149,33 @@ class _DoctorSettingPageState extends State<DoctorSettingPage> {
                   func: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => AddBankAccountPage()))),
+                          builder: (context) => const AddBankAccountPage()))),
 
               SettingList(
                   heading: 'Change Password',
                   func: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ChangePasswordPage()))),
+                          builder: (context) => const ChangePasswordPage()))),
 
               SettingList(
                   heading: 'Terms & Conditions',
                   func: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => TermsCondPage()))),
+                          builder: (context) => const TermsCondPage()))),
               SettingList(
                   heading: 'Privacy & Policy',
                   func: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => PrivacyPolicy()))),
+                          builder: (context) => const PrivacyPolicy()))),
               SettingList(
                   heading: 'Contact Us',
                   func: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ContactUsPage()))),
+                          builder: (context) => const ContactUsPage()))),
               SettingList(
                   heading: 'Sign Out',
                   func: () async {
@@ -184,10 +183,10 @@ class _DoctorSettingPageState extends State<DoctorSettingPage> {
                         context: context,
                         builder: (context1) {
                           return AlertDialog(
-                            title: Text(
+                            title: const Text(
                               'Logout',
                             ),
-                            content: Text('Are you sure, want to logout?'),
+                            content: const Text('Are you sure, want to logout?'),
                             actions: [
                                 TextButton(
                                   onPressed: () async {
@@ -197,15 +196,15 @@ class _DoctorSettingPageState extends State<DoctorSettingPage> {
                                     Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                Welcome_Page()),
+                                                const Welcome_Page()),
                                         (Route<dynamic> route) => false);
                                   },
-                                  child: Text('logout')),
+                                  child: const Text('logout')),
                               TextButton(
                                   onPressed: () async {
                                     Navigator.pop(context1);
                                   },
-                                  child: Text('cancel')),
+                                  child: const Text('cancel')),
                             ],
                           );
                         });

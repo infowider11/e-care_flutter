@@ -1,19 +1,17 @@
+// ignore_for_file: unnecessary_null_comparison, deprecated_member_use, avoid_print
+
 import 'package:badges/badges.dart' as badges;
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/functions/global_Var.dart';
 import 'package:ecare/functions/navigation_functions.dart';
 import 'package:ecare/pages/how_it_works.dart';
-import 'package:ecare/pages/setting.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
-import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/custom_circular_image.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:video_player/video_player.dart';
 
 import '../constants/image_urls.dart';
 import '../constants/sized_box.dart';
@@ -30,14 +28,13 @@ class DoctorHowItWorks extends StatefulWidget {
 }
 
 class _DoctorHowItWorksState extends State<DoctorHowItWorks> {
-  late VideoPlayerController _controller;
   Map userData={};
   Map video_data={};
   bool load=false;
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     getDetail();
     get_videos();
@@ -47,7 +44,7 @@ class _DoctorHowItWorksState extends State<DoctorHowItWorks> {
     setState(() {
       load=true;
     });
-    var res = await Webservices.get('${ApiUrls.homevideo+'1'}');
+    var res = await Webservices.get('${ApiUrls.homevideo}1');
     setState(() {
       load=false;
     });
@@ -86,7 +83,7 @@ class _DoctorHowItWorksState extends State<DoctorHowItWorks> {
       backgroundColor: MyColors.BgColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xFE00A2EA).withOpacity(0.1),
+        backgroundColor: const Color(0xFE00A2EA).withOpacity(0.1),
         title:userData!=null? Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(200),
@@ -111,7 +108,7 @@ class _DoctorHowItWorksState extends State<DoctorHowItWorks> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       MainHeadingText(text: '${user_Data!['first_name']} ${user_Data!['last_name']}', fontFamily: 'light', fontSize: 15,),
-                      MainHeadingText(text: 'Welcome Back!', fontFamily: 'light', color: MyColors.primaryColor, fontSize: 12,),
+                      const MainHeadingText(text: 'Welcome Back!', fontFamily: 'light', color: MyColors.primaryColor, fontSize: 12,),
                     ],
                   ),
                 )
@@ -123,31 +120,31 @@ class _DoctorHowItWorksState extends State<DoctorHowItWorks> {
           badges.Badge(
             position: badges.BadgePosition.topEnd(top: 0, end: 2),
             showBadge: unread_noti_count!=0?true:false,
-            badgeContent: Text('${unread_noti_count}',style: TextStyle(color: Colors.white),),
+            badgeContent: Text('${unread_noti_count}',style: const TextStyle(color: Colors.white),),
             child: IconButton(
-              icon: Icon(Icons.chat),
+              icon: const Icon(Icons.chat),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => MessagePage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const MessagePage()));
               },
             ),
           ),
           badges.Badge(
             position: badges.BadgePosition.topEnd(top:0,end:2),
             showBadge: unread_noti_count!=0?true:false,
-            badgeContent: Text('${unread_noti_count}',style: TextStyle(color: Colors.white),),
+            badgeContent: Text('${unread_noti_count}',style: const TextStyle(color: Colors.white),),
             child: IconButton(
-              icon: Icon(Icons.notifications),
+              icon: const Icon(Icons.notifications),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => DoctorNotificationPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const DoctorNotificationPage()));
               },
             ),
           ),
         ],
       ),
-      body: load?CustomLoader():Container(
+      body: load?const CustomLoader():Container(
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.all(16),
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/patter.png', ),
             alignment: Alignment.topCenter,
@@ -158,7 +155,7 @@ class _DoctorHowItWorksState extends State<DoctorHowItWorks> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             vSizedBox2,
-            MainHeadingText(text: 'How it works - Health Provider guide', fontSize: 30, fontFamily: 'semibold',),
+            const MainHeadingText(text: 'How it works - Health Provider guide', fontSize: 30, fontFamily: 'semibold',),
             vSizedBox2,
             Stack(
               alignment: Alignment.center,
@@ -188,8 +185,8 @@ class _DoctorHowItWorksState extends State<DoctorHowItWorks> {
                       ]
                     ),
                     child: GestureDetector(
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HowItWorks())),
-                      child: RoundEdgedButton(text: 'How it works', horizontalPadding: 10, isIcon: true, iconName: Icons.chevron_right_rounded, width: 140, borderRadius: 100, color: Colors.white, textColor: MyColors.onsurfacevarient, )
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const HowItWorks())),
+                      child: const RoundEdgedButton(text: 'How it works', horizontalPadding: 10, isIcon: true, iconName: Icons.chevron_right_rounded, width: 140, borderRadius: 100, color: Colors.white, textColor: MyColors.onsurfacevarient, )
                     )
                   )
                 ),

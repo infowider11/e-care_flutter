@@ -1,27 +1,20 @@
+// ignore_for_file: unused_local_variable, avoid_print
+
 import 'dart:io';
 
 // import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/functions/global_Var.dart';
 import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/question_2_allergies.dart';
-import 'package:ecare/pages/question_2_medication.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
-import 'package:ecare/widgets/customtextfield.dart';
 import 'package:ecare/widgets/list_ui_1.dart';
 import 'package:ecare/widgets/loader.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart';
-import 'package:intl/intl.dart';
 
 import '../constants/api_variable_keys.dart';
 import '../functions/get_folder_directory.dart';
@@ -31,7 +24,6 @@ import '../services/webservices.dart';
 import '../widgets/custom_confirmation_dialog.dart';
 import '../widgets/showSnackbar.dart';
 import 'addsick.dart';
-import 'bookingDetail.dart';
 
 class SickNotesPage extends StatefulWidget {
   final bool? is_add_btn;
@@ -50,7 +42,7 @@ class SickNotesPageState extends State<SickNotesPage>
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     get_lists();
     super.initState();
   }
@@ -82,22 +74,22 @@ class SickNotesPageState extends State<SickNotesPage>
     return Scaffold(
       backgroundColor: MyColors.scaffold,
       appBar: appBar(context: context),
-      body: load?CustomLoader():Stack(
+      body: load?const CustomLoader():Stack(
         children: [
           SingleChildScrollView(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 vSizedBox2,
-                MainHeadingText(
+                const MainHeadingText(
                   text: 'Sick Note ',
                   fontSize: 32,
                   fontFamily: 'light',
                 ),
                 vSizedBox2,
                 if(user_Data!['type'].toString()=='2')
-                ParagraphText(
+                const ParagraphText(
                     fontSize: 16,
                     text:
                         'Download documents from your Healthcare Practitioner here'),
@@ -223,7 +215,7 @@ class SickNotesPageState extends State<SickNotesPage>
                 // ),
 
                 if(sickNoteList.length==0)
-                  Center(
+                  const Center(
                     heightFactor: 1.0,
                     child: Text('No data found.'),
                   ),
@@ -241,7 +233,7 @@ class SickNotesPageState extends State<SickNotesPage>
                 fontSize: 16,
                 horizontalPadding: 10,
                 onTap: () async {
-                  await push(context: context, screen: Add_sicknote());
+                  await push(context: context, screen: const Add_sicknote());
                   get_lists();
                 },
               ),
@@ -287,11 +279,11 @@ class SickNotesPageState extends State<SickNotesPage>
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Remove'),
+            title: const Text('Remove'),
             content: const Text('Are you sure?'),
             actions: [
               TextButton(
-                child: Text('Yes'),
+                child: const Text('Yes'),
                 onPressed: () async {
                   Map<String, dynamic> data = {
                     'user_id':
@@ -313,7 +305,7 @@ class SickNotesPageState extends State<SickNotesPage>
                 },
               ),
               TextButton(
-                child: Text('No'),
+                child: const Text('No'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/doctor_module/hpcsa-form.dart';
 import 'package:ecare/doctor_module/my_wallet.dart';
@@ -6,7 +8,6 @@ import 'package:ecare/functions/navigation_functions.dart';
 import 'package:ecare/pages/consultation_notes.dart';
 import 'package:ecare/pages/contact_us.dart';
 import 'package:ecare/pages/messages.dart';
-import 'package:ecare/pages/payment_method.dart';
 import 'package:ecare/pages/prescriptions_doctor.dart';
 import 'package:ecare/pages/privacy_policy.dart';
 import 'package:ecare/pages/referral_letter.dart';
@@ -22,10 +23,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../constants/sized_box.dart';
 import '../functions/global_Var.dart';
 import '../pages/add_bank_account_page.dart';
-import '../pages/add_icd_notes.dart';
-import '../pages/add_referral.dart';
-import '../pages/addsick.dart';
-import '../pages/habit.dart';
 import '../pages/icdCodesPage.dart';
 import '../services/auth.dart';
 import '../welcome.dart';
@@ -44,7 +41,7 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
   Map userData = {}..addAll(user_Data!);
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     getDetail();
   }
@@ -96,7 +93,7 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                       fontFamily: 'light',
                       fontSize: 15,
                     ),
-                    MainHeadingText(
+                    const MainHeadingText(
                       text: 'Welcome Back!',
                       fontFamily: 'light',
                       color: MyColors.primaryColor,
@@ -112,11 +109,11 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
               await Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => DoctorNotificationPage()));
+                      builder: (context) => const DoctorNotificationPage()));
               getDetail();
             },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
               child: Icon(
                 Icons.notifications,
                 size: 24,
@@ -128,12 +125,12 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               vSizedBox2,
-              MainHeadingText(
+              const MainHeadingText(
                 text: 'My E-Care',
                 fontSize: 30,
                 fontFamily: 'light',
@@ -145,18 +142,18 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                       await Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => DoctorSettingPage()));
+                              builder: (context) => const DoctorSettingPage()));
                       getDetail();
                     },
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: const BoxDecoration(
                         border: Border(
                             bottom: BorderSide(
                                 color: MyColors.onsurfacevarient, width: 1))
                       ),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MainHeadingText(
@@ -176,17 +173,17 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                        Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => hpcsaregistration()));
+                              builder: (context) => const hpcsaregistration()));
                       // getDetail();
                     },
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.onsurfacevarient, width: 1))),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MainHeadingText(
@@ -203,15 +200,15 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
 
                   GestureDetector(
                     onTap: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyWallet())),
+                        MaterialPageRoute(builder: (context) => const MyWallet())),
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.onsurfacevarient, width: 1))),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MainHeadingText(
@@ -227,15 +224,15 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                   ),
                   GestureDetector(
                     onTap: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MessagePage())),
+                        MaterialPageRoute(builder: (context) => const MessagePage())),
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.onsurfacevarient, width: 1))),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MainHeadingText(
@@ -277,17 +274,17 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                   // ),
                   GestureDetector(
                     onTap: () {
-                      push(context: context, screen: AddBankAccountPage());
+                      push(context: context, screen: const AddBankAccountPage());
                     },
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.onsurfacevarient,
                                   width:  1))),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MainHeadingText(
@@ -308,8 +305,8 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                       });
                     },
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
@@ -320,14 +317,14 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          MainHeadingText(
+                          const MainHeadingText(
                             text: 'My Consultation Documents',
                             color: MyColors.onsurfacevarient,
                             fontSize: 17,
                             fontFamily: 'bold',
                           ),
-                          if(issubmenu)Icon(Icons.expand_more_outlined),
-                          if(!issubmenu)Icon(Icons.chevron_right_rounded)
+                          if(issubmenu)const Icon(Icons.expand_more_outlined),
+                          if(!issubmenu)const Icon(Icons.chevron_right_rounded)
                         ],
                       ),
                     ),
@@ -336,7 +333,7 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                   // vSizedBox05,
                   if (issubmenu)
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 6),
+                      margin: const EdgeInsets.symmetric(horizontal: 6),
                       decoration: BoxDecoration(
                           color: MyColors.white,
                           borderRadius: BorderRadius.circular(15)),
@@ -346,17 +343,17 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                             onTap: () {
                               push(
                                   context: context,
-                                  screen: Prescriptions_Doctor_Page());
+                                  screen: const Prescriptions_Doctor_Page());
                             },
                             child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              padding: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(horizontal: 10),
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 16, horizontal: 8),
                               decoration: BoxDecoration(
                                 color: MyColors.white,
                                 borderRadius: BorderRadius.circular(16),
                               ),
-                              child: Row(
+                              child: const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -375,16 +372,16 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                             onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SickNotesPage())),
+                                    builder: (context) => const SickNotesPage())),
                             child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              padding: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(horizontal: 10),
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 16, horizontal: 8),
                               decoration: BoxDecoration(
                                 color: MyColors.white,
                                 borderRadius: BorderRadius.circular(16),
                               ),
-                              child: Row(
+                              child: const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -403,17 +400,17 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                             onTap: () {
                               push(
                                   context: context,
-                                  screen: Referral_Letter_Page());
+                                  screen: const Referral_Letter_Page());
                             },
                             child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              padding: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(horizontal: 10),
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 16, horizontal: 8),
                               decoration: BoxDecoration(
                                 color: MyColors.white,
                                 borderRadius: BorderRadius.circular(16),
                               ),
-                              child: Row(
+                              child: const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -436,14 +433,14 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                                   screen: IcdCodesPage());
                             },
                             child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              padding: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(horizontal: 10),
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 16, horizontal: 8),
                               decoration: BoxDecoration(
                                 color: MyColors.white,
                                 borderRadius: BorderRadius.circular(16),
                               ),
-                              child: Row(
+                              child: const Row(
                                 mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
                                 children: [
@@ -462,17 +459,17 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                             onTap: () {
                               push(
                                   context: context,
-                                  screen: Consultation_Notes_Page());
+                                  screen: const Consultation_Notes_Page());
                             },
                             child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              padding: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(horizontal: 10),
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 16, horizontal: 8),
                               decoration: BoxDecoration(
                                 color: MyColors.white,
                                 borderRadius: BorderRadius.circular(16),
                               ),
-                              child: Row(
+                              child: const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -493,9 +490,9 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                   GestureDetector(
                     behavior: HitTestBehavior.translucent,
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.onsurfacevarient, width: 1))),
@@ -503,7 +500,7 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
+                          const Expanded(
                             flex: 9,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -552,7 +549,7 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                                                       onTap: () {
                                                         Navigator.of(context).pop();
                                                       },
-                                                      child: CircleAvatar(
+                                                      child: const CircleAvatar(
                                                         child: Icon(Icons.close),
                                                         backgroundColor: Colors.red,
                                                       ),
@@ -568,7 +565,7 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                                                           heightFactor: 0.8,
                                                           alignment: Alignment.topRight,
                                                           child: IconButton(
-                                                            icon: Icon(
+                                                            icon: const Icon(
                                                               Icons.close,
                                                               color: Colors.red,
                                                               size: 25,
@@ -578,17 +575,17 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                                                             },
                                                           ),
                                                         ),
-                                                        Center(
+                                                        const Center(
                                                           child: Text('Consultant Fee',style: TextStyle(
                                                             fontSize: 20.0,
                                                             fontWeight: FontWeight.w600,
                                                           ),),
                                                         ),
                                                         Padding(
-                                                          padding: EdgeInsets.all(8.0),
+                                                          padding: const EdgeInsets.all(8.0),
                                                           child: TextField(
                                                             keyboardType: TextInputType.number,
-                                                            decoration: InputDecoration(
+                                                            decoration: const InputDecoration(
                                                                 hintText: 'Enter Amount.'
                                                             ),
                                                             controller: amount,
@@ -600,7 +597,7 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                                                           padding: const EdgeInsets.all(8.0),
                                                           child: ElevatedButton(
                                                             // color: MyColors.primaryColor,
-                                                            child: Text("Submit",style: TextStyle(color: MyColors.primaryColor),),
+                                                            child: const Text("Submit",style: TextStyle(color: MyColors.primaryColor),),
                                                             onPressed: () async{
                                                               // Navigator.pop(context);
                                                               // return;
@@ -638,7 +635,7 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                                           }),
                                     },
                                   behavior: HitTestBehavior.translucent,
-                                  child:Icon(Icons.edit,color: MyColors.primaryColor,size: 22.0,),
+                                  child:const Icon(Icons.edit,color: MyColors.primaryColor,size: 22.0,),
                                 ),
                               ],
                             ),
@@ -653,15 +650,15 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DoctorNotificationPage())),
+                            builder: (context) => const DoctorNotificationPage())),
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.onsurfacevarient, width: 1))),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MainHeadingText(
@@ -679,15 +676,15 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => PrivacyPolicy())),
+                            builder: (context) => const PrivacyPolicy())),
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.onsurfacevarient, width: 1))),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MainHeadingText(
@@ -705,15 +702,15 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => TermsCondPage())),
+                            builder: (context) => const TermsCondPage())),
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.onsurfacevarient, width: 1))),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MainHeadingText(
@@ -731,15 +728,15 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ContactUsPage())),
+                            builder: (context) => const ContactUsPage())),
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.onsurfacevarient, width: 1))),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MainHeadingText(
@@ -759,10 +756,10 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                           context: context,
                           builder: (context1) {
                             return AlertDialog(
-                              title: Text(
+                              title: const Text(
                                 'Logout',
                               ),
-                              content: Text('Are you sure, want to logout?'),
+                              content: const Text('Are you sure, want to logout?'),
                               actions: [
                                 TextButton(
                                     onPressed: () async {
@@ -772,27 +769,27 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                                       Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  Welcome_Page()),
+                                                  const Welcome_Page()),
                                           (Route<dynamic> route) => false);
                                     },
-                                    child: Text('logout')),
+                                    child: const Text('logout')),
                                 TextButton(
                                     onPressed: () async {
                                       Navigator.pop(context1);
                                     },
-                                    child: Text('cancel')),
+                                    child: const Text('cancel')),
                               ],
                             );
                           }),
                     },
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.onsurfacevarient, width: 1))),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MainHeadingText(

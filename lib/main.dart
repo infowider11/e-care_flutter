@@ -1,44 +1,22 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:developer';
+// ignore_for_file: deprecated_member_use, unnecessary_brace_in_string_interps, avoid_print
+
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 
-import 'package:ecare/pages/booked_visit.dart';
-import 'package:ecare/pages/filter.dart';
-import 'package:ecare/pages/get_care.dart';
-import 'package:ecare/pages/invite-freinds.dart';
-import 'package:ecare/pages/myecare.dart';
-import 'package:ecare/pages/other_reason_visit.dart';
-import 'package:ecare/pages/reason_visit.dart';
-import 'package:ecare/pages/refund.dart';
-import 'package:ecare/services/firebase_push_notifications.dart';
-import 'package:ecare/services/log_services.dart';
 import 'package:ecare/services/onesignal.dart';
 import 'package:ecare/splash.dart';
-import 'package:ecare/tabs.dart';
-import 'package:ecare/tabs_doctor.dart';
 import 'package:firebase_core/firebase_core.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 // import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-import 'constants/constans.dart';
 import 'constants/global_keys.dart';
-import 'constants/navigation.dart';
-import 'doctor_module/add_new_card.dart';
-import 'doctor_module/appointment_request.dart';
-import 'doctor_module/money_request.dart';
-import 'doctor_module/my_wallet.dart';
 import 'package:month_year_picker/month_year_picker.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'functions/download_file.dart';
-import 'functions/get_timezone.dart';
-import 'functions/global_Var.dart';
 import 'package:flutter/foundation.dart';
 
 import 'functions/print_function.dart';
@@ -186,7 +164,7 @@ class MyApp extends StatelessWidget {
         // primaryColor: Colors.red,
       ),
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: [
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         MonthYearPickerLocalizations.delegate,
       ],
@@ -203,7 +181,7 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
       ),
-      home: SplashScreenPage(),
+      home: const SplashScreenPage(),
       builder: EasyLoading.init(),
 
     );
@@ -298,7 +276,7 @@ class _MyHomePageState extends State<MyHomePage> {
             TextFormField(
               controller: _controller,
               maxLength: 20,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Label text',
                 labelStyle: TextStyle(
                   color: Color(0xFF6200EE),

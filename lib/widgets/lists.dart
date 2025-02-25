@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
@@ -54,7 +54,7 @@ class StaffList extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: MyColors.bordercolor)
       ),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       margin: EdgeInsets.symmetric(horizontal: horizontalpadding, vertical: 8),
       child: Row(
         children: [
@@ -66,7 +66,7 @@ class StaffList extends StatelessWidget {
                 Container(
                   height: 50 ,
                   width: 50,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     // border: Border.all(color: MyColors.border,),
                   ),
@@ -90,7 +90,7 @@ class StaffList extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: usericon==true? EdgeInsets.all(0.0) : EdgeInsets.only(left: 16),
+                        padding: usericon==true? const EdgeInsets.all(0.0) : const EdgeInsets.only(left: 16),
                         child: ParagraphText(text: text,
                           fontSize: 16,
                           fontFamily: 'semibold',
@@ -99,7 +99,7 @@ class StaffList extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: usericon==true? EdgeInsets.all(0.0) : EdgeInsets.only(left: 16),
+                        padding: usericon==true? const EdgeInsets.all(0.0) : const EdgeInsets.only(left: 16),
                         child: ParagraphText(text: subtext,fontSize: fontSize,
                           fontFamily: fontFamily, color: color,),
                       )
@@ -113,10 +113,10 @@ class StaffList extends StatelessWidget {
           Flexible(
             flex: 1,
               child:PopupMenuButton(
-                icon: Icon(Icons.more_vert, color: Colors.black,),
+                icon: const Icon(Icons.more_vert, color: Colors.black,),
                 elevation: 0,
-                offset: Offset(-30, 0),
-                padding: EdgeInsets.all(0),
+                offset: const Offset(-30, 0),
+                padding: const EdgeInsets.all(0),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                 itemBuilder: (BuildContext context) => <PopupMenuEntry>[
                   const PopupMenuItem(
@@ -145,7 +145,7 @@ class StaffList extends StatelessWidget {
               },
               child: Container(
                   color: MyColors.backcolor,
-                    child: Icon(
+                    child: const Icon(
                         Icons.more_vert, color: Colors.black)
                 ),
             ),
@@ -195,8 +195,8 @@ class salary_detail_list extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: MyColors.primaryColor)
       ),
-      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 16),
-      margin: EdgeInsets.symmetric(horizontal: 0, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 16),
+      margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
       child: Row(
         children: [
 
@@ -205,7 +205,7 @@ class salary_detail_list extends StatelessWidget {
             child: Row(
               children: [
                 if(usericon)
-                  Flexible(
+                  const Flexible(
                       child: CircleAvatarcustom(
                         image: MyImages.logo,
                         bgcolor: Colors.transparent,
@@ -217,14 +217,14 @@ class salary_detail_list extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: usericon==true? EdgeInsets.all(0.0) : EdgeInsets.only(left: 16),
+                        padding: usericon==true? const EdgeInsets.all(0.0) : const EdgeInsets.only(left: 16),
                         child: ParagraphText(text: text,
                           fontSize: 16,
                           fontFamily: 'medium',
                         ),
                       ),
                       Padding(
-                        padding: usericon==true? EdgeInsets.all(0.0) : EdgeInsets.only(left: 16),
+                        padding: usericon==true? const EdgeInsets.all(0.0) : const EdgeInsets.only(left: 16),
                         child: ParagraphText(text: subtext,fontSize: 12,
                           fontFamily: 'light',),
                       )
@@ -235,14 +235,14 @@ class salary_detail_list extends StatelessWidget {
             ),
           ),
           if(popupmenu==false)
-            Flexible(
+            const Flexible(
               flex: 1,
               child:Icon(
                 Icons.keyboard_arrow_up_outlined,
               ),
             ),
           if(popupmenu==true)
-            Flexible(
+            const Flexible(
               flex: 1,
               child:Icon(
                 Icons.keyboard_arrow_down_outlined,

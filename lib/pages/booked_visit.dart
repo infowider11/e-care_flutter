@@ -1,4 +1,5 @@
-import 'dart:convert';
+// ignore_for_file: unused_local_variable, unused_element, deprecated_member_use, avoid_print
+
 import 'dart:developer';
 
 import 'package:ecare/constants/colors.dart';
@@ -27,17 +28,12 @@ import '../services/pay_stack/flutter_paystack_services.dart';
 import '../services/pay_stack/modals/FlutterPayStackInitializeTransactionResponseModal.dart';
 import '../services/pay_stack/payment_page.dart';
 import '../widgets/custom_confirmation_dialog.dart';
-import 'ErrorLogPage.dart';
 import 'bookingDetail.dart';
 import 'chat.dart';
 
 import 'dart:async';
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 // import 'package:flutter_paystack/flutter_paystack.dart';
-import 'package:http/http.dart' as http;
 
 class BookedVisit extends StatefulWidget {
   const BookedVisit({Key? key}) : super(key: key);
@@ -54,11 +50,7 @@ class _BookedVisitState extends State<BookedVisit>
 ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
   String paystackPublicKey =
       'pk_test_c9873b01e7f63337f4e6818c1bf64b9b834566a1'; // test public key
-  bool _inProgress = false;
-  String? _cardNumber;
-  String? _cvv;
-  int? _expiryMonth;
-  int? _expiryYear;
+  
   // final plugin = PaystackPlugin();
 
   bool load = false;
@@ -83,36 +75,36 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
         controller: _tabController,
         padding: const EdgeInsets.symmetric(horizontal: 0),
         labelPadding: const EdgeInsets.symmetric(horizontal: 0),
-        tabs: <Widget>[
-          const Tab(
+        tabs: const <Widget>[
+          Tab(
             child: MainHeadingText(
               text: 'Pending',
               color: MyColors.onsurfacevarient,
               fontSize: 11,
             ),
           ),
-          const Tab(
+          Tab(
             child: MainHeadingText(
               text: 'Accepted',
               color: MyColors.onsurfacevarient,
               fontSize: 11,
             ),
           ),
-          const Tab(
+          Tab(
             child: MainHeadingText(
               text: 'Confirmed',
               color: MyColors.onsurfacevarient,
               fontSize: 11,
             ),
           ),
-          const Tab(
+          Tab(
             child: MainHeadingText(
               text: 'Completed',
               color: MyColors.onsurfacevarient,
               fontSize: 11,
             ),
           ),
-          const Tab(
+          Tab(
             child: MainHeadingText(
               text: 'Rejected',
               color: MyColors.onsurfacevarient,
@@ -124,9 +116,8 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
 
   @override
   void initState() {
-    // TODO: implement initState
-    //TODO: commented to check
-    // plugin.initialize(publicKey: paystackPublicKey);
+    
+   
     super.initState();
     _tabController = TabController(length: 5, vsync: this, initialIndex: 0);
     _tabController.addListener(() {

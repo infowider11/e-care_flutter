@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 Future push({required  BuildContext context, required Widget screen,})async{
   print('presse kjhn d');

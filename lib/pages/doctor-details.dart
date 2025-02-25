@@ -1,15 +1,15 @@
+// ignore_for_file: deprecated_member_use, avoid_print
+
 import 'dart:developer';
 
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/pages/choose_schedule.dart';
-import 'package:ecare/pages/schedule_appointment.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:readmore/readmore.dart';
 
 import '../constants/sized_box.dart';
@@ -50,7 +50,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     print('doctor----data----${widget.doc_id}');
     get_doc_info();
@@ -87,15 +87,15 @@ class _DoctorDetailsState extends State<DoctorDetails> {
       backgroundColor: MyColors.BgColor,
       appBar: appBar(
         context: context,
-        appBarColor: Color(0xFE00A2EA).withOpacity(0.1),
+        appBarColor: const Color(0xFE00A2EA).withOpacity(0.1),
       ),
       body: load
-          ? CustomLoader()
+          ? const CustomLoader()
           : SingleChildScrollView(
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(16),
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(
                         'assets/images/patter.png',
@@ -140,7 +140,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     ),
                     vSizedBox4,
                     if (book_schedule.length > 0)
-                      MainHeadingText(
+                      const MainHeadingText(
                         text: 'Schedule Appointment',
                         fontFamily: 'semibold',
                         fontSize: 16,
@@ -154,14 +154,14 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                           children: [
                             for (var i = 0; i < book_schedule.length; i++)
                               Container(
-                                margin: EdgeInsets.only(right: 5),
-                                padding: EdgeInsets.symmetric(
+                                margin: const EdgeInsets.only(right: 5),
+                                padding: const EdgeInsets.symmetric(
                                     vertical: 3, horizontal: 15),
                                 decoration: BoxDecoration(
                                     border: Border.all(
                                         color: MyColors.bordercolor, width: 1),
                                     borderRadius: BorderRadius.circular(8),
-                                    color: Color(0xFE006493).withOpacity(0.12)),
+                                    color: const Color(0xFE006493).withOpacity(0.12)),
                                 child: Column(
                                   children: [
                                     MainHeadingText(
@@ -185,10 +185,10 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     vSizedBox2,
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        color: Color(0xFE00A2EA).withOpacity(0.1),
+                        color: const Color(0xFE00A2EA).withOpacity(0.1),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -209,11 +209,11 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                             trimMode: TrimMode.Line,
                             trimCollapsedText: 'Show more',
                             trimExpandedText: 'Show less',
-                            lessStyle: TextStyle(
+                            lessStyle: const TextStyle(
                                 color: MyColors.primaryColor,
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold),
-                            moreStyle: TextStyle(
+                            moreStyle: const TextStyle(
                                 color: MyColors.primaryColor,
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold),
@@ -225,7 +225,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                           // ),
                           // MainHeadingText(text: 'Read More', color: MyColors.primaryColor, fontSize: 14, fontFamily: 'semibold',),
                           vSizedBox2,
-                          MainHeadingText(
+                          const MainHeadingText(
                             text: 'Qualifications',
                             fontFamily: 'light',
                             fontSize: 16,
@@ -237,7 +237,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                             color: MyColors.headingcolor,
                           ),
                           vSizedBox2,
-                          MainHeadingText(
+                          const MainHeadingText(
                             text: 'Special Interest',
                             fontFamily: 'light',
                             fontSize: 16,
@@ -254,15 +254,15 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     vSizedBox,
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        color: Color(0xFE00A2EA).withOpacity(0.1),
+                        color: const Color(0xFE00A2EA).withOpacity(0.1),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          MainHeadingText(
+                          const MainHeadingText(
                             text: 'Languages',
                             fontFamily: 'light',
                             fontSize: 16,
@@ -301,9 +301,4 @@ class _DoctorDetailsState extends State<DoctorDetails> {
     );
   }
 
-  Future<String> change_date_formate(String date) async {
-    var dateTime = Jiffy.parseFromDateTime(DateTime.tryParse(date)??DateTime.now()).yMMMMd;
-    // var dateTime = Jiffy(date, "yyyy-mm-dd").yMMMMd;
-    return dateTime;
-  }
 }

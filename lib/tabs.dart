@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, unused_field, prefer_final_fields, non_constant_identifier_names, camel_case_types, library_private_types_in_public_api, must_be_immutable, avoid_print
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:isolate';
@@ -6,19 +8,16 @@ import 'package:ecare/pages/booked_visit.dart';
 import 'package:ecare/pages/create-profile.dart';
 import 'package:ecare/pages/get_care.dart';
 import 'package:ecare/pages/homepage.dart';
-import 'package:ecare/pages/invite-freinds.dart';
 import 'package:ecare/pages/myecare.dart';
 import 'package:ecare/pages/patient_home.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/onesignal.dart';
 import 'package:ecare/services/webservices.dart';
 import 'package:ecare/welcome.dart';
-import 'package:ecare/widgets/showSnackbar.dart';
 import 'package:flutter/material.dart';
 
 import 'Services/api_urls.dart';
 import 'constants/colors.dart';
-import 'doctor_module/invite-freinds.dart';
 import 'functions/global_Var.dart';
 
 class tabs_second_page extends StatefulWidget {
@@ -37,11 +36,11 @@ class _tabs_second_pageState extends State<tabs_second_page> {
   bool ontime_health_profile = false;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    Homepage(),
-    PatientHomePage(),
-    GetCare(),
-    BookedVisit(),
-    MyECare(),
+    const Homepage(),
+    const PatientHomePage(),
+    const GetCare(),
+    const BookedVisit(),
+    const MyECare(),
     // DoctorInvitePage()
   ];
 
@@ -53,7 +52,7 @@ class _tabs_second_pageState extends State<tabs_second_page> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     setNotificationHandler(context);
     super.initState();
     interval();
@@ -84,7 +83,7 @@ class _tabs_second_pageState extends State<tabs_second_page> {
 
     // Send the result back to the main thread
     sendPort.send(result);
-    await Future.delayed(Duration(seconds: 10));
+    await Future.delayed(const Duration(seconds: 10));
     isolateEntryPoint(params);
   }
 
@@ -113,7 +112,7 @@ class _tabs_second_pageState extends State<tabs_second_page> {
              Navigator.push(
                  context,
                  MaterialPageRoute(
-                     builder: (context) => CreateProfile(
+                     builder: (context) => const CreateProfile(
                        hide_show: true,
                      )));
              // timer.cancel();
@@ -122,7 +121,7 @@ class _tabs_second_pageState extends State<tabs_second_page> {
            globel_timer!.cancel();
            logout().then((value) {
              Navigator.of(context).pushAndRemoveUntil(
-                 MaterialPageRoute(builder: (context) => Welcome_Page()),
+                 MaterialPageRoute(builder: (context) => const Welcome_Page()),
                      (Route<dynamic> route) => false);
            });
          }
@@ -190,37 +189,37 @@ class _tabs_second_pageState extends State<tabs_second_page> {
         child: _widgetOptions.elementAt(widget.selectedIndex),
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Color(0xFEF6F6F6),
         ),
-        margin: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+        margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         child: BottomNavigationBar(
-          backgroundColor: Color(0xFEE8F0F6),
+          backgroundColor: const Color(0xFEE8F0F6),
           elevation: 0,
           type: BottomNavigationBarType.fixed,
           // showSelectedLabels: false,
           // showUnselectedLabels: false,
           selectedFontSize: 8,
-          selectedLabelStyle: TextStyle(
+          selectedLabelStyle: const TextStyle(
               fontFamily: 'bold',
               fontWeight: FontWeight.bold,
               color: Color(0xFE999999)),
           unselectedFontSize: 8,
-          unselectedLabelStyle: TextStyle(
+          unselectedLabelStyle: const TextStyle(
             fontFamily: 'bold',
             fontWeight: FontWeight.bold,
           ),
-          unselectedItemColor: Color(0xFE999999),
+          unselectedItemColor: const Color(0xFE999999),
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Transform.translate(
-                offset: Offset(0, 0),
-                child: ImageIcon(
+                offset: const Offset(0, 0),
+                child: const ImageIcon(
                   AssetImage("assets/images/howitworks.png"),
                   size: 22,
                 ),
               ),
-              activeIcon: ImageIcon(
+              activeIcon: const ImageIcon(
                 AssetImage("assets/images/howitworks.png"),
                 size: 22,
               ),
@@ -229,13 +228,13 @@ class _tabs_second_pageState extends State<tabs_second_page> {
             ),
             BottomNavigationBarItem(
               icon: Transform.translate(
-                offset: Offset(0, 0),
-                child: ImageIcon(
+                offset: const Offset(0, 0),
+                child: const ImageIcon(
                   AssetImage("assets/images/home.png"),
                   size: 22,
                 ),
               ),
-              activeIcon: ImageIcon(
+              activeIcon: const ImageIcon(
                 AssetImage("assets/images/home.png"),
                 size: 22,
               ),
@@ -244,13 +243,13 @@ class _tabs_second_pageState extends State<tabs_second_page> {
             ),
             BottomNavigationBarItem(
               icon: Transform.translate(
-                offset: Offset(0, 0),
-                child: ImageIcon(
+                offset: const Offset(0, 0),
+                child: const ImageIcon(
                   AssetImage("assets/images/care.png"),
                   size: 22,
                 ),
               ),
-              activeIcon: ImageIcon(
+              activeIcon: const ImageIcon(
                 AssetImage("assets/images/care.png"),
                 size: 22,
               ),
@@ -259,13 +258,13 @@ class _tabs_second_pageState extends State<tabs_second_page> {
             ),
             BottomNavigationBarItem(
               icon: Transform.translate(
-                offset: Offset(0, 0),
-                child: ImageIcon(
+                offset: const Offset(0, 0),
+                child: const ImageIcon(
                   AssetImage("assets/images/care.png"),
                   size: 22,
                 ),
               ),
-              activeIcon: ImageIcon(
+              activeIcon: const ImageIcon(
                 AssetImage("assets/images/care.png"),
                 size: 22,
               ),
@@ -274,13 +273,13 @@ class _tabs_second_pageState extends State<tabs_second_page> {
             ),
             BottomNavigationBarItem(
               icon: Transform.translate(
-                offset: Offset(0, 0),
-                child: ImageIcon(
+                offset: const Offset(0, 0),
+                child: const ImageIcon(
                   AssetImage("assets/images/heart.png"),
                   size: 22,
                 ),
               ),
-              activeIcon: ImageIcon(
+              activeIcon: const ImageIcon(
                 AssetImage("assets/images/heart.png"),
                 size: 22,
               ),

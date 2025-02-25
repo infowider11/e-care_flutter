@@ -1,7 +1,7 @@
 // import 'package:contacts_service/contacts_service.dart';
-import 'package:ecare/pages/setting.dart';
+// ignore_for_file: deprecated_member_use, unnecessary_brace_in_string_interps, avoid_print
+
 import 'package:ecare/widgets/CustomTexts.dart';
-import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts_service/flutter_contacts_service.dart';
@@ -13,7 +13,6 @@ import '../constants/colors.dart';
 import '../constants/sized_box.dart';
 import '../doctor_module/notification.dart';
 import '../services/auth.dart';
-import '../widgets/customtextfield.dart';
 
 class DoctorInvitePage extends StatefulWidget {
   const DoctorInvitePage({Key? key}) : super(key: key);
@@ -29,7 +28,7 @@ class _DoctorInvitePageState extends State<DoctorInvitePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     getDetail();
     // get_contact_list();
@@ -81,10 +80,10 @@ class _DoctorInvitePageState extends State<DoctorInvitePage> {
 
   void _handleInvalidPermissions(PermissionStatus permissionStatus) {
     if (permissionStatus == PermissionStatus.denied) {
-      final snackBar = SnackBar(content: Text('Access to contact data denied'));
+      const snackBar = SnackBar(content: Text('Access to contact data denied'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else if (permissionStatus == PermissionStatus.permanentlyDenied) {
-      final snackBar =
+      const snackBar =
       SnackBar(content: Text('Contact data not available on device'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
@@ -118,7 +117,7 @@ class _DoctorInvitePageState extends State<DoctorInvitePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     MainHeadingText(text: '${userData['first_name']} ${userData['last_name']}', fontFamily: 'light', fontSize: 15,),
-                    MainHeadingText(text: 'Welcome Back!', fontFamily: 'light', color: MyColors.primaryColor, fontSize: 12,),
+                    const MainHeadingText(text: 'Welcome Back!', fontFamily: 'light', color: MyColors.primaryColor, fontSize: 12,),
                   ],
                 )
               ],
@@ -126,19 +125,19 @@ class _DoctorInvitePageState extends State<DoctorInvitePage> {
         ),
         actions: <Widget>[
           GestureDetector(
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => DoctorNotificationPage())),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const DoctorNotificationPage())),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
               child: Icon(Icons.notifications, size: 24,),
             ),
           ),
         ],
       ),
-      body: load?CustomLoader():SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+      body: load?const CustomLoader():SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            MainHeadingText(text: 'Invite your friends & family!', fontSize: 32, fontFamily: 'light',),
+            const MainHeadingText(text: 'Invite your friends & family!', fontSize: 32, fontFamily: 'light',),
             vSizedBox4,
             if(contacts.length>0)
             Column(
@@ -162,7 +161,7 @@ class _DoctorInvitePageState extends State<DoctorInvitePage> {
                                 )
                                     :
                                 CircleAvatar(child:
-                                contacts[i].initials()!=''?Text(contacts[i].initials()):Icon(Icons.person),radius: 30.0,),
+                                contacts[i].initials()!=''?Text(contacts[i].initials()):const Icon(Icons.person),radius: 30.0,),
                                 hSizedBox2,
                                 Expanded(
                                   child: Column(
@@ -171,7 +170,7 @@ class _DoctorInvitePageState extends State<DoctorInvitePage> {
                                       MainHeadingText(text: '${contacts[i].displayName}',
                                           fontSize: 16, fontFamily: 'medium', color: MyColors.headingcolor,),
                                       vSizedBox05,
-                                      MainHeadingText(text: '${getPhone(contacts[i].phones)}', fontSize: 12, fontFamily: 'medium', color: Color(0xFE7a7a7a)),
+                                      MainHeadingText(text: '${getPhone(contacts[i].phones)}', fontSize: 12, fontFamily: 'medium', color: const Color(0xFE7a7a7a)),
                                     ],
                                   ),
                                 )
@@ -181,19 +180,19 @@ class _DoctorInvitePageState extends State<DoctorInvitePage> {
 
                           GestureDetector(
                             onTap: () async{
-                              var msg = 'Hello, \nOne of your friend username has been invited you to e care app,'
-                                  'Install it by clicking below link. https://bluediamondresearch.com/WEB01/e_care/admin \n'
-                                  'Thanks'+'\n${contacts[i].displayName}';
+                              // var msg = 'Hello, \nOne of your friend username has been invited you to e care app,'
+                              //     'Install it by clicking below link. https://bluediamondresearch.com/WEB01/e_care/admin \n'
+                              //     'Thanks'+'\n${contacts[i].displayName}';
                               ///TODO: uncomment in the end manish 0510
                               // _sendSMS(msg,[getPhone(contacts[i].phones)]);
                             },
                             child: Container(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 color: MyColors.headingcolor.withOpacity(0.12),
                                 borderRadius: BorderRadius.circular(6),
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: MainHeadingText(text: 'Invite', fontSize: 14, color: MyColors.headingcolor, fontFamily: 'medium',),
                               ),
                             ),

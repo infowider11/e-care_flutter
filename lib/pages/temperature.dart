@@ -1,20 +1,10 @@
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/question_1_allergies.dart';
-import 'package:ecare/pages/question_1_condition.dart';
-import 'package:ecare/pages/question_1_medication.dart';
-import 'package:ecare/pages/schedule.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
-import 'package:ecare/widgets/dropdown.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 
 import 'choose_doctor.dart';
@@ -48,17 +38,17 @@ class _TemparaturePageState extends State<TemparaturePage> {
       backgroundColor: MyColors.scaffold,
       appBar: appBar(context: context),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MainHeadingText(
+            const MainHeadingText(
               text: 'Add your temperature ',
               fontSize: 32,
               fontFamily: 'light',
             ),
             vSizedBox2,
-            ParagraphText(
+            const ParagraphText(
                 fontSize: 16,
                 text:
                     'If you have a thermometer, please add your temperature now'),

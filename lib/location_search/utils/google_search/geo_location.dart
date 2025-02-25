@@ -1,5 +1,7 @@
 
 
+// ignore_for_file: avoid_print
+
 import 'latlng.dart';
 
 class Geolocation {

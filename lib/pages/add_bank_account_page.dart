@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_brace_in_string_interps, avoid_print, non_constant_identifier_names
+
 import 'dart:convert';
 import 'dart:developer';
 
@@ -6,6 +8,7 @@ import 'package:ecare/functions/print_function.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/services/pay_stack/flutter_paystack_services.dart';
 import 'package:ecare/services/webservices.dart';
+// ignore: unused_import
 import 'package:ecare/widgets/Customdropdownbutton.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/showSnackbar.dart';
@@ -14,7 +17,6 @@ import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 import '../constants/sized_box.dart';
 import '../services/auth.dart';
-import '../services/pay_stack/flutter_paystack_services.dart';
 import '../services/pay_stack/modals/sub_bank_account_modal.dart';
 import '../widgets/appbar.dart';
 import '../widgets/custom_dropdown.dart';
@@ -91,7 +93,7 @@ class _AddBankAccountPageState extends State<AddBankAccountPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     // get_southAfrika_banks();
     get_bank_detail();
     super.initState();
@@ -108,9 +110,9 @@ class _AddBankAccountPageState extends State<AddBankAccountPage> {
           fontsize: 20,
           fontfamily: 'light'),
       body: load
-          ? CustomLoader()
+          ? const CustomLoader()
           : SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -128,7 +130,7 @@ class _AddBankAccountPageState extends State<AddBankAccountPage> {
                       hintText: 'Account Number'),
                   vSizedBox,
                   Container(
-                    padding: EdgeInsets.all(0.0),
+                    padding: const EdgeInsets.all(0.0),
                     decoration: BoxDecoration(
                       border: Border.all(color: MyColors.bordercolor),
                       color: Colors.white,

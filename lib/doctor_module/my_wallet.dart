@@ -1,14 +1,12 @@
+// ignore_for_file: unnecessary_brace_in_string_interps, avoid_print
+
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/doctor_module/money_request.dart';
-import 'package:ecare/pages/add_new_card.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/webservices.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
-import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/custom_circular_image.dart';
-import 'package:ecare/widgets/list_ui_1.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -30,7 +28,7 @@ class _MyWalletState extends State<MyWallet> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     getDetail();
     get_lists();
     super.initState();

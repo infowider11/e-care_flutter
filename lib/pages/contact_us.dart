@@ -1,22 +1,14 @@
+// ignore_for_file: avoid_print
+
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/question_1_allergies.dart';
-import 'package:ecare/pages/question_1_condition.dart';
-import 'package:ecare/pages/question_1_medication.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/services/api_urls.dart';
-import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
-import 'package:ecare/widgets/dropdown.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:ecare/widgets/showSnackbar.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
@@ -41,7 +33,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     get_current_user();
   }
@@ -76,8 +68,8 @@ class _ContactUsPageState extends State<ContactUsPage> {
     return Scaffold(
       backgroundColor: MyColors.scaffold,
       appBar: appBar(context: context,title: 'Contact Us',fontsize: 20,fontfamily: 'light'),
-      body: load?CustomLoader():SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+      body: load?const CustomLoader():SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -100,7 +92,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Phone number'),
+                    const Text('Phone number'),
                     IntlPhoneField(
                       onChanged: (p) {
                         print('ghdvfh');
@@ -118,20 +110,20 @@ class _ContactUsPageState extends State<ContactUsPage> {
 
                         }),
                       }),
-                      dropdownIcon:Icon(Icons.phone,color: Colors.transparent,) ,
+                      dropdownIcon:const Icon(Icons.phone,color: Colors.transparent,) ,
                       controller: phone,
                       decoration: InputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(color: MyColors.bordercolor),
+                              borderSide: const BorderSide(color: MyColors.bordercolor),
                               borderRadius: BorderRadius.circular(15)
                           ),
                           focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: MyColors.bordercolor),
+                              borderSide: const BorderSide(color: MyColors.bordercolor),
                               borderRadius: BorderRadius.circular(15)
                           ),
                           enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: MyColors.bordercolor),
+                              borderSide: const BorderSide(color: MyColors.bordercolor),
                               borderRadius: BorderRadius.circular(15)
                           )
                         // labelStyle: TextStyle(color:MyColors.paragraphcolor, backgroundColor: Color(0xFFCAE6FF)),

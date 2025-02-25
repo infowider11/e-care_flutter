@@ -1,8 +1,7 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/pages/doctor-details.dart';
-import 'package:ecare/pages/long_felt_way.dart';
-import 'package:ecare/pages/payment_done.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
@@ -32,15 +31,15 @@ class _FilterPageState extends State<FilterPage> {
       backgroundColor: MyColors.BgColor,
       appBar: appBar(context: context),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
-        child: Container(
+        padding: const EdgeInsets.all(16),
+        child: SizedBox(
           height: MediaQuery.of(context).size.height - 90,
           child: Stack(children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                MainHeadingText(
+                const MainHeadingText(
                   text: 'Filter',
                   fontFamily: 'light',
                   fontSize: 32,
@@ -53,13 +52,13 @@ class _FilterPageState extends State<FilterPage> {
                   label: 'Search Preferred Healthcare Provider',
                 ),
                 vSizedBox2,
-                ParagraphText(
+                const ParagraphText(
                   text: 'Earliest Availabiliity ',
                   fontSize: 16,
                 ),
                 vSizedBox05,
                 Container(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: MyColors.lightBlue.withOpacity(0.11),
                     borderRadius: BorderRadius.circular(16),
@@ -74,7 +73,7 @@ class _FilterPageState extends State<FilterPage> {
                           });
                         },
                         child: Container(
-                          padding: EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                               color: type=='Any'?MyColors.primaryColor:Colors.transparent,
                               border: Border.all(
@@ -95,7 +94,7 @@ class _FilterPageState extends State<FilterPage> {
                           });
                         },
                         child: Container(
-                          padding: EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                               color: type=='Today'?MyColors.primaryColor:Colors.transparent,
                               border: Border.all(
@@ -117,7 +116,7 @@ class _FilterPageState extends State<FilterPage> {
                           });
                         },
                         child: Container(
-                          padding: EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                               color: type=='Tomorrow'?MyColors.primaryColor:Colors.transparent,
                               border: Border.all(
@@ -148,13 +147,13 @@ class _FilterPageState extends State<FilterPage> {
                           }
                         },
                         child: Container(
-                          padding: EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                               color: Colors.transparent,
                               border: Border.all(
                                   color: MyColors.primaryColor, width: 1),
                               borderRadius: BorderRadius.circular(8)),
-                          child: Text(
+                          child: const Text(
                             'Select Date',
                             style: TextStyle(
                                 fontSize: 14, color: MyColors.primaryColor),
@@ -173,13 +172,13 @@ class _FilterPageState extends State<FilterPage> {
                               type='Any';
                             });
                           },
-                          icon: Icon(Icons.remove_circle,color: Colors.red,)),
+                          icon: const Icon(Icons.remove_circle,color: Colors.red,)),
                     ],
                   ),
                 ),
 
                 vSizedBox2,
-                ParagraphText(
+                const ParagraphText(
                   text: 'Maximum consultation fee (ZAR)',
                   fontSize: 16,
                 ),
@@ -383,7 +382,7 @@ class _FilterPageState extends State<FilterPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ParagraphText(
+                    const ParagraphText(
                       text: 'Availability of practice number',
                       color: MyColors.onsurfacevarient,
                     ),

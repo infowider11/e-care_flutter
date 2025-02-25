@@ -27,7 +27,7 @@ class GetCareBlocks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(12),
@@ -46,7 +46,7 @@ class GetCareBlocks extends StatelessWidget {
               height: 55,
               child: Center(
                 child: Container(
-                  padding: EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
                       color: iconColor,
                       borderRadius: BorderRadius.circular(100)
@@ -58,7 +58,7 @@ class GetCareBlocks extends StatelessWidget {
           ),
           hSizedBox,
           Expanded(flex: 8, child: MainHeadingText(text: heading, fontFamily: fontFamily, fontSize: fontSize, color: MyColors.onsurfacevarient,)),
-          Expanded(flex: 2, child: Icon(Icons.chevron_right_rounded))
+          const Expanded(flex: 2, child: Icon(Icons.chevron_right_rounded))
         ],
       ),
     );

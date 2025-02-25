@@ -1,13 +1,12 @@
+// ignore_for_file: unused_local_variable, non_constant_identifier_names, prefer_interpolation_to_compose_strings, avoid_print, deprecated_member_use, use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/doctor_module/appointment_detail.dart';
-import 'package:ecare/doctor_module/patient-details.dart';
 import 'package:ecare/doctor_module/user_review.dart';
 import 'package:ecare/functions/navigation_functions.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
-import 'package:ecare/widgets/appointment_request_block.dart';
 import 'package:ecare/widgets/custom_circular_image.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:ecare/widgets/showSnackbar.dart';
@@ -22,7 +21,6 @@ import '../pages/chat.dart';
 import '../pages/consultation_notes.dart';
 import '../pages/prescriptions_doctor.dart';
 import '../pages/referral_letter.dart';
-import '../pages/review.dart';
 import '../pages/videocall.dart';
 import '../services/api_urls.dart';
 import '../services/auth.dart';
@@ -99,8 +97,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
     setState(() {
       load = true;
     });
-    var res = await Webservices.get(ApiUrls.booking_list +
-        '?user_id=' +
+    var res = await Webservices.get('${ApiUrls.booking_list}?user_id=' +
         await getCurrentUserId() +
         '&user_type=1');
     print('res-----$res');
@@ -119,7 +116,6 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
 
   @override
   void initState() {
-    // TODO: implement initState
     _tabcontroller = TabController(length:5, vsync: this,initialIndex: 0);
     super.initState();
     get_lists();
@@ -265,67 +261,65 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                   )
                                                 ],
                                               ),
-                                              Container(
-                                                child: Column(
-                                                  children: [
-                                                    vSizedBox2,
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      children: [
-                                                        RoundEdgedButton(
-                                                          text: 'Reject',
-                                                          borderRadius: 100,
-                                                          width: 70,
-                                                          height: 35,
-                                                          horizontalPadding: 0,
-                                                          verticalPadding: 0,
-                                                          color: Colors
-                                                              .transparent,
-                                                          textColor: MyColors
-                                                              .primaryColor,
-                                                          bordercolor: MyColors
-                                                              .primaryColor,
-                                                          onTap: () async {
-                                                            _displayTextInputDialog(
-                                                                context,
-                                                                incoming[i]
-                                                                        ['id']
-                                                                    .toString(),
-                                                                incoming[i][
-                                                                        'slot_id']
-                                                                    .toString(),
-                                                                incoming[i][
-                                                                        'user_id']
-                                                                    .toString());
-                                                          },
-                                                        ),
-                                                        hSizedBox,
-                                                        RoundEdgedButton(
-                                                          text: 'Accept',
-                                                          borderRadius: 100,
-                                                          width: 80,
-                                                          height: 35,
-                                                          horizontalPadding: 0,
-                                                          verticalPadding: 0,
-                                                          onTap: () async {
-                                                            acceptpopup(
-                                                                context,
-                                                                incoming[i]
-                                                                        ['id']
-                                                                    .toString(),
-                                                                incoming[i][
-                                                                        'slot_id']
-                                                                    .toString(),
-                                                                incoming[i][
-                                                                        'user_id']
-                                                                    .toString());
-                                                          },
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
+                                              Column(
+                                                children: [
+                                                  vSizedBox2,
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      RoundEdgedButton(
+                                                        text: 'Reject',
+                                                        borderRadius: 100,
+                                                        width: 70,
+                                                        height: 35,
+                                                        horizontalPadding: 0,
+                                                        verticalPadding: 0,
+                                                        color: Colors
+                                                            .transparent,
+                                                        textColor: MyColors
+                                                            .primaryColor,
+                                                        bordercolor: MyColors
+                                                            .primaryColor,
+                                                        onTap: () async {
+                                                          _displayTextInputDialog(
+                                                              context,
+                                                              incoming[i]
+                                                                      ['id']
+                                                                  .toString(),
+                                                              incoming[i][
+                                                                      'slot_id']
+                                                                  .toString(),
+                                                              incoming[i][
+                                                                      'user_id']
+                                                                  .toString());
+                                                        },
+                                                      ),
+                                                      hSizedBox,
+                                                      RoundEdgedButton(
+                                                        text: 'Accept',
+                                                        borderRadius: 100,
+                                                        width: 80,
+                                                        height: 35,
+                                                        horizontalPadding: 0,
+                                                        verticalPadding: 0,
+                                                        onTap: () async {
+                                                          acceptpopup(
+                                                              context,
+                                                              incoming[i]
+                                                                      ['id']
+                                                                  .toString(),
+                                                              incoming[i][
+                                                                      'slot_id']
+                                                                  .toString(),
+                                                              incoming[i][
+                                                                      'user_id']
+                                                                  .toString());
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           )),
@@ -336,7 +330,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                 ),
                               ),
                             ),
-                          if (incoming.length == 0)
+                          if (incoming.isEmpty)
                             const Center(
                               child: Text('No data found.'),
                             ),
@@ -436,57 +430,55 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                 fontSize: 10,
                                                 color: Colors.green,
                                               ),
-                                              Container(
-                                                child: const Column(
-                                                  children: [
-                                                    vSizedBox2,
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      children: [
-                                                        // RoundEdgedButton(
-                                                        //   text: 'Start',
-                                                        //   borderRadius: 100,
-                                                        //   width: 70,
-                                                        //   height: 35,
-                                                        //   horizontalPadding: 0,
-                                                        //   verticalPadding: 0,
-                                                        //   color: Colors
-                                                        //       .transparent,
-                                                        //   textColor: MyColors
-                                                        //       .primaryColor,
-                                                        //   bordercolor: MyColors
-                                                        //       .primaryColor,
-                                                        //   onTap: () async{
-                                                        //     showSnackbar( 'Comming Soon.');
-                                                        //   },
-                                                        // ),
-                                                        // hSizedBox,
-                                                        // RoundEdgedButton(
-                                                        //   text: 'Chat',
-                                                        //   borderRadius: 100,
-                                                        //   width: 70,
-                                                        //   height: 35,
-                                                        //   horizontalPadding: 0,
-                                                        //   verticalPadding: 0,
-                                                        //   color: Colors
-                                                        //       .transparent,
-                                                        //   textColor: MyColors
-                                                        //       .primaryColor,
-                                                        //   bordercolor: MyColors
-                                                        //       .primaryColor,
-                                                        //   onTap: () async{
-                                                        //     push(context: context, screen:
-                                                        //     ChatPage
-                                                        //       (other_user_id: current_user['type'].toString()=='1'?accpeted[i]['user_data']['id'].toString():
-                                                        //         accpeted[i]['doctor_data']['id'].toString(),booking_id: accpeted[i]['id'].toString(),));
-                                                        //   // showSnackbar( 'Comming Soon.');
-                                                        //   },
-                                                        // ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
+                                              const Column(
+                                                children: [
+                                                  vSizedBox2,
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      // RoundEdgedButton(
+                                                      //   text: 'Start',
+                                                      //   borderRadius: 100,
+                                                      //   width: 70,
+                                                      //   height: 35,
+                                                      //   horizontalPadding: 0,
+                                                      //   verticalPadding: 0,
+                                                      //   color: Colors
+                                                      //       .transparent,
+                                                      //   textColor: MyColors
+                                                      //       .primaryColor,
+                                                      //   bordercolor: MyColors
+                                                      //       .primaryColor,
+                                                      //   onTap: () async{
+                                                      //     showSnackbar( 'Comming Soon.');
+                                                      //   },
+                                                      // ),
+                                                      // hSizedBox,
+                                                      // RoundEdgedButton(
+                                                      //   text: 'Chat',
+                                                      //   borderRadius: 100,
+                                                      //   width: 70,
+                                                      //   height: 35,
+                                                      //   horizontalPadding: 0,
+                                                      //   verticalPadding: 0,
+                                                      //   color: Colors
+                                                      //       .transparent,
+                                                      //   textColor: MyColors
+                                                      //       .primaryColor,
+                                                      //   bordercolor: MyColors
+                                                      //       .primaryColor,
+                                                      //   onTap: () async{
+                                                      //     push(context: context, screen:
+                                                      //     ChatPage
+                                                      //       (other_user_id: current_user['type'].toString()=='1'?accpeted[i]['user_data']['id'].toString():
+                                                      //         accpeted[i]['doctor_data']['id'].toString(),booking_id: accpeted[i]['id'].toString(),));
+                                                      //   // showSnackbar( 'Comming Soon.');
+                                                      //   },
+                                                      // ),
+                                                    ],
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           )),
@@ -497,7 +489,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                 ),
                               ),
                             ),
-                          if (accpeted.length == 0)
+                          if (accpeted.isEmpty)
                             const Center(
                               child: Text('No data found.'),
                             ),
@@ -596,77 +588,24 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                 ],
                                               ),
                                               // MainHeadingText(text: 'Waiting for payment',fontSize: 10,color: Colors.green,),
-                                              Container(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                                  children: [
-                                                    vSizedBox2,
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      children: [
-                                                        if (confirms[i]['is_join'].toString() == '0' &&
-                                                            compare_time(confirms[i]['slot_data']['date'] + ' ' +
-                                                                    confirms[i]['slot_data']['start_time']))
-                                                          RoundEdgedButton(
-                                                            text: 'Start',
-                                                            borderRadius: 100,
-                                                            width: 70,
-                                                            height: 35,
-                                                            horizontalPadding:
-                                                                0,
-                                                            verticalPadding: 0,
-                                                            color: Colors
-                                                                .transparent,
-                                                            textColor: MyColors
-                                                                .primaryColor,
-                                                            bordercolor: MyColors
-                                                                .primaryColor,
-                                                            onTap: () async {
-                                                              // showSnackbar('sdfsd ${confirms[i]['id']}');
-                                                              // return;
-                                                              // return;
-                                                              push(
-                                                                  context: context,
-                                                                  screen: VideoCallScreen(
-                                                                    name: confirms[i]['user_data']['first_name'],
-                                                                    bookingId: confirms[i]['id'].toString(),
-                                                                    userId: confirms[i]['user_data']['id'].toString(),
-                                                                  ));
-                                                              // showSnackbar( 'Comming Soon.');
-                                                            },
-                                                          ),
-                                                        if (confirms[i]['is_join'].toString() == '0' &&
-                                                            ismarkascomlete(confirms[i]['slot_data']['date'] + ' ' + confirms[i]['slot_data']
-                                                                ['start_time']) == true)
-                                                          Expanded(
-                                                            child: RoundEdgedButton(
-                                                              height: 35,
-                                                              text: 'Mark as Complete',
-                                                              color: Colors.transparent,
-                                                              textColor: MyColors.primaryColor,
-                                                              bordercolor: MyColors.primaryColor,
-                                                              borderRadius: 100,
-                                                              horizontalPadding: 0.0,
-                                                              onTap: () async {
-                                                                EasyLoading.show(
-                                                                    status: null,
-                                                                    maskType:
-                                                                    EasyLoadingMaskType.black);
-                                                                var res = await Webservices.get(ApiUrls .mark_as_complete + confirms[i]['id'].toString());
-                                                                print('booking complete   $res');
-                                                                await EasyLoading.dismiss();
-                                                                get_lists();
-                                                              },
-                                                            ),
-                                                          ),
-                                                        hSizedBox,
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                children: [
+                                                  vSizedBox2,
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      if (confirms[i]['is_join'].toString() == '0' &&
+                                                          compare_time(confirms[i]['slot_data']['date'] + ' ' +
+                                                                  confirms[i]['slot_data']['start_time']))
                                                         RoundEdgedButton(
-                                                          text: 'Chat',
+                                                          text: 'Start',
                                                           borderRadius: 100,
                                                           width: 70,
                                                           height: 35,
-                                                          horizontalPadding: 0,
+                                                          horizontalPadding:
+                                                              0,
                                                           verticalPadding: 0,
                                                           color: Colors
                                                               .transparent,
@@ -675,174 +614,221 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                           bordercolor: MyColors
                                                               .primaryColor,
                                                           onTap: () async {
+                                                            // showSnackbar('sdfsd ${confirms[i]['id']}');
+                                                            // return;
+                                                            // return;
                                                             push(
-                                                                context:
-                                                                    context,
-                                                                screen:
-                                                                    ChatPage(
-                                                                  other_user_id: current_user['type']
-                                                                              .toString() ==
-                                                                          '1'
-                                                                      ? confirms[i]['user_data']
-                                                                              [
-                                                                              'id']
-                                                                          .toString()
-                                                                      : confirms[i]['doctor_data']
-                                                                              [
-                                                                              'id']
-                                                                          .toString(),
-                                                                  booking_id: confirms[
-                                                                              i]
-                                                                          ['id']
-                                                                      .toString(),
+                                                                context: context,
+                                                                screen: VideoCallScreen(
+                                                                  name: confirms[i]['user_data']['first_name'],
+                                                                  bookingId: confirms[i]['id'].toString(),
+                                                                  userId: confirms[i]['user_data']['id'].toString(),
                                                                 ));
                                                             // showSnackbar( 'Comming Soon.');
                                                           },
                                                         ),
-                                                        hSizedBox,
-                                                      ],
-                                                    ),
-                                                    vSizedBox,
-                                                  PopupMenuButton<int>(
-                                                    child:Container(
-                                                      padding: const EdgeInsets.all(10.0),
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(color: MyColors.primaryColor),
-                                                        borderRadius: BorderRadius.circular(20.0),
-                                                      ),
-                                                      child: const Text('Add Consultation Documents',style: TextStyle(
-                                                        color: MyColors.primaryColor
-                                                      ),),
-                                                    ),
-                                                    // child: TextButton(
-                                                    //   onPressed: () { },
-                                                    //   child: Text('Add Consultation Documents'),
-                                                    // ),
-                                                    clipBehavior: Clip.none,
-                                                    itemBuilder: (context) => [
-                                                      // PopupMenuItem 1
-                                                      const PopupMenuItem(
-                                                        value: 1,
-                                                        // row with 2 children
-                                                        child: Row(
-                                                          children: [
-                                                            SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            Text("Prescription")
-                                                          ],
+                                                      if (confirms[i]['is_join'].toString() == '0' &&
+                                                          ismarkascomlete(confirms[i]['slot_data']['date'] + ' ' + confirms[i]['slot_data']
+                                                              ['start_time']) == true)
+                                                        Expanded(
+                                                          child: RoundEdgedButton(
+                                                            height: 35,
+                                                            text: 'Mark as Complete',
+                                                            color: Colors.transparent,
+                                                            textColor: MyColors.primaryColor,
+                                                            bordercolor: MyColors.primaryColor,
+                                                            borderRadius: 100,
+                                                            horizontalPadding: 0.0,
+                                                            onTap: () async {
+                                                              EasyLoading.show(
+                                                                  status: null,
+                                                                  maskType:
+                                                                  EasyLoadingMaskType.black);
+                                                              var res = await Webservices.get(ApiUrls .mark_as_complete + confirms[i]['id'].toString());
+                                                              print('booking complete   $res');
+                                                              await EasyLoading.dismiss();
+                                                              get_lists();
+                                                            },
+                                                          ),
                                                         ),
+                                                      hSizedBox,
+                                                      RoundEdgedButton(
+                                                        text: 'Chat',
+                                                        borderRadius: 100,
+                                                        width: 70,
+                                                        height: 35,
+                                                        horizontalPadding: 0,
+                                                        verticalPadding: 0,
+                                                        color: Colors
+                                                            .transparent,
+                                                        textColor: MyColors
+                                                            .primaryColor,
+                                                        bordercolor: MyColors
+                                                            .primaryColor,
+                                                        onTap: () async {
+                                                          push(
+                                                              context:
+                                                                  context,
+                                                              screen:
+                                                                  ChatPage(
+                                                                other_user_id: current_user['type']
+                                                                            .toString() ==
+                                                                        '1'
+                                                                    ? confirms[i]['user_data']
+                                                                            [
+                                                                            'id']
+                                                                        .toString()
+                                                                    : confirms[i]['doctor_data']
+                                                                            [
+                                                                            'id']
+                                                                        .toString(),
+                                                                booking_id: confirms[
+                                                                            i]
+                                                                        ['id']
+                                                                    .toString(),
+                                                              ));
+                                                          // showSnackbar( 'Comming Soon.');
+                                                        },
                                                       ),
-                                                      const PopupMenuItem(
-                                                        value: 2,
-                                                        // row with two children
-                                                        child: Row(
-                                                          children: [
-                                                            SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            Text("Sick note")
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      const PopupMenuItem(
-                                                        value: 3,
-                                                        // row with two children
-                                                        child: Row(
-                                                          children: [
-                                                            SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            Text("Referral Letter")
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      const PopupMenuItem(
-                                                        value: 4,
-                                                        // row with two children
-                                                        child: Row(
-                                                          children: [
-                                                            SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            Text("My Consultation notes")
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      const PopupMenuItem(
-                                                        value: 5,
-                                                        // row with 2 children
-                                                        child: Row(
-                                                          children: [
-                                                            SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            Text("Add ICD-10 codes to statement"),
-                                                          ],
-                                                        ),
-                                                      ),
+                                                      hSizedBox,
                                                     ],
-                                                    offset: const Offset(0, 58),
-                                                    color: MyColors.white,
-                                                    elevation: 0,
-                                                    // on selected we show the dialog box
-                                                    onSelected: (value) {
-                                                      // if value 1 show dialog
-                                                      if (value == 1) {
-                                                        push(context: context, screen: Prescriptions_Doctor_Page(
-                                                          booking_id: confirms[i]['id'].toString(),
-                                                        ));
-                                                      } else if (value == 2) {
-                                                        log('sfs ${confirms[i]}');
-                                                        // return;
-                                                        push(context: context, screen: Add_sicknote(
-                                                          booking_id: confirms[i]['id'].toString(),
-                                                          doctorName: '${confirms[i][
-                                                          'user_data']
-                                                          [
-                                                          'first_name']}',
-                                                        ));
-                                                      } else if (value == 3) {
-                                                        push(
-                                                            context: context,
-                                                            screen:Referral_Letter_Page(
-                                                              booking_id: confirms[i]
-                                                              ['id']
-                                                                  .toString(),
-                                                              doctorName: '${confirms[i][
-                                                              'user_data']
-                                                              [
-                                                              'first_name']}',
-                                                            ));
-                                                      }else if (value == 4) {
-                                                        push(
-                                                            context: context,
-                                                            screen:Consultation_Notes_Page(
-                                                              booking_id: confirms[i]
-                                                              ['id']
-                                                                  .toString(),
-                                                            ));
-                                                      }
-                                                      else if (value == 5) {
-                                                        print('skjdfkldas ${confirms[i]['user_data']['first_name']}');
-                                                        // return;
-                                                        push(
-                                                            context: context,
-                                                            screen:AddIcdNotes(
-                                                              booking_id: confirms[i]
-                                                              ['id']
-                                                                  .toString(),
-                                                              doctorName: '${confirms[i][
-                                                              'user_data']
-                                                              [
-                                                              'first_name']}',
-                                                            ),
-                                                        );
-                                                      }
-                                                    },
                                                   ),
+                                                  vSizedBox,
+                                                PopupMenuButton<int>(
+                                                  clipBehavior: Clip.none,
+                                                  itemBuilder: (context) => [
+                                                    // PopupMenuItem 1
+                                                    const PopupMenuItem(
+                                                      value: 1,
+                                                      // row with 2 children
+                                                      child: Row(
+                                                        children: [
+                                                          SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          Text("Prescription")
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    const PopupMenuItem(
+                                                      value: 2,
+                                                      // row with two children
+                                                      child: Row(
+                                                        children: [
+                                                          SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          Text("Sick note")
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    const PopupMenuItem(
+                                                      value: 3,
+                                                      // row with two children
+                                                      child: Row(
+                                                        children: [
+                                                          SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          Text("Referral Letter")
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    const PopupMenuItem(
+                                                      value: 4,
+                                                      // row with two children
+                                                      child: Row(
+                                                        children: [
+                                                          SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          Text("My Consultation notes")
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    const PopupMenuItem(
+                                                      value: 5,
+                                                      // row with 2 children
+                                                      child: Row(
+                                                        children: [
+                                                          SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          Text("Add ICD-10 codes to statement"),
+                                                        ],
+                                                      ),
+                                                    ),
                                                   ],
+                                                  offset: const Offset(0, 58),
+                                                  color: MyColors.white,
+                                                  elevation: 0,
+                                                  // on selected we show the dialog box
+                                                  onSelected: (value) {
+                                                    // if value 1 show dialog
+                                                    if (value == 1) {
+                                                      push(context: context, screen: Prescriptions_Doctor_Page(
+                                                        booking_id: confirms[i]['id'].toString(),
+                                                      ));
+                                                    } else if (value == 2) {
+                                                      log('sfs ${confirms[i]}');
+                                                      // return;
+                                                      push(context: context, screen: Add_sicknote(
+                                                        booking_id: confirms[i]['id'].toString(),
+                                                        doctorName: '${confirms[i][
+                                                        'user_data']
+                                                        [
+                                                        'first_name']}',
+                                                      ));
+                                                    } else if (value == 3) {
+                                                      push(
+                                                          context: context,
+                                                          screen:Referral_Letter_Page(
+                                                            booking_id: confirms[i]
+                                                            ['id']
+                                                                .toString(),
+                                                            doctorName: '${confirms[i][
+                                                            'user_data']
+                                                            [
+                                                            'first_name']}',
+                                                          ));
+                                                    }else if (value == 4) {
+                                                      push(
+                                                          context: context,
+                                                          screen:Consultation_Notes_Page(
+                                                            booking_id: confirms[i]
+                                                            ['id']
+                                                                .toString(),
+                                                          ));
+                                                    }
+                                                    else if (value == 5) {
+                                                      print('skjdfkldas ${confirms[i]['user_data']['first_name']}');
+                                                      // return;
+                                                      push(
+                                                          context: context,
+                                                          screen:AddIcdNotes(
+                                                            booking_id: confirms[i]
+                                                            ['id']
+                                                                .toString(),
+                                                            doctorName: '${confirms[i][
+                                                            'user_data']
+                                                            [
+                                                            'first_name']}',
+                                                          ),
+                                                      );
+                                                    }
+                                                  },
+                                                  child:Container(
+                                                    padding: const EdgeInsets.all(10.0),
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(color: MyColors.primaryColor),
+                                                      borderRadius: BorderRadius.circular(20.0),
+                                                    ),
+                                                    child: const Text('Add Consultation Documents',style: TextStyle(
+                                                      color: MyColors.primaryColor
+                                                    ),),
+                                                  ),
                                                 ),
+                                                ],
                                               ),
                                             ],
                                           )),
@@ -853,7 +839,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                 ),
                               ),
                             ),
-                          if (confirms.length == 0)
+                          if (confirms.isEmpty)
                             const Center(
                               child: Text('No data found.'),
                             ),
@@ -1113,7 +1099,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                 ),
                               ),
                             ),
-                          if (completeds.length == 0)
+                          if (completeds.isEmpty)
                             const Center(
                               child: Text('No data found.'),
                             ),
@@ -1246,7 +1232,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                 ),
                               ),
                             ),
-                          if (rejects.length == 0)
+                          if (rejects.isEmpty)
                             const Center(
                               child: Text('No Data Found.'),
                             ),
@@ -1355,7 +1341,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                   style: TextStyle(color: Colors.green),
                 ),
                 onPressed: () async {
-                  if (reason.text.length == 0) {
+                  if (reason.text.isEmpty) {
                     showSnackbar( 'Please Enter Reason.');
                   } else {
                     Map<String, dynamic> data = {

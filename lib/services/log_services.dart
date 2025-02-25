@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:ecare/functions/global_Var.dart';
 import 'package:ecare/pages/ErrorLogPage.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';

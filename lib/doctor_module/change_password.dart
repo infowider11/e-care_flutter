@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:ecare/Services/api_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:flutter/material.dart';
@@ -6,11 +8,9 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../constants/colors.dart';
 import '../constants/image_urls.dart';
 import '../services/auth.dart';
-import '../services/validation.dart';
 import '../services/webservices.dart';
 import '../widgets/buttons.dart';
 import '../widgets/customtextfield.dart';
-import '../widgets/loader.dart';
 import '../widgets/showSnackbar.dart';
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({Key? key}) : super(key: key);

@@ -1,10 +1,10 @@
+// ignore_for_file: unnecessary_null_comparison, unused_local_variable, avoid_print, prefer_interpolation_to_compose_strings
+
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:dio/dio.dart';
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/pages/chat.dart';
 import 'package:ecare/pages/prescriptions_doctor.dart';
 import 'package:ecare/pages/referral_letter.dart';
 import 'package:ecare/services/auth.dart';
@@ -19,8 +19,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart';
 // import 'package:http/http.dart';
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../constants/global_keys.dart';
 import '../constants/navigation.dart';
@@ -30,15 +28,12 @@ import '../functions/get_folder_directory.dart';
 import '../functions/global_Var.dart';
 import '../services/api_urls.dart';
 import 'dart:isolate';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../services/pay_stack/flutter_paystack_services.dart';
 import '../services/pay_stack/modals/FlutterPayStackInitializeTransactionResponseModal.dart';
 import '../services/pay_stack/payment_page.dart';
-import '../tabs.dart';
 import '../widgets/showSnackbar.dart';
 import 'add_icd_notes.dart';
-import 'add_prescription.dart';
 import 'addsick.dart';
 import 'consultation_notes.dart';
 
@@ -62,7 +57,7 @@ class _bookingdetailState extends State<bookingdetail> {
 
   // @override
   // void initState() {
-  //   // TODO: implement initState
+  //   
   //   super.initState();
   //   get_info();
   //
@@ -123,13 +118,13 @@ class _bookingdetailState extends State<bookingdetail> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      animationDuration: Duration(seconds: 1),
+      animationDuration: const Duration(seconds: 1),
       initialIndex: 0,
       length: 5,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Booking Detail'),
-          leading: BackButton(
+          title: const Text('Booking Detail'),
+          leading: const BackButton(
             color: Colors.black,
           ),
           backgroundColor: MyColors.BgColor,
@@ -139,7 +134,7 @@ class _bookingdetailState extends State<bookingdetail> {
               PopupMenuButton<int>(
                 itemBuilder: (context) => [
                   // PopupMenuItem 1
-                  PopupMenuItem(
+                  const PopupMenuItem(
                     value: 1,
                     // row with 2 children
                     child: Row(
@@ -152,7 +147,7 @@ class _bookingdetailState extends State<bookingdetail> {
                     ),
                   ),
                   // PopupMenuItem 2
-                  PopupMenuItem(
+                  const PopupMenuItem(
                     value: 2,
                     // row with two children
                     child: Row(
@@ -164,7 +159,7 @@ class _bookingdetailState extends State<bookingdetail> {
                       ],
                     ),
                   ),
-                  PopupMenuItem(
+                  const PopupMenuItem(
                     value: 3,
                     // row with two children
                     child: Row(
@@ -176,7 +171,7 @@ class _bookingdetailState extends State<bookingdetail> {
                       ],
                     ),
                   ),
-                  PopupMenuItem(
+                  const PopupMenuItem(
                     value: 4,
                     // row with two children
                     child: Row(
@@ -203,7 +198,7 @@ class _bookingdetailState extends State<bookingdetail> {
                   //   ),
                   // ),
                 ],
-                offset: Offset(0, 58),
+                offset: const Offset(0, 58),
                 color: MyColors.white,
                 elevation: 0,
                 // on selected we show the dialog box
@@ -250,14 +245,14 @@ class _bookingdetailState extends State<bookingdetail> {
           ],
         ),
         body: load
-            ? CustomLoader()
+            ? const CustomLoader()
             : SingleChildScrollView(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                           color: MyColors.scaffold,
                           borderRadius: BorderRadius.circular(20)),
@@ -267,7 +262,7 @@ class _bookingdetailState extends State<bookingdetail> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Expanded(
+                              const Expanded(
                                 flex: 5,
                                 child: headingText(
                                   text: 'Booking Id: ',
@@ -285,7 +280,7 @@ class _bookingdetailState extends State<bookingdetail> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Expanded(
+                              const Expanded(
                                 flex: 5,
                                 child: headingText(text: 'Booking Status:'),
                               ),
@@ -318,7 +313,7 @@ class _bookingdetailState extends State<bookingdetail> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Expanded(
+                              const Expanded(
                                 flex: 5,
                                 child: headingText(text: 'Date:'),
                               ),
@@ -334,7 +329,7 @@ class _bookingdetailState extends State<bookingdetail> {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
+                              const Expanded(
                                 flex: 5,
                                 child: headingText(text: 'Start Time:'),
                               ),
@@ -351,7 +346,7 @@ class _bookingdetailState extends State<bookingdetail> {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
+                              const Expanded(
                                 flex: 5,
                                 child: headingText(text: 'End Time:'),
                               ),
@@ -368,7 +363,7 @@ class _bookingdetailState extends State<bookingdetail> {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
+                              const Expanded(
                                 flex: 5,
                                 child: headingText(text: 'Price:'),
                               ),
@@ -382,7 +377,7 @@ class _bookingdetailState extends State<bookingdetail> {
                           ),
                           vSizedBox,
                           if (info['is_refund_request'].toString() == '2')
-                            Row(
+                            const Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Expanded(
@@ -404,7 +399,7 @@ class _bookingdetailState extends State<bookingdetail> {
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Expanded(
+                                const Expanded(
                                   flex: 5,
                                   child: headingText(text: 'Reject Reason:'),
                                 ),
@@ -421,7 +416,7 @@ class _bookingdetailState extends State<bookingdetail> {
                     ),
                     vSizedBox4,
                     Container(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                           color: MyColors.scaffold,
                           borderRadius: BorderRadius.circular(20)),
@@ -432,7 +427,7 @@ class _bookingdetailState extends State<bookingdetail> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                MainHeadingText(
+                                const MainHeadingText(
                                     textAlign: TextAlign.start,
                                     text: 'Healthcare Provider details'),
                                 vSizedBox,
@@ -460,7 +455,7 @@ class _bookingdetailState extends State<bookingdetail> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  MainHeadingText(text: 'Client Profile'),
+                                  const MainHeadingText(text: 'Client Profile'),
                                   GestureDetector(
                                     onTap: () {
                                       push(
@@ -494,13 +489,13 @@ class _bookingdetailState extends State<bookingdetail> {
                     ),
                     vSizedBox4,
                     Container(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                           color: MyColors.scaffold,
                           borderRadius: BorderRadius.circular(20)),
                       child: Column(
                         children: [
-                          Column(
+                          const Column(
                             // crossAxisAlignment: CrossAxisAlignment.start,
                             // mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -513,7 +508,7 @@ class _bookingdetailState extends State<bookingdetail> {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
+                              const Expanded(
                                 flex: 5,
                                 child: headingText(text: 'Category:'),
                               ),
@@ -530,7 +525,7 @@ class _bookingdetailState extends State<bookingdetail> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Expanded(
+                              const Expanded(
                                 flex: 5,
                                 child: headingText(
                                     text: 'Reason for Consultation:'),
@@ -551,7 +546,7 @@ class _bookingdetailState extends State<bookingdetail> {
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Expanded(
+                                    const Expanded(
                                       flex: 5,
                                       child: headingText(
                                           text: 'Duration of symptom :'),
@@ -572,7 +567,7 @@ class _bookingdetailState extends State<bookingdetail> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Expanded(
+                                const Expanded(
                                   flex: 5,
                                   child: headingText(text: 'Temperature:'),
                                 ),
@@ -590,7 +585,7 @@ class _bookingdetailState extends State<bookingdetail> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Expanded(
+                                const Expanded(
                                   flex: 5,
                                   child: headingText(text: 'Symptoms:'),
                                 ),
@@ -607,7 +602,7 @@ class _bookingdetailState extends State<bookingdetail> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Expanded(
+                                const Expanded(
                                   flex: 5,
                                   child: headingText(text: 'Description:'),
                                 ),
@@ -719,11 +714,7 @@ class _bookingdetailState extends State<bookingdetail> {
                                       didDownloadPDF = false;
                                     });
                                   }
-                                } else {
-                                  setState(() {
-                                    didDownloadPDF = false;
-                                  });
-                                }
+                                } 
                               },
                       ),
                   ],
@@ -739,8 +730,8 @@ class _bookingdetailState extends State<bookingdetail> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Center(child: Text('Make Payment')),
-          content: SingleChildScrollView(
+          title: const Center(child: Text('Make Payment')),
+          content: const SingleChildScrollView(
             child: Column(
               children: <Widget>[
                 Text('Are you sure?'),
@@ -749,7 +740,7 @@ class _bookingdetailState extends State<bookingdetail> {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Confirm'),
+              child: const Text('Confirm'),
               onPressed: () async {
                 Navigator.pop(context);
                 FlutterPayStackInitializeTransactionResponseModal?
@@ -765,10 +756,10 @@ class _bookingdetailState extends State<bookingdetail> {
                 if (paystackInitiateTransactionResponse != null) {
                   bool? success = await push(
                       context: MyGlobalKeys.navigatorKey.currentContext!,
-                      screen: PayStackPaymentPage(
+                      screen: Container(child:  PayStackPaymentPage(
                         paymentUrl: paystackInitiateTransactionResponse
                             .authorization_url,
-                      ));
+                      )));
                   print('payment success----- $success');
                   // return;
         // bool paymentIsSuccess =await FlutterPayStackServices.isPaymentSuccessfull(paystackInitiateTransactionResponse.reference);
@@ -811,7 +802,7 @@ class _bookingdetailState extends State<bookingdetail> {
               },
             ),
             TextButton(
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -879,29 +870,7 @@ class _bookingdetailState extends State<bookingdetail> {
     return filePathAndName;
   }
 
-  // Future download(Dio dio, String url, String savePath) async {
-  //   print('download click----');
-  //   try {
-  //     Response response = await dio.get(
-  //       url,
-  //       onReceiveProgress: updateProgress,
-  //       options: Options(
-  //           responseType: ResponseType.bytes,
-  //           followRedirects: false,
-  //           validateStatus: (status) { return status! < 500; }
-  //       ),
-  //     );
-  //     var file = File(savePath).openSync(mode: FileMode.write);
-  //     file.writeFromSync(response.data);
-  //     await file.close();
-  //
-  //     // Here, you're catching an error and printing it. For production
-  //     // apps, you should display the warning to the user and give them a
-  //     // way to restart the download.
-  //   } catch (e) {
-  //     print('catch-----$e');
-  //   }
-  // }
+  
 
   void updateProgress(done, total) {
     progress = done / total;
@@ -920,7 +889,7 @@ class _bookingdetailState extends State<bookingdetail> {
 
   ask_a_refund(BuildContext context, String booking_id) {
     Widget YesButton = TextButton(
-      child: Text("Yes"),
+      child: const Text("Yes"),
       onPressed: () async {
         Map<String, dynamic> data = {
           'user_id': await getCurrentUserId(),
@@ -938,7 +907,7 @@ class _bookingdetailState extends State<bookingdetail> {
     );
 
     Widget NoButton = TextButton(
-      child: Text("No"),
+      child: const Text("No"),
       onPressed: () async {
         Navigator.pop(context);
         setState(() {});
@@ -946,12 +915,12 @@ class _bookingdetailState extends State<bookingdetail> {
     );
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      contentPadding: EdgeInsets.all(0.0),
-      title: Text(
+      contentPadding: const EdgeInsets.all(0.0),
+      title: const Text(
         "Booking Refund Request",
         style: TextStyle(color: Colors.green),
       ),
-      content: Padding(
+      content: const Padding(
         padding: EdgeInsets.only(left: 23.0),
         child: Text('Are You Sure?'),
       ),

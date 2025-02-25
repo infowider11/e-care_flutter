@@ -1,23 +1,17 @@
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
 import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
-import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
 import 'package:ecare/widgets/showSnackbar.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../Services/api_urls.dart';
 import '../services/validation.dart';
 import '../services/webservices.dart';
-import '../widgets/loader.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
@@ -35,7 +29,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       backgroundColor: MyColors.scaffold,
       appBar: appBar(context: context),
       body:Container(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
             Image.asset(

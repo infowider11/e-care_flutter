@@ -1,12 +1,12 @@
-import 'package:ecare/constants/constans.dart';
+// ignore_for_file: camel_case_types, deprecated_member_use
+
 import 'package:ecare/dialogs/consent_page_dialog.dart';
 import 'package:ecare/functions/customDialogBox.dart';
 import 'package:ecare/functions/navigation_functions.dart';
 import 'package:ecare/pages/select_type_page.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../constants/sized_box.dart';
 import 'constants/colors.dart';
@@ -32,9 +32,9 @@ class _Welcome_Page_NextState extends State<Welcome_Page_Next> {
           bottom: 0,
           child: Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
             height: MediaQuery.of(context).size.height - 50,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(
                       MyImages.welcome_background2,
@@ -48,7 +48,7 @@ class _Welcome_Page_NextState extends State<Welcome_Page_Next> {
               children: [
                 vSizedBox8,
                 vSizedBox16,
-                MainHeadingText(
+                const MainHeadingText(
                   text: 'Schedule your next Video \nConsultation, at your leisure,\nin a few easy steps...',
                   color: MyColors.white,
                   fontSize: 25,
@@ -71,12 +71,12 @@ class _Welcome_Page_NextState extends State<Welcome_Page_Next> {
                               //   shadow
                               // ]
                             ),
-                            padding: EdgeInsets.symmetric(horizontal: 16,vertical: 6 ),
+                            padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 6 ),
                             child: Row(
                               children: [
                                 Image.asset(MyImages.check_icon, height: 24, width: 24,),
                                 hSizedBox,
-                                ParagraphText(
+                                const ParagraphText(
                                   text: 'General Medical\nDoctors',
                                   color: MyColors.white, fontSize: 14,
                                   fontFamily: 'semibold',
@@ -101,12 +101,12 @@ class _Welcome_Page_NextState extends State<Welcome_Page_Next> {
                             //   shadow
                             // ]
                           ),
-                          padding: EdgeInsets.symmetric(horizontal: 16,vertical: 12 ),
+                          padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 12 ),
                           child: Row(
                             children: [
                               Image.asset(MyImages.check_icon, height: 24, width: 24,),
                               hSizedBox,
-                              ParagraphText(
+                              const ParagraphText(
                                 text: 'Medical Specialists',
                                 color: MyColors.white,
                                 fontSize: 14,
@@ -129,12 +129,12 @@ class _Welcome_Page_NextState extends State<Welcome_Page_Next> {
                               //   shadow
                               // ]
                             ),
-                            padding: EdgeInsets.symmetric(horizontal: 16,vertical: 12 ),
+                            padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 12 ),
                             child: Row(
                               children: [
                                 Image.asset(MyImages.check_icon, height: 24, width: 24,),
                                 hSizedBox,
-                                Expanded(child: ParagraphText(text: 'Mental Healthcare ', fontFamily: 'semibold',color: MyColors.white, fontSize: 14,))
+                                const Expanded(child: ParagraphText(text: 'Mental Healthcare ', fontFamily: 'semibold',color: MyColors.white, fontSize: 14,))
                               ],
                             ),
                           ),
@@ -211,12 +211,12 @@ class _Welcome_Page_NextState extends State<Welcome_Page_Next> {
                             //   shadow
                             // ]
                           ),
-                          padding: EdgeInsets.symmetric(horizontal: 16,vertical: 12 ),
+                          padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 12 ),
                           child: Row(
                             children: [
                               Image.asset(MyImages.check_icon, height: 24, width: 24,),
                               hSizedBox,
-                              Expanded(
+                              const Expanded(
                                 child: ParagraphText(
                                   text: 'Allied Healthcare ',
                                   color: MyColors.white,
@@ -247,7 +247,7 @@ class _Welcome_Page_NextState extends State<Welcome_Page_Next> {
       backgroundColor: MyColors.scaffold,
       body: SafeArea(
         child: Container(
-          decoration: BoxDecoration(),
+          decoration: const BoxDecoration(),
           child: Stack(
             alignment: Alignment.center,
             children: [
@@ -269,13 +269,13 @@ class _Welcome_Page_NextState extends State<Welcome_Page_Next> {
       ),
       floatingActionButton: FloatingActionButton(
         // onPressed: _incrementCounter,
-        backgroundColor: Color(0xFFCAE6FF),
+        backgroundColor: const Color(0xFFCAE6FF),
         onPressed: () async{
           bool? result = await showCustomDialogBox(context: context, child: ConsentPageDialog());
           // return;
 
           if(result==true){
-            push(context: context, screen: Select_Type_Page());
+            push(context: context, screen: const Select_Type_Page());
           }
 
         },

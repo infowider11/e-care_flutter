@@ -1,23 +1,16 @@
+// ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings
+
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/habit.dart';
-import 'package:ecare/pages/loginpage.dart';
 import 'package:ecare/pages/medical_records.dart';
-import 'package:ecare/pages/question_1_medication.dart';
-import 'package:ecare/pages/question_2_medication.dart';
 import 'package:ecare/pages/relatives.dart';
 import 'package:ecare/pages/uploaded_document.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
-import 'package:ecare/widgets/buttons.dart';
-import 'package:ecare/widgets/customtextfield.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:ecare/widgets/selected_option.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 
 import '../Services/api_urls.dart';
@@ -63,7 +56,7 @@ class _MyHealthProfileState extends State<MyHealthProfile> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     get_info();
   }
@@ -73,22 +66,22 @@ class _MyHealthProfileState extends State<MyHealthProfile> {
     return Scaffold(
       backgroundColor: MyColors.scaffold,
       appBar: appBar(context: context),
-      body: load?CustomLoader():SingleChildScrollView(
+      body: load?const CustomLoader():SingleChildScrollView(
 
 
 
 
 
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MainHeadingText(text: 'My Health Profile ', fontSize: 32, fontFamily: 'light',),
+            const MainHeadingText(text: 'My Health Profile ', fontSize: 32, fontFamily: 'light',),
             vSizedBox2,
             GestureDetector(
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => UploadedDocument())),
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const UploadedDocument())),
               child: Container(
-                padding: EdgeInsets.all(14),
+                padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   color: MyColors.white,
                   border: Border.all(
@@ -97,7 +90,7 @@ class _MyHealthProfileState extends State<MyHealthProfile> {
                   ),
                   borderRadius: BorderRadius.circular(16)
                 ),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MainHeadingText(text: 'Uploaded medical documents', fontSize: 16, fontFamily: 'light', color: MyColors.onsurfacevarient,),
@@ -108,9 +101,9 @@ class _MyHealthProfileState extends State<MyHealthProfile> {
             ),
             vSizedBox,
             GestureDetector(
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => MedicalRecords())),
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const MedicalRecords())),
               child: Container(
-                padding: EdgeInsets.all(14),
+                padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   color: MyColors.white,
                   border: Border.all(
@@ -119,7 +112,7 @@ class _MyHealthProfileState extends State<MyHealthProfile> {
                   ),
                   borderRadius: BorderRadius.circular(16)
                 ),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MainHeadingText(text: 'Uploaded medical Records', fontSize: 16, fontFamily: 'light', color: MyColors.onsurfacevarient,),
@@ -130,10 +123,10 @@ class _MyHealthProfileState extends State<MyHealthProfile> {
             ),
             vSizedBox2,
 
-            MainHeadingText(text: 'Age', fontSize: 16, fontFamily: 'regular'),
+            const MainHeadingText(text: 'Age', fontSize: 16, fontFamily: 'regular'),
             vSizedBox,
             Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
@@ -160,7 +153,7 @@ class _MyHealthProfileState extends State<MyHealthProfile> {
                 lists[i]['step'].toString()=='5'?'Family Conditions':'Relative',
                 text: '${lists[i]['name']??''}',
                 icon: IconButton(
-                  icon: Icon(Icons.edit,color: Colors.green,),
+                  icon: const Icon(Icons.edit,color: Colors.green,),
                   onPressed: () async {
                     print('press----${lists[i]['step']}');
                     if(lists[i]['step'].toString()=='1'){

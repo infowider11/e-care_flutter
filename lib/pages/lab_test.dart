@@ -1,38 +1,26 @@
+// ignore_for_file: unused_local_variable, deprecated_member_use, unnecessary_brace_in_string_interps, avoid_print
+// ignore_for_file: must_be_immutable, non_constant_identifier_names
+
 import 'dart:io';
 
 // import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:ecare/constants/api_variable_keys.dart';
-import 'package:ecare/functions/global_Var.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/question_2_allergies.dart';
-import 'package:ecare/pages/question_2_medication.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/webservices.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
-import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
-import 'package:ecare/widgets/customtextfield.dart';
-import 'package:ecare/widgets/list_ui_1.dart';
 import 'package:ecare/widgets/loader.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:intl/intl.dart';
 import '../functions/get_folder_directory.dart';
 import '../widgets/custom_confirmation_dialog.dart';
 import '../widgets/showSnackbar.dart';
-import 'bookingDetail.dart';
 
 class LabTestPage extends StatefulWidget {
   String? doc_name;
@@ -131,7 +119,7 @@ class LabTestPageState extends State<LabTestPage>
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     getPrescriptionList();
     getReferralList();

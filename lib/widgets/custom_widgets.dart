@@ -1,6 +1,7 @@
+// ignore: unused_import
 import 'dart:ffi';
 
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 import 'CustomTexts.dart';
@@ -23,7 +24,7 @@ class Chip_Custom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       height: 24,
       decoration: BoxDecoration(
           color: background,

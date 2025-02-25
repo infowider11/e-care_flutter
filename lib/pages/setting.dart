@@ -1,13 +1,8 @@
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/doctor_module/changePassword.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/messages.dart';
-import 'package:ecare/pages/notification.dart';
-import 'package:ecare/pages/payment_method.dart';
+import 'package:ecare/doctor_module/change_password.dart';
 import 'package:ecare/pages/privacy_policy.dart';
 import 'package:ecare/pages/profile_edit.dart';
-import 'package:ecare/pages/setting_payment_method.dart';
 import 'package:ecare/pages/terms_cond_page.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
@@ -16,7 +11,6 @@ import 'package:flutter/material.dart';
 
 import '../services/auth.dart';
 import '../welcome.dart';
-import 'booking_status.dart';
 import 'contact_us.dart';
 
 class SettingPage extends StatefulWidget {
@@ -33,11 +27,11 @@ class _SettingPageState extends State<SettingPage> {
       backgroundColor: MyColors.BgColor,
       appBar: appBar(context: context),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MainHeadingText(
+            const MainHeadingText(
               text: 'Setting',
               fontSize: 32,
               fontFamily: 'light',
@@ -46,14 +40,14 @@ class _SettingPageState extends State<SettingPage> {
             vSizedBox,
 
             Container(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                  color: Color(0xFED3E5F5),
+                  color: const Color(0xFED3E5F5),
                   borderRadius: BorderRadius.circular(100)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ParagraphText(
+                  const ParagraphText(
                       text: 'My Profile',
                       fontFamily: 'bold',
                       color: MyColors.black),
@@ -61,8 +55,8 @@ class _SettingPageState extends State<SettingPage> {
                       onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProfileEdit())),
-                      child: ParagraphText(
+                              builder: (context) => const ProfileEdit())),
+                      child: const ParagraphText(
                         text: 'Edit Profile',
                         color: MyColors.primaryColor,
                         fontFamily: 'semibold',
@@ -77,7 +71,7 @@ class _SettingPageState extends State<SettingPage> {
                 func: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ChangePasswordPage()))),
+                        builder: (context) => const ChangePasswordPage()))),
             // SettingList(
             //     heading: 'My Notifications',
             //     func: () => Navigator.push(
@@ -103,15 +97,15 @@ class _SettingPageState extends State<SettingPage> {
             SettingList(
                 heading: 'Terms & Conditions',
                 func: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => TermsCondPage()))),
+                    MaterialPageRoute(builder: (context) => const TermsCondPage()))),
             SettingList(
                 heading: 'Privacy Policy',
                 func: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PrivacyPolicy()))),
+                    MaterialPageRoute(builder: (context) => const PrivacyPolicy()))),
             SettingList(
                 heading: 'Contact Us',
                 func: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ContactUsPage()))),
+                    MaterialPageRoute(builder: (context) => const ContactUsPage()))),
             SettingList(
                 heading: 'Sign Out',
                 func: () => {
@@ -119,10 +113,10 @@ class _SettingPageState extends State<SettingPage> {
                           context: context,
                           builder: (context1) {
                             return AlertDialog(
-                              title: Text(
+                              title: const Text(
                                 'Logout',
                               ),
-                              content: Text('Are you sure, want to logout?'),
+                              content: const Text('Are you sure, want to logout?'),
                               actions: [
                                 TextButton(
                                     onPressed: () async {
@@ -132,15 +126,15 @@ class _SettingPageState extends State<SettingPage> {
                                       Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  Welcome_Page()),
+                                                  const Welcome_Page()),
                                           (Route<dynamic> route) => false);
                                     },
-                                    child: Text('logout')),
+                                    child: const Text('logout')),
                                 TextButton(
                                     onPressed: () async {
                                       Navigator.pop(context1);
                                     },
-                                    child: Text('cancel')),
+                                    child: const Text('cancel')),
                               ],
                             );
                           }),

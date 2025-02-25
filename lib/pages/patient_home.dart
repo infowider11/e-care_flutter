@@ -1,26 +1,20 @@
+// ignore_for_file: unused_local_variable, unused_element, non_constant_identifier_names, deprecated_member_use, avoid_print
+
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/navigation.dart';
-import 'package:ecare/doctor_module/create_slot.dart';
-import 'package:ecare/doctor_module/notification.dart';
 import 'package:ecare/functions/global_Var.dart';
-import 'package:ecare/pages/add_bank_account_page.dart';
-import 'package:ecare/pages/sick_notes.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
-import 'package:ecare/widgets/appointment_request_block.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:intl/intl.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../constants/global_keys.dart';
 import '../dialogs/payment_success_dialog.dart';
-import '../pages/addsick.dart';
 import '../pages/chat.dart';
-import '../pages/prescriptions_doctor.dart';
 import '../pages/videocall.dart';
 import '../services/api_urls.dart';
 import '../constants/sized_box.dart';
@@ -37,7 +31,6 @@ import '../widgets/showSnackbar.dart';
 import 'package:badges/badges.dart' as badges;
 
 import 'ErrorLogPage.dart';
-import 'lab_test.dart';
 import 'messages.dart';
 import 'notification.dart';
 
@@ -64,7 +57,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     get_appointment();
     gettoday_appointment();
@@ -178,7 +171,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
       backgroundColor: MyColors.BgColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xFE00A2EA).withOpacity(0.1),
+        backgroundColor: const Color(0xFE00A2EA).withOpacity(0.1),
         title: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(200),
@@ -207,7 +200,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                       fontFamily: 'light',
                       fontSize: 15,
                     ),
-                    MainHeadingText(
+                    const MainHeadingText(
                       text: 'Welcome Back!',
                       fontFamily: 'light',
                       color: MyColors.primaryColor,
@@ -222,11 +215,11 @@ class _PatientHomePageState extends State<PatientHomePage> {
           badges.Badge(
             position: badges.BadgePosition.topEnd(top: 5, end: 2),
             showBadge: unread_noti_count!=0?true:false,
-            badgeContent: Text('${unread_noti_count}',style: TextStyle(color: Colors.white),),
+            badgeContent: Text('${unread_noti_count}',style: const TextStyle(color: Colors.white),),
             child: IconButton(
-              icon: Icon(Icons.chat),
+              icon: const Icon(Icons.chat),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => MessagePage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const MessagePage()));
               },
             ),
           ),
@@ -234,13 +227,13 @@ class _PatientHomePageState extends State<PatientHomePage> {
           badges.Badge(
             position: badges.BadgePosition.topEnd(top: 5, end: 2),
             showBadge: unread_noti_count!=0?true:false,
-            badgeStyle: badges.BadgeStyle(),
+            badgeStyle: const badges.BadgeStyle(),
             // badgeContent: Text('22',style: TextStyle(color: Colors.white,fontSize: 10),),
-            badgeContent: Text('${unread_noti_count}',style: TextStyle(color: Colors.white,fontSize: 10),),
+            badgeContent: Text('${unread_noti_count}',style: const TextStyle(color: Colors.white,fontSize: 10),),
             child: IconButton(
-              icon: Icon(Icons.notifications),
+              icon: const Icon(Icons.notifications),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationPage()));
               },
             ),
           ),
@@ -248,8 +241,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.all(16),
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
               'assets/images/patter.png',
@@ -263,7 +256,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               vSizedBox05,
-              MainHeadingText(
+              const MainHeadingText(
                 text: 'Accepted consultation requests awaiting payment',
                 fontSize: 16,
                 fontFamily: 'bold',
@@ -281,8 +274,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     )));
                       },
                       child: Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        padding: EdgeInsets.all(10),
+                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           // color: MyColors.lightBlue.withOpacity(0.11),
                           color: MyColors.surface3,
@@ -415,12 +408,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
                       ),
                     ),
                   if (incoming.length == 0 && !load)
-                    Center(
+                    const Center(
                       heightFactor: 5.0,
                       child: Text('No Appointment Yet.'),
                     ),
                   if (load)
-                    Center(
+                    const Center(
                       heightFactor: 5.0,
                       child: CustomLoader(
                         color: MyColors.secondarycolor,
@@ -429,7 +422,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                 ],
               ),
               vSizedBox,
-              MainHeadingText(
+              const MainHeadingText(
                 text: 'Today\'s Appointments',
                 fontSize: 16,
                 fontFamily: 'bold',
@@ -446,8 +439,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                     // Navigator.push(context, bookingdetail());
                   },
                   child: Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    padding: EdgeInsets.all(10),
+                    margin: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: MyColors.surface3,
                       borderRadius: BorderRadius.circular(15),
@@ -584,12 +577,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
                   ),
                 ),
               if (todays_app.length == 0 && !load2)
-                Center(
+                const Center(
                   heightFactor: 5.0,
                   child: Text('No Appointment Yet.'),
                 ),
               if (load2)
-                Center(
+                const Center(
                   heightFactor: 5.0,
                   child: CustomLoader(
                     color: MyColors.secondarycolor,
@@ -603,7 +596,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
               // confirmed appoinemt
               vSizedBox,
-              MainHeadingText(
+              const MainHeadingText(
                 text: 'Confirmed Appointments',
                 fontSize: 16,
                 fontFamily: 'bold',
@@ -621,8 +614,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                       // Navigator.push(context, bookingdetail());
                     },
                     child: Container(
-                      margin: EdgeInsets.only(bottom: 10),
-                      padding: EdgeInsets.all(10),
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: MyColors.surface3,
                         borderRadius: BorderRadius.circular(15),
@@ -880,12 +873,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
                     ),
                   ),
               if (confirms.length == 0 && !load)
-                Center(
+                const Center(
                   heightFactor: 5.0,
                   child: Text('No Appointment Yet.'),
                 ),
               if (load)
-                Center(
+                const Center(
                   heightFactor: 5.0,
                   child: CustomLoader(
                     color: MyColors.secondarycolor,
@@ -1066,15 +1059,15 @@ class _PatientHomePageState extends State<PatientHomePage> {
       builder: (BuildContext context) {
         return Container(
             height: MediaQuery.of(context).size.height / 1.9,
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+            decoration: const BoxDecoration(
                 color: Color(0xFFF1F4F8),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40),
                   topRight: Radius.circular(40),
                 )),
             child: load2
-                ? CustomLoader()
+                ? const CustomLoader()
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -1084,13 +1077,13 @@ class _PatientHomePageState extends State<PatientHomePage> {
                       //   fit: BoxFit.fitHeight,
                       // ),
                       vSizedBox,
-                      headingText(
+                      const headingText(
                         text: 'Your Opinion matters to us!',
                         fontSize: 18,
                         fontFamily: 'medium',
                       ),
                       py4,
-                      ParagraphText(
+                      const ParagraphText(
                         text: 'Give us a quick review and help us improve?',
                         fontSize: 17,
                         color: MyColors.textcolor,
@@ -1105,8 +1098,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                            itemBuilder: (context, _) => Icon(
+                            itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                            itemBuilder: (context, _) => const Icon(
                               Icons.star,
                               color: Colors.amber,
                             ),
@@ -1178,7 +1171,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                             setState(() {});
                             Navigator.pop(context);
                           },
-                          child: ParagraphText(
+                          child: const ParagraphText(
                             text: 'Not Now',
                             color: MyColors.primaryColor,
                             underlined: true,
@@ -1199,12 +1192,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           actionsAlignment: MainAxisAlignment.end,
-          buttonPadding: EdgeInsets.all(0),
-          title: Text(
+          buttonPadding: const EdgeInsets.all(0),
+          title: const Text(
             'Make Payment',
             style: TextStyle(fontSize: 20),
           ),
-          content: SingleChildScrollView(
+          content: const SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -1214,7 +1207,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Confirm'),
+              child: const Text('Confirm'),
               onPressed: () async {
                 //TODO: commented to check
                 Navigator.pop(context);
@@ -1290,7 +1283,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                       showSnackbar('Payment Failed!!!');
                     }
                   } else {
-                    push(context: MyGlobalKeys.navigatorKey.currentContext!, screen: ErrorLogPage());
+                    push(context: MyGlobalKeys.navigatorKey.currentContext!, screen: const ErrorLogPage());
                     showSnackbar('Something went wrong, please try again later.');
                   }
                 }
@@ -1344,7 +1337,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
               },
             ),
             TextButton(
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -1402,7 +1395,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
   acceptpopup(BuildContext context, String b_id, String s_id, p_id) {
     // set up the buttons
     Widget cancelButton = TextButton(
-      child: Text(
+      child: const Text(
         "No",
         style: TextStyle(color: Colors.red),
       ),
@@ -1413,7 +1406,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
       },
     );
     Widget continueButton = TextButton(
-      child: Text(
+      child: const Text(
         "Yes",
         style: TextStyle(color: Colors.green),
       ),
@@ -1441,8 +1434,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Accept"),
-      content: Text("Are you sure?"),
+      title: const Text("Accept"),
+      content: const Text("Are you sure?"),
       actions: [
         cancelButton,
         continueButton,
@@ -1464,7 +1457,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Reject'),
+            title: const Text('Reject'),
             content: TextField(
               onChanged: (value) {
                 setState(() {
@@ -1472,11 +1465,11 @@ class _PatientHomePageState extends State<PatientHomePage> {
                 });
               },
               controller: reason,
-              decoration: InputDecoration(hintText: "Reject Reason..."),
+              decoration: const InputDecoration(hintText: "Reject Reason..."),
             ),
             actions: <Widget>[
               TextButton(
-                child: Text(
+                child: const Text(
                   "No",
                   style: TextStyle(color: Colors.red),
                 ),
@@ -1488,7 +1481,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
               ),
 
               TextButton(
-                child: Text(
+                child: const Text(
                   "Yes",
                   style: TextStyle(color: Colors.green),
                 ),
@@ -1579,7 +1572,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
   ask_a_refund(BuildContext context,String booking_id) {
     Widget YesButton = TextButton(
-      child: Text("Yes"),
+      child: const Text("Yes"),
       onPressed: () async {
         Map<String,dynamic> data = {
           'user_id':await getCurrentUserId(),
@@ -1600,7 +1593,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
     );
 
     Widget NoButton = TextButton(
-      child: Text("No"),
+      child: const Text("No"),
       onPressed: () async {
         Navigator.pop(context);
         setState(() {});
@@ -1608,13 +1601,13 @@ class _PatientHomePageState extends State<PatientHomePage> {
     );
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      contentPadding: EdgeInsets.all(0.0),
-      title: Text(
+      contentPadding: const EdgeInsets.all(0.0),
+      title: const Text(
         '',
         //"Request a refund and cancel your booking",
         style: TextStyle(color: Colors.green,fontSize: 14.0),
       ),
-      content: Padding(
+      content: const Padding(
         padding: EdgeInsets.only(left: 23.0),
         child: Text('Are you sure you would like to cancel your booking and request a refund?'
             '\nPlease note that all cancellations made 24 hours prior to the scheduled consultation will be refunded in full. Unfortunately, cancellations made within 24 hours of your scheduled consultation will not be refunded.'),

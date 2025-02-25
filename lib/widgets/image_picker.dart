@@ -1,11 +1,11 @@
-import 'package:ecare/widgets/showSnackbar.dart';
+// ignore_for_file: avoid_print, unused_local_variable
+
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:image_cropper/image_cropper.dart';
+import 'package:flutter/material.dart';
+ 
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
-import '../constants/colors.dart';
 
 
 
@@ -67,7 +67,7 @@ Future<File?> pickImage(bool isGallery) async {
     //   showSnackbar('Something went wrong $e');
     // }
     try{
-      _imageFile = pickedFile!.path;
+      _imageFile = pickedFile.path;
       image = File(pickedFile.path);
     }catch(e){
       print('there is error in  image picker $e');
@@ -85,6 +85,7 @@ Future<File?> pickImage(bool isGallery) async {
   } catch (e) {
     print("Image picker error --$e");
   }
+  return null;
 
 
 
@@ -103,6 +104,7 @@ Future<List<XFile>?>Multiple_ImagePicker(context) async{
   } catch(err) {
     print('multiple image catch err----$err');
   }
+  return null;
 
 }
 
@@ -137,5 +139,6 @@ Future<File?> Imagepicker_Without_Croper(bool isGallery) async {
   } catch (e) {
     print("Image picker error $e");
   }
+  return null;
 }
 

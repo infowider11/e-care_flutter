@@ -1,9 +1,9 @@
+// ignore_for_file: deprecated_member_use, avoid_print
+
 import 'dart:io';
 
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/functions/global_Var.dart';
-import 'package:ecare/pages/choose_schedule.dart';
-import 'package:ecare/pages/schedule_appointment.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/webservices.dart';
@@ -13,7 +13,8 @@ import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:ecare/widgets/showSnackbar.dart';
-import 'package:flutter/cupertino.dart';
+ import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -44,7 +45,7 @@ class _ProfileEditState extends State<ProfileEdit> {
       load = true;
     });
     var res = await Webservices.get(
-        ApiUrls.get_user_by_id + '?user_id=' + user_Data!['id'].toString());
+        '${ApiUrls.get_user_by_id}?user_id=${user_Data!['id']}');
     print('info----$res');
     if (res['status'].toString() == '1') {
       user_info=res['data'];
@@ -66,7 +67,7 @@ class _ProfileEditState extends State<ProfileEdit> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     get_info();
   }
@@ -78,14 +79,14 @@ class _ProfileEditState extends State<ProfileEdit> {
       backgroundColor: MyColors.BgColor,
       appBar: appBar(
         context: context,
-        appBarColor: Color(0xFE00A2EA).withOpacity(0.1),
+        appBarColor: const Color(0xFE00A2EA).withOpacity(0.1),
       ),
       body: load
-          ? CustomLoader()
+          ? const CustomLoader()
           : Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.all(16),
+              decoration: const BoxDecoration(
                 image:DecorationImage(
                     image: AssetImage(
                       'assets/images/patter.png',
@@ -103,7 +104,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                       children: [
                         ClipOval(
                           child: SizedBox.fromSize(
-                            size: Size.fromRadius(48), // Image radius
+                            size: const Size.fromRadius(48), // Image radius
                             child: profile_image!=null?
                                 Image.file(profile_image!)
                                 :Image.network(user_info!['profile_image'], fit: BoxFit.cover),
@@ -126,7 +127,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                                 width: 16,
                               ),
                               hSizedBox,
-                              ParagraphText(
+                              const ParagraphText(
                                 text: 'Edit Image',
                                 color: MyColors.primaryColor,
                               )
@@ -165,22 +166,22 @@ class _ProfileEditState extends State<ProfileEdit> {
                     onCountryChanged: (country) {
                       // print('country-----$country');
                     },
-                    dropdownIcon:Icon(Icons.phone,color: Colors.transparent,) ,
+                    dropdownIcon:const Icon(Icons.phone,color: Colors.transparent,) ,
                     controller: phone,
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                         filled: true,
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: MyColors.bordercolor),
+                            borderSide: const BorderSide(color: MyColors.bordercolor),
                             borderRadius: BorderRadius.circular(15)
                         ),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: MyColors.bordercolor),
+                            borderSide: const BorderSide(color: MyColors.bordercolor),
                             borderRadius: BorderRadius.circular(15)
                         ),
                         enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: MyColors.bordercolor),
+                            borderSide: const BorderSide(color: MyColors.bordercolor),
                             borderRadius: BorderRadius.circular(15)
                         )
                     ),

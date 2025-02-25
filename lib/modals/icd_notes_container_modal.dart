@@ -1,4 +1,6 @@
-import 'package:flutter/cupertino.dart';
+
+ // ignore_for_file: deprecated_member_use
+ 
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
@@ -30,7 +32,7 @@ class IcdNotesContainerModal{
       child: Stack(
         children: [
           Container(
-            padding: EdgeInsets.only(top:40.0,left:8.0,right: 8.0,bottom: 10.0),
+            padding: const EdgeInsets.only(top:40.0,left:8.0,right: 8.0,bottom: 10.0),
             // height: 270,
             width: double.infinity,
             decoration: BoxDecoration(
@@ -60,7 +62,7 @@ class IcdNotesContainerModal{
                   onPressed: () {
                    onRemove();
                   },
-                  icon: Icon(Icons.remove_circle,color: Colors.red,),
+                  icon: const Icon(Icons.remove_circle,color: Colors.red,),
                 )
             )
         ],

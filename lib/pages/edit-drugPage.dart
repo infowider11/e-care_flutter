@@ -1,13 +1,7 @@
+// ignore_for_file: must_be_immutable, camel_case_types, non_constant_identifier_names, avoid_print
+
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/question_1_allergies.dart';
-import 'package:ecare/pages/question_1_condition.dart';
-import 'package:ecare/pages/question_1_medication.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/webservices.dart';
@@ -15,9 +9,8 @@ import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
-import 'package:ecare/widgets/dropdown.dart';
 import 'package:ecare/widgets/showSnackbar.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -40,7 +33,7 @@ class _editDrugpageState extends State<editDrugpage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     myController =
         List.generate(drug_count, (i) =>  TextEditingController(),growable: true);
@@ -62,13 +55,13 @@ class _editDrugpageState extends State<editDrugpage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // MainHeadingText(text: 'Which drug allergies? ', fontSize: 32, fontFamily: 'light',),
               vSizedBox2,
-              ParagraphText(
+              const ParagraphText(
                   fontSize: 16,
                   text: 'Please specify the name of each drug allergy.'),
               vSizedBox4,
@@ -80,7 +73,7 @@ class _editDrugpageState extends State<editDrugpage> {
                       hintText: 'Drug ${i + 1}',
                       suffix: i > 2
                           ? IconButton(
-                        icon: Icon(Icons.remove_circle),
+                        icon: const Icon(Icons.remove_circle),
                         color: Colors.red,
                         onPressed: () {
                           // drug_count--;
@@ -103,12 +96,12 @@ class _editDrugpageState extends State<editDrugpage> {
                   // myController =
                   //     List.generate(drug_count, (i) => TextEditingController(),growable: true);
                 },
-                icon: Icon(
+                icon: const Icon(
                   // <-- Icon
                   Icons.add_circle,
                   size: 24.0,
                 ),
-                label: Text('Add Another'), // <-- Text
+                label: const Text('Add Another'), // <-- Text
               ),
               // Column(
               //   children: [

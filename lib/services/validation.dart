@@ -1,5 +1,8 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:ecare/widgets/showSnackbar.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+ 
 
 String? validateString(String? str, String message, BuildContext context){
   String? value = (str==null)?"":str.trim();

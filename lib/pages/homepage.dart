@@ -1,20 +1,16 @@
+// ignore_for_file: deprecated_member_use, avoid_print
+
 import 'package:badges/badges.dart' as badges;
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/image_urls.dart';
-import 'package:ecare/dialogs/loading_popup.dart';
 import 'package:ecare/functions/global_Var.dart';
 import 'package:ecare/pages/how_it_works.dart';
 import 'package:ecare/pages/messages.dart';
-import 'package:ecare/pages/setting.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
-import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
-import 'package:ecare/widgets/loader.dart';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
 import '../constants/navigation.dart';
 import '../constants/sized_box.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 import '../services/api_urls.dart';
 import '../services/webservices.dart';
@@ -32,7 +28,6 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   bool load = false;
   Map video_data = {};
-  late VideoPlayerController _controller;
 
   get_videos() async {
     setState(() {
@@ -45,11 +40,6 @@ class _HomepageState extends State<Homepage> {
     print('get video----res----$res');
     if (res['status'].toString() == '1') {
       video_data = res['data'];
-      _controller = VideoPlayerController.network(video_data['video'])
-        ..initialize().then((_) {
-          // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-          setState(() {});
-        });
       setState(() {});
     }
   }
@@ -67,7 +57,7 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
       backgroundColor: MyColors.BgColor,
       appBar: AppBar(
-        backgroundColor: Color(0xFE00A2EA).withOpacity(0.1),
+        backgroundColor: const Color(0xFE00A2EA).withOpacity(0.1),
         leading: Padding(
           padding: const EdgeInsets.only(left: 16, top: 5),
           child: Container(
@@ -87,13 +77,13 @@ class _HomepageState extends State<Homepage> {
             showBadge: unread_noti_count != 0 ? true : false,
             badgeContent: Text(
               '${unread_noti_count}',
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
             child: IconButton(
-              icon: Icon(Icons.chat),
+              icon: const Icon(Icons.chat),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MessagePage()));
+                    MaterialPageRoute(builder: (context) => const MessagePage()));
               },
             ),
           ),
@@ -102,15 +92,15 @@ class _HomepageState extends State<Homepage> {
             showBadge: unread_noti_count != 0 ? true : false,
             badgeContent: Text(
               '${unread_noti_count}',
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
             child: IconButton(
-              icon: Icon(Icons.notifications),
+              icon: const Icon(Icons.notifications),
               onPressed: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => NotificationPage()));
+                        builder: (context) => const NotificationPage()));
               },
             ),
           ),
@@ -125,8 +115,8 @@ class _HomepageState extends State<Homepage> {
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.all(16),
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage(
                 'assets/images/patter.png',
@@ -138,7 +128,7 @@ class _HomepageState extends State<Homepage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             vSizedBox2,
-            MainHeadingText(
+            const MainHeadingText(
               text: 'Get ready for your first video visit',
               fontSize: 30,
               fontFamily: 'light',
@@ -155,6 +145,7 @@ class _HomepageState extends State<Homepage> {
                     if (!load)
                       GestureDetector(
                           onTap: () async {
+                           
                             push(
                                 context: context,
                                 screen: VideoPlayerPage(
@@ -192,9 +183,9 @@ class _HomepageState extends State<Homepage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => HowItWorks()));
+                                      builder: (context) => const HowItWorks()));
                             },
-                            child: RoundEdgedButton(
+                            child: const RoundEdgedButton(
                               text: 'How it works',
                               horizontalPadding: 10,
                               isIcon: true,

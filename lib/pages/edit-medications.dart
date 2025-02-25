@@ -1,21 +1,15 @@
+// ignore_for_file: avoid_print
+
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/question_1_allergies.dart';
-import 'package:ecare/pages/question_1_medication.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/webservices.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
-import 'package:ecare/widgets/dropdown.dart';
 import 'package:ecare/widgets/showSnackbar.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -49,7 +43,7 @@ class _editmedicationsState extends State<editmedications> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     myController = List.generate(3, (i) => TextEditingController());
     myController2 = List.generate(3, (i) => TextEditingController());
@@ -75,13 +69,13 @@ class _editmedicationsState extends State<editmedications> {
           fontfamily: 'light'),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // MainHeadingText(text: 'Which medications? ', fontSize: 32, fontFamily: 'light',),
               // vSizedBox2,
-              ParagraphText(
+              const ParagraphText(
                   fontSize: 16,
                   text:
                   'Please consider any medication you are taking, including those taken on a regular basis.'),
@@ -135,12 +129,12 @@ class _editmedicationsState extends State<editmedications> {
                   // myController =
                   //     List.generate(drug_count, (i) => TextEditingController(),growable: true);
                 },
-                icon: Icon(
+                icon: const Icon(
                   // <-- Icon
                   Icons.add_circle,
                   size: 24.0,
                 ),
-                label: Text('Add Another'), // <-- Text
+                label: const Text('Add Another'), // <-- Text
               ),
               vSizedBox2,
               RoundEdgedButton(

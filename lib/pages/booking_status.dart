@@ -1,12 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/pages/chat.dart';
-import 'package:ecare/pages/payment_method.dart';
-import 'package:ecare/pages/profile_edit.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/list_ui_1.dart';
-import 'package:ecare/widgets/setting_list.dart';
 import 'package:flutter/material.dart';
 
 class BookingStatus extends StatefulWidget {
@@ -24,11 +22,11 @@ class _BookingStatusState extends State<BookingStatus> {
       appBar: appBar(context: context, appBarColor: MyColors.BgColor),
 
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MainHeadingText(text: 'Booking Status', fontSize: 32, fontFamily: 'light',),
+            const MainHeadingText(text: 'Booking Status', fontSize: 32, fontFamily: 'light',),
 
             vSizedBox,
 

@@ -1,10 +1,8 @@
+// ignore_for_file: deprecated_member_use, avoid_print
+
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/doctor_module/videocall.dart';
-import 'package:ecare/pages/choose_schedule.dart';
-import 'package:ecare/pages/schedule_appointment.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
-import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/custom_circular_image.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +10,6 @@ import 'package:intl/intl.dart';
 
 import '../Services/api_urls.dart';
 import '../constants/sized_box.dart';
-import '../services/auth.dart';
 import '../services/webservices.dart';
 
 class PatientDetails extends StatefulWidget {
@@ -31,7 +28,7 @@ class _PatientDetailsState extends State<PatientDetails> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     get_user_info();
     get_health_detail();
@@ -75,13 +72,13 @@ class _PatientDetailsState extends State<PatientDetails> {
       backgroundColor: MyColors.BgColor,
       appBar: appBar(
         context: context,
-        appBarColor: Color(0xFE00A2EA).withOpacity(0.1),
+        appBarColor: const Color(0xFE00A2EA).withOpacity(0.1),
       ),
-      body: load?CustomLoader():SingleChildScrollView(
+      body: load?const CustomLoader():SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
+          padding: const EdgeInsets.all(16),
+          decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/patter.png', ),
                 alignment: Alignment.topCenter,
@@ -116,17 +113,17 @@ class _PatientDetailsState extends State<PatientDetails> {
               vSizedBox4,
               Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: Color(0xFE00A2EA).withOpacity(0.1),
+                  color: const Color(0xFE00A2EA).withOpacity(0.1),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MainHeadingText(text: 'About Patient', fontFamily: 'light', fontSize: 24,),
+                    const MainHeadingText(text: 'About Patient', fontFamily: 'light', fontSize: 24,),
                     vSizedBox,
-                    ParagraphText(text: '-', fontSize: 14, height: 1.3,),
+                    const ParagraphText(text: '-', fontSize: 14, height: 1.3,),
                     // MainHeadingText(text: 'Read More', color: MyColors.primaryColor, fontSize: 14, fontFamily: 'semibold',),
                     // vSizedBox2,
                     // MainHeadingText(text: 'Reason for visit', fontFamily: 'light', fontSize: 16,),
@@ -158,7 +155,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                       ],
                     ),
                     if(load2)
-                      CustomLoader(),
+                      const CustomLoader(),
                     // vSizedBox,
                     // MainHeadingText(text: 'Surgeries', color: MyColors.primaryColor, fontFamily: 'light', fontSize: 14,),
                     // ParagraphText(text: 'Lorem Ipsum, Lorem Ipsum, Ipsum', fontSize: 14, fontFamily: 'light', color: MyColors.headingcolor,),

@@ -1,16 +1,16 @@
+// ignore_for_file: avoid_print
+
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
 import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/doctor_module/signup_form_1.dart';
 import 'package:ecare/functions/navigation_functions.dart';
 import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -42,7 +42,7 @@ class _SignUp_Page_DoctorState extends State<SignUp_Page_Doctor> {
       backgroundColor: MyColors.scaffold,
       appBar: appBar(context: context),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -52,7 +52,7 @@ class _SignUp_Page_DoctorState extends State<SignUp_Page_Doctor> {
               width: MediaQuery.of(context).size.width,
             ),
             vSizedBox,
-            MainHeadingText(text: 'SignUp to E-Care', fontSize: 32, fontFamily: 'light', color: MyColors.primaryColor,),
+            const MainHeadingText(text: 'SignUp to E-Care', fontSize: 32, fontFamily: 'light', color: MyColors.primaryColor,),
             vSizedBox4,
             CustomTextField(
                 controller: fname,
@@ -101,7 +101,7 @@ class _SignUp_Page_DoctorState extends State<SignUp_Page_Doctor> {
                   onCountryChanged: (country) {
                     // print('country-----$country');
                   },
-                  dropdownIcon:Icon(Icons.phone,color: Colors.transparent,) ,
+                  dropdownIcon:const Icon(Icons.phone,color: Colors.transparent,) ,
                   controller: phone,
                   decoration: InputDecoration(
                         // suffixIcon: Icon(Icons.phone),
@@ -123,15 +123,15 @@ class _SignUp_Page_DoctorState extends State<SignUp_Page_Doctor> {
                     // ) ,
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: MyColors.bordercolor),
+                          borderSide: const BorderSide(color: MyColors.bordercolor),
                           borderRadius: BorderRadius.circular(15)
                       ),
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: MyColors.bordercolor),
+                          borderSide: const BorderSide(color: MyColors.bordercolor),
                           borderRadius: BorderRadius.circular(15)
                       ),
                       enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: MyColors.bordercolor),
+                          borderSide: const BorderSide(color: MyColors.bordercolor),
                           borderRadius: BorderRadius.circular(15)
                       )
                     // labelStyle: TextStyle(color:MyColors.paragraphcolor, backgroundColor: Color(0xFFCAE6FF)),
@@ -155,12 +155,12 @@ class _SignUp_Page_DoctorState extends State<SignUp_Page_Doctor> {
                   left: 14,
                   top:-10,
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 1, horizontal: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 10),
                     decoration: BoxDecoration(
-                        color: Color(0xFFCAE6FF),
+                        color: const Color(0xFFCAE6FF),
                         borderRadius: BorderRadius.circular(10)
                     ),
-                    child: ParagraphText(
+                    child: const ParagraphText(
                       text: "Phone Number",
                       fontSize: 12,
                       color: MyColors.paragraphcolor,
@@ -221,7 +221,7 @@ class _SignUp_Page_DoctorState extends State<SignUp_Page_Doctor> {
 
                   });
                 },
-                icon: show_pass?Icon(Icons.visibility_off):Icon(Icons.visibility),
+                icon: show_pass?const Icon(Icons.visibility_off):const Icon(Icons.visibility),
               ),
               controller: password,
               hintText: '**********',
@@ -236,7 +236,7 @@ class _SignUp_Page_DoctorState extends State<SignUp_Page_Doctor> {
               suffixheight: 18,
             ),
             vSizedBox2,
-            MainHeadingText(text: 'Select Gender', color: MyColors.onsurfacevarient, fontSize: 14, fontFamily: 'light',),
+            const MainHeadingText(text: 'Select Gender', color: MyColors.onsurfacevarient, fontSize: 14, fontFamily: 'light',),
             vSizedBox,
             Row(
               children: [
@@ -248,7 +248,7 @@ class _SignUp_Page_DoctorState extends State<SignUp_Page_Doctor> {
                     });
                   },
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     decoration: BoxDecoration(
                       color: (gender=='male')?MyColors.primaryColor:Colors.transparent,
                       borderRadius: BorderRadius.circular(8),
@@ -269,7 +269,7 @@ class _SignUp_Page_DoctorState extends State<SignUp_Page_Doctor> {
                     });
                   },
                   child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                       decoration: BoxDecoration(
                         color: (gender=='female')?MyColors.primaryColor:Colors.transparent,
                         borderRadius: BorderRadius.circular(8),
@@ -320,14 +320,14 @@ class _SignUp_Page_DoctorState extends State<SignUp_Page_Doctor> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ParagraphText(
+                const ParagraphText(
                     text: 'Already have an account? ',
                 ),
                 GestureDetector(
                   onTap: (){
-                    push(context: context, screen: LoginPage());
+                    push(context: context, screen: const LoginPage());
                   },
-                  child: ParagraphText(
+                  child: const ParagraphText(
                       text: 'Login',
                     fontFamily: 'semibold',
                     underlined: true,

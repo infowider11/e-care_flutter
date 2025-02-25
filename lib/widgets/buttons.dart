@@ -1,7 +1,6 @@
 import 'package:ecare/constants/sized_box.dart';
 import 'package:flutter/material.dart';
 import '../constants/colors.dart';
-import '../constants/constans.dart';
 import '../constants/image_urls.dart';
 
 
@@ -305,9 +304,9 @@ class RoundEdgedButtonred extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 16,vertical: 12),
+        margin: const EdgeInsets.symmetric(horizontal: 16,vertical: 12),
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
         decoration: BoxDecoration(
           color:isSolid? color:Colors.transparent,
           // gradient: hasGradient?gradient ??
@@ -359,9 +358,9 @@ class TransparentButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 32,vertical: 0),
+        margin: const EdgeInsets.symmetric(horizontal: 32,vertical: 0),
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
         decoration: BoxDecoration(
           color:isSolid? color:Colors.transparent,
           // gradient: hasGradient?gradient ??
@@ -411,9 +410,9 @@ class Borderbutton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 32,vertical: 0),
+        margin: const EdgeInsets.symmetric(horizontal: 32,vertical: 0),
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
         decoration: BoxDecoration(
           color:isSolid? color:Colors.transparent,
           // gradient: hasGradient?gradient ??
@@ -429,7 +428,7 @@ class Borderbutton extends StatelessWidget {
         child: Text(
           text,
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
               color: MyColors.primaryColor,
               fontSize: 18,
               fontFamily: 'semibold'

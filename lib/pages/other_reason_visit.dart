@@ -1,4 +1,3 @@
-import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/services/validation.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
@@ -25,11 +24,11 @@ class _ReasonVisitState extends State<ReasonVisit> {
       appBar: appBar(context: context),
 
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MainHeadingText(text: 'What is the reason for your visit?', fontSize: 32, fontFamily: 'light',),
+            const MainHeadingText(text: 'What is the reason for your visit?', fontSize: 32, fontFamily: 'light',),
             vSizedBox4,
             CustomTextField(controller: other_reason, hintText: 'I would like to focus on...'),
             vSizedBox2,

@@ -65,14 +65,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.1"
-  carousel_slider:
-    dependency: "direct main"
-    description:
-      name: carousel_slider
-      sha256: "9c695cc963bf1d04a47bd6021f68befce8970bcd61d24938e1fb0918cf5d9c42"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.2.1"
   cell_calendar:
     dependency: "direct main"
     description:
@@ -161,38 +153,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
-  dartx:
-    dependency: transitive
-    description:
-      name: dartx
-      sha256: "8b25435617027257d43e6508b5fe061012880ddfdaa75a71d607c3de2a13d244"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.0"
-  diacritic:
-    dependency: transitive
-    description:
-      name: diacritic
-      sha256: "12981945ec38931748836cd76f2b38773118d0baef3c68404bdfde9566147876"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.6"
-  dio:
-    dependency: "direct main"
-    description:
-      name: dio
-      sha256: "7d328c4d898a61efc3cd93655a0955858e29a0aa647f0f9e02d59b3bb275e2e8"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.0.6"
-  downloadsfolder:
-    dependency: "direct main"
-    description:
-      name: downloadsfolder
-      sha256: "0e1bb7dd634d6231c0ac116c467da94507a07ed62239712ea0dead981d58b114"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.0"
   dropdown_search:
     dependency: "direct main"
     description:
@@ -469,46 +429,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  google_sign_in:
-    dependency: "direct main"
-    description:
-      name: google_sign_in
-      sha256: "821f354c053d51a2d417b02d42532a19a6ea8057d2f9ebb8863c07d81c98aaf9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.4.4"
-  google_sign_in_android:
-    dependency: transitive
-    description:
-      name: google_sign_in_android
-      sha256: "3b96f9b6cf61915f73cbe1218a192623e296a9b8b31965702503649477761e36"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.1.34"
-  google_sign_in_ios:
-    dependency: transitive
-    description:
-      name: google_sign_in_ios
-      sha256: "83f015169102df1ab2905cf8abd8934e28f87db9ace7a5fa676998842fed228a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.7.8"
-  google_sign_in_platform_interface:
-    dependency: transitive
-    description:
-      name: google_sign_in_platform_interface
-      sha256: "1f6e5787d7a120cc0359ddf315c92309069171306242e181c09472d1b00a2971"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.5"
-  google_sign_in_web:
-    dependency: transitive
-    description:
-      name: google_sign_in_web
-      sha256: "75cc41ebc53b1756320ee14d9c3018ad3e6cea298147dbcd86e9d0c8d6720b40"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.10.2+1"
   hooks_riverpod:
     dependency: transitive
     description:
@@ -653,14 +573,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.2"
-  jiffy:
-    dependency: "direct main"
-    description:
-      name: jiffy
-      sha256: "1c1b86459969ff9f32dc5b0ffe392f1e08181e66396cf9dd8fa7c90552a691af"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.3.2"
   js:
     dependency: transitive
     description:
@@ -957,14 +869,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.14.0"
-  pinch_zoom:
-    dependency: "direct main"
-    description:
-      name: pinch_zoom
-      sha256: ad12872281742726afaf03438d99a4572c584a612630768953beb6dfd6f9389a
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   platform:
     dependency: transitive
     description:
@@ -1101,14 +1005,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.1"
-  simple_gesture_detector:
-    dependency: transitive
-    description:
-      name: simple_gesture_detector
-      sha256: ba2cd5af24ff20a0b8d609cec3f40e5b0744d2a71804a2616ae086b9c19d19a3
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -1234,14 +1130,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.0+3"
-  table_calendar:
-    dependency: "direct main"
-    description:
-      name: table_calendar
-      sha256: b2896b7c86adf3a4d9c911d860120fe3dbe03c85db43b22fd61f14ee78cdbb63
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.3"
   term_glyph:
     dependency: transitive
     description:
@@ -1258,14 +1146,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.3"
-  time:
-    dependency: transitive
-    description:
-      name: time
-      sha256: "370572cf5d1e58adcb3e354c47515da3f7469dac3a95b447117e728e7be6f461"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.5"
   typed_data:
     dependency: transitive
     description:
@@ -1274,30 +1154,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
-  url_launcher:
-    dependency: "direct main"
-    description:
-      name: url_launcher
-      sha256: "9d06212b1362abc2f0f0d78e6f09f726608c74e3b9462e8368bb03314aa8d603"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.3.1"
-  url_launcher_android:
-    dependency: transitive
-    description:
-      name: url_launcher_android
-      sha256: "6fc2f56536ee873eeb867ad176ae15f304ccccc357848b351f6f0d8d4a40d193"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.3.14"
-  url_launcher_ios:
-    dependency: transitive
-    description:
-      name: url_launcher_ios
-      sha256: "16a513b6c12bb419304e72ea0ae2ab4fed569920d1c7cb850263fe3acc824626"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.3.2"
   url_launcher_linux:
     dependency: transitive
     description:
@@ -1306,14 +1162,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.1"
-  url_launcher_macos:
-    dependency: transitive
-    description:
-      name: url_launcher_macos
-      sha256: "17ba2000b847f334f16626a574c702b196723af2a289e7a93ffcb79acff855c2"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.2.2"
   url_launcher_platform_interface:
     dependency: transitive
     description:

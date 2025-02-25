@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, avoid_print, deprecated_member_use
+
 import 'package:ecare/Services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/navigation.dart';
@@ -133,7 +135,6 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((event) {
       get_slots();
@@ -259,8 +260,7 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                                         child: child!,
                                       );
                                     },
-                                    initialTime: start_timestamp ??
-                                        const TimeOfDay(hour: 7, minute: 0),
+                                    initialTime: start_timestamp,
                                   );
                                   if (picked != null) {
                                     setState(() {
@@ -305,13 +305,12 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                                         child: child!,
                                       );
                                     },
-                                    initialTime: end_timestamp ??
-                                        const TimeOfDay(hour: 18, minute: 0),
+                                    initialTime: end_timestamp,
                                     // initialTime: TimeOfDay.now(),
                                     // errorInvalidText: 'error'
                                   );
                                   if (picked != null) {
-                                    print('unformate----${picked}');
+                                    print('unformate----$picked');
                                     // String time = picked.format(context);
                                     // String time = DateFormat.jm().format(DateFormat('hh:mm').parse(.toString()));
                                     String time = DateFormat.jm().format(
@@ -507,88 +506,86 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                     color: Colors.black,
                     height: 50.0,
                   ),
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const MainHeadingText(text: 'Slot List'),
-                        for (int i = 0; i < slots.length; i++)
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Container(
-                              alignment: Alignment.topLeft,
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                color: MyColors.lightBlue.withOpacity(0.11),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              padding: const EdgeInsets.all(16.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text('Date: ${slots[i]['date']}'),
-                                        Text(
-                                            'Start Time: ${DateFormat.jm().format(DateFormat('hh:mm').parse(slots[i]['start_time']))}'),
-                                        Text(
-                                            'End Time: ${DateFormat.jm().format(DateFormat('hh:mm').parse(slots[i]['end_time']))}'),
-                                        if (slots[i]['is_booked'].toString() ==
-                                            '1')
-                                          const Text(
-                                            'You already have a booking of this slot. You are not able to delete or edit this.',
-                                            style:
-                                                TextStyle(color: Colors.green),
-                                          ),
-                                      ],
-                                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const MainHeadingText(text: 'Slot List'),
+                      for (int i = 0; i < slots.length; i++)
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            alignment: Alignment.topLeft,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              color: MyColors.lightBlue.withOpacity(0.11),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text('Date: ${slots[i]['date']}'),
+                                      Text(
+                                          'Start Time: ${DateFormat.jm().format(DateFormat('hh:mm').parse(slots[i]['start_time']))}'),
+                                      Text(
+                                          'End Time: ${DateFormat.jm().format(DateFormat('hh:mm').parse(slots[i]['end_time']))}'),
+                                      if (slots[i]['is_booked'].toString() ==
+                                          '1')
+                                        const Text(
+                                          'You already have a booking of this slot. You are not able to delete or edit this.',
+                                          style:
+                                              TextStyle(color: Colors.green),
+                                        ),
+                                    ],
                                   ),
-                                  if (slots[i]['is_booked'].toString() == '0')
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        InkWell(
-                                          onTap: () => {
-                                            remove_slot(context,
-                                                slots[i]['id'].toString()),
-                                          },
-                                          child: const Icon(
-                                            Icons.restore_from_trash_rounded,
-                                            color: Colors.red,
-                                          ),
+                                ),
+                                if (slots[i]['is_booked'].toString() == '0')
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      InkWell(
+                                        onTap: () => {
+                                          remove_slot(context,
+                                              slots[i]['id'].toString()),
+                                        },
+                                        child: const Icon(
+                                          Icons.restore_from_trash_rounded,
+                                          color: Colors.red,
                                         ),
-                                        vSizedBox05,
-                                        InkWell(
-                                          onTap: () {
-                                            push(
-                                                context: context,
-                                                screen: EditSlotScreen(
-                                                  slotData: slots[i],
-                                                ));
-                                          },
-                                          child: const Icon(
-                                            Icons.edit,
-                                            size: 20,
-                                            color: Colors.red,
-                                          ),
+                                      ),
+                                      vSizedBox05,
+                                      InkWell(
+                                        onTap: () {
+                                          push(
+                                              context: context,
+                                              screen: EditSlotScreen(
+                                                slotData: slots[i],
+                                              ));
+                                        },
+                                        child: const Icon(
+                                          Icons.edit,
+                                          size: 20,
+                                          color: Colors.red,
                                         ),
-                                      ],
-                                    ),
-                                ],
-                              ),
+                                      ),
+                                    ],
+                                  ),
+                              ],
                             ),
                           ),
-                        if (slots.length == 0 && !load)
-                          const Center(
-                            child: Text('No slot yet.'),
-                          )
-                      ],
-                    ),
+                        ),
+                      if (slots.isEmpty && !load)
+                        const Center(
+                          child: Text('No slot yet.'),
+                        )
+                    ],
                   ),
                 ],
               ),
@@ -607,16 +604,13 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
               // The "Yes" button
               TextButton(
                   onPressed: () async {
-                    Map<String, dynamic> data = {
-                      'user_id': await getCurrentUserId(),
-                      'slot_id': id.toString(),
-                    };
+                    
                     await EasyLoading.show(
                       status: null,
                       maskType: EasyLoadingMaskType.black,
                     );
                     var res = await Webservices.get(
-                        ApiUrls.deleteslot + '?slot_id=' + id.toString());
+                        '${ApiUrls.deleteslot}?slot_id=$id');
                     EasyLoading.dismiss();
                     if (res['status'].toString() == '1') {
                       get_slots();
@@ -648,9 +642,9 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
         j <= selectedEndDate.difference(selectedStartDate).inDays + 1;
         j++) {
       int startMinute =
-          ((start_timestamp?.hour ?? 0) * 60) + (start_timestamp?.minute ?? 0);
+          ((start_timestamp.hour) * 60) + (start_timestamp.minute );
       int endMinute =
-          ((end_timestamp?.hour ?? 0) * 60) + (end_timestamp?.minute ?? 0);
+          ((end_timestamp.hour ) * 60) + (end_timestamp.minute );
 
       for (int i = startMinute; i <= endMinute - 30; i = i + 30) {
         var indexExist = weekdays.indexWhere(
@@ -664,7 +658,7 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
               from: TimeOfDay(hour: (i / 60).floor(), minute: i % 60),
               to: TimeOfDay(
                   hour: ((i + 30) / 60).floor(), minute: (i + 30) % 60),
-              dateTime: selectedStartDate.add(Duration(days: j))!,
+              dateTime: selectedStartDate.add(Duration(days: j)),
             ),
           );
         }
@@ -683,7 +677,7 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
       weekdaysAvailable.add(date.weekday);
     }
     myCustomLogStatements(
-        "weekdaysAvailable    ---- ${startDate} ${endDate} ${weekdaysAvailable}");
+        "weekdaysAvailable    ---- $startDate $endDate $weekdaysAvailable");
     if (endDate.day == startDate.day &&
         endDate.month == startDate.month &&
         endDate.year == startDate.year) {
@@ -697,7 +691,7 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
       }
     }
     weekdaysAvailable = weekdaysAvailable.toSet().toList();
-    myCustomLogStatements("weekdaysAvailable    ---- ${weekdaysAvailable}");
+    myCustomLogStatements("weekdaysAvailable    ---- $weekdaysAvailable");
     setState(() {});
   }
 }

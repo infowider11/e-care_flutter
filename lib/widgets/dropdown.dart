@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 // import 'package:dropdown_button2/dropdown_button2.dart';
 
 import '../constants/colors.dart';
-import '../constants/sized_box.dart';
-import 'CustomTexts.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 
 
@@ -148,14 +146,14 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
   Widget build(BuildContext context) {
     return Container(
        height: 55,
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
-          color: Color(0xFEFFFFFF),
+          color: const Color(0xFEFFFFFF),
           // border: widget.border,
           border: Border.all(color: MyColors.bordercolor),
           borderRadius: BorderRadius.circular(12)
       ),
-      padding: EdgeInsets.only(left: 10),
+      padding: const EdgeInsets.only(left: 10),
       child: DropdownSearch(
         /// commented to check
         // maxHeight:widget.maxheight??200,

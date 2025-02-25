@@ -204,7 +204,7 @@ class headingText extends StatelessWidget {
 class CustomDivider extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return  Divider(
+    return  const Divider(
       height: 40,
       thickness: 3,
       color: Color(0xFFF2F4FF),

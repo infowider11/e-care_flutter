@@ -1,26 +1,19 @@
+// ignore_for_file: avoid_print
+
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/question_2_allergies.dart';
-import 'package:ecare/pages/question_2_medication.dart';
 import 'package:ecare/pages/review_profile.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/webservices.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
-import 'package:ecare/widgets/customtextfield.dart';
 // import 'package:ecare/widgets/dropdown.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-import '../widgets/Customdropdownbutton.dart';
 import '../widgets/custom_dropdown.dart';
 import '../widgets/showSnackbar.dart';
 
@@ -67,7 +60,7 @@ class RelativesPageState extends State<RelativesPage>
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     get_relatives();
     print('get-----${widget.pre_data}');
@@ -81,18 +74,18 @@ class RelativesPageState extends State<RelativesPage>
       backgroundColor: MyColors.scaffold,
       appBar: appBar(context: context),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             vSizedBox2,
-            MainHeadingText(
+            const MainHeadingText(
               text: 'Which relatives? ',
               fontSize: 32,
               fontFamily: 'light',
             ),
             vSizedBox,
-            ParagraphText(
+            const ParagraphText(
                 fontSize: 16,
                 text:
                     'Specify which of your first-degree relatives has each conditions.'),
@@ -143,7 +136,7 @@ class RelativesPageState extends State<RelativesPage>
                       Navigator.pop(context);
                       else
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ReviewProfile()));
+                        MaterialPageRoute(builder: (context) => const ReviewProfile()));
                   } else {
                     showSnackbar( 'Somting Went Wrong.');
                   }

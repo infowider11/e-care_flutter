@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, avoid_print, prefer_interpolation_to_compose_strings
+
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/global_keys.dart';
 import 'package:ecare/constants/navigation.dart';
@@ -54,7 +56,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     get_appointment();
     gettoday_appointment();
@@ -67,8 +69,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
     setState(() {
       load = true;
     });
-    var res = await Webservices.get(ApiUrls.booking_list +
-        '?user_id=' +
+    var res = await Webservices.get('${ApiUrls.booking_list}?user_id=' +
         await getCurrentUserId() +
         '&user_type=1');
     print('res-----$res');
@@ -89,8 +90,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
     setState(() {
       load = true;
     });
-    var res = await Webservices.get(ApiUrls.booking_list +
-        '?user_id=' +
+    var res = await Webservices.get('${ApiUrls.booking_list}?user_id=' +
         await getCurrentUserId() +
         '&user_type=1');
     print('res-----$res');
@@ -107,8 +107,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
     setState(() {
       load2 = true;
     });
-    var res = await Webservices.get(ApiUrls.today_appointment +
-        '?user_id=' +
+    var res = await Webservices.get('${ApiUrls.today_appointment}?user_id=' +
         await getCurrentUserId() +
         '&user_type=1');
     print('ressdfsdf-----$res');

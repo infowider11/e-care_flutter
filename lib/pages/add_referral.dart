@@ -1,18 +1,11 @@
+// ignore_for_file: unnecessary_brace_in_string_interps, avoid_print, unnecessary_string_interpolations
+
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/prescriptions_doctor.dart';
-import 'package:ecare/pages/question_1_allergies.dart';
-import 'package:ecare/pages/question_1_condition.dart';
-import 'package:ecare/pages/question_1_medication.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/webservices.dart';
@@ -21,14 +14,13 @@ import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
 import 'package:ecare/widgets/showSnackbar.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_signature_pad/flutter_signature_pad.dart';
 import 'package:path_provider/path_provider.dart';
 import '../constants/api_variable_keys.dart';
 import '../functions/get_name.dart';
-import '../widgets/Customdropdownbutton.dart';
 import 'dart:ui' as ui;
 
 import '../widgets/custom_dropdown.dart';
@@ -74,7 +66,7 @@ class _Add_Referral_Letter_PageState extends State<Add_Referral_Letter_Page> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     if (widget.booking_id != null && widget.booking_id != 'null') {
       booking_id = widget.booking_id!;
     }
@@ -96,7 +88,7 @@ class _Add_Referral_Letter_PageState extends State<Add_Referral_Letter_Page> {
       appBar: appBar(context: context),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -111,14 +103,14 @@ class _Add_Referral_Letter_PageState extends State<Add_Referral_Letter_Page> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ParagraphText(
+                  const ParagraphText(
                     text: 'Booking Id',
                     fontSize: 14.0,
                     color: Colors.black,
                     fontFamily: 'regular',
                   ),
                   Container(
-                    padding: EdgeInsets.all(0.0),
+                    padding: const EdgeInsets.all(0.0),
                     decoration: BoxDecoration(
                       border: Border.all(color: MyColors.bordercolor),
                       color: Colors.white,
@@ -179,7 +171,7 @@ class _Add_Referral_Letter_PageState extends State<Add_Referral_Letter_Page> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            ParagraphText(
+                            const ParagraphText(
                               text: 'Signature',
                               fontSize: 14.0,
                               color: Colors.black,
@@ -190,7 +182,7 @@ class _Add_Referral_Letter_PageState extends State<Add_Referral_Letter_Page> {
                                   final sign = _sign.currentState;
                                   sign?.clear();
                                 },
-                                child: Text('Clear',style: TextStyle(color: Colors.red),)
+                                child: const Text('Clear',style: TextStyle(color: Colors.red),)
                             ),
                           ],
                         ),
@@ -200,7 +192,7 @@ class _Add_Referral_Letter_PageState extends State<Add_Referral_Letter_Page> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           width: double.infinity,
                           height: 200,
                           child:Row(

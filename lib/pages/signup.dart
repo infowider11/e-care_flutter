@@ -1,5 +1,6 @@
+// ignore_for_file: must_be_immutable, non_constant_identifier_names, avoid_print
+
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
 import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/functions/navigation_functions.dart';
@@ -9,23 +10,10 @@ import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
 
-import '../services/api_urls.dart';
-import '../functions/global_Var.dart';
-import '../services/auth.dart';
-import '../services/firebase_push_notifications.dart';
-import '../services/onesignal.dart';
 import '../services/validation.dart';
-import '../services/webservices.dart';
-import '../tabs.dart';
-import '../widgets/showSnackbar.dart';
 
 class SignUp_Page extends StatefulWidget {
   late bool? is_googleSignin;
@@ -44,7 +32,7 @@ class _SignUp_PageState extends State<SignUp_Page> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     print('google login data---- ${widget.googleSignin_data?['email']}');
     if(widget.googleSignin_data!=null){
@@ -52,85 +40,85 @@ class _SignUp_PageState extends State<SignUp_Page> {
     }
   }
 
-  void _signInWithGoogle() async {
-    await EasyLoading.show(
-        status: null,
-        maskType: EasyLoadingMaskType.black
-    );
-    GoogleSignIn googleSignIn = GoogleSignIn();
-    GoogleSignInAccount? googleAccount = await googleSignIn.signIn();
-    if (googleAccount != null) {
-      GoogleSignInAuthentication googleAuth =
-      await googleAccount.authentication;
-      final authResult = await firebaseAuth.signInWithCredential(
-        GoogleAuthProvider.credential(
-          idToken: googleAuth.idToken,
-          accessToken: googleAuth.accessToken,
-        ),
-      );
-      // return _userFromFirebase(authResult.user);
-      print('the user data is ${authResult}');
-      Map<String, dynamic> data = {
-        'uid': authResult.user?.uid,
-        'name':authResult.user?.displayName,
-        'email':authResult.user?.email??'',
-        // 'fname':authResult.additionalUserInfo.
-      };
-      await googleSignIn.disconnect();
-      // EasyLoading.dismiss();
-      print('google login successfully-------------- ${data}');
+  // void _signInWithGoogle() async {
+  //   await EasyLoading.show(
+  //       status: null,
+  //       maskType: EasyLoadingMaskType.black
+  //   );
+  //   GoogleSignIn googleSignIn = GoogleSignIn();
+  //   GoogleSignInAccount? googleAccount = await googleSignIn.signIn();
+  //   if (googleAccount != null) {
+  //     GoogleSignInAuthentication googleAuth =
+  //     await googleAccount.authentication;
+  //     final authResult = await firebaseAuth.signInWithCredential(
+  //       GoogleAuthProvider.credential(
+  //         idToken: googleAuth.idToken,
+  //         accessToken: googleAuth.accessToken,
+  //       ),
+  //     );
+  //     // return _userFromFirebase(authResult.user);
+  //     print('the user data is ${authResult}');
+  //     Map<String, dynamic> data = {
+  //       'uid': authResult.user?.uid,
+  //       'name':authResult.user?.displayName,
+  //       'email':authResult.user?.email??'',
+  //       // 'fname':authResult.additionalUserInfo.
+  //     };
+  //     await googleSignIn.disconnect();
+  //     // EasyLoading.dismiss();
+  //     print('google login successfully-------------- ${data}');
 
-      Map<String,dynamic> request = {
-        'email':authResult.user?.email??'',
-        'google_id':authResult.user?.uid
-      };
-      var res = await Webservices.postData(apiUrl: ApiUrls.socialsignup, body: request, context: context);
-      print('social api res------ ${res}');
-      EasyLoading.dismiss();
-      if(res['status'].toString()=='1'){
-        updateUserDetails(res['data']);
-        user_Data=res['data'];
-        setState(() {
-        });
-        if(!kIsWeb) {
-          String? token =   await get_device_id();
-          print('token-----$token');
-          await Webservices.updateDeviceToken(user_id: user_Data!['id'].toString(), token: token!);
-        }
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) {
-              return tabs_second_page( selectedIndex: 0,);
-            }), (route) {
-          return false;
-        });
-      }
-      // else {
-      //   widget.is_googleSignin = true;
-      //   widget.googleSignin_data = data;
-      //   email.text=widget.googleSignin_data?['email']??'';
-      //   setState(() {
-      //   });
-      //   // push(context: context, screen: SignUp_Page(
-      //   //   is_googleSignin: true,
-      //   //   googleSignin_data: data,
-      //   // ));
-      // }
-      else if(res['status'].toString()=='0') {
-          widget.is_googleSignin = true;
-          widget.googleSignin_data = data;
-          email.text=widget.googleSignin_data?['email']??'';
-          setState(() {
-          });
-    } else if(res['status'].toString()=='2') {
-      showSnackbar( res['message']);
-    } else {
-      showSnackbar( 'Something went wrong.Please try again latter.');
-    }
-    } else {
-      EasyLoading.dismiss();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Something Wrong happened.')));
-    }
-  }
+  //     Map<String,dynamic> request = {
+  //       'email':authResult.user?.email??'',
+  //       'google_id':authResult.user?.uid
+  //     };
+  //     var res = await Webservices.postData(apiUrl: ApiUrls.socialsignup, body: request, context: context);
+  //     print('social api res------ ${res}');
+  //     EasyLoading.dismiss();
+  //     if(res['status'].toString()=='1'){
+  //       updateUserDetails(res['data']);
+  //       user_Data=res['data'];
+  //       setState(() {
+  //       });
+  //       if(!kIsWeb) {
+  //         String? token =   await get_device_id();
+  //         print('token-----$token');
+  //         await Webservices.updateDeviceToken(user_id: user_Data!['id'].toString(), token: token!);
+  //       }
+  //       Navigator.of(context).pushAndRemoveUntil(
+  //           MaterialPageRoute(builder: (context) {
+  //             return tabs_second_page( selectedIndex: 0,);
+  //           }), (route) {
+  //         return false;
+  //       });
+  //     }
+  //     // else {
+  //     //   widget.is_googleSignin = true;
+  //     //   widget.googleSignin_data = data;
+  //     //   email.text=widget.googleSignin_data?['email']??'';
+  //     //   setState(() {
+  //     //   });
+  //     //   // push(context: context, screen: SignUp_Page(
+  //     //   //   is_googleSignin: true,
+  //     //   //   googleSignin_data: data,
+  //     //   // ));
+  //     // }
+  //     else if(res['status'].toString()=='0') {
+  //         widget.is_googleSignin = true;
+  //         widget.googleSignin_data = data;
+  //         email.text=widget.googleSignin_data?['email']??'';
+  //         setState(() {
+  //         });
+  //   } else if(res['status'].toString()=='2') {
+  //     showSnackbar( res['message']);
+  //   } else {
+  //     showSnackbar( 'Something went wrong.Please try again latter.');
+  //   }
+  //   } else {
+  //     EasyLoading.dismiss();
+  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Something Wrong happened.')));
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +130,7 @@ class _SignUp_PageState extends State<SignUp_Page> {
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
                   Image.asset(
@@ -151,7 +139,7 @@ class _SignUp_PageState extends State<SignUp_Page> {
                     width: MediaQuery.of(context).size.width,
                   ),
                   vSizedBox,
-                  MainHeadingText(
+                  const MainHeadingText(
                     text: 'SignUp to E-Care',
                     fontSize: 32,
                     fontFamily: 'light',
@@ -216,7 +204,7 @@ class _SignUp_PageState extends State<SignUp_Page> {
 
                         });
                       },
-                      icon: show_pass?Icon(Icons.visibility_off):Icon(Icons.visibility),
+                      icon: show_pass?const Icon(Icons.visibility_off):const Icon(Icons.visibility),
                     ),
                     labelfont: 12,
                     labelcolor: MyColors.paragraphcolor,
@@ -294,14 +282,14 @@ class _SignUp_PageState extends State<SignUp_Page> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ParagraphText(
+                      const ParagraphText(
                         text: 'Already have an account? ',
                       ),
                       GestureDetector(
                         onTap: () {
-                          push(context: context, screen: LoginPage());
+                          push(context: context, screen: const LoginPage());
                         },
-                        child: ParagraphText(
+                        child: const ParagraphText(
                           text: 'Login',
                           fontFamily: 'semibold',
                           underlined: true,

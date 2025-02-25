@@ -1,4 +1,6 @@
 // import 'package:widgets/custom_text_field.dart';
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 // import 'package:single_af/constants/colors.dart';
@@ -24,7 +26,7 @@ class SearchLocation extends StatefulWidget {
   final String placeholder;
 
   final BoxDecoration? boxDecoration;
-   final dynamic? value;
+   final dynamic value;
   /// The callback that is called when one Place is selected by the user.
   final void Function(Place place) ? onSelected;
 
@@ -134,7 +136,7 @@ class SearchLocationState extends State<SearchLocation> with TickerProviderState
 
   updateTextField(String text){
     _textEditingController.text = text;
-    Future.delayed(Duration(milliseconds: 1000)).then((value){
+    Future.delayed(const Duration(milliseconds: 1000)).then((value){
       closeSearch();
       setState(() {
 
@@ -149,10 +151,10 @@ class SearchLocationState extends State<SearchLocation> with TickerProviderState
   void initState() {
     _textEditingController.text = widget.initialData;
     geocode = Geocoding(apiKey: widget.apiKey, language: widget.language);
-    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
     _containerHeight = Tween<double>(begin: widget.height??65, end: 364).animate(
       CurvedAnimation(
-        curve: Interval(0.0, 0.5, curve: Curves.easeInOut),
+        curve: const Interval(0.0, 0.5, curve: Curves.easeInOut),
         parent: _animationController,
       ),
     );
@@ -161,7 +163,7 @@ class SearchLocationState extends State<SearchLocation> with TickerProviderState
       end: 1,
     ).animate(
       CurvedAnimation(
-        curve: Interval(0.5, 1.0, curve: Curves.easeInOut),
+        curve: const Interval(0.5, 1.0, curve: Curves.easeInOut),
         parent: _animationController,
       ),
     );
@@ -207,7 +209,7 @@ class SearchLocationState extends State<SearchLocation> with TickerProviderState
         return;
       }
 
-      Future.delayed(Duration(milliseconds: 500), () {
+      Future.delayed(const Duration(milliseconds: 500), () {
         _textEditingController.addListener(_autocompletePlace);
         if (_isEditing == true) _autocompletePlace();
       });
@@ -259,7 +261,7 @@ class SearchLocationState extends State<SearchLocation> with TickerProviderState
         ),
       );
     } else {
-      await Future.delayed(Duration(milliseconds: 500));
+      await Future.delayed(const Duration(milliseconds: 500));
     }
 
     // Makes animation
@@ -281,7 +283,7 @@ class SearchLocationState extends State<SearchLocation> with TickerProviderState
   }
 
   void customListener() {
-    Future.delayed(Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       if(mounted){
         setState((){
           _tempInput = _textEditingController.text;
@@ -348,7 +350,7 @@ class SearchLocationState extends State<SearchLocation> with TickerProviderState
     String place = prediction.description;
 
     return MaterialButton(
-      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
       onPressed: () => _selectPlace(prediction: prediction),
       child: ListTile(
         title: Text(
@@ -360,7 +362,7 @@ class SearchLocationState extends State<SearchLocation> with TickerProviderState
           ),
           maxLines: 1,
         ),
-        contentPadding: EdgeInsets.symmetric(
+        contentPadding: const EdgeInsets.symmetric(
           horizontal: 10,
           vertical: 0,
         ),
@@ -371,7 +373,7 @@ class SearchLocationState extends State<SearchLocation> with TickerProviderState
   BoxDecoration _containerDecoration() {
     return widget.boxDecoration??BoxDecoration(
       color: widget.darkMode ? Colors.grey[800] : Colors.white,
-      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+      borderRadius: const BorderRadius.all(Radius.circular(15.0)),
       // boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 20, spreadRadius: 10)],
     );
   }
@@ -416,7 +418,7 @@ class SearchLocationState extends State<SearchLocation> with TickerProviderState
               // child: Icon(_inputIcon, color: this.widget.iconColor),
               child: AnimatedCrossFade(
                 crossFadeState: _crossFadeState,
-                duration: Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 300),
                 firstChild: Padding(
                   padding: EdgeInsets.only(top: widget.height==null?0:(widget.height!-46)/2),
                   child: Icon(widget.icon, color: widget.iconColor.withOpacity(0.0)),
@@ -442,7 +444,7 @@ class SearchLocationState extends State<SearchLocation> with TickerProviderState
       isDense: true,
       hintText: this.widget.placeholder,
       border: InputBorder.none,
-      contentPadding: EdgeInsets.only(top: 20),
+      contentPadding: const EdgeInsets.only(top: 20),
       hintStyle: widget.hintStyle??TextStyle(
         fontSize: 16,
         color:  widget.iconColor,

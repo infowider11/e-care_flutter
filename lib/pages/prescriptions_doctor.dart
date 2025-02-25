@@ -1,26 +1,20 @@
+// ignore_for_file: unused_local_variable, avoid_print
+
 import 'dart:io';
 
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/functions/navigation_functions.dart';
 import 'package:ecare/pages/add_prescription.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/question_2_allergies.dart';
-import 'package:ecare/pages/question_2_medication.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/services/webservices.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
-import 'package:ecare/widgets/customtextfield.dart';
 import 'package:ecare/widgets/list_ui_1.dart';
 import 'package:ecare/widgets/loader.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart';
 // import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 
@@ -29,8 +23,6 @@ import '../functions/get_folder_directory.dart';
 import '../services/auth.dart';
 import '../widgets/custom_confirmation_dialog.dart';
 import '../widgets/showSnackbar.dart';
-import 'bookingDetail.dart';
-import 'package:intl/intl.dart';
 
 class Prescriptions_Doctor_Page extends StatefulWidget {
   final String? booking_id;
@@ -51,7 +43,7 @@ class Prescriptions_Doctor_PageState extends State<Prescriptions_Doctor_Page>
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     get_lists();
     super.initState();
   }
@@ -82,17 +74,17 @@ class Prescriptions_Doctor_PageState extends State<Prescriptions_Doctor_Page>
       backgroundColor: MyColors.scaffold,
       appBar: appBar(context: context),
       body: load
-          ? CustomLoader()
+          ? const CustomLoader()
           : Stack(
               children: [
                 SingleChildScrollView(
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         vSizedBox2,
-                        MainHeadingText(
+                        const MainHeadingText(
                           text: 'Prescriptions',
                           fontSize: 32,
                           fontFamily: 'light',
@@ -408,7 +400,7 @@ class Prescriptions_Doctor_PageState extends State<Prescriptions_Doctor_Page>
                         //   ),
 
                         if (prescriptionList.length == 0)
-                          Center(
+                          const Center(
                             heightFactor: 1.0,
                             child: Text('No data found.'),
                           ),
@@ -500,11 +492,11 @@ class Prescriptions_Doctor_PageState extends State<Prescriptions_Doctor_Page>
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Remove'),
+            title: const Text('Remove'),
             content: const Text('Are you sure?'),
             actions: [
               TextButton(
-                child: Text('Yes'),
+                child: const Text('Yes'),
                 onPressed: () async {
                   Map<String, dynamic> data = {
                     'prescription_id':id,
@@ -522,7 +514,7 @@ class Prescriptions_Doctor_PageState extends State<Prescriptions_Doctor_Page>
                 },
               ),
               TextButton(
-                child: Text('No'),
+                child: const Text('No'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },

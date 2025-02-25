@@ -15,9 +15,9 @@ Future<bool?>  showCustomConfirmationDialog({
       context: MyGlobalKeys.navigatorKey.currentContext!,
       builder: (context) {
         return Dialog(
-          insetPadding: EdgeInsets.symmetric(horizontal: 24),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 24),
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,

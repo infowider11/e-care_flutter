@@ -1,15 +1,15 @@
 
+// ignore_for_file: avoid_print, unnecessary_brace_in_string_interps
+
 import 'package:ecare/services/log_services.dart';
 import 'package:ecare/services/pay_stack/modals/FlutterPayStackInitializeTransactionResponseModal.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'dart:convert';
 
 import '../../constants/global_keys.dart';
 import '../../dialogs/loading_popup.dart';
-import '../../pages/paymentprint.dart';
 import '../../widgets/showSnackbar.dart';
 import 'modals/sub_bank_account_modal.dart';
 
@@ -20,13 +20,13 @@ enum PaymentStatus{
   success,ongoing,failed
 }
 class FlutterPayStackServices {
-  static final String _baseUrl = 'https://api.paystack.co/';
-  static final String _initializeTransactionUrl =
+  static const String _baseUrl = 'https://api.paystack.co/';
+  static const String _initializeTransactionUrl =
       '${_baseUrl}transaction/initialize';
-  static final String _verifyTransactionUrl =
+  static const String _verifyTransactionUrl =
       '${_baseUrl}transaction/verify/';
   // https://api.paystack.co/transaction/verify/jep33wrwua
-  static final String _addSubbankAccount =
+  static const String _addSubbankAccount =
       '${_baseUrl}subaccount';
 
   static Map<String, String> _payStackGlobalHeaders = {
@@ -95,6 +95,7 @@ class FlutterPayStackServices {
         showSnackbar('Failed ${jsonResponse['message']}');
       }
     }
+    return null;
   }
 
   static Future<PaymentStatus> isPaymentSuccessfull(String referenceId,{int count = 0, bool showLoading = true})async{
@@ -110,7 +111,7 @@ class FlutterPayStackServices {
     }
     if(count<50){
 
-      await Future.delayed(Duration(milliseconds: 1400));
+      await Future.delayed(const Duration(milliseconds: 1400));
       print('checking response for reference id $referenceId');
       http.Response response = await http.get(
         Uri.parse('${_verifyTransactionUrl}$referenceId'),
@@ -265,6 +266,7 @@ print('the request for ${_addSubbankAccount} is $request');
         print('Error in catch block 5d28 $e');
       }
     }
+    return null;
 
   }
 
@@ -310,15 +312,16 @@ print('the request for ${_addSubbankAccount} is $request');
         var jsonResponse = await jsonDecode(response.body);
         print('else########### $jsonResponse');
         return true;
-        if(jsonResponse['message']=='Settlement Bank is invalid'){
-          showSnackbar('You have entered incorrect bank code.');
+        // if(jsonResponse['message']=='Settlement Bank is invalid'){
+        //   showSnackbar('You have entered incorrect bank code.');
 
-        }else{
-          //showSnackbar(jsonResponse['message']??'Bank account add failed(E: 838)');
-        }
+        // }else{
+        //   //showSnackbar(jsonResponse['message']??'Bank account add failed(E: 838)');
+        // }
       }catch(e){
         print('Error in catch block 5d28 $e');
       }
     }
+    return null;
   }
 }

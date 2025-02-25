@@ -1,23 +1,15 @@
+// ignore_for_file: avoid_print
+
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/question_2_allergies.dart';
-import 'package:ecare/pages/question_2_medication.dart';
-import 'package:ecare/pages/question_2_surgeries.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/webservices.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
-import 'package:ecare/widgets/customtextfield.dart';
 import 'package:ecare/widgets/loader.dart';
-import 'package:ecare/widgets/showSnackbar.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -52,7 +44,7 @@ class HabitsPageState extends State<HabitsPage> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     get_habits();
   }
@@ -93,7 +85,7 @@ class HabitsPageState extends State<HabitsPage> with TickerProviderStateMixin {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              ComingConsultation()));
+                              const ComingConsultation()));
                 } else {}
               }),
           RoundEdgedButton(
@@ -103,27 +95,27 @@ class HabitsPageState extends State<HabitsPage> with TickerProviderStateMixin {
             onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => ComingConsultation())),
+                    builder: (context) => const ComingConsultation())),
           ),
           vSizedBox2
         ],
       ),
       body: load
-          ? CustomLoader()
+          ? const CustomLoader()
           : SingleChildScrollView(
             child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     vSizedBox2,
-                    MainHeadingText(
+                    const MainHeadingText(
                       text: 'Tell us about your habits ',
                       fontSize: 32,
                       fontFamily: 'light',
                     ),
                     vSizedBox2,
-                    ParagraphText(
+                    const ParagraphText(
                         fontSize: 16,
                         text:
                             'Please provide the following information to help your provider get a better understanding of your lifestyle. '),
@@ -132,7 +124,7 @@ class HabitsPageState extends State<HabitsPage> with TickerProviderStateMixin {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10.0),
                         child: Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 10),
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(

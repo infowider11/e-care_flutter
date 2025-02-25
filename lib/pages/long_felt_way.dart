@@ -1,21 +1,13 @@
+// ignore_for_file: avoid_print
+
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/question_1_allergies.dart';
-import 'package:ecare/pages/question_1_medication.dart';
-import 'package:ecare/pages/symptons.dart';
 import 'package:ecare/pages/temperature.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
-import 'package:ecare/services/validation.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
-import 'package:ecare/widgets/dropdown.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 
 import 'choose_doctor.dart';
@@ -37,7 +29,7 @@ class _HowLongFeltThisWayState extends State<HowLongFeltThisWay> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     print('cate---${widget.cate}---------sub-cate----${widget.sub_cate}');
     print('other reason---${widget.other_reason}');
@@ -52,7 +44,7 @@ class _HowLongFeltThisWayState extends State<HowLongFeltThisWay> {
       body: SingleChildScrollView(
         child: Container(
           // height: MediaQuery.of(context).size.height,
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

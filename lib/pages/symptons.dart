@@ -1,21 +1,12 @@
+// ignore_for_file: avoid_print
+
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/question_1_allergies.dart';
-import 'package:ecare/pages/question_1_condition.dart';
-import 'package:ecare/pages/question_1_medication.dart';
-import 'package:ecare/pages/question_1_surgeries.dart';
 import 'package:ecare/pages/temperature.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
-import 'package:ecare/widgets/customtextfield.dart';
-import 'package:ecare/widgets/dropdown.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 
 class SyptomsPage extends StatefulWidget {
@@ -53,18 +44,18 @@ class _SyptomsPageState extends State<SyptomsPage> {
       appBar: appBar(context: context),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MainHeadingText(
+              const MainHeadingText(
                 text: 'Do you have any of these symptoms?',
                 fontSize: 32,
                 fontFamily: 'light',
               ),
               vSizedBox2,
               Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 // height: MediaQuery.of(context).size.height / 2 * 1.3,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
@@ -74,7 +65,7 @@ class _SyptomsPageState extends State<SyptomsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // for(var i = 0; i<10; i++)
-                    MainHeadingText(
+                    const MainHeadingText(
                       text: 'General symptoms',
                       fontSize: 24,
                       fontFamily: 'light',
@@ -82,7 +73,7 @@ class _SyptomsPageState extends State<SyptomsPage> {
                     vSizedBox05,
                     for(int i=0;i<sysptoms.length;i++)
                     Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.bordercolor, width: 1))),
@@ -106,7 +97,7 @@ class _SyptomsPageState extends State<SyptomsPage> {
                       ),
                     ),
                     vSizedBox2,
-                    MainHeadingText(
+                    const MainHeadingText(
                       text: 'Head / Neck',
                       fontSize: 24,
                       fontFamily: 'light',
@@ -114,7 +105,7 @@ class _SyptomsPageState extends State<SyptomsPage> {
                     vSizedBox05,
                     for(int i=0;i<Head_neak.length;i++)
                     Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: MyColors.bordercolor, width: 1))),

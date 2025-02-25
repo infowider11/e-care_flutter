@@ -1,3 +1,4 @@
+// ignore_for_file: must_be_immutable, non_constant_identifier_names, deprecated_member_use, unnecessary_brace_in_string_interps, avoid_print, use_build_context_synchronously
 
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
@@ -7,12 +8,10 @@ import 'package:ecare/services/webservices.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/list_ui_1.dart';
 import 'package:ecare/widgets/loader.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 import '../constants/api_variable_keys.dart';
 import '../widgets/custom_confirmation_dialog.dart';
-import '../widgets/showSnackbar.dart';
-import 'bookingDetail.dart';
 
 class ICDCodesAndMyInvoicePage extends StatefulWidget {
   String? doc_name;
@@ -25,7 +24,7 @@ class ICDCodesAndMyInvoicePage extends StatefulWidget {
 
 class ICDCodesAndMyInvoicePageState extends State<ICDCodesAndMyInvoicePage>
     with TickerProviderStateMixin {
-  TabBar get _tabBar => TabBar(
+  TabBar get _tabBar => const TabBar(
     padding: EdgeInsets.symmetric(horizontal: 0),
     labelPadding: EdgeInsets.symmetric(horizontal: 0),
     tabs: <Widget>[
@@ -116,7 +115,7 @@ class ICDCodesAndMyInvoicePageState extends State<ICDCodesAndMyInvoicePage>
         backgroundColor: MyColors.scaffold,
         appBar: AppBar(
           centerTitle: true,
-          title: MainHeadingText(
+          title: const MainHeadingText(
             text: 'My Invoice/Statement with ICD-10 Notes',
             fontSize: 17,
             fontFamily: 'light',
@@ -131,22 +130,22 @@ class ICDCodesAndMyInvoicePageState extends State<ICDCodesAndMyInvoicePage>
           ),
         ),
         body: load
-            ? CustomLoader()
+            ? const CustomLoader()
             : TabBarView(children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   vSizedBox2,
-                  MainHeadingText(
+                  const MainHeadingText(
                     text: 'My Invoices ',
                     fontSize: 32,
                     fontFamily: 'light',
                   ),
                   vSizedBox2,
-                  ParagraphText(
+                  const ParagraphText(
                       fontSize: 16,
                       text:
                       'Download invoices from your Healthcare Practitioner here'),
@@ -186,7 +185,7 @@ class ICDCodesAndMyInvoicePageState extends State<ICDCodesAndMyInvoicePage>
                         },
                         image: 'assets/images/file.png'),
                   if (invoiceList.length == 0)
-                    Center(
+                    const Center(
                       child: Text('No data found.'),
                     )
                 ],
@@ -194,19 +193,19 @@ class ICDCodesAndMyInvoicePageState extends State<ICDCodesAndMyInvoicePage>
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   vSizedBox2,
-                  MainHeadingText(
+                  const MainHeadingText(
                     text: 'Statements with ICD-10 codes',
                     fontSize: 32,
                     fontFamily: 'light',
                   ),
                   vSizedBox2,
-                  ParagraphText(
+                  const ParagraphText(
                       fontSize: 16,
                       text:
                       'Download statements from your Healthcare Practitioner here'),
@@ -243,7 +242,7 @@ class ICDCodesAndMyInvoicePageState extends State<ICDCodesAndMyInvoicePage>
                         },
                         image: 'assets/images/file.png'),
                   if (icdNotes.length == 0)
-                    Center(
+                    const Center(
                       child: Text('No data found.'),
                     )
                 ],

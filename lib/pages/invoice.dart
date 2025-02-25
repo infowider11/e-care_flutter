@@ -5,9 +5,8 @@ import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/list_ui_1.dart';
 import 'package:ecare/widgets/loader.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../services/api_urls.dart';
 import '../services/webservices.dart';
@@ -29,7 +28,7 @@ class MyInvoicePageState extends State<MyInvoicePage>
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     get_list();
     super.initState();
   }
@@ -50,20 +49,20 @@ class MyInvoicePageState extends State<MyInvoicePage>
       backgroundColor: MyColors.scaffold,
       appBar: appBar(context: context),
       body: load
-          ? CustomLoader()
+          ? const CustomLoader()
           : Container(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   vSizedBox2,
-                  MainHeadingText(
+                  const MainHeadingText(
                     text: 'My Invoices ',
                     fontSize: 32,
                     fontFamily: 'light',
                   ),
                   vSizedBox2,
-                  ParagraphText(
+                  const ParagraphText(
                       fontSize: 16,
                       text:
                           'Download invoices from your Healthcare Practitioner here'),
@@ -87,7 +86,7 @@ class MyInvoicePageState extends State<MyInvoicePage>
                           image: 'assets/images/file.png'),
                     ),
                   if (lists.length == 0)
-                    Center(
+                    const Center(
                       child: Text('No data found.'),
                     )
                 ],

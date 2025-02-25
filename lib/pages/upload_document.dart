@@ -1,11 +1,8 @@
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/pages/question_1_surgeries.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
-import 'package:ecare/widgets/buttons.dart';
-import 'package:ecare/widgets/customtextfield.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 
 class UploadDocument extends StatefulWidget {
@@ -26,11 +23,11 @@ class _UploadDocumentState extends State<UploadDocument> {
       appBar: appBar(context: context),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MainHeadingText(text: 'Upload Documents ', fontSize: 32, fontFamily: 'light',),
+              const MainHeadingText(text: 'Upload Documents ', fontSize: 32, fontFamily: 'light',),
               vSizedBox2,
               // ParagraphText(fontSize: 16, text: 'If this document is intended for your provider to review, please schedule an appointment for further discussion.'),
               // vSizedBox,
@@ -43,7 +40,7 @@ class _UploadDocumentState extends State<UploadDocument> {
               // vSizedBox,
               Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   color: MyColors.teritiary,
@@ -53,12 +50,12 @@ class _UploadDocumentState extends State<UploadDocument> {
                   children: [
                     Container(
                       width: 170,
-                      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                       decoration: BoxDecoration(
                           color: MyColors.primaryColor,
                           borderRadius: BorderRadius.circular(100)
                       ),
-                      child: Row(
+                      child: const Row(
                         // mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Icon(Icons.add_rounded, color: MyColors.white, size: 18,), hSizedBox,
@@ -69,12 +66,12 @@ class _UploadDocumentState extends State<UploadDocument> {
                     vSizedBox2,
                     Container(
                       width: 150,
-                      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                       decoration: BoxDecoration(
                           color: MyColors.primaryColor,
                           borderRadius: BorderRadius.circular(100)
                       ),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Icon(Icons.add_rounded, color: MyColors.white, size: 18,),
@@ -86,12 +83,12 @@ class _UploadDocumentState extends State<UploadDocument> {
                     vSizedBox2,
                     Container(
                       width: 195,
-                      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                       decoration: BoxDecoration(
                           color: MyColors.primaryColor,
                           borderRadius: BorderRadius.circular(100)
                       ),
-                      child: Row(
+                      child: const Row(
                         children: [
                           Icon(Icons.add_rounded, color: MyColors.white, size: 18,),hSizedBox,
                           MainHeadingText(text: 'Add Referral Letters', fontSize: 14, fontFamily: 'light', color: MyColors.white,)
@@ -101,12 +98,12 @@ class _UploadDocumentState extends State<UploadDocument> {
                     vSizedBox2,
                     Container(
                       width: 220,
-                      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                       decoration: BoxDecoration(
                           color: MyColors.primaryColor,
                           borderRadius: BorderRadius.circular(100)
                       ),
-                      child: Row(
+                      child: const Row(
                         children: [
                           Icon(Icons.add_rounded, color: MyColors.white, size: 18,),
                           hSizedBox,

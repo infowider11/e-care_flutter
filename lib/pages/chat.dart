@@ -1,29 +1,21 @@
+// ignore_for_file: deprecated_member_use, avoid_print
+
 import 'dart:io';
 
 // import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/pages/payment_method.dart';
-import 'package:ecare/pages/profile_edit.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/webservices.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
-import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/customtextfield.dart';
-import 'package:ecare/widgets/list_ui_1.dart';
 import 'package:ecare/widgets/loader.dart';
-import 'package:ecare/widgets/setting_list.dart';
-import 'package:flutter/cupertino.dart';
+ import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:http/http.dart';
-import 'package:intl/intl.dart';
-import 'package:pinch_zoom/pinch_zoom.dart';
 
 import '../widgets/custom_circular_image.dart';
 import '../widgets/image_picker.dart';
-import '../widgets/showSnackbar.dart';
 
 class ChatPage extends StatefulWidget {
   final String other_user_id;
@@ -46,7 +38,7 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     get_chat_list(1);
   }
@@ -89,13 +81,13 @@ class _ChatPageState extends State<ChatPage> {
         ),
       ),
       body: load
-          ? CustomLoader()
+          ? const CustomLoader()
           : Stack(
               // alignment: AlignmentGeometry.lerp(a, b, t),
               children: [
                 SingleChildScrollView(
-                  physics: PageScrollPhysics(),
-                  padding: EdgeInsets.only(bottom: 40.0),
+                  physics: const PageScrollPhysics(),
+                  padding: const EdgeInsets.only(bottom: 40.0),
                   reverse: true,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -104,6 +96,12 @@ class _ChatPageState extends State<ChatPage> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10.0, vertical: 10.0),
                         child: Container(
+                          padding: const EdgeInsets.all(5.0),
+                          width: MediaQuery.of(context).size.width,
+                          // height: 200.0,
+                          decoration: BoxDecoration(
+                              color: MyColors.primaryColor.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(20.0)),
                           child: Row(
                             // mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,12 +136,6 @@ class _ChatPageState extends State<ChatPage> {
                               )
                             ],
                           ),
-                          padding: EdgeInsets.all(5.0),
-                          width: MediaQuery.of(context).size.width,
-                          // height: 200.0,
-                          decoration: BoxDecoration(
-                              color: MyColors.primaryColor.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(20.0)),
                         ),
                       ),
                       for (int i = 0; i < lists.length; i++)
@@ -155,6 +147,8 @@ class _ChatPageState extends State<ChatPage> {
                               Container(
                                   child: Column(children: <Widget>[
                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment
+                                      .end,
                                   children: <Widget>[
                                     Stack(
                                       children: [
@@ -176,6 +170,15 @@ class _ChatPageState extends State<ChatPage> {
                                           ),
                                         ),
                                         Container(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              15.0, 10.0, 15.0, 10.0),
+                                          width: 200.0,
+                                          decoration: BoxDecoration(
+                                              color: MyColors.primaryColor
+                                                  .withOpacity(0.5),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0)),
+                                          margin: const EdgeInsets.only(right: 10.0),
                                           child: lists[i]['message_type'] ==
                                                   'image'
                                               ? GestureDetector(
@@ -198,7 +201,7 @@ class _ChatPageState extends State<ChatPage> {
                                                       'text'
                                                   ? Text(
                                                       '${lists[i]['message']}',
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           color:
                                                               MyColors.white),
                                                     )
@@ -229,7 +232,7 @@ class _ChatPageState extends State<ChatPage> {
                                                             // EasyLoading
                                                             //     .dismiss();
                                                           },
-                                                          icon: Icon(Icons
+                                                          icon: const Icon(Icons
                                                               .file_download),
                                                         ),
                                                         Expanded(
@@ -242,7 +245,7 @@ class _ChatPageState extends State<ChatPage> {
                                                                     .split('/')
                                                                     .length -
                                                                 1],
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                               fontFamily:
                                                                   'bold',
                                                             ),
@@ -250,36 +253,25 @@ class _ChatPageState extends State<ChatPage> {
                                                         ),
                                                       ],
                                                     ),
-                                          padding: EdgeInsets.fromLTRB(
-                                              15.0, 10.0, 15.0, 10.0),
-                                          width: 200.0,
-                                          decoration: BoxDecoration(
-                                              color: MyColors.primaryColor
-                                                  .withOpacity(0.5),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0)),
-                                          margin: EdgeInsets.only(right: 10.0),
                                         ),
                                       ],
                                     ),
-                                  ],
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .end, // aligns the chatitem to right end
+                                  ], // aligns the chatitem to right end
                                 ),
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: <Widget>[
                                       Container(
                                         height: 32,
+                                        margin: const EdgeInsets.only(
+                                            left: 5.0, top: 5.0, bottom: 5.0),
                                         child: Text(
                                           '${lists[i]['create_date']}',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: MyColors.primaryColor,
                                               fontSize: 12.0,
                                               fontStyle: FontStyle.normal),
                                         ),
-                                        margin: EdgeInsets.only(
-                                            left: 5.0, top: 5.0, bottom: 5.0),
                                       )
                                     ])
                               ])),
@@ -287,8 +279,10 @@ class _ChatPageState extends State<ChatPage> {
                                 current_user['id'].toString())
                               Container(
                                 // height: 32,
-                                padding: EdgeInsets.only(left: 10),
+                                padding: const EdgeInsets.only(left: 10),
+                                margin: const EdgeInsets.only(bottom: 10.0),
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Row(
                                       children: <Widget>[
@@ -333,7 +327,7 @@ class _ChatPageState extends State<ChatPage> {
                                                           'text'
                                                       ? Text(
                                                           '${lists[i]['message']}',
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                               color: MyColors
                                                                   .white),
                                                         )
@@ -364,7 +358,7 @@ class _ChatPageState extends State<ChatPage> {
                                                                 // EasyLoading
                                                                 //     .dismiss();
                                                               },
-                                                              icon: Icon(Icons
+                                                              icon: const Icon(Icons
                                                                   .file_download),
                                                             ),
                                                             Expanded(
@@ -380,7 +374,7 @@ class _ChatPageState extends State<ChatPage> {
                                                                         .length -
                                                                     1],
                                                                 style:
-                                                                    TextStyle(
+                                                                    const TextStyle(
                                                                   fontFamily:
                                                                       'bold',
                                                                 ),
@@ -388,7 +382,7 @@ class _ChatPageState extends State<ChatPage> {
                                                             ),
                                                           ],
                                                         ),
-                                              padding: EdgeInsets.fromLTRB(
+                                              padding: const EdgeInsets.fromLTRB(
                                                   15.0, 10.0, 15.0, 10.0),
                                               width: 200.0,
                                               decoration: BoxDecoration(
@@ -398,7 +392,7 @@ class _ChatPageState extends State<ChatPage> {
                                                       BorderRadius.circular(
                                                           8.0)),
                                               margin:
-                                                  EdgeInsets.only(right: 10.0),
+                                                  const EdgeInsets.only(right: 10.0),
                                             ),
                                           ],
                                         ),
@@ -407,23 +401,21 @@ class _ChatPageState extends State<ChatPage> {
                                     Container(
                                       child: Text(
                                         '${lists[i]['create_date']}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.grey,
                                             fontSize: 12.0,
                                             fontStyle: FontStyle.normal),
                                       ),
-                                      margin: EdgeInsets.only(
+                                      margin: const EdgeInsets.only(
                                           left: 5.0, top: 5.0, bottom: 5.0),
                                     )
                                   ],
-                                  crossAxisAlignment: CrossAxisAlignment.start,
                                 ),
-                                margin: EdgeInsets.only(bottom: 10.0),
                               ),
                           ],
                         ),
                       if (lists.length == 0 && !load)
-                        Center(
+                        const Center(
                           child: Text('No chat yet.'),
                         ),
                     ],
@@ -442,12 +434,12 @@ class _ChatPageState extends State<ChatPage> {
                               paddingsuffix: 0.0,
                               left: 0.0,
                               preffix: IconButton(
-                                padding: EdgeInsets.all(0),
+                                padding: const EdgeInsets.all(0),
 
                                 onPressed: () {
                                   _showImage_popup(context);
                                 },
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.add_circle,
                                   color: MyColors.primaryColor,
                                 ),

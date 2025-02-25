@@ -1,10 +1,12 @@
+// ignore_for_file: unused_import, avoid_print, unnecessary_brace_in_string_interps, unnecessary_string_interpolations
+
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -41,7 +43,7 @@ class _Add_Consultation_Notes_PageState
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     get_bookings();
     if (widget.booking_id != null && widget.booking_id != 'null') {
       booking_id = widget.booking_id!;
@@ -76,7 +78,7 @@ class _Add_Consultation_Notes_PageState
       appBar: appBar(context: context),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -88,14 +90,14 @@ class _Add_Consultation_Notes_PageState
                 fontFamily: 'light',
               ),
               vSizedBox4,
-              ParagraphText(
+              const ParagraphText(
                 text: 'Booking Id',
                 fontSize: 14.0,
                 color: Colors.black,
                 fontFamily: 'regular',
               ),
               Container(
-                padding: EdgeInsets.all(0.0),
+                padding: const EdgeInsets.all(0.0),
                 decoration: BoxDecoration(
                   border: Border.all(color: MyColors.bordercolor),
                   color: Colors.white,

@@ -1,12 +1,11 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:ecare/pages/setting.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
-import 'package:ecare/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
 import '../constants/sized_box.dart';
-import '../doctor_module/notification.dart';
-import '../widgets/customtextfield.dart';
 
 class InvitePage extends StatefulWidget {
   const InvitePage({Key? key}) : super(key: key);
@@ -33,7 +32,7 @@ class _InvitePageState extends State<InvitePage> {
         ),
         actions: <Widget>[
           GestureDetector(
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SettingPage())),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingPage())),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Image.asset('assets/images/menu.png', width: 24),
@@ -42,10 +41,10 @@ class _InvitePageState extends State<InvitePage> {
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            MainHeadingText(text: 'Invite your friends & family!', fontSize: 32, fontFamily: 'light',),
+            const MainHeadingText(text: 'Invite your friends & family!', fontSize: 32, fontFamily: 'light',),
             vSizedBox4,
             Column(
               children: [
@@ -61,7 +60,7 @@ class _InvitePageState extends State<InvitePage> {
                             children: [
                               Image.asset('assets/images/23.png', width: 45,),
                               hSizedBox2,
-                              Column(
+                              const Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   MainHeadingText(text: 'Lindsey Septimus', fontSize: 16, fontFamily: 'medium', color: MyColors.headingcolor),
@@ -74,12 +73,12 @@ class _InvitePageState extends State<InvitePage> {
 
                           GestureDetector(
                             child: Container(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 color: MyColors.headingcolor.withOpacity(0.12),
                                 borderRadius: BorderRadius.circular(6),
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: MainHeadingText(text: 'Invite', fontSize: 14, color: MyColors.headingcolor, fontFamily: 'medium',),
                               ),
                             ),

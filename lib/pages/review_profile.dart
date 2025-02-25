@@ -1,23 +1,17 @@
+// ignore_for_file: avoid_print
+
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
-import 'package:ecare/functions/navigation_functions.dart';
 import 'package:ecare/pages/habit.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/question_1_medication.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/webservices.dart';
-import 'package:ecare/tabs.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
-import 'package:ecare/widgets/customtextfield.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:ecare/widgets/selected_option.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 
 class ReviewProfile extends StatefulWidget {
@@ -52,7 +46,7 @@ class _ReviewProfileState extends State<ReviewProfile> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     get_info();
   }
@@ -62,12 +56,12 @@ class _ReviewProfileState extends State<ReviewProfile> {
     return Scaffold(
       backgroundColor: MyColors.scaffold,
       appBar: appBar(context: context),
-      body: load?CustomLoader():SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+      body: load?const CustomLoader():SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MainHeadingText(
+            const MainHeadingText(
               text: 'Please review your health profile ',
               fontSize: 32,
               fontFamily: 'light',
@@ -124,7 +118,7 @@ class _ReviewProfileState extends State<ReviewProfile> {
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HabitsPage()))
+                        builder: (context) => const HabitsPage()))
             ),
             vSizedBox4
           ],

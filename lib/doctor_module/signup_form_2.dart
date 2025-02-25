@@ -1,31 +1,24 @@
+// ignore_for_file: unnecessary_brace_in_string_interps, avoid_print
+
 import 'dart:developer';
 import 'dart:io';
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/doctor_module/pending_verification.dart';
-import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/question_1_allergies.dart';
-import 'package:ecare/pages/question_1_condition.dart';
-import 'package:ecare/pages/question_1_medication.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/appbar.dart';
 import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
-import 'package:ecare/widgets/dropdown.dart';
 import 'package:ecare/widgets/showSnackbar.dart';
-import 'package:flutter/cupertino.dart';
+ import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../Services/api_urls.dart';
 import '../services/auth.dart';
 import '../services/webservices.dart';
-import '../tabs_doctor.dart';
 import '../widgets/image_picker.dart';
-import '../widgets/loader.dart';
-import 'how_it_works.dart';
 
 class SignUpForm2 extends StatefulWidget {
   final Map<String, dynamic> data;
@@ -84,7 +77,7 @@ class _SignUpForm2State extends State<SignUpForm2> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     print('data from signup ------${widget.data}   ------${widget.files}');
     getlangKnown();
@@ -98,7 +91,7 @@ class _SignUpForm2State extends State<SignUpForm2> {
       backgroundColor: MyColors.scaffold,
       appBar: appBar(context: context,title: 'Complete Your Profile',fontsize: 25),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -108,7 +101,7 @@ class _SignUpForm2State extends State<SignUpForm2> {
             //   fontSize: 32,
             //   fontFamily: 'light',
             // ),
-            MainHeadingText(
+            const MainHeadingText(
               text: 'Tell us some basic info ',
               color: MyColors.onsurfacevarient,
               fontSize: 16,
@@ -134,7 +127,7 @@ class _SignUpForm2State extends State<SignUpForm2> {
                           fit: BoxFit.cover, width: 80),
                   // Image.asset('assets/images/profile2.png', width: 80,),
                   hSizedBox,
-                  MainHeadingText(
+                  const MainHeadingText(
                     text: 'Upload Profile Image',
                     fontSize: 16,
                     fontFamily: 'light',
@@ -166,7 +159,7 @@ class _SignUpForm2State extends State<SignUpForm2> {
             Container(
               width: MediaQuery.of(context).size.width,
               height: 55,
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: MyColors.white,
                 border: Border.all(color: MyColors.borderColor2),
@@ -176,9 +169,9 @@ class _SignUpForm2State extends State<SignUpForm2> {
                 underline: Container(
                   height: 8,
                 ),
-                hint: Text('Language Known'),
+                hint: const Text('Language Known'),
                 value: language_id,
-                icon: Icon(
+                icon: const Icon(
                   Icons.keyboard_arrow_down_outlined,
                 ),
                 elevation: 0,

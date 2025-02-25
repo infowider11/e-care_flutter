@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecare/pages/doctor-details.dart';
 import 'package:ecare/services/api_urls.dart';
@@ -16,7 +18,6 @@ import 'package:ecare/widgets/showSnackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 import '../doctor_module/forgot.dart';
 import '../functions/global_Var.dart';
@@ -46,7 +47,6 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController password = TextEditingController();
   TextEditingController hpcsaController = TextEditingController();
 
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final CollectionReference _userCollection =
       FirebaseFirestore.instance.collection('users');
 
@@ -71,78 +71,78 @@ class _LoginPageState extends State<LoginPage> {
     //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>HomePage()));
   }
 
-  void _signInWithGoogle() async {
-    await EasyLoading.show(status: null, maskType: EasyLoadingMaskType.black);
-    GoogleSignIn googleSignIn = GoogleSignIn();
-    GoogleSignInAccount? googleAccount = await googleSignIn.signIn();
-    if (googleAccount != null) {
-      GoogleSignInAuthentication googleAuth =
-          await googleAccount.authentication;
-      final authResult = await firebaseAuth.signInWithCredential(
-        GoogleAuthProvider.credential(
-          idToken: googleAuth.idToken,
-          accessToken: googleAuth.accessToken,
-        ),
-      );
-      // return _userFromFirebase(authResult.user);
-      print('the user data is ${authResult}');
-      Map<String, dynamic> data = {
-        'uid': authResult.user?.uid,
-        'name': authResult.user?.displayName,
-        'email': authResult.user?.email ?? '',
-        // 'fname':authResult.additionalUserInfo.
-      };
-      await googleSignIn.disconnect();
-      print('google login successfully-------------- ${data}');
-      Map<String, dynamic> request = {
-        'email': authResult.user?.email ?? '',
-        'google_id': authResult.user?.uid
-      };
-      var res = await Webservices.postData(
-        apiUrl: ApiUrls.socialsignup,
-        body: request,
-        context: context,
-      );
-      print('social api res------ ${res}');
-      EasyLoading.dismiss();
-      if (res['status'].toString() == '1') {
-        updateUserDetails(res['data']);
-        user_Data = res['data'];
-        invalid_user_detail = false;
-        setState(() {});
-        if (!kIsWeb) {
-          String? token = await get_device_id();
-          print('token-----$token');
-          await Webservices.updateDeviceToken(
-              user_id: user_Data!['id'].toString(), token: token!);
-        }
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) {
-          return tabs_second_page(
-            selectedIndex: 0,
-          );
-        }), (route) {
-          return false;
-        });
-      } else if (res['status'].toString() == '0') {
-        push(
-            context: context,
-            screen: SignUp_Page(
-              is_googleSignin: true,
-              googleSignin_data: data,
-            ));
-      } else if (res['status'].toString() == '2') {
-        showSnackbar(res['message']);
-      } else {
-        showSnackbar('Something went wrong.Please try again latter.');
-      }
-      // addUserToFirebase(data);
-    } else {
-      EasyLoading.dismiss();
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Something Wrong happened!!')));
-    }
-  }
+  // void _signInWithGoogle() async {
+  //   await EasyLoading.show(status: null, maskType: EasyLoadingMaskType.black);
+  //   GoogleSignIn googleSignIn = GoogleSignIn();
+  //   GoogleSignInAccount? googleAccount = await googleSignIn.signIn();
+  //   if (googleAccount != null) {
+  //     GoogleSignInAuthentication googleAuth =
+  //         await googleAccount.authentication;
+  //     final authResult = await firebaseAuth.signInWithCredential(
+  //       GoogleAuthProvider.credential(
+  //         idToken: googleAuth.idToken,
+  //         accessToken: googleAuth.accessToken,
+  //       ),
+  //     );
+  //     // return _userFromFirebase(authResult.user);
+  //     print('the user data is ${authResult}');
+  //     Map<String, dynamic> data = {
+  //       'uid': authResult.user?.uid,
+  //       'name': authResult.user?.displayName,
+  //       'email': authResult.user?.email ?? '',
+  //       // 'fname':authResult.additionalUserInfo.
+  //     };
+  //     await googleSignIn.disconnect();
+  //     print('google login successfully-------------- ${data}');
+  //     Map<String, dynamic> request = {
+  //       'email': authResult.user?.email ?? '',
+  //       'google_id': authResult.user?.uid
+  //     };
+  //     var res = await Webservices.postData(
+  //       apiUrl: ApiUrls.socialsignup,
+  //       body: request,
+  //       context: context,
+  //     );
+  //     print('social api res------ ${res}');
+  //     EasyLoading.dismiss();
+  //     if (res['status'].toString() == '1') {
+  //       updateUserDetails(res['data']);
+  //       user_Data = res['data'];
+  //       invalid_user_detail = false;
+  //       setState(() {});
+  //       if (!kIsWeb) {
+  //         String? token = await get_device_id();
+  //         print('token-----$token');
+  //         await Webservices.updateDeviceToken(
+  //             user_id: user_Data!['id'].toString(), token: token!);
+  //       }
+  //       Navigator.of(context).pushAndRemoveUntil(
+  //           MaterialPageRoute(builder: (context) {
+  //         return tabs_second_page(
+  //           selectedIndex: 0,
+  //         );
+  //       }), (route) {
+  //         return false;
+  //       });
+  //     } else if (res['status'].toString() == '0') {
+  //       push(
+  //           context: context,
+  //           screen: SignUp_Page(
+  //             is_googleSignin: true,
+  //             googleSignin_data: data,
+  //           ));
+  //     } else if (res['status'].toString() == '2') {
+  //       showSnackbar(res['message']);
+  //     } else {
+  //       showSnackbar('Something went wrong.Please try again latter.');
+  //     }
+  //     // addUserToFirebase(data);
+  //   } else {
+  //     EasyLoading.dismiss();
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //         const SnackBar(content: Text('Something Wrong happened!!')));
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -293,21 +293,31 @@ class _LoginPageState extends State<LoginPage> {
                       }), (route) {
                         return false;
                       });
-
-                      Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DoctorDetails(
-                                            head_neck: null,
-                                            symptoms: null,
-                                            doc_id: doctorDetailsFromHPC!['id'],
-                                            cate: {"id": doctorDetailsFromHPC!['specialist_cat'], "title": doctorDetailsFromHPC!['category'],},
-                                            sub_cate: {"id": doctorDetailsFromHPC!['specialist_subcat'], "title": doctorDetailsFromHPC!['subcategory'],},
-                                            other_reason: null,
-                                            days: "",
-                                            temp: "",
-                                          )));
-
+                      if (widget.loginWihtHealthCareProviderCode) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DoctorDetails(
+                                      head_neck: null,
+                                      symptoms: null,
+                                      doc_id: doctorDetailsFromHPC!['id'],
+                                      cate: {
+                                        "id": doctorDetailsFromHPC![
+                                            'specialist_cat'],
+                                        "title":
+                                            doctorDetailsFromHPC!['category'],
+                                      },
+                                      sub_cate: {
+                                        "id": doctorDetailsFromHPC![
+                                            'specialist_subcat'],
+                                        "title": doctorDetailsFromHPC![
+                                            'subcategory'],
+                                      },
+                                      other_reason: null,
+                                      days: "",
+                                      temp: "",
+                                    )));
+                      }
                     } else {
                       setState(() {
                         invalid_user_text = res['message'];

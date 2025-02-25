@@ -1,19 +1,12 @@
+// ignore_for_file: unnecessary_null_comparison, prefer_if_null_operators, avoid_print, prefer_is_empty, non_constant_identifier_names, unnecessary_brace_in_string_interps
+
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:ecare/constants/colors.dart';
-import 'package:ecare/constants/constans.dart';
-import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/functions/global_Var.dart';
-import 'package:ecare/functions/navigation_functions.dart';
-import 'package:ecare/pages/loginpage.dart';
-import 'package:ecare/pages/prescriptions_doctor.dart';
-import 'package:ecare/pages/question_1_allergies.dart';
-import 'package:ecare/pages/question_1_condition.dart';
-import 'package:ecare/pages/question_1_medication.dart';
-import 'package:ecare/pages/who_i_am_page.dart';
 import 'package:ecare/services/api_urls.dart';
 import 'package:ecare/services/auth.dart';
 import 'package:ecare/services/webservices.dart';
@@ -23,14 +16,13 @@ import 'package:ecare/widgets/buttons.dart';
 import 'package:ecare/widgets/customtextfield.dart';
 import 'package:ecare/widgets/loader.dart';
 import 'package:ecare/widgets/showSnackbar.dart';
-import 'package:flutter/cupertino.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_signature_pad/flutter_signature_pad.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:ui' as ui;
-import '../widgets/Customdropdownbutton.dart';
 import '../widgets/custom_dropdown.dart';
 
 class Add_sicknote extends StatefulWidget {
@@ -55,7 +47,7 @@ class _Add_sicknoteState extends State<Add_sicknote> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     get_bookings();
     if (widget.booking_id != null && widget.booking_id != 'null') {
       booking_id = widget.booking_id!;
@@ -110,9 +102,9 @@ class _Add_sicknoteState extends State<Add_sicknote> {
     return Scaffold(
       backgroundColor: MyColors.scaffold,
       appBar: appBar(context: context),
-      body: load?CustomLoader():SingleChildScrollView(
+      body: load?const CustomLoader():SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -127,14 +119,14 @@ class _Add_sicknoteState extends State<Add_sicknote> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ParagraphText(
+                  const ParagraphText(
                     text: 'Booking Id',
                     fontSize: 14.0,
                     color: Colors.black,
                     fontFamily: 'regular',
                   ),
                   Container(
-                    padding: EdgeInsets.all(0.0),
+                    padding: const EdgeInsets.all(0.0),
                     decoration: BoxDecoration(
                       border: Border.all(color: MyColors.bordercolor),
                       color: Colors.white,
@@ -169,7 +161,7 @@ class _Add_sicknoteState extends State<Add_sicknote> {
                   //   hintText: 'Description',
                   //   maxLines: 5,
                   // ),
-                  headingText(text: 'To Whom it may concern'),
+                  const headingText(text: 'To Whom it may concern'),
                   vSizedBox,
                 if(booking_info!=null)
                   Column(
@@ -180,7 +172,7 @@ class _Add_sicknoteState extends State<Add_sicknote> {
                           ' ${booking_info!['user_data']['last_name']??''} was seen today  ${DateFormat.yMMMEd().format(DateTime.parse(booking_info!['slot_data']['date_with_time']))} '
                           'for a medical consultation.',color: MyColors.black,),
 
-                      headingText(text: 'Diagnosis/Assessment: '),
+                      const headingText(text: 'Diagnosis/Assessment: '),
                       CustomTextFieldmaxlines(
                         controller: assessment,
                         label: '',
@@ -189,7 +181,7 @@ class _Add_sicknoteState extends State<Add_sicknote> {
                         hintText: 'Diagnosis/Assessment',
                         // maxLines: 5,
                       ),
-                      ParagraphText(text: 'Based on the assessment conducted, it is deemed necessary for the patient\'s full recovery that he/she be granted leave from work starting from',color: MyColors.black,),
+                      const ParagraphText(text: 'Based on the assessment conducted, it is deemed necessary for the patient\'s full recovery that he/she be granted leave from work starting from',color: MyColors.black,),
                       GestureDetector(
                         onTap: () async{
                           var m = await showDatePicker(
@@ -215,7 +207,7 @@ class _Add_sicknoteState extends State<Add_sicknote> {
                           // maxLines: 5,
                         ),
                       ),
-                      ParagraphText(text: 'to',color: MyColors.black,),
+                      const ParagraphText(text: 'to',color: MyColors.black,),
                       GestureDetector(
                         onTap: () async{
                           var m = await showDatePicker(
@@ -241,7 +233,7 @@ class _Add_sicknoteState extends State<Add_sicknote> {
                           // maxLines: 5,
                         ),
                       ),
-                      ParagraphText(text: ', and will return to work on'
+                      const ParagraphText(text: ', and will return to work on'
                           '',color: MyColors.black,),
                       GestureDetector(
                         onTap: () async{
@@ -268,9 +260,9 @@ class _Add_sicknoteState extends State<Add_sicknote> {
                           // maxLines: 5,
                         ),
                       ),
-                      ParagraphText(text: 'Your understanding and support in this matter are greatly appreciated.Should you require any further information or clarification, please do not hesitate to contact me.Thank you for your attention to this matter.',color: MyColors.black,),
+                      const ParagraphText(text: 'Your understanding and support in this matter are greatly appreciated.Should you require any further information or clarification, please do not hesitate to contact me.Thank you for your attention to this matter.',color: MyColors.black,),
                       vSizedBox,
-                      ParagraphText(text: 'Kind regards',color: MyColors.black,),
+                      const ParagraphText(text: 'Kind regards',color: MyColors.black,),
                       ParagraphText(text: '${user_Data!['first_name']} ${user_Data!['last_name']??''}',color: MyColors.black,fontWeight: FontWeight.w600,),
                     ],
                   ),
@@ -283,7 +275,7 @@ class _Add_sicknoteState extends State<Add_sicknote> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            ParagraphText(
+                            const ParagraphText(
                               text: 'Signature',
                               fontSize: 14.0,
                               color: Colors.black,
@@ -294,7 +286,7 @@ class _Add_sicknoteState extends State<Add_sicknote> {
                                   final sign = _sign.currentState;
                                   sign?.clear();
                                 },
-                                child: Text('Clear',style: TextStyle(color: Colors.red),)),
+                                child: const Text('Clear',style: TextStyle(color: Colors.red),)),
                           ],
                         ),
                         Container(
@@ -303,7 +295,7 @@ class _Add_sicknoteState extends State<Add_sicknote> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           width: double.infinity,
                           height: 200,
                           child:Row(
