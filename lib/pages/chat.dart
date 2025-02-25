@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, avoid_print
+// ignore_for_file: deprecated_member_use, avoid_print, non_constant_identifier_names
 
 import 'dart:io';
 
@@ -144,137 +144,136 @@ class _ChatPageState extends State<ChatPage> {
                           children: [
                             if (lists[i]['sender_id'].toString() ==
                                 current_user['id'].toString())
-                              Container(
-                                  child: Column(children: <Widget>[
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .end,
-                                  children: <Widget>[
-                                    Stack(
-                                      children: [
-                                        Positioned(
-                                          right: 15,
-                                          bottom: 0,
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.check,
-                                                size: 20,
-                                                color: lists[i]['is_read']
-                                                            .toString() ==
-                                                        '1'
-                                                    ? MyColors.green
-                                                    : Colors.grey,
-                                              ),
-                                            ],
+                              Column(children: <Widget>[
+                                                              Row(
+                              mainAxisAlignment: MainAxisAlignment
+                                  .end,
+                              children: <Widget>[
+                                Stack(
+                                  children: [
+                                    Positioned(
+                                      right: 15,
+                                      bottom: 0,
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.check,
+                                            size: 20,
+                                            color: lists[i]['is_read']
+                                                        .toString() ==
+                                                    '1'
+                                                ? MyColors.green
+                                                : Colors.grey,
                                           ),
-                                        ),
-                                        Container(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              15.0, 10.0, 15.0, 10.0),
-                                          width: 200.0,
-                                          decoration: BoxDecoration(
-                                              color: MyColors.primaryColor
-                                                  .withOpacity(0.5),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0)),
-                                          margin: const EdgeInsets.only(right: 10.0),
-                                          child: lists[i]['message_type'] ==
-                                                  'image'
-                                              ? GestureDetector(
-                                                  behavior: HitTestBehavior
-                                                      .translucent,
-                                                  onTap: () {
-                                                    print('zoom');
-                                                  },
-                                                  child: CustomCircularImage(
-                                                    imageUrl: lists[i]
-                                                        ['message'],
-                                                    fileType:
-                                                        CustomFileType.network,
-                                                    borderRadius: 0.0,
-                                                    height: 150,
-                                                    width: 150,
-                                                  ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          15.0, 10.0, 15.0, 10.0),
+                                      width: 200.0,
+                                      decoration: BoxDecoration(
+                                          color: MyColors.primaryColor
+                                              .withOpacity(0.5),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0)),
+                                      margin: const EdgeInsets.only(right: 10.0),
+                                      child: lists[i]['message_type'] ==
+                                              'image'
+                                          ? GestureDetector(
+                                              behavior: HitTestBehavior
+                                                  .translucent,
+                                              onTap: () {
+                                                print('zoom');
+                                              },
+                                              child: CustomCircularImage(
+                                                imageUrl: lists[i]
+                                                    ['message'],
+                                                fileType:
+                                                    CustomFileType.network,
+                                                borderRadius: 0.0,
+                                                height: 150,
+                                                width: 150,
+                                              ),
+                                            )
+                                          : lists[i]['message_type'] ==
+                                                  'text'
+                                              ? Text(
+                                                  '${lists[i]['message']}',
+                                                  style: const TextStyle(
+                                                      color:
+                                                          MyColors.white),
                                                 )
-                                              : lists[i]['message_type'] ==
-                                                      'text'
-                                                  ? Text(
-                                                      '${lists[i]['message']}',
-                                                      style: const TextStyle(
-                                                          color:
-                                                              MyColors.white),
-                                                    )
-                                                  : Row(
-                                                      children: [
-                                                        IconButton(
-                                                          onPressed: () async {
-                                                            // EasyLoading.show(
-                                                            //   status: null,
-                                                            //   maskType:
-                                                            //       EasyLoadingMaskType
-                                                            //           .black,
-                                                            // );
-                                                            await savePdfToStorage1(
-                                                                lists[i]
-                                                                    ['message'],
-                                                                'Download',
-                                                                lists[i][
+                                              : Row(
+                                                  children: [
+                                                    IconButton(
+                                                      onPressed: () async {
+                                                        // EasyLoading.show(
+                                                        //   status: null,
+                                                        //   maskType:
+                                                        //       EasyLoadingMaskType
+                                                        //           .black,
+                                                        // );
+                                                        await savePdfToStorage1(
+                                                            lists[i]
+                                                                ['message'],
+                                                            'Download',
+                                                            lists[i][
+                                                                    'message']
+                                                                .split(
+                                                                    '/')[lists[i]
+                                                                        [
                                                                         'message']
                                                                     .split(
-                                                                        '/')[lists[i]
-                                                                            [
-                                                                            'message']
-                                                                        .split(
-                                                                            '/')
-                                                                        .length -
-                                                                    1]);
-                                                            // EasyLoading
-                                                            //     .dismiss();
-                                                          },
-                                                          icon: const Icon(Icons
-                                                              .file_download),
-                                                        ),
-                                                        Expanded(
-                                                          child: Text(
-                                                            lists[i]['message']
-                                                                .split(
-                                                                    '/')[lists[
-                                                                            i][
-                                                                        'message']
-                                                                    .split('/')
+                                                                        '/')
                                                                     .length -
-                                                                1],
-                                                            style: const TextStyle(
-                                                              fontFamily:
-                                                                  'bold',
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
+                                                                1]);
+                                                        // EasyLoading
+                                                        //     .dismiss();
+                                                      },
+                                                      icon: const Icon(Icons
+                                                          .file_download),
                                                     ),
-                                        ),
-                                      ],
+                                                    Expanded(
+                                                      child: Text(
+                                                        lists[i]['message']
+                                                            .split(
+                                                                '/')[lists[
+                                                                        i][
+                                                                    'message']
+                                                                .split('/')
+                                                                .length -
+                                                            1],
+                                                        style: const TextStyle(
+                                                          fontFamily:
+                                                              'bold',
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                     ),
-                                  ], // aligns the chatitem to right end
+                                  ],
                                 ),
-                                Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: <Widget>[
-                                      Container(
-                                        height: 32,
-                                        margin: const EdgeInsets.only(
-                                            left: 5.0, top: 5.0, bottom: 5.0),
-                                        child: Text(
-                                          '${lists[i]['create_date']}',
-                                          style: const TextStyle(
-                                              color: MyColors.primaryColor,
-                                              fontSize: 12.0,
-                                              fontStyle: FontStyle.normal),
-                                        ),
-                                      )
-                                    ])
-                              ])),
+                              ], // aligns the chatitem to right end
+                                                              ),
+                                                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Container(
+                                    height: 32,
+                                    margin: const EdgeInsets.only(
+                                        left: 5.0, top: 5.0, bottom: 5.0),
+                                    child: Text(
+                                      '${lists[i]['create_date']}',
+                                      style: const TextStyle(
+                                          color: MyColors.primaryColor,
+                                          fontSize: 12.0,
+                                          fontStyle: FontStyle.normal),
+                                    ),
+                                  )
+                                ])
+                                                            ]),
                             if (lists[i]['sender_id'].toString() !=
                                 current_user['id'].toString())
                               Container(

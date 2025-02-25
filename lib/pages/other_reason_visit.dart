@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/services/validation.dart';
 import 'package:ecare/widgets/CustomTexts.dart';

@@ -1,5 +1,5 @@
 
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, non_constant_identifier_names
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -354,7 +354,7 @@ class CustomDropdownButton<T> extends StatelessWidget {
               print('the value is ${value.toString()}');
               // print('the a is $a');
               if(value==null){
-                return Container(
+                return SizedBox(
                   // color: Colors.green,
                   child: Padding(
                     padding:  EdgeInsets.only(left: leftPadding),

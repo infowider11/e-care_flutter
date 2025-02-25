@@ -342,7 +342,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                           )
                                         ],
                                       ),
-                                      Container(
+                                      SizedBox(
                                         child: Column(
                                           children: [
                                             vSizedBox2,

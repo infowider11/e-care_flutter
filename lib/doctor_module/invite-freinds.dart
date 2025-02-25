@@ -1,5 +1,5 @@
 // import 'package:contacts_service/contacts_service.dart';
-// ignore_for_file: deprecated_member_use, unnecessary_brace_in_string_interps, avoid_print
+// ignore_for_file: deprecated_member_use, unnecessary_brace_in_string_interps, avoid_print, non_constant_identifier_names
 
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/loader.dart';

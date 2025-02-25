@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, prefer_is_empty, deprecated_member_use
+// ignore_for_file: avoid_print, prefer_is_empty, deprecated_member_use, non_constant_identifier_names
 
 import 'dart:developer';
 import 'dart:io';

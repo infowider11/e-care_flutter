@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, non_constant_identifier_names, prefer_if_null_operators
 
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
@@ -162,7 +162,7 @@ class _FilterPageState extends State<FilterPage> {
                       ),
                       hSizedBox,
                       if(type=='Date')
-                      Container(
+                      SizedBox(
                         child: Text('$date'),
                       ),
                       if(type=='Date')

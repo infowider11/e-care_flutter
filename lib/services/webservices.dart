@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, unnecessary_null_comparison, avoid_print
+// ignore_for_file: unused_local_variable, unnecessary_null_comparison, avoid_print, non_constant_identifier_names
 
 import 'dart:async';
 import 'dart:convert' as convert;

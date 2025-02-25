@@ -132,7 +132,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   }
 
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       child: Image.asset(
         MyImages.splash,
         height: MediaQuery.of(context).size.height,

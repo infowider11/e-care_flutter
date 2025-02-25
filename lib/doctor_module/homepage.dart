@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, avoid_print, prefer_interpolation_to_compose_strings
+// ignore_for_file: deprecated_member_use, avoid_print, prefer_interpolation_to_compose_strings, non_constant_identifier_names, prefer_is_empty
 
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/global_keys.dart';
@@ -414,60 +414,58 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                           )
                                         ],
                                       ),
-                                      Container(
-                                        child: Column(
-                                          children: [
-                                            vSizedBox2,
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                RoundEdgedButton(
-                                                  text: 'Reject',
-                                                  borderRadius: 100,
-                                                  width: 70,
-                                                  height: 35,
-                                                  horizontalPadding: 0,
-                                                  verticalPadding: 0,
-                                                  color: Colors.transparent,
-                                                  textColor:
-                                                      MyColors.primaryColor,
-                                                  bordercolor:
-                                                      MyColors.primaryColor,
-                                                  onTap: () async {
-                                                    _displayTextInputDialog(
-                                                        context,
-                                                        incoming[i]['id']
-                                                            .toString(),
-                                                        incoming[i]['slot_id']
-                                                            .toString(),
-                                                        incoming[i]['user_id']
-                                                            .toString());
-                                                  },
-                                                ),
-                                                hSizedBox,
-                                                RoundEdgedButton(
-                                                  text: 'Accept',
-                                                  borderRadius: 100,
-                                                  width: 80,
-                                                  height: 35,
-                                                  horizontalPadding: 0,
-                                                  verticalPadding: 0,
-                                                  onTap: () async {
-                                                    acceptpopup(
-                                                        context,
-                                                        incoming[i]['id']
-                                                            .toString(),
-                                                        incoming[i]['slot_id']
-                                                            .toString(),
-                                                        incoming[i]['user_id']
-                                                            .toString());
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
+                                      Column(
+                                        children: [
+                                          vSizedBox2,
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              RoundEdgedButton(
+                                                text: 'Reject',
+                                                borderRadius: 100,
+                                                width: 70,
+                                                height: 35,
+                                                horizontalPadding: 0,
+                                                verticalPadding: 0,
+                                                color: Colors.transparent,
+                                                textColor:
+                                                    MyColors.primaryColor,
+                                                bordercolor:
+                                                    MyColors.primaryColor,
+                                                onTap: () async {
+                                                  _displayTextInputDialog(
+                                                      context,
+                                                      incoming[i]['id']
+                                                          .toString(),
+                                                      incoming[i]['slot_id']
+                                                          .toString(),
+                                                      incoming[i]['user_id']
+                                                          .toString());
+                                                },
+                                              ),
+                                              hSizedBox,
+                                              RoundEdgedButton(
+                                                text: 'Accept',
+                                                borderRadius: 100,
+                                                width: 80,
+                                                height: 35,
+                                                horizontalPadding: 0,
+                                                verticalPadding: 0,
+                                                onTap: () async {
+                                                  acceptpopup(
+                                                      context,
+                                                      incoming[i]['id']
+                                                          .toString(),
+                                                      incoming[i]['slot_id']
+                                                          .toString(),
+                                                      incoming[i]['user_id']
+                                                          .toString());
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   )),
@@ -702,93 +700,91 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                     ],
                                   ),
                                   // MainHeadingText(text: 'Waiting for payment',fontSize: 10,color: Colors.green,),
-                                  Container(
-                                    child: Column(
-                                      children: [
-                                        vSizedBox2,
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            if (
-                                            // todays_app[i]['is_join']
-                                            //     .toString() ==
-                                            //     '0' &&
-                                            compare_time(todays_app[i]
-                                                        ['slot_data']['date'] +
-                                                    ' ' +
-                                                    todays_app[i]['slot_data']
-                                                        ['start_time']) ==
-                                                true)
-                                              RoundEdgedButton(
-                                                text: 'Start',
-                                                borderRadius: 100,
-                                                width: 70,
-                                                height: 35,
-                                                horizontalPadding: 0,
-                                                verticalPadding: 0,
-                                                color: Colors.transparent,
-                                                textColor:
-                                                    MyColors.primaryColor,
-                                                bordercolor:
-                                                    MyColors.primaryColor,
-                                                onTap: () async {
-                                                  push(
-                                                      context: context,
-                                                      screen: VideoCallScreen(
-                                                        name: todays_app[i]
-                                                                ['userdata']
-                                                            ['first_name'],
-                                                        bookingId: todays_app[i]
-                                                                ['id']
-                                                            .toString(),
-                                                        userId: todays_app[i]
-                                                                    ['userdata']
-                                                                ['id']
-                                                            .toString(),
-                                                      ));
-                                                  // showSnackbar( 'Comming Soon.');
-                                                },
-                                              ),
-                                            hSizedBox,
+                                  Column(
+                                    children: [
+                                      vSizedBox2,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          if (
+                                          // todays_app[i]['is_join']
+                                          //     .toString() ==
+                                          //     '0' &&
+                                          compare_time(todays_app[i]
+                                                      ['slot_data']['date'] +
+                                                  ' ' +
+                                                  todays_app[i]['slot_data']
+                                                      ['start_time']) ==
+                                              true)
                                             RoundEdgedButton(
-                                              text: 'Chat',
+                                              text: 'Start',
                                               borderRadius: 100,
                                               width: 70,
                                               height: 35,
                                               horizontalPadding: 0,
                                               verticalPadding: 0,
                                               color: Colors.transparent,
-                                              textColor: MyColors.primaryColor,
+                                              textColor:
+                                                  MyColors.primaryColor,
                                               bordercolor:
                                                   MyColors.primaryColor,
                                               onTap: () async {
                                                 push(
                                                     context: context,
-                                                    screen: ChatPage(
-                                                      other_user_id: user_Data![
-                                                                      'type']
-                                                                  .toString() ==
-                                                              '1'
-                                                          ? todays_app[i][
-                                                                      'userdata']
-                                                                  ['id']
-                                                              .toString()
-                                                          : todays_app[i][
-                                                                      'doctor_data']
-                                                                  ['id']
-                                                              .toString(),
-                                                      booking_id: todays_app[i]
+                                                    screen: VideoCallScreen(
+                                                      name: todays_app[i]
+                                                              ['userdata']
+                                                          ['first_name'],
+                                                      bookingId: todays_app[i]
+                                                              ['id']
+                                                          .toString(),
+                                                      userId: todays_app[i]
+                                                                  ['userdata']
                                                               ['id']
                                                           .toString(),
                                                     ));
                                                 // showSnackbar( 'Comming Soon.');
                                               },
                                             ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                          hSizedBox,
+                                          RoundEdgedButton(
+                                            text: 'Chat',
+                                            borderRadius: 100,
+                                            width: 70,
+                                            height: 35,
+                                            horizontalPadding: 0,
+                                            verticalPadding: 0,
+                                            color: Colors.transparent,
+                                            textColor: MyColors.primaryColor,
+                                            bordercolor:
+                                                MyColors.primaryColor,
+                                            onTap: () async {
+                                              push(
+                                                  context: context,
+                                                  screen: ChatPage(
+                                                    other_user_id: user_Data![
+                                                                    'type']
+                                                                .toString() ==
+                                                            '1'
+                                                        ? todays_app[i][
+                                                                    'userdata']
+                                                                ['id']
+                                                            .toString()
+                                                        : todays_app[i][
+                                                                    'doctor_data']
+                                                                ['id']
+                                                            .toString(),
+                                                    booking_id: todays_app[i]
+                                                            ['id']
+                                                        .toString(),
+                                                  ));
+                                              // showSnackbar( 'Comming Soon.');
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 ],
                               )),
@@ -1010,93 +1006,91 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                         ],
                                       ),
                                       // MainHeadingText(text: 'Waiting for payment',fontSize: 10,color: Colors.green,),
-                                      Container(
-                                        child: Column(
-                                          children: [
-                                            vSizedBox2,
-                                            Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                              children: [
-                                                if (
-                                                // todays_app[i]['is_join']
-                                                //     .toString() ==
-                                                //     '0' &&
-                                                compare_time(confirms[i]
-                                                ['slot_data']['date'] +
-                                                    ' ' +
-                                                    confirms[i]['slot_data']
-                                                    ['start_time']) ==
-                                                    true)
-                                                  RoundEdgedButton(
-                                                    text: 'Start',
-                                                    borderRadius: 100,
-                                                    width: 70,
-                                                    height: 35,
-                                                    horizontalPadding: 0,
-                                                    verticalPadding: 0,
-                                                    color: Colors.transparent,
-                                                    textColor:
-                                                    MyColors.primaryColor,
-                                                    bordercolor:
-                                                    MyColors.primaryColor,
-                                                    onTap: () async {
-                                                      push(
-                                                          context: context,
-                                                          screen: VideoCallScreen(
-                                                            name: confirms[i]
-                                                            ['user_data']
-                                                            ['first_name'],
-                                                            bookingId: confirms[i]
-                                                            ['id']
-                                                                .toString(),
-                                                            userId: confirms[i]
-                                                            ['user_data']
-                                                            ['id']
-                                                                .toString(),
-                                                          ));
-                                                      // showSnackbar( 'Comming Soon.');
-                                                    },
-                                                  ),
-                                                hSizedBox,
+                                      Column(
+                                        children: [
+                                          vSizedBox2,
+                                          Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                            children: [
+                                              if (
+                                              // todays_app[i]['is_join']
+                                              //     .toString() ==
+                                              //     '0' &&
+                                              compare_time(confirms[i]
+                                              ['slot_data']['date'] +
+                                                  ' ' +
+                                                  confirms[i]['slot_data']
+                                                  ['start_time']) ==
+                                                  true)
                                                 RoundEdgedButton(
-                                                  text: 'Chat',
+                                                  text: 'Start',
                                                   borderRadius: 100,
                                                   width: 70,
                                                   height: 35,
                                                   horizontalPadding: 0,
                                                   verticalPadding: 0,
                                                   color: Colors.transparent,
-                                                  textColor: MyColors.primaryColor,
+                                                  textColor:
+                                                  MyColors.primaryColor,
                                                   bordercolor:
                                                   MyColors.primaryColor,
                                                   onTap: () async {
                                                     push(
                                                         context: context,
-                                                        screen: ChatPage(
-                                                          other_user_id: user_Data![
-                                                          'type']
-                                                              .toString() ==
-                                                              '1'
-                                                              ? confirms[i][
-                                                          'user_data']
-                                                          ['id']
-                                                              .toString()
-                                                              : confirms[i][
-                                                          'doctor_data']
+                                                        screen: VideoCallScreen(
+                                                          name: confirms[i]
+                                                          ['user_data']
+                                                          ['first_name'],
+                                                          bookingId: confirms[i]
                                                           ['id']
                                                               .toString(),
-                                                          booking_id: confirms[i]
+                                                          userId: confirms[i]
+                                                          ['user_data']
                                                           ['id']
                                                               .toString(),
                                                         ));
                                                     // showSnackbar( 'Comming Soon.');
                                                   },
                                                 ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
+                                              hSizedBox,
+                                              RoundEdgedButton(
+                                                text: 'Chat',
+                                                borderRadius: 100,
+                                                width: 70,
+                                                height: 35,
+                                                horizontalPadding: 0,
+                                                verticalPadding: 0,
+                                                color: Colors.transparent,
+                                                textColor: MyColors.primaryColor,
+                                                bordercolor:
+                                                MyColors.primaryColor,
+                                                onTap: () async {
+                                                  push(
+                                                      context: context,
+                                                      screen: ChatPage(
+                                                        other_user_id: user_Data![
+                                                        'type']
+                                                            .toString() ==
+                                                            '1'
+                                                            ? confirms[i][
+                                                        'user_data']
+                                                        ['id']
+                                                            .toString()
+                                                            : confirms[i][
+                                                        'doctor_data']
+                                                        ['id']
+                                                            .toString(),
+                                                        booking_id: confirms[i]
+                                                        ['id']
+                                                            .toString(),
+                                                      ));
+                                                  // showSnackbar( 'Comming Soon.');
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   )),
@@ -1294,63 +1288,61 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                         ],
                                       ),
                                       // MainHeadingText(text: 'Waiting for payment',fontSize: 10,color: Colors.green,),
-                                      Container(
-                                        child: Column(
-                                          children: [
-                                            vSizedBox2,
-                                            Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                              children: [
-                                                if (
-                                                // todays_app[i]['is_join']
-                                                //     .toString() ==
-                                                //     '0' &&
-                                                compare_time(completeds[i]
-                                                ['slot_data']['date'] +
-                                                    ' ' +
-                                                    completeds[i]['slot_data']
-                                                    ['start_time']) ==
-                                                    true)
-                                                hSizedBox,
-                                                RoundEdgedButton(
-                                                  text: 'Chat',
-                                                  borderRadius: 100,
-                                                  width: 70,
-                                                  height: 35,
-                                                  horizontalPadding: 0,
-                                                  verticalPadding: 0,
-                                                  color: Colors.transparent,
-                                                  textColor: MyColors.primaryColor,
-                                                  bordercolor:
-                                                  MyColors.primaryColor,
-                                                  onTap: () async {
-                                                    push(
-                                                        context: context,
-                                                        screen: ChatPage(
-                                                          other_user_id: user_Data![
-                                                          'type']
-                                                              .toString() ==
-                                                              '1'
-                                                              ? completeds[i][
-                                                          'user_data']
-                                                          ['id']
-                                                              .toString()
-                                                              : completeds[i][
-                                                          'doctor_data']
-                                                          ['id']
-                                                              .toString(),
-                                                          booking_id: completeds[i]
-                                                          ['id']
-                                                              .toString(),
-                                                        ));
-                                                    // showSnackbar( 'Comming Soon.');
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
+                                      Column(
+                                        children: [
+                                          vSizedBox2,
+                                          Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                            children: [
+                                              if (
+                                              // todays_app[i]['is_join']
+                                              //     .toString() ==
+                                              //     '0' &&
+                                              compare_time(completeds[i]
+                                              ['slot_data']['date'] +
+                                                  ' ' +
+                                                  completeds[i]['slot_data']
+                                                  ['start_time']) ==
+                                                  true)
+                                              hSizedBox,
+                                              RoundEdgedButton(
+                                                text: 'Chat',
+                                                borderRadius: 100,
+                                                width: 70,
+                                                height: 35,
+                                                horizontalPadding: 0,
+                                                verticalPadding: 0,
+                                                color: Colors.transparent,
+                                                textColor: MyColors.primaryColor,
+                                                bordercolor:
+                                                MyColors.primaryColor,
+                                                onTap: () async {
+                                                  push(
+                                                      context: context,
+                                                      screen: ChatPage(
+                                                        other_user_id: user_Data![
+                                                        'type']
+                                                            .toString() ==
+                                                            '1'
+                                                            ? completeds[i][
+                                                        'user_data']
+                                                        ['id']
+                                                            .toString()
+                                                            : completeds[i][
+                                                        'doctor_data']
+                                                        ['id']
+                                                            .toString(),
+                                                        booking_id: completeds[i]
+                                                        ['id']
+                                                            .toString(),
+                                                      ));
+                                                  // showSnackbar( 'Comming Soon.');
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   )),

@@ -53,7 +53,7 @@ class _PayStackPaymentPageState extends State<PayStackPaymentPage> {
   }
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return  SizedBox(
       /// commented to check manish
       child: WebViewWidget(
         controller: webviewController,

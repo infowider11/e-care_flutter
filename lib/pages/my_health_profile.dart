@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings
+// ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings, non_constant_identifier_names
 
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';

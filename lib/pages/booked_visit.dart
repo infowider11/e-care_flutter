@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, unused_element, deprecated_member_use, avoid_print
+// ignore_for_file: unused_local_variable, unused_element, deprecated_member_use, avoid_print, non_constant_identifier_names
 
 import 'dart:developer';
 
@@ -536,22 +536,45 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                   },
                                                 )
                                               else
-                                                RoundEdgedButton(
-                                                  width: 150,
-                                                  text: 'Pay Now',
-                                                  color: Colors.green,
-                                                  // width: 50,
-                                                  // isSolid: false,
-                                                  onTap: () async {
-                                                    await payment_popup(
-                                                      acceptedBookings[i]['id']
-                                                          .toString(),
-                                                      getPrice(acceptedBookings[i]
-                                                          ['price']),
-                                                      doctorData: acceptedBookings[i]
-                                                          ['doctor_data'],
-                                                    );
-                                                  },
+                                                Row(
+                                                  children: [
+                                                    RoundEdgedButton(
+                                                      width: 120,
+                                                      height: 40,
+                                                      text: 'Pay Now',
+                                                      color: Colors.green,
+                                                      // width: 50,
+                                                      // isSolid: false,
+                                                      onTap: () async {
+                                                        await payment_popup(
+                                                          acceptedBookings[i]['id']
+                                                              .toString(),
+                                                          getPrice(acceptedBookings[i]
+                                                              ['price']),
+                                                          doctorData: acceptedBookings[i]
+                                                              ['doctor_data'],
+                                                        );
+                                                      },
+                                                    ),hSizedBox,
+                                                    RoundEdgedButton(
+                                                      width: 120,
+                                                      height: 40,
+                                                      text: 'Cancel',
+                                                      color: Colors.green,
+                                                      // width: 50,
+                                                      // isSolid: false,
+                                                      onTap: () async {
+                                                        await payment_popup(
+                                                          acceptedBookings[i]['id']
+                                                              .toString(),
+                                                          getPrice(acceptedBookings[i]
+                                                              ['price']),
+                                                          doctorData: acceptedBookings[i]
+                                                              ['doctor_data'],
+                                                        );
+                                                      },
+                                                    ),
+                                                  ],
                                                 ),
                                             ],
                                           )),

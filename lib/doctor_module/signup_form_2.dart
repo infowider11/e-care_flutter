@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_brace_in_string_interps, avoid_print
+// ignore_for_file: unnecessary_brace_in_string_interps, avoid_print, non_constant_identifier_names
 
 import 'dart:developer';
 import 'dart:io';

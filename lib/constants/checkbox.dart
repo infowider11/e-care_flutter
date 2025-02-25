@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 
 class LabeledCheckbox extends StatelessWidget {
-  const LabeledCheckbox({
+  const LabeledCheckbox({super.key, 
     required this.label,
     this.contentPadding,
     this.value,

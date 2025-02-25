@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison, unused_local_variable, avoid_print, prefer_interpolation_to_compose_strings
+// ignore_for_file: unnecessary_null_comparison, unused_local_variable, avoid_print, prefer_interpolation_to_compose_strings, non_constant_identifier_names, camel_case_types
 
 import 'dart:io';
 import 'dart:ui';
@@ -465,20 +465,18 @@ class _bookingdetailState extends State<bookingdetail> {
                                                 .toString(),
                                           ));
                                     },
-                                    child: Container(
-                                      child: Column(
-                                        children: [
-                                          CustomCircularImage(
-                                              imageUrl: info['user_data']
-                                                  ['profile_image']),
-                                          headingText(
-                                              text:
-                                                  '${info['user_data']['first_name']} ${info['user_data']['last_name']}'),
-                                          headingText(
-                                              text:
-                                                  '${info['user_data']['phone_code']}-${info['user_data']['phone']}'),
-                                        ],
-                                      ),
+                                    child: Column(
+                                      children: [
+                                        CustomCircularImage(
+                                            imageUrl: info['user_data']
+                                                ['profile_image']),
+                                        headingText(
+                                            text:
+                                                '${info['user_data']['first_name']} ${info['user_data']['last_name']}'),
+                                        headingText(
+                                            text:
+                                                '${info['user_data']['phone_code']}-${info['user_data']['phone']}'),
+                                      ],
                                     ),
                                   )
                                 ],
@@ -756,10 +754,10 @@ class _bookingdetailState extends State<bookingdetail> {
                 if (paystackInitiateTransactionResponse != null) {
                   bool? success = await push(
                       context: MyGlobalKeys.navigatorKey.currentContext!,
-                      screen: Container(child:  PayStackPaymentPage(
+                      screen: PayStackPaymentPage(
                         paymentUrl: paystackInitiateTransactionResponse
                             .authorization_url,
-                      )));
+                      ));
                   print('payment success----- $success');
                   // return;
         // bool paymentIsSuccess =await FlutterPayStackServices.isPaymentSuccessfull(paystackInitiateTransactionResponse.reference);

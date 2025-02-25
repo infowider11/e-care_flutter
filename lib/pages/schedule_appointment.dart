@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, deprecated_member_use, avoid_print
+// ignore_for_file: unused_local_variable, deprecated_member_use, avoid_print, non_constant_identifier_names, prefer_const_constructors_in_immutables
 
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/navigation.dart';

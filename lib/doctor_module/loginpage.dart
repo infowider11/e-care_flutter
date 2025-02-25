@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, use_build_context_synchronously
+// ignore_for_file: avoid_print, use_build_context_synchronously, non_constant_identifier_names
 
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/image_urls.dart';

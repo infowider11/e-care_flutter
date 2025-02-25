@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, non_constant_identifier_names, camel_case_types
 
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';

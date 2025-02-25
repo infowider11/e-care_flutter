@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, prefer_interpolation_to_compose_strings, avoid_print
+// ignore_for_file: deprecated_member_use, prefer_interpolation_to_compose_strings, avoid_print, non_constant_identifier_names
 
 import 'dart:io';
 

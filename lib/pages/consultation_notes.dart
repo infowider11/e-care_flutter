@@ -1,5 +1,5 @@
 
-// ignore_for_file: unused_local_variable, use_build_context_synchronously, avoid_print
+// ignore_for_file: unused_local_variable, use_build_context_synchronously, avoid_print, non_constant_identifier_names, camel_case_types
 
 // import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:ecare/constants/colors.dart';

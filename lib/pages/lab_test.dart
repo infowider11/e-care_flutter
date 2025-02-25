@@ -151,7 +151,7 @@ class LabTestPageState extends State<LabTestPage>
         body: load
             ? const CustomLoader()
             : TabBarView(children: [
-                Container(
+                SizedBox(
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -281,7 +281,7 @@ class LabTestPageState extends State<LabTestPage>
                     ),
                   ),
                 ),
-                Container(
+                SizedBox(
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 class SubBankAccountModal {
   String business_name;
   String account_number;

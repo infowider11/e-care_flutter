@@ -55,6 +55,7 @@ class _tabs_third_pageState extends State<tabs_third_page> {
   }
 
   interval() async {
+    // ignore: non_constant_identifier_names
     String user_id = await getCurrentUserId();
     globel_timer = Timer.periodic(const Duration(seconds: 5), (timer) {
       Webservices.get('${ApiUrls.interval}?user_id=${user_id}&t=1')

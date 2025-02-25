@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, avoid_print
+// ignore_for_file: deprecated_member_use, avoid_print, non_constant_identifier_names, prefer_interpolation_to_compose_strings, unnecessary_string_interpolations
 
 import 'package:badges/badges.dart' as badges;
 import 'package:ecare/constants/colors.dart';

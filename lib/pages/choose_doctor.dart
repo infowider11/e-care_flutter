@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, non_constant_identifier_names
 
 import 'package:ecare/constants/constans.dart';
 import 'package:ecare/functions/print_function.dart';
@@ -118,7 +118,7 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
       appBar: appBar(context: context),
       body: load
           ? const CustomLoader()
-          : Container(
+          : SizedBox(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,

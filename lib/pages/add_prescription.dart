@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_final_fields, unused_field, deprecated_member_use, avoid_print, unnecessary_brace_in_string_interps
+// ignore_for_file: prefer_final_fields, unused_field, deprecated_member_use, avoid_print, unnecessary_brace_in_string_interps, camel_case_types, non_constant_identifier_names
 
 import 'dart:convert';
 import 'dart:io';

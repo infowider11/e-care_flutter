@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_brace_in_string_interps, avoid_print, unnecessary_string_interpolations
+// ignore_for_file: unnecessary_brace_in_string_interps, avoid_print, unnecessary_string_interpolations, non_constant_identifier_names, camel_case_types
 
 import 'dart:convert';
 import 'dart:io';

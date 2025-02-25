@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, non_constant_identifier_names, avoid_print, unnecessary_brace_in_string_interps
+// ignore_for_file: deprecated_member_use, non_constant_identifier_names, avoid_print, unnecessary_brace_in_string_interps, use_build_context_synchronously
 
 import 'package:ecare/Services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';

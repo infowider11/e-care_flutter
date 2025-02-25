@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison, deprecated_member_use, avoid_print
+// ignore_for_file: unnecessary_null_comparison, deprecated_member_use, avoid_print, non_constant_identifier_names
 
 import 'package:badges/badges.dart' as badges;
 import 'package:ecare/constants/colors.dart';

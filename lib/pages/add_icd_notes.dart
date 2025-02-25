@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, unnecessary_string_interpolations
+// ignore_for_file: avoid_print, unnecessary_string_interpolations, non_constant_identifier_names
 
 import 'dart:convert';
 import 'dart:io';

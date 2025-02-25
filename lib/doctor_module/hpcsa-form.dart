@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print
+// ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print, non_constant_identifier_names
 
 import 'dart:io';
 
@@ -236,34 +236,32 @@ class _hpcsaregistrationState extends State<hpcsaregistration> {
             ),
             vSizedBox2,
             if(user_data!=null)
-              Container(
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: proofFile.length==0?Image.network(user_data!['hpcsa_image'],width: 150,height: 150,):
-                      Image.file(proofFile[0],width: 150,height: 150,),
-                    ),
-                    // Positioned(
-                    //   top: 0,
-                    //   right:0,
-                    //   child:IconButton(
-                    //     onPressed: () {
-                    //       if(proofFile.length>0){
-                    //         setState(() {
-                    //           proofFile=[];
-                    //           hide_image=true;
-                    //         });
-                    //       } else {
-                    //         setState(() {
-                    //           hide_image=true;
-                    //         });
-                    //       }
-                    //     },
-                    //     icon: Icon(Icons.remove_circle,color: Colors.red,),),
-                    // )
-                  ],
-                ),
+              Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: proofFile.length==0?Image.network(user_data!['hpcsa_image'],width: 150,height: 150,):
+                    Image.file(proofFile[0],width: 150,height: 150,),
+                  ),
+                  // Positioned(
+                  //   top: 0,
+                  //   right:0,
+                  //   child:IconButton(
+                  //     onPressed: () {
+                  //       if(proofFile.length>0){
+                  //         setState(() {
+                  //           proofFile=[];
+                  //           hide_image=true;
+                  //         });
+                  //       } else {
+                  //         setState(() {
+                  //           hide_image=true;
+                  //         });
+                  //       }
+                  //     },
+                  //     icon: Icon(Icons.remove_circle,color: Colors.red,),),
+                  // )
+                ],
               ),
             // CustomTextField(controller: proof, hintText: 'Write here..'),
             vSizedBox2,

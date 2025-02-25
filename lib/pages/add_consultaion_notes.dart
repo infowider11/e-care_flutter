@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, avoid_print, unnecessary_brace_in_string_interps, unnecessary_string_interpolations
+// ignore_for_file: unused_import, avoid_print, unnecessary_brace_in_string_interps, unnecessary_string_interpolations, non_constant_identifier_names
 
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';

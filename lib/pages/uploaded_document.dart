@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, avoid_unnecessary_containers, non_constant_identifier_names
 
 import 'dart:io';
 
@@ -270,7 +270,7 @@ class UploadedDocumentState extends State<UploadedDocument>
                 ),
               ),
               vSizedBox2,
-              Container(
+              SizedBox(
                 // width: 100,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -289,7 +289,7 @@ class UploadedDocumentState extends State<UploadedDocument>
                 ),
               ),
               vSizedBox2,
-              Container(
+              SizedBox(
                 // width: 100,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
