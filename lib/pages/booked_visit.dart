@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, unused_element, deprecated_member_use, avoid_print, non_constant_identifier_names
+// ignore_for_file: unused_local_variable, unused_element, deprecated_member_use, avoid_print, non_constant_identifier_names, use_build_context_synchronously
 
 import 'dart:developer';
 
@@ -36,7 +36,8 @@ import 'dart:io';
 // import 'package:flutter_paystack/flutter_paystack.dart';
 
 class BookedVisit extends StatefulWidget {
-  const BookedVisit({Key? key}) : super(key: key);
+  final bool showBackIcon;
+  const BookedVisit({Key? key, required this.showBackIcon}) : super(key: key);
 
   @override
   State<BookedVisit> createState() => _BookedVisitState();
@@ -47,10 +48,10 @@ class _BookedVisitState extends State<BookedVisit>
   TextEditingController email = TextEditingController();
   TextEditingController review = TextEditingController();
   late TabController _tabController;
-ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
+  ValueNotifier<bool> callStatusLoad = ValueNotifier(false);
   String paystackPublicKey =
       'pk_test_c9873b01e7f63337f4e6818c1bf64b9b834566a1'; // test public key
-  
+
   // final plugin = PaystackPlugin();
 
   bool load = false;
@@ -116,8 +117,6 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
 
   @override
   void initState() {
-    
-   
     super.initState();
     _tabController = TabController(length: 5, vsync: this, initialIndex: 0);
     _tabController.addListener(() {
@@ -260,20 +259,24 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
   Widget build(BuildContext context) {
     log('sdlkfjsfj ${confirms}');
     return ValueListenableBuilder<bool>(
-      valueListenable:callStatusLoad ,
-      builder: (context, value, child) =>
-
-       Stack(
-         children: [
-           DefaultTabController(
+      valueListenable: callStatusLoad,
+      builder: (context, value, child) => Stack(
+        children: [
+          DefaultTabController(
             animationDuration: const Duration(seconds: 1),
             initialIndex: 4,
             length: 5,
             child: Scaffold(
               appBar: AppBar(
-                leading: const BackButton(
-                  color: Colors.black,
-                ),
+                leading: widget.showBackIcon
+                    ? BackButton(
+                        color: Colors.black,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      )
+                    : null,
+                title:const headingText(text: "My Consultation"),
                 backgroundColor: MyColors.BgColor,
                 bottom: PreferredSize(
                   preferredSize: _tabBar.preferredSize,
@@ -306,9 +309,10 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => bookingdetail(
-                                                    booking_id:
-                                                        pending[i]['id'].toString(),
+                                              builder: (context) =>
+                                                  bookingdetail(
+                                                    booking_id: pending[i]['id']
+                                                        .toString(),
                                                   )));
                                       // Navigator.push(context, bookingdetail());
                                     },
@@ -321,10 +325,12 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                         borderRadius: BorderRadius.circular(15),
                                       ),
                                       child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           CustomCircularImage(
-                                              imageUrl: pending[i]['doctor_data']
+                                              imageUrl: pending[i]
+                                                      ['doctor_data']
                                                   ['profile_image']),
                                           hSizedBox2,
                                           Expanded(
@@ -337,13 +343,15 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                   Expanded(
                                                     child: Column(
                                                       crossAxisAlignment:
-                                                          CrossAxisAlignment.start,
+                                                          CrossAxisAlignment
+                                                              .start,
                                                       children: [
                                                         MainHeadingText(
                                                           text:
                                                               '${pending[i]['doctor_data']['first_name']}',
                                                           fontSize: 16,
-                                                          color: MyColors.labelcolor,
+                                                          color: MyColors
+                                                              .labelcolor,
                                                         ),
                                                         // MainHeadingText(
                                                         //   text:
@@ -380,7 +388,8 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                         '${DateFormat.jm().format(DateFormat('hh:mm').parse(pending[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(pending[i]['slot_data']['end_time']))}',
                                                     fontSize: 11,
                                                     fontFamily: 'medium',
-                                                    color: MyColors.primaryColor,
+                                                    color:
+                                                        MyColors.primaryColor,
                                                   )
                                                 ],
                                               ),
@@ -410,16 +419,20 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                             padding: const EdgeInsets.all(16),
                             child: Column(
                               children: [
-                                for (var i = 0; i < acceptedBookings.length; i++)
+                                for (var i = 0;
+                                    i < acceptedBookings.length;
+                                    i++)
                                   GestureDetector(
                                     onTap: () {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => bookingdetail(
-                                                    booking_id: acceptedBookings[i]
-                                                            ['id']
-                                                        .toString(),
+                                              builder: (context) =>
+                                                  bookingdetail(
+                                                    booking_id:
+                                                        acceptedBookings[i]
+                                                                ['id']
+                                                            .toString(),
                                                   )));
                                       // Navigator.push(context, bookingdetail());
                                     },
@@ -431,11 +444,13 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                         borderRadius: BorderRadius.circular(15),
                                       ),
                                       child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           CustomCircularImage(
                                               imageUrl: acceptedBookings[i]
-                                                  ['doctor_data']['profile_image']),
+                                                      ['doctor_data']
+                                                  ['profile_image']),
                                           hSizedBox,
                                           Expanded(
                                               child: Column(
@@ -447,13 +462,15 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                   Expanded(
                                                       child: Column(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       MainHeadingText(
                                                         text:
                                                             '${acceptedBookings[i]['doctor_data']['first_name']}',
                                                         fontSize: 16,
-                                                        color: MyColors.labelcolor,
+                                                        color:
+                                                            MyColors.labelcolor,
                                                       ),
                                                       // MainHeadingText(
                                                       //   text:
@@ -485,18 +502,20 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                             text:
                                                                 '${acceptedBookings[i]['slot_data']['date']}',
                                                             fontSize: 11,
-                                                            fontFamily: 'semibold',
-                                                            color:
-                                                                MyColors.labelcolor,
+                                                            fontFamily:
+                                                                'semibold',
+                                                            color: MyColors
+                                                                .labelcolor,
                                                           ),
                                                           hSizedBox05,
                                                           MainHeadingText(
                                                             text:
                                                                 '${DateFormat.jm().format(DateFormat('hh:mm').parse(acceptedBookings[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(acceptedBookings[i]['slot_data']['end_time']))}',
                                                             fontSize: 11,
-                                                            fontFamily: 'medium',
-                                                            color:
-                                                                MyColors.primaryColor,
+                                                            fontFamily:
+                                                                'medium',
+                                                            color: MyColors
+                                                                .primaryColor,
                                                           ),
                                                         ],
                                                       )),
@@ -504,16 +523,19 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                               ),
                                               // vSizedBox05,
                                               MainHeadingText(
-                                                text:
-                                                acceptedBookings[i]['is_payment'] ==
-                                                    '2'?'Your payment is currently being processed. Once we receive confirmation from your bank, it will be automatically reflected as confirmed in the "Confirmed" tab of your "My Consultation" section. Please note that this process may take up to 30 minutes. If the payment status does not update within that time, kindly click on the "Payment processing" button to refresh the status of your payment.':'To confirm your booking, please click the "Pay Now" button to proceed to our secure payment portal.'
-                                                    '\nPlease note that all cancellations made 24 hours prior to the scheduled consultation will be refunded in full. Unfortunately, cancellations made within 24 hours of your scheduled consultation will not be refunded.',
+                                                text: acceptedBookings[i]
+                                                            ['is_payment'] ==
+                                                        '2'
+                                                    ? 'Your payment is currently being processed. Once we receive confirmation from your bank, it will be automatically reflected as confirmed in the "Confirmed" tab of your "My Consultation" section. Please note that this process may take up to 30 minutes. If the payment status does not update within that time, kindly click on the "Payment processing" button to refresh the status of your payment.'
+                                                    : 'To confirm your booking, please click the "Pay Now" button to proceed to our secure payment portal.'
+                                                        '\nPlease note that all cancellations made 24 hours prior to the scheduled consultation will be refunded in full. Unfortunately, cancellations made within 24 hours of your scheduled consultation will not be refunded.',
                                                 fontSize: 12,
                                                 color: Colors.green,
                                                 textAlign: TextAlign.justify,
                                               ),
                                               vSizedBox,
-                                              if (acceptedBookings[i]['is_payment'] ==
+                                              if (acceptedBookings[i]
+                                                      ['is_payment'] ==
                                                   '2')
                                                 RoundEdgedButton(
                                                   text: 'Payment Processing',
@@ -528,10 +550,11 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
 
                                                     await changeBookingStatus(
                                                         transactionId:
+                                                            acceptedBookings[i][
+                                                                'transaction_id'],
+                                                        bookingId:
                                                             acceptedBookings[i]
-                                                                ['transaction_id'],
-                                                        bookingId: acceptedBookings[i]
-                                                            ['id']);
+                                                                ['id']);
                                                     get_lists();
                                                   },
                                                 )
@@ -547,31 +570,60 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                       // isSolid: false,
                                                       onTap: () async {
                                                         await payment_popup(
-                                                          acceptedBookings[i]['id']
+                                                          acceptedBookings[i]
+                                                                  ['id']
                                                               .toString(),
-                                                          getPrice(acceptedBookings[i]
-                                                              ['price']),
-                                                          doctorData: acceptedBookings[i]
-                                                              ['doctor_data'],
+                                                          getPrice(
+                                                              acceptedBookings[
+                                                                  i]['price']),
+                                                          doctorData:
+                                                              acceptedBookings[
+                                                                      i][
+                                                                  'doctor_data'],
                                                         );
                                                       },
-                                                    ),hSizedBox,
+                                                    ),
+                                                    hSizedBox,
                                                     RoundEdgedButton(
                                                       width: 120,
                                                       height: 40,
                                                       text: 'Cancel',
-                                                      color: Colors.green,
+                                                      color: Colors.red,
                                                       // width: 50,
                                                       // isSolid: false,
                                                       onTap: () async {
-                                                        await payment_popup(
-                                                          acceptedBookings[i]['id']
-                                                              .toString(),
-                                                          getPrice(acceptedBookings[i]
-                                                              ['price']),
-                                                          doctorData: acceptedBookings[i]
-                                                              ['doctor_data'],
+                                                        bool? result =
+                                                            await showCustomConfirmationDialog(
+                                                          headingMessage:
+                                                              'Are you sure you want to cancel this booking?',
+                                                          // description: 'You want to delete'
                                                         );
+                                                        if (result == true) {
+                                                          EasyLoading.show();
+                                                          var data = {
+                                                            "booking_id":
+                                                                acceptedBookings[
+                                                                        i]['id']
+                                                                    .toString(),
+                                                            "user_id":
+                                                                await getCurrentUserId()
+                                                          };
+                                                          var res = await Webservices
+                                                              .postData(
+                                                                  apiUrl: ApiUrls
+                                                                      .make_booking_cancel,
+                                                                  body: data,
+                                                                  context:
+                                                                      context);
+                                                          EasyLoading.dismiss();
+                                                          if (res['status']
+                                                                  .toString() ==
+                                                              '1') {
+                                                            acceptedBookings
+                                                                .removeAt(i);
+                                                            setState(() {});
+                                                          }
+                                                        }
                                                       },
                                                     ),
                                                   ],
@@ -602,9 +654,11 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => bookingdetail(
-                                                    booking_id:
-                                                        confirms[i]['id'].toString(),
+                                              builder: (context) =>
+                                                  bookingdetail(
+                                                    booking_id: confirms[i]
+                                                            ['id']
+                                                        .toString(),
                                                   )));
                                       // Navigator.push(context, bookingdetail());
                                     },
@@ -616,10 +670,12 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                         borderRadius: BorderRadius.circular(15),
                                       ),
                                       child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           CustomCircularImage(
-                                              imageUrl: confirms[i]['doctor_data']
+                                              imageUrl: confirms[i]
+                                                      ['doctor_data']
                                                   ['profile_image']),
                                           hSizedBox,
                                           Expanded(
@@ -632,13 +688,15 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                   Expanded(
                                                       child: Column(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       MainHeadingText(
                                                         text:
                                                             '${confirms[i]['doctor_data']['first_name']}',
                                                         fontSize: 16,
-                                                        color: MyColors.labelcolor,
+                                                        color:
+                                                            MyColors.labelcolor,
                                                       ),
                                                       // MainHeadingText(
                                                       //   text:
@@ -670,18 +728,20 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                             text:
                                                                 '${confirms[i]['slot_data']['date']}',
                                                             fontSize: 11,
-                                                            fontFamily: 'semibold',
-                                                            color:
-                                                                MyColors.labelcolor,
+                                                            fontFamily:
+                                                                'semibold',
+                                                            color: MyColors
+                                                                .labelcolor,
                                                           ),
                                                           hSizedBox05,
                                                           MainHeadingText(
                                                             text:
                                                                 '${DateFormat.jm().format(DateFormat('hh:mm').parse(confirms[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(confirms[i]['slot_data']['end_time']))}',
                                                             fontSize: 11,
-                                                            fontFamily: 'medium',
-                                                            color:
-                                                                MyColors.primaryColor,
+                                                            fontFamily:
+                                                                'medium',
+                                                            color: MyColors
+                                                                .primaryColor,
                                                           ),
                                                         ],
                                                       )),
@@ -716,9 +776,10 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                                               'doctor_data']
                                                                           ['id']
                                                                       .toString(),
-                                                              booking_id: confirms[i]
-                                                                      ['id']
-                                                                  .toString(),
+                                                              booking_id:
+                                                                  confirms[i]
+                                                                          ['id']
+                                                                      .toString(),
                                                             ));
                                                       },
                                                     ),
@@ -727,12 +788,14 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                   if (confirms[i]['is_join']
                                                               .toString() ==
                                                           '0' &&
-                                                      compare_time(confirms[i]
-                                                                      ['slot_data']
+                                                      compare_time(confirms[i][
+                                                                      'slot_data']
                                                                   ['date'] +
                                                               ' ' +
-                                                              confirms[i]['slot_data']
-                                                                  ['start_time']) ==
+                                                              confirms[i][
+                                                                      'slot_data']
+                                                                  [
+                                                                  'start_time']) ==
                                                           true)
                                                     Expanded(
                                                       // flex: 4,
@@ -745,42 +808,56 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                         // width: 50,
                                                         isSolid: false,
                                                         onTap: () async {
-
-
                                                           // showSnackbar('sddsssfsd ${confirms[i]['id']}');
                                                           // return;
-                                                          callStatusLoad.value=true;
-                                                          var res = await Webservices.get(ApiUrls.callStatus+
-                                                              '?bookingId=${confirms[i]['id']}');
-                                                          callStatusLoad.value=false;
-                                                          print('res---I am here ');
-                                                        print('res---${res['data']['status']}');
-                                                        if(res['data']['status']=="0"){
-
+                                                          callStatusLoad.value =
+                                                              true;
                                                           var res = await Webservices
-                                                              .get(ApiUrls.PickCall +
-                                                                  confirms[i]['id']
-                                                                      .toString());
+                                                              .get(ApiUrls
+                                                                      .callStatus +
+                                                                  '?bookingId=${confirms[i]['id']}');
+                                                          callStatusLoad.value =
+                                                              false;
                                                           print(
-                                                              'pickup call-----$res');
-                                                          push(
-                                                              context: context,
-                                                              screen: VideoCallScreen(
-                                                                name: confirms[i][
-                                                                        'doctor_data']
-                                                                    ['first_name'],
-                                                                bookingId: confirms[i]
-                                                                        ['id']
-                                                                    .toString(),
-                                                                userId: confirms[i][
-                                                                            'doctor_data']
-                                                                        ['id']
-                                                                    .toString(),
-                                                              ));
-                                                        }else{
-                                                          showSnackbar('Please wait for doctor to start call');
-                                                        }
-
+                                                              'res---I am here ');
+                                                          print(
+                                                              'res---${res['data']['status']}');
+                                                          if (res['data']
+                                                                  ['status'] ==
+                                                              "0") {
+                                                            var res = await Webservices
+                                                                .get(ApiUrls
+                                                                        .PickCall +
+                                                                    confirms[i][
+                                                                            'id']
+                                                                        .toString());
+                                                            print(
+                                                                'pickup call-----$res');
+                                                            push(
+                                                                context:
+                                                                    context,
+                                                                screen:
+                                                                    VideoCallScreen(
+                                                                  name: confirms[
+                                                                              i]
+                                                                          [
+                                                                          'doctor_data']
+                                                                      [
+                                                                      'first_name'],
+                                                                  bookingId: confirms[
+                                                                              i]
+                                                                          ['id']
+                                                                      .toString(),
+                                                                  userId: confirms[i]
+                                                                              [
+                                                                              'doctor_data']
+                                                                          ['id']
+                                                                      .toString(),
+                                                                ));
+                                                          } else {
+                                                            showSnackbar(
+                                                                'Please wait for doctor to start call');
+                                                          }
                                                         },
                                                       ),
                                                     ),
@@ -788,18 +865,22 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                   if (confirms[i]['is_join']
                                                               .toString() ==
                                                           '0' &&
-                                                      ismarkascomlete(confirms[i]
-                                                                      ['slot_data']
+                                                      ismarkascomlete(confirms[
+                                                                          i][
+                                                                      'slot_data']
                                                                   ['date'] +
                                                               ' ' +
-                                                              confirms[i]['slot_data']
-                                                                  ['start_time']) ==
+                                                              confirms[i][
+                                                                      'slot_data']
+                                                                  [
+                                                                  'start_time']) ==
                                                           true)
                                                     Expanded(
                                                       child: RoundEdgedButton(
                                                         // width: 100,
                                                         // height: 10,
-                                                        text: 'Mark as Complete',
+                                                        text:
+                                                            'Mark as Complete',
                                                         // width: 50,
                                                         height: 60,
                                                         isSolid: false,
@@ -813,11 +894,13 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                           var res = await Webservices
                                                               .get(ApiUrls
                                                                       .mark_as_complete +
-                                                                  confirms[i]['id']
+                                                                  confirms[i]
+                                                                          ['id']
                                                                       .toString());
                                                           print(
                                                               'booking complete   $res');
-                                                          await EasyLoading.dismiss();
+                                                          await EasyLoading
+                                                              .dismiss();
                                                           get_lists();
                                                         },
                                                       ),
@@ -827,7 +910,8 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                               Column(
                                                 children: [
                                                   vSizedBox,
-                                                  if (confirms[i]['is_refund_request']
+                                                  if (confirms[i][
+                                                              'is_refund_request']
                                                           .toString() ==
                                                       '0')
                                                     RoundEdgedButton(
@@ -842,7 +926,8 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                                 .toString());
                                                       },
                                                     ),
-                                                  if (confirms[i]['is_refund_request']
+                                                  if (confirms[i][
+                                                              'is_refund_request']
                                                           .toString() ==
                                                       '1')
                                                     RoundEdgedButton(
@@ -850,7 +935,8 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                       color: Colors.red,
                                                       onTap: () async {},
                                                     ),
-                                                  if (confirms[i]['is_refund_request']
+                                                  if (confirms[i][
+                                                              'is_refund_request']
                                                           .toString() ==
                                                       '2')
                                                     RoundEdgedButton(
@@ -917,8 +1003,10 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => bookingdetail(
-                                                    booking_id: completeds[i]['id']
+                                              builder: (context) =>
+                                                  bookingdetail(
+                                                    booking_id: completeds[i]
+                                                            ['id']
                                                         .toString(),
                                                   )));
                                       // Navigator.push(context, bookingdetail());
@@ -931,10 +1019,12 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                         borderRadius: BorderRadius.circular(15),
                                       ),
                                       child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           CustomCircularImage(
-                                              imageUrl: completeds[i]['doctor_data']
+                                              imageUrl: completeds[i]
+                                                      ['doctor_data']
                                                   ['profile_image']),
                                           hSizedBox,
                                           Expanded(
@@ -947,13 +1037,15 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                   Expanded(
                                                       child: Column(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       MainHeadingText(
                                                         text:
                                                             '${completeds[i]['doctor_data']['first_name']}',
                                                         fontSize: 16,
-                                                        color: MyColors.labelcolor,
+                                                        color:
+                                                            MyColors.labelcolor,
                                                       ),
                                                       // MainHeadingText(
                                                       //   text:
@@ -985,27 +1077,31 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                             text:
                                                                 '${completeds[i]['slot_data']['date']}',
                                                             fontSize: 11,
-                                                            fontFamily: 'semibold',
-                                                            color:
-                                                                MyColors.labelcolor,
+                                                            fontFamily:
+                                                                'semibold',
+                                                            color: MyColors
+                                                                .labelcolor,
                                                           ),
                                                           hSizedBox05,
                                                           MainHeadingText(
                                                             text:
                                                                 '${DateFormat.jm().format(DateFormat('hh:mm').parse(completeds[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(completeds[i]['slot_data']['end_time']))}',
                                                             fontSize: 11,
-                                                            fontFamily: 'medium',
-                                                            color:
-                                                                MyColors.primaryColor,
+                                                            fontFamily:
+                                                                'medium',
+                                                            color: MyColors
+                                                                .primaryColor,
                                                           ),
                                                         ],
                                                       )),
                                                 ],
                                               ),
 
-                                                Row(
-                                                  children: [
-                                                    if (completeds[i]['rate'].toString() == '0')
+                                              Row(
+                                                children: [
+                                                  if (completeds[i]['rate']
+                                                          .toString() ==
+                                                      '0')
                                                     RoundEdgedButton(
                                                       width: 100,
                                                       // height: 10,
@@ -1014,43 +1110,53 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                       horizontalPadding: 0,
                                                       isSolid: false,
                                                       onTap: () async {
-                                                        rating_sheet(completeds[i]
-                                                                ['id']
-                                                            .toString());
+                                                        rating_sheet(
+                                                            completeds[i]['id']
+                                                                .toString());
                                                       },
                                                     ),
-
-                                                    RoundEdgedButton(
-                                                      width: 100,
-                                                      // height: 10,
-                                                      text: 'Delete',
-                                                      // width: 50,
-                                                      isSolid: false,
-                                                      horizontalPadding: 0,
-                                                      horizontalMargin: 15,
-                                                      verticalMargin: 05,
-                                                      onTap: () async {
-                                                        Map<String, dynamic> data = {
-                                                          'booking_id': completeds[i]['id'],
-                                                          'type': '2',
-                                                        };
-                                                        bool? result= await showCustomConfirmationDialog(
-                                                          headingMessage:'Are you sure you want to delete?',
-                                                          // description: 'You want to delete'
-                                                        ) ;
-                                                       if(result==true){
-                                                         setState(() {
-                                                           load = true;
-                                                         });
-                                                         var res = await Webservices.postData(
-                                                             apiUrl: ApiUrls.deleteBooking,
-                                                             body: data,
-                                                             context: context).then((value) => get_lists(shouldCheckAcceptedBookingStatus: true));
-                                                       }
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
+                                                  RoundEdgedButton(
+                                                    width: 100,
+                                                    // height: 10,
+                                                    text: 'Delete',
+                                                    // width: 50,
+                                                    isSolid: false,
+                                                    horizontalPadding: 0,
+                                                    horizontalMargin: 15,
+                                                    verticalMargin: 05,
+                                                    onTap: () async {
+                                                      Map<String, dynamic>
+                                                          data = {
+                                                        'booking_id':
+                                                            completeds[i]['id'],
+                                                        'type': '2',
+                                                      };
+                                                      bool? result =
+                                                          await showCustomConfirmationDialog(
+                                                        headingMessage:
+                                                            'Are you sure you want to delete?',
+                                                        // description: 'You want to delete'
+                                                      );
+                                                      if (result == true) {
+                                                        setState(() {
+                                                          load = true;
+                                                        });
+                                                        var res = await Webservices
+                                                                .postData(
+                                                                    apiUrl: ApiUrls
+                                                                        .deleteBooking,
+                                                                    body: data,
+                                                                    context:
+                                                                        context)
+                                                            .then((value) =>
+                                                                get_lists(
+                                                                    shouldCheckAcceptedBookingStatus:
+                                                                        true));
+                                                      }
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
 
                                               // Column(
                                               //   children: [
@@ -1143,9 +1249,10 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => bookingdetail(
-                                                    booking_id:
-                                                        rejects[i]['id'].toString(),
+                                              builder: (context) =>
+                                                  bookingdetail(
+                                                    booking_id: rejects[i]['id']
+                                                        .toString(),
                                                   )));
                                       // Navigator.push(context, bookingdetail());
                                     },
@@ -1153,13 +1260,15 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                       margin: const EdgeInsets.only(bottom: 10),
                                       padding: const EdgeInsets.all(10),
                                       decoration: BoxDecoration(
-                                        color: MyColors.lightBlue.withOpacity(0.11),
+                                        color: MyColors.lightBlue
+                                            .withOpacity(0.11),
                                         borderRadius: BorderRadius.circular(15),
                                       ),
                                       child: Row(
                                         children: [
                                           CustomCircularImage(
-                                              imageUrl: rejects[i]['doctor_data']
+                                              imageUrl: rejects[i]
+                                                      ['doctor_data']
                                                   ['profile_image']),
                                           hSizedBox2,
                                           Expanded(
@@ -1190,27 +1299,35 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                               //   fontFamily: 'light',
                                               //   fontSize: 14,
                                               // ),
-                                              if(rejects[i]['slot_data'] != null && rejects[i]['slot_data'].isNotEmpty )
+                                              if (rejects[i]['slot_data'] !=
+                                                      null &&
+                                                  rejects[i]['slot_data']
+                                                      .isNotEmpty)
+                                                Row(
+                                                  children: [
+                                                    MainHeadingText(
+                                                      text:
+                                                          '${rejects[i]['slot_data']['date']}',
+                                                      fontSize: 14,
+                                                      fontFamily: 'bold',
+                                                      color:
+                                                          MyColors.bordercolor,
+                                                    ),
+                                                    hSizedBox,
+                                                    MainHeadingText(
+                                                      text:
+                                                          '${DateFormat.jm().format(DateFormat('hh:mm').parse(rejects[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(rejects[i]['slot_data']['end_time']))}',
+                                                      fontSize: 14,
+                                                      fontFamily: 'light',
+                                                      color:
+                                                          MyColors.bordercolor,
+                                                    )
+                                                  ],
+                                                ),
                                               Row(
-                                                children: [
-                                                  MainHeadingText(
-                                                    text:
-                                                        '${rejects[i]['slot_data']['date']}',
-                                                    fontSize: 14,
-                                                    fontFamily: 'bold',
-                                                    color: MyColors.bordercolor,
-                                                  ),
-                                                  hSizedBox,
-                                                  MainHeadingText(
-                                                    text:
-                                                        '${DateFormat.jm().format(DateFormat('hh:mm').parse(rejects[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(rejects[i]['slot_data']['end_time']))}',
-                                                    fontSize: 14,
-                                                    fontFamily: 'light',
-                                                    color: MyColors.bordercolor,
-                                                  )
-                                                ],
-                                              ),
-                                              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   MainHeadingText(
                                                     text:
@@ -1225,28 +1342,38 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                                                     height: 25,
                                                     verticalPadding: 0,
                                                     color: Colors.transparent,
-                                                    textColor: MyColors.primaryColor,
-                                                    bordercolor: MyColors.primaryColor,
+                                                    textColor:
+                                                        MyColors.primaryColor,
+                                                    bordercolor:
+                                                        MyColors.primaryColor,
                                                     horizontalPadding: 0,
                                                     horizontalMargin: 10,
                                                     verticalMargin: 05,
                                                     onTap: () async {
-                                                      Map<String, dynamic> data = {
-                                                        'booking_id': rejects[i]['id'],
+                                                      Map<String, dynamic>
+                                                          data = {
+                                                        'booking_id': rejects[i]
+                                                            ['id'],
                                                         'type': '2',
                                                       };
-                                                      bool? result= await showCustomConfirmationDialog(
-                                                          headingMessage: 'Are you sure you want to delete?',
-
-                                                      ) ;
-                                                      if(result==true){
+                                                      bool? result =
+                                                          await showCustomConfirmationDialog(
+                                                        headingMessage:
+                                                            'Are you sure you want to delete?',
+                                                      );
+                                                      if (result == true) {
                                                         setState(() {
                                                           load = true;
                                                         });
-                                                        var res = await Webservices.postData(
-                                                            apiUrl: ApiUrls.deleteBooking,
-                                                            body: data,
-                                                            context: context).then((value) => get_lists());
+                                                        var res = await Webservices
+                                                                .postData(
+                                                                    apiUrl: ApiUrls
+                                                                        .deleteBooking,
+                                                                    body: data,
+                                                                    context:
+                                                                        context)
+                                                            .then((value) =>
+                                                                get_lists());
                                                       }
                                                     },
                                                   ),
@@ -1269,10 +1396,10 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                       ],
                     ),
             ),
-                 ),
-           if(value)const Center(child: CircularProgressIndicator()),
-         ],
-       ),
+          ),
+          if (value) const Center(child: CircularProgressIndicator()),
+        ],
+      ),
     );
   }
 
@@ -1370,8 +1497,8 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
                       showSnackbar('Payment Failed!!!');
                     }
                   } else {
-                    
-                    showSnackbar('Your transaction is failed due to some error. Please try again after some time.');
+                    showSnackbar(
+                        'Your transaction is failed due to some error. Please try again after some time.');
                     // showSnackbar(
                     //     'Somting went wrong please try again later.');
                     print('ksdklfsja');
@@ -1478,135 +1605,134 @@ ValueNotifier<bool> callStatusLoad=ValueNotifier(false);
       context: context,
       builder: (BuildContext context) {
         return Container(
-              height: MediaQuery.of(context).size.height / 1.9,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-              decoration: const BoxDecoration(
-                  color: Color(0xFFF1F4F8),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40),
-                  )),
-              child: load2
-                  ? const CustomLoader()
-                  :Scaffold(
-                    backgroundColor:  const Color(0xFFF1F4F8),
-          body:  Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        // Image.asset(
-                        //   MyImages.ratings,
-                        //   height: 126,
-                        //   fit: BoxFit.fitHeight,
-                        // ),
-                        vSizedBox,
-                        const headingText(
-                          text: 'Your Opinion matters to us!',
-                          fontSize: 18,
-                          fontFamily: 'medium',
-                        ),
-                        py4,
-                        const ParagraphText(
-                          text: 'Give us a quick review and help us improve?',
-                          fontSize: 17,
-                          color: MyColors.textcolor,
-                        ),
-                        vSizedBox,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            RatingBar.builder(
-                              initialRating: rating, //rating!,
-                              minRating: 1,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                              itemBuilder: (context, _) => const Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                              ),
-                              onRatingUpdate: (rate) {
-                                print('rating------$rate');
-                                rating = rate;
-                                setState(() {});
-                              },
+          height: MediaQuery.of(context).size.height / 1.9,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+          decoration: const BoxDecoration(
+              color: Color(0xFFF1F4F8),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(40),
+                topRight: Radius.circular(40),
+              )),
+          child: load2
+              ? const CustomLoader()
+              : Scaffold(
+                  backgroundColor: const Color(0xFFF1F4F8),
+                  body: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Image.asset(
+                      //   MyImages.ratings,
+                      //   height: 126,
+                      //   fit: BoxFit.fitHeight,
+                      // ),
+                      vSizedBox,
+                      const headingText(
+                        text: 'Your Opinion matters to us!',
+                        fontSize: 18,
+                        fontFamily: 'medium',
+                      ),
+                      py4,
+                      const ParagraphText(
+                        text: 'Give us a quick review and help us improve?',
+                        fontSize: 17,
+                        color: MyColors.textcolor,
+                      ),
+                      vSizedBox,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RatingBar.builder(
+                            initialRating: rating, //rating!,
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemPadding:
+                                const EdgeInsets.symmetric(horizontal: 4.0),
+                            itemBuilder: (context, _) => const Icon(
+                              Icons.star,
+                              color: Colors.amber,
                             ),
-                          ],
-                        ),
-          
-                        vSizedBox,
-                        CustomTextField(
-                          controller: review,
-                          hintText: 'Review..',
-                          maxLines: 3,
-                        ),
-          
-                        vSizedBox2,
-                        RoundEdgedButton(
-                          text: 'Rate Now',
-                          fontSize: 18,
-                          textColor: Colors.white,
-                          color: MyColors.primaryColor,
-                          letterspace: 1,
-                          onTap: () async {
-                            // Navigator.pop(context);
-                            if (rating == 0) {
-                              showSnackbar('Please add rate.');
-                            } else if (review.text == '') {
-                              showSnackbar('Please add review.');
-                            } else {
-                              setState(() {
-                                load2 = true;
-                              });
-                              // if(load==true)
-                              //   CustomLoader();
-                              print('rate now----');
-                              Map<String, dynamic> data = {
-                                'user_id': await getCurrentUserId(),
-                                'booking_id': booking_id.toString(),
-                                'rate': rating.toString(),
-                                'msg': review.text,
-                              };
-                              var res = await Webservices.postData(
-                                  apiUrl: ApiUrls.rating,
-                                  body: data,
-                                  context: context);
-                              print('rate----$res');
-                              setState(() {
-                                load2 = false;
-                              });
-                              if (res['status'].toString() == '1') {
-                                rating = 0;
-                                review.text = '';
-                                get_lists();
-                                setState(() {});
-                                Navigator.of(context).pop();
-                                // showSnackbar('Rated Successfully.');
-                              }
-                            }
-                          },
-                        ),
-                        vSizedBox,
-                        TextButton(
-                            onPressed: () {
-                              rating = 0;
+                            onRatingUpdate: (rate) {
+                              print('rating------$rate');
+                              rating = rate;
                               setState(() {});
-                              Navigator.pop(context);
                             },
-                            child: const ParagraphText(
-                              text: 'Not Now',
-                              color: MyColors.primaryColor,
-                              underlined: true,
-                              fontFamily: 'medium',
-                              fontSize: 18,
-                            ))
-                      ],
-                    )),);
-        
+                          ),
+                        ],
+                      ),
+
+                      vSizedBox,
+                      CustomTextField(
+                        controller: review,
+                        hintText: 'Review..',
+                        maxLines: 3,
+                      ),
+
+                      vSizedBox2,
+                      RoundEdgedButton(
+                        text: 'Rate Now',
+                        fontSize: 18,
+                        textColor: Colors.white,
+                        color: MyColors.primaryColor,
+                        letterspace: 1,
+                        onTap: () async {
+                          // Navigator.pop(context);
+                          if (rating == 0) {
+                            showSnackbar('Please add rate.');
+                          } else if (review.text == '') {
+                            showSnackbar('Please add review.');
+                          } else {
+                            setState(() {
+                              load2 = true;
+                            });
+                            // if(load==true)
+                            //   CustomLoader();
+                            print('rate now----');
+                            Map<String, dynamic> data = {
+                              'user_id': await getCurrentUserId(),
+                              'booking_id': booking_id.toString(),
+                              'rate': rating.toString(),
+                              'msg': review.text,
+                            };
+                            var res = await Webservices.postData(
+                                apiUrl: ApiUrls.rating,
+                                body: data,
+                                context: context);
+                            print('rate----$res');
+                            setState(() {
+                              load2 = false;
+                            });
+                            if (res['status'].toString() == '1') {
+                              rating = 0;
+                              review.text = '';
+                              get_lists();
+                              setState(() {});
+                              Navigator.of(context).pop();
+                              // showSnackbar('Rated Successfully.');
+                            }
+                          }
+                        },
+                      ),
+                      vSizedBox,
+                      TextButton(
+                          onPressed: () {
+                            rating = 0;
+                            setState(() {});
+                            Navigator.pop(context);
+                          },
+                          child: const ParagraphText(
+                            text: 'Not Now',
+                            color: MyColors.primaryColor,
+                            underlined: true,
+                            fontFamily: 'medium',
+                            fontSize: 18,
+                          ))
+                    ],
+                  )),
+        );
       },
     );
   }
-
-
 }

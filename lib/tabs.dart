@@ -29,17 +29,16 @@ class tabs_second_page extends StatefulWidget {
 }
 
 class _tabs_second_pageState extends State<tabs_second_page> {
-  int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   Timer? timer;
   bool ontime_health_profile = false;
 
-  static final List<Widget> _widgetOptions = <Widget>[
+   List<Widget> _widgetOptions = <Widget>[
     const Homepage(),
     const PatientHomePage(),
     const GetCare(),
-    const BookedVisit(),
+    const BookedVisit(showBackIcon: false,),
     const MyECare(),
     // DoctorInvitePage()
   ];

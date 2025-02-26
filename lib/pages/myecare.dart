@@ -166,7 +166,7 @@ class _MyECareState extends State<MyECare> {
 
                   GestureDetector(
                     onTap: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const BookedVisit())),
+                        MaterialPageRoute(builder: (context) => const BookedVisit(showBackIcon: true,))),
                     child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 10),
                       padding: const EdgeInsets.symmetric(vertical: 16),

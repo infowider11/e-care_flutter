@@ -101,6 +101,7 @@ class ApiUrls{
   static const String refundrequest = baseUrl + 'refund-request';
   static const String invoice_list = baseUrl + 'invoice-list?user_id=';
   static const String delete_sick_note = baseUrl + 'delete_sick_note';
+  static const String make_booking_cancel = baseUrl + 'make-booking-cancel';
 
 
   static const String change_booking_status = baseUrl + 'change_booking_status';

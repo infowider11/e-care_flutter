@@ -72,6 +72,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   sentry_flutter: ^8.13.0
   open_file: ^3.3.2
+  chewie: ^1.10.0
 
 dev_dependencies:
   flutter_test:

@@ -83,7 +83,7 @@ class _NotificationPageState extends State<NotificationPage> {
                     GestureDetector(
                       onTap: () {
                         if (lists[i]['other']['screen'] == 'booking') {
-                          push(context: context, screen: const BookedVisit());
+                          push(context: context, screen: const BookedVisit(showBackIcon: true,));
                         }
                       },
                       child: Padding(

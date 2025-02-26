@@ -1,13 +1,15 @@
-// ignore_for_file: deprecated_member_use, avoid_print, non_constant_identifier_names, prefer_interpolation_to_compose_strings, unnecessary_string_interpolations
+// ignore_for_file: deprecated_member_use, avoid_print, non_constant_identifier_names, prefer_interpolation_to_compose_strings, unnecessary_string_interpolations, unused_import
 
 import 'package:badges/badges.dart' as badges;
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/image_urls.dart';
 import 'package:ecare/functions/global_Var.dart';
+import 'package:ecare/modals/file_upload_modal.dart';
 import 'package:ecare/pages/how_it_works.dart';
 import 'package:ecare/pages/messages.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/buttons.dart';
+import 'package:ecare/widgets/vedio_player_widget.dart';
 import 'package:flutter/material.dart';
 import '../constants/navigation.dart';
 import '../constants/sized_box.dart';
@@ -46,9 +48,9 @@ class _HomepageState extends State<Homepage> {
 
   @override
   void initState() {
-   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-     get_videos();
-   });
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      get_videos();
+    });
     super.initState();
   }
 
@@ -82,8 +84,10 @@ class _HomepageState extends State<Homepage> {
             child: IconButton(
               icon: const Icon(Icons.chat),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const MessagePage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const MessagePage()));
               },
             ),
           ),
@@ -145,12 +149,22 @@ class _HomepageState extends State<Homepage> {
                     if (!load)
                       GestureDetector(
                           onTap: () async {
-                           
                             push(
                                 context: context,
-                                screen: VideoPlayerPage(
-                                  videoModal: video_data,
-                                ));
+                                screen: 
+                                VideoPlayerWidget(
+                                  documentData: FileUploadModal(
+                                    filePath: video_data['video'],
+                                    type: "2",
+                                    thumbnail: video_data['video_thumbnail'],
+                                    id: 0,
+                                    fileType: CustomFileType.network,
+                                  ),
+                                )
+                                // VideoPlayerPage(
+                                //   videoModal: video_data,
+                                // )
+                                );
                           },
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
@@ -183,7 +197,8 @@ class _HomepageState extends State<Homepage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const HowItWorks()));
+                                      builder: (context) =>
+                                          const HowItWorks()));
                             },
                             child: const RoundEdgedButton(
                               text: 'How it works',
