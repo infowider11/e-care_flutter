@@ -123,7 +123,7 @@ class _SignUp_PageState extends State<SignUp_Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: MyColors.scaffold,
       appBar: appBar(context: context),
       body: SingleChildScrollView(
@@ -164,6 +164,7 @@ class _SignUp_PageState extends State<SignUp_Page> {
                     onTap: () async {
                       var m = await showDatePicker(
                           context: context,
+                          initialEntryMode: DatePickerEntryMode.calendarOnly,
                           initialDate: DateTime.now(),
                           firstDate: DateTime(1950),
                           lastDate: DateTime.now());

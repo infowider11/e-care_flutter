@@ -256,6 +256,7 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                       label: 'First Name',
                       hintText: 'Dr. John',
                       showlabel: true,
+                      enabled: false,
                       labelcolor: MyColors.onsurfacevarient,
                     ),
                     vSizedBox,
@@ -263,6 +264,7 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                       controller: lname,
                       label: 'Last Name',
                       hintText: 'Smith',
+                      enabled: false,
                       showlabel: true,
                       labelcolor: MyColors.onsurfacevarient,
                     ),
@@ -295,6 +297,8 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                           ),
                           // DropDown(bgcolor: Colors.transparent),
                           vSizedBox,
+                           AbsorbPointer(
+                              child:
                           Container(
                             width: MediaQuery.of(context).size.width,
                             height: 55,
@@ -305,30 +309,32 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                               borderRadius: BorderRadius.circular(17),
                             ),
                             child: DropdownButton<String>(
-                              underline: Container(
-                                height: 8,
+                                underline: Container(
+                                  height: 8,
+                                ),
+                                hint: const Text('Select Category'),
+                                value: catType,
+                                icon: const Icon(
+                                  Icons.keyboard_arrow_down_outlined,
+                                ),
+                                elevation: 0,
+                                
+                                isExpanded: true,
+                                alignment: Alignment.centerLeft,
+                                style: const TextStyle(color: Colors.black),
+                                onChanged: (String? newValue) async {
+                                  catType = newValue!;
+                                  print('id' + catType.toString());
+                                  getSubCategory(catType);
+                                  setState(() {});
+                                },
+                                items: categories.map((e) {
+                                  return DropdownMenuItem<String>(
+                                    value: e['id'],
+                                    child: Text(e['title']),
+                                  );
+                                }).toList(),
                               ),
-                              hint: const Text('Select Category'),
-                              value: catType,
-                              icon: const Icon(
-                                Icons.keyboard_arrow_down_outlined,
-                              ),
-                              elevation: 0,
-                              isExpanded: true,
-                              alignment: Alignment.centerLeft,
-                              style: const TextStyle(color: Colors.black),
-                              onChanged: (String? newValue) async {
-                                catType = newValue!;
-                                print('id' + catType.toString());
-                                getSubCategory(catType);
-                                setState(() {});
-                              },
-                              items: categories.map((e) {
-                                return DropdownMenuItem<String>(
-                                  value: e['id'],
-                                  child: Text(e['title']),
-                                );
-                              }).toList(),
                             ),
                           ),
                           vSizedBox2,
@@ -340,40 +346,43 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                             ),
                           vSizedBox,
                           if (subCategories.length > 0)
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 55,
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                // color: MyColors.white,
-                                border:
-                                    Border.all(color: MyColors.borderColor2),
-                                borderRadius: BorderRadius.circular(17),
-                              ),
-                              child: DropdownButton<String>(
-                                underline: Container(
-                                  height: 8,
+
+                             AbsorbPointer(
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 55,
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  // color: MyColors.white,
+                                  border:
+                                      Border.all(color: MyColors.borderColor2),
+                                  borderRadius: BorderRadius.circular(17),
                                 ),
-                                hint: const Text('Select Sub Category'),
-                                value: subCatType,
-                                icon: const Icon(
-                                  Icons.keyboard_arrow_down_outlined,
+                                child: DropdownButton<String>(
+                                  underline: Container(
+                                    height: 8,
+                                  ),
+                                  hint: const Text('Select Sub Category'),
+                                  value: subCatType,
+                                  icon: const Icon(
+                                    Icons.keyboard_arrow_down_outlined,
+                                  ),
+                                  elevation: 0,
+                                  isExpanded: true,
+                                  alignment: Alignment.centerLeft,
+                                  style: const TextStyle(color: Colors.black),
+                                  onChanged: (String? newValue) async {
+                                    subCatType = newValue!;
+                                    print('id' + subCatType.toString());
+                                    setState(() {});
+                                  },
+                                  items: subCategories.map((e) {
+                                    return DropdownMenuItem<String>(
+                                      value: e['id'],
+                                      child: Text(e['title']),
+                                    );
+                                  }).toList(),
                                 ),
-                                elevation: 0,
-                                isExpanded: true,
-                                alignment: Alignment.centerLeft,
-                                style: const TextStyle(color: Colors.black),
-                                onChanged: (String? newValue) async {
-                                  subCatType = newValue!;
-                                  print('id' + subCatType.toString());
-                                  setState(() {});
-                                },
-                                items: subCategories.map((e) {
-                                  return DropdownMenuItem<String>(
-                                    value: e['id'],
-                                    child: Text(e['title']),
-                                  );
-                                }).toList(),
                               ),
                             ),
                           // DropDown(bgcolor: Colors.transparent,),

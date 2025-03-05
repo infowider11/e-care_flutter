@@ -109,7 +109,7 @@ class _BulkSlotPreviewState extends State<BulkSlotPreview> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                    'Date: ${slotList[index].dateTime.toString()}'),
+                                    'Date: ${DateFormat('dd-MM-yyyy').format(slotList[index].dateTime)}'),
                                 Text(
                                     'Start Time: ${DateFormat.jm().format(DateFormat('hh:mm').parse(slotList[index].from.format(context)))}'),
                                 Text(

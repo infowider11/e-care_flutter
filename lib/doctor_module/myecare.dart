@@ -187,7 +187,7 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MainHeadingText(
-                            text: 'My HPCSA Registration',
+                            text: 'My HPCSA/ASCHP registration',
                             color: MyColors.onsurfacevarient,
                             fontSize: 17,
                             fontFamily: 'bold',

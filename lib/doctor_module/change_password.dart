@@ -126,7 +126,7 @@ bool cpass =false;
                     showSnackbar( 'Please Enter your Confirm Password.');
 
                   }   else if(cpassword.text!=password.text){
-                    showSnackbar( 'Confirm Password and New password should be same.');
+                    showSnackbar( 'Confirm password does not match the new password.');
 
                   }
                   else{
