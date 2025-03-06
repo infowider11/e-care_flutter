@@ -6,6 +6,7 @@ import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
 import 'package:ecare/doctor_module/user_review.dart';
 import 'package:ecare/functions/navigation_functions.dart';
+import 'package:ecare/functions/print_function.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/custom_circular_image.dart';
 import 'package:ecare/widgets/loader.dart';
@@ -430,13 +431,57 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                 fontSize: 10,
                                                 color: Colors.green,
                                               ),
-                                              const Column(
+                                               Column(
                                                 children: [
                                                   vSizedBox2,
                                                   Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment.end,
                                                     children: [
+                                                       RoundEdgedButton(
+                                                      width: 120,
+                                                      height: 40,
+                                                      text: 'Cancel',
+                                                      color: Colors.red,
+                                                      // width: 50,
+                                                      // isSolid: false,
+                                                      onTap: () async {
+                                                       
+                                                        bool? result =
+                                                            await showCustomConfirmationDialog(
+                                                          headingMessage:
+                                                              'Are you sure you want to cancel this booking?',
+                                                          // description: 'You want to delete'
+                                                        );
+                                                        if (result == true) {
+                                                          EasyLoading.show();
+                                                          var data = {
+                                                            "booking_id":
+                                                                accpeted[
+                                                                        i]['id']
+                                                                    .toString(),
+                                                            "user_id":await getCurrentUserId()
+                                                            //  accpeted[i]['user_id']
+                                                               
+                                                          };
+                                                          var res = await Webservices
+                                                              .postData(
+                                                                  apiUrl: ApiUrls
+                                                                      .make_booking_cancel,
+                                                                  body: data,
+                                                                  context:
+                                                                      context);
+                                                          EasyLoading.dismiss();
+                                                          if (res['status']
+                                                                  .toString() ==
+                                                              '1') {
+                                                            accpeted
+                                                                .removeAt(i);
+                                                            setState(() {});
+                                                          }
+                                                        }
+                                                      },
+                                                    ),
                                                       // RoundEdgedButton(
                                                       //   text: 'Start',
                                                       //   borderRadius: 100,

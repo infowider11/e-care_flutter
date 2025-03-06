@@ -142,10 +142,21 @@ class _hpcsaregistrationState extends State<hpcsaregistration> {
                       onTap: () async {
                         var m = await showMonthYearPicker(
                           context: context,
+                          initialMonthYearPickerMode: MonthYearPickerMode.month,
                           initialDate: DateTime.now(),
-                          firstDate: DateTime(2019),
-                          lastDate: DateTime(2050),
+                          firstDate: DateTime(DateTime.now().year),
+                          lastDate: DateTime(DateTime.now().year + 50),
+                          builder: (context, child) {
+                            return Dialog(
+                              child: SizedBox(
+                                width: double.maxFinite, // Adjust width
+                                height: 500, // Adjust height
+                                child: child, // Embed the picker
+                              ),
+                            );
+                          },
                         );
+
                         print(m);
                         // await showDatePicker(context: context,
                         //     // initialDatePickerMode: DatePickerMode.year,
@@ -167,12 +178,21 @@ class _hpcsaregistrationState extends State<hpcsaregistration> {
                   vSizedBox,
                   GestureDetector(
                       onTap: () async {
-                        var m = await
-                         showMonthYearPicker(
+                        var m = await showMonthYearPicker(
                           context: context,
+                          initialMonthYearPickerMode: MonthYearPickerMode.month,
                           initialDate: DateTime.now(),
-                          firstDate: DateTime(2019),
-                          lastDate: DateTime(2050),
+                          firstDate: DateTime(DateTime.now().year),
+                          lastDate: DateTime(DateTime.now().year + 50),
+                          builder: (context, child) {
+                            return Dialog(
+                              child: SizedBox(
+                                width: double.maxFinite, // Adjust width
+                                height: 500, // Adjust height
+                                child: child, // Embed the picker
+                              ),
+                            );
+                          },
                         );
                         print(m);
                         // await showDatePicker(context: context,

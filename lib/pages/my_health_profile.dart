@@ -144,17 +144,8 @@ class _MyHealthProfileState extends State<MyHealthProfile> {
             ),
             vSizedBox2,
             for(int i=0;i<lists.length;i++)
-              SelectedBox(
-                heading:
-                (lists[i]['step'].toString()=='1')? 'Medications':
-                lists[i]['step'].toString()=='2'?'Drug Allergies':
-                lists[i]['step'].toString()=='3'?'Medical Conditions':
-                lists[i]['step'].toString()=='4'?'Surgeries':
-                lists[i]['step'].toString()=='5'?'Family Conditions':'Relative',
-                text: '${lists[i]['name']??''}',
-                icon: IconButton(
-                  icon: const Icon(Icons.edit,color: Colors.green,),
-                  onPressed: () async {
+            GestureDetector(
+               onTap: () async {
                     print('press----${lists[i]['step']}');
                     if(lists[i]['step'].toString()=='1'){
                      await push(context: context, screen: editmedications(
@@ -193,7 +184,19 @@ class _MyHealthProfileState extends State<MyHealthProfile> {
                     get_info();
                     }
                   },
-                ),
+               child: 
+              SelectedBox(
+                heading:
+                (lists[i]['step'].toString()=='1')? 'Medications':
+                lists[i]['step'].toString()=='2'?'Drug Allergies':
+                lists[i]['step'].toString()=='3'?'Medical Conditions':
+                lists[i]['step'].toString()=='4'?'Surgeries':
+                lists[i]['step'].toString()=='5'?'Family Conditions':'Relative',
+                text: '${lists[i]['name']??''}',
+                icon: 
+                    Icon(Icons.edit,color: Colors.green,),
+                  
+              ),
               ),
             // vSizedBox,
             // Container(

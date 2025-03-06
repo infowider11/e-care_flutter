@@ -228,9 +228,10 @@ class _AddBankAccountPageState extends State<AddBankAccountPage> {
                           var jsonResponse = await Webservices.postData(
                               apiUrl: ApiUrls.addBankAccount,
                               body: request,
+                              showSuccessMessage: true ,
                               context: context);
                           if(jsonResponse['status'].toString()=='1'){
-                              showSnackbar('Banking details saved";and is able to proceed to create schedule/time slots.');
+                              // showSnackbar('Banking details saved";and is able to proceed to create schedule/time slots.');
                               get_bank_detail();
                           }
                         }

@@ -45,6 +45,7 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
   bool load = false;
   int s_time = 0;
   List<int> weekdaysAvailable = [];
+  List<String> deleteSlotIdList = [];
   List weekdays = [
     {
       "title": "Monday",
@@ -510,74 +511,133 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const MainHeadingText(text: 'Slot List'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const MainHeadingText(text: 'Slot List'),
+                          RoundEdgedButton(
+                            borderRadius: 5,
+                            verticalPadding: 0,
+                            horizontalPadding: 0,
+                            width: deleteSlotIdList.isEmpty ? 80 : 100,
+                            fontSize: 10,
+                            height: 25,
+                            color: MyColors.red.withOpacity(0.3),
+                            textColor: MyColors.red,
+                            text: deleteSlotIdList.isEmpty
+                                ? "Delete All"
+                                : "Delete Selected",
+                            onTap: () {
+                              removeMultipleSlot(context, deleteSlotIdList);
+                            },
+                          )
+                        ],
+                      ),
                       for (int i = 0; i < slots.length; i++)
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            alignment: Alignment.topLeft,
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              color: MyColors.lightBlue.withOpacity(0.11),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            padding: const EdgeInsets.all(16.0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Date: ${slots[i]['date']}'),
-                                      Text(
-                                          'Start Time: ${DateFormat.jm().format(DateFormat('hh:mm').parse(slots[i]['start_time']))}'),
-                                      Text(
-                                          'End Time: ${DateFormat.jm().format(DateFormat('hh:mm').parse(slots[i]['end_time']))}'),
-                                      if (slots[i]['is_booked'].toString() ==
-                                          '1')
-                                        const Text(
-                                          'You already have a booking of this slot. You are not able to delete or edit this.',
-                                          style:
-                                              TextStyle(color: Colors.green),
-                                        ),
-                                    ],
+                        Container(
+                          padding: const EdgeInsets.all(6.0),
+                          margin: const EdgeInsets.all(4.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: deleteSlotIdList
+                                    .contains(slots[i]['id'].toString())
+                                ? MyColors.primaryColor.withOpacity(0.11)
+                                : null,
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              if (deleteSlotIdList.isNotEmpty && slots[i]['is_booked'].toString() == "0") {
+                                if (deleteSlotIdList
+                                    .contains(slots[i]['id'].toString())) {
+                                  deleteSlotIdList.removeWhere(
+                                    (element) =>
+                                        element == slots[i]['id'].toString(),
+                                  );
+                                } else {
+                                  deleteSlotIdList
+                                      .add(slots[i]['id'].toString());
+                                }
+                                setState(() {});
+                              }
+                              if(slots[i]['is_booked'].toString() != "0"){
+                                showSnackbar("This slot is already booked and cannot be deleted.");
+                              }
+                            },
+                            onLongPress: () {
+                              if(slots[i]['is_booked'].toString() == "0"){
+
+                              deleteSlotIdList.add(slots[i]['id'].toString());
+                              deleteSlotIdList.toSet().toList();
+                              setState(() {});
+                              }else{
+                                showSnackbar("This slot is already booked and cannot be deleted.");
+                              }
+                            },
+                            child: Container(
+                              alignment: Alignment.topLeft,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: MyColors.lightBlue.withOpacity(0.11),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              padding: const EdgeInsets.all(16.0),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text('Date: ${slots[i]['date']}'),
+                                        Text(
+                                            'Start Time: ${DateFormat.jm().format(DateFormat('hh:mm').parse(slots[i]['start_time']))}'),
+                                        Text(
+                                            'End Time: ${DateFormat.jm().format(DateFormat('hh:mm').parse(slots[i]['end_time']))}'),
+                                        if (slots[i]['is_booked'].toString() ==
+                                            '1')
+                                          const Text(
+                                            'You already have a booking of this slot. You are not able to delete or edit this.',
+                                            style:
+                                                TextStyle(color: Colors.green),
+                                          ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                if (slots[i]['is_booked'].toString() == '0')
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.end,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      InkWell(
-                                        onTap: () => {
-                                          remove_slot(context,
-                                              slots[i]['id'].toString()),
-                                        },
-                                        child: const Icon(
-                                          Icons.restore_from_trash_rounded,
-                                          color: Colors.red,
+                                  if (slots[i]['is_booked'].toString() == '0')
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        InkWell(
+                                          onTap: () => {
+                                            remove_slot(context,
+                                                slots[i]['id'].toString()),
+                                          },
+                                          child: const Icon(
+                                            Icons.restore_from_trash_rounded,
+                                            color: Colors.red,
+                                          ),
                                         ),
-                                      ),
-                                      vSizedBox05,
-                                      InkWell(
-                                        onTap: () {
-                                          push(
-                                              context: context,
-                                              screen: EditSlotScreen(
-                                                slotData: slots[i],
-                                              ));
-                                        },
-                                        child: const Icon(
-                                          Icons.edit,
-                                          size: 20,
-                                          color: Colors.red,
+                                        vSizedBox05,
+                                        InkWell(
+                                          onTap: () {
+                                            push(
+                                                context: context,
+                                                screen: EditSlotScreen(
+                                                  slotData: slots[i],
+                                                ));
+                                          },
+                                          child: const Icon(
+                                            Icons.edit,
+                                            size: 20,
+                                            color: Colors.red,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                              ],
+                                      ],
+                                    ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -604,7 +664,6 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
               // The "Yes" button
               TextButton(
                   onPressed: () async {
-                    
                     await EasyLoading.show(
                       status: null,
                       maskType: EasyLoadingMaskType.black,
@@ -613,6 +672,57 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                         '${ApiUrls.deleteslot}?slot_id=$id');
                     EasyLoading.dismiss();
                     if (res['status'].toString() == '1') {
+                      get_slots();
+                      Navigator.pop(context);
+                    }
+                    setState(() {
+                      // _isShown = false;
+                    });
+                  },
+                  child: const Text('Yes')),
+              TextButton(
+                  onPressed: () {
+                    // Close the dialog
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('No'))
+            ],
+          );
+        });
+  }
+
+  removeMultipleSlot(context, List<String> id) async {
+    showDialog(
+        context: context,
+        builder: (BuildContext ctx) {
+          return AlertDialog(
+            title: Text('Remove ${id.isEmpty ? "All" : "Selected"} Slot?'),
+            content: const Text('Are you sure to remove?'),
+            actions: [
+              // The "Yes" button
+              TextButton(
+                  onPressed: () async {
+                    await EasyLoading.show(
+                      status: null,
+                      maskType: EasyLoadingMaskType.black,
+                    );
+                    String deleteIDcoma = "";
+                    if (id.isEmpty) {
+                 
+                      deleteIDcoma = slots
+                          .where((item) => item['is_booked'].toString() == "0")
+                          .map((item) => item["id"].toString())
+                          .join(",");
+                    } else {
+                      deleteIDcoma = id.join(",");
+                    }
+                    myCustomLogStatements("jhfjdjjd ${deleteIDcoma}");
+
+                    var res = await Webservices.get(
+                        '${ApiUrls.deleteslot}?slot_id=$deleteIDcoma');
+                    EasyLoading.dismiss();
+                    if (res['status'].toString() == '1') {
+                    deleteSlotIdList.clear();
                       get_slots();
                       Navigator.pop(context);
                     }
@@ -642,9 +752,8 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
         j <= selectedEndDate.difference(selectedStartDate).inDays + 1;
         j++) {
       int startMinute =
-          ((start_timestamp.hour) * 60) + (start_timestamp.minute );
-      int endMinute =
-          ((end_timestamp.hour ) * 60) + (end_timestamp.minute );
+          ((start_timestamp.hour) * 60) + (start_timestamp.minute);
+      int endMinute = ((end_timestamp.hour) * 60) + (end_timestamp.minute);
 
       for (int i = startMinute; i <= endMinute - 30; i = i + 30) {
         var indexExist = weekdays.indexWhere(
