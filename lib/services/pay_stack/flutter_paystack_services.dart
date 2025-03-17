@@ -57,7 +57,7 @@ class FlutterPayStackServices {
         "subaccounts":subAccountCode==null?[]: [
           {
             // "subaccount": "ACCT_rlkg3u4edusfwm0",
-            "subaccount": subAccountCode,
+            // "subaccount": subAccountCode,
             "share": '${double.parse(amount)*(100-percentageCharge.toInt())/100}',
           }
         ]

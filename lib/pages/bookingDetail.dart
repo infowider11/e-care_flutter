@@ -653,7 +653,7 @@ class _bookingdetailState extends State<bookingdetail> {
                             info['is_refund_request'].toString() == '0' &&
                             current_user['type'].toString() == '2')
                           RoundEdgedButton(
-                            text: 'Ask a Refund',
+                            text: 'Request a refund',
                             isSolid: false,
                             onTap: () async {
                               ask_a_refund(context, info['id'].toString());

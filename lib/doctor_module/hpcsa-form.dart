@@ -289,7 +289,7 @@ class _hpcsaregistrationState extends State<hpcsaregistration> {
                         print('catType-------------${proofFile.length}');
                         if (hpcsa_no.text == '') {
                           showSnackbar(
-                              'Please enter HPCSA registration number.');
+                              'Please enter HPCSA/ ASCHP registration number.');
                         } else if (expiry_date.text == '') {
                           showSnackbar('Please enter expiry date.');
                         } else if (proofFile.length == 0) {

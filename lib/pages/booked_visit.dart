@@ -398,7 +398,57 @@ class _BookedVisitState extends State<BookedVisit>
                                                     'Pending approval from healthcare Provider.',
                                                 fontSize: 12,
                                                 color: Colors.red,
-                                              )
+                                              ),
+                                              if(pending[i]['status'].toString() == '0')
+                                              vSizedBox,
+                                              if(pending[i]['status'].toString() == '0')
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                children: [
+                                                  RoundEdgedButton(
+                                                          width: 120,
+                                                          height: 40,
+                                                          text: 'Cancel',
+                                                          color: Colors.red,
+                                                          // width: 50,
+                                                          // isSolid: false,
+                                                          onTap: () async {
+                                                            bool? result =
+                                                                await showCustomConfirmationDialog(
+                                                              headingMessage:
+                                                                  'Are you sure you want to cancel this booking?',
+                                                              // description: 'You want to delete'
+                                                            );
+                                                            if (result == true) {
+                                                              EasyLoading.show();
+                                                              var data = {
+                                                                "booking_id":
+                                                                    pending[
+                                                                            i]['id']
+                                                                        .toString(),
+                                                                "user_id":
+                                                                    await getCurrentUserId()
+                                                              };
+                                                              var res = await Webservices
+                                                                  .postData(
+                                                                      apiUrl: ApiUrls
+                                                                          .make_booking_cancel,
+                                                                      body: data,
+                                                                      context:
+                                                                          context);
+                                                              EasyLoading.dismiss();
+                                                              if (res['status']
+                                                                      .toString() ==
+                                                                  '1') {
+                                                                pending
+                                                                    .removeAt(i);
+                                                                setState(() {});
+                                                              }
+                                                            }
+                                                          },
+                                                        ),
+                                                ],
+                                              ),
                                             ],
                                           )),
                                         ],
@@ -1498,7 +1548,7 @@ class _BookedVisitState extends State<BookedVisit>
                     }
                   } else {
                     showSnackbar(
-                        'Your transaction is failed due to some error. Please try again after some time.');
+                        'Transaction failed due to an error. Please try again later.');
                     // showSnackbar(
                     //     'Somting went wrong please try again later.');
                     print('ksdklfsja');

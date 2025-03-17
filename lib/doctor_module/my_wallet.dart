@@ -123,23 +123,25 @@ class _MyWalletState extends State<MyWallet> {
                     hSizedBox,
 
                     if(lists[i]['status']=='5')
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-
-                          const MainHeadingText(text: 'Amount refunded to ', fontSize: 14, fontFamily: 'light',),
-                          MainHeadingText(text: '${lists[i]['paitent']['first_name']} ${lists[i]['paitent']['last_name']??''} for consultation scheduled on ', fontSize: 14, fontFamily: 'light',),
-                          // MainHeadingText(text: '${lists[i]['paitent']['first_name']} ${lists[i]['paitent']['last_name']??''} for ${lists[i]['specialist_category']['title']} ', fontSize: 14, fontFamily: 'light',),
-                          vSizedBox05,
-                          // InkWell(
-                          //     onTap: (){
-                          //       print(lists[i]);
-                          //     },
-                          //     child: MainHeadingText(text: '${lists[i]['refundDate']??lists[i]['specialist_category']['created_at']}', color: MyColors.primaryColor, fontSize: 11,)),
-                          MainHeadingText(text: DateFormat.yMMMMd().add_jm().format(DateTime.parse(lists[i]['date_with_time'])).toString(), color: MyColors.primaryColor, fontSize: 11,),
-                          MainHeadingText(text: '${lists[i]['amount']} ZAR', fontSize: 16, color: MyColors.primaryColor,)
-
-                        ],
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                        
+                            const MainHeadingText(text: 'Amount refunded to ', fontSize: 14, fontFamily: 'light',),
+                            MainHeadingText(text: '${lists[i]['paitent']['first_name']} ${lists[i]['paitent']['last_name']??''} for consultation scheduled on ', fontSize: 14, fontFamily: 'light',),
+                            // MainHeadingText(text: '${lists[i]['paitent']['first_name']} ${lists[i]['paitent']['last_name']??''} for ${lists[i]['specialist_category']['title']} ', fontSize: 14, fontFamily: 'light',),
+                            vSizedBox05,
+                            // InkWell(
+                            //     onTap: (){
+                            //       print(lists[i]);
+                            //     },
+                            //     child: MainHeadingText(text: '${lists[i]['refundDate']??lists[i]['specialist_category']['created_at']}', color: MyColors.primaryColor, fontSize: 11,)),
+                            MainHeadingText(text: DateFormat.yMMMMd().add_jm().format(DateTime.parse(lists[i]['date_with_time'])).toString(), color: MyColors.primaryColor, fontSize: 11,),
+                            MainHeadingText(text: '${lists[i]['amount']} ZAR', fontSize: 16, color: MyColors.primaryColor,)
+                        
+                          ],
+                        ),
                       )else
                     Expanded(
                       child: Column(

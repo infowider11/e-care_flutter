@@ -55,8 +55,8 @@ class SelectedBox extends StatelessWidget {
         ),
         if(icon!=null)
         Positioned(
-            right: 0,
-            top: 35,
+            right: 10,
+            top: 45,
             child: icon!,
         ),
       ],
