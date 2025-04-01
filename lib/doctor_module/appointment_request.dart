@@ -37,7 +37,8 @@ class AppointmentRequest extends StatefulWidget {
   State<AppointmentRequest> createState() => _AppointmentRequestState();
 }
 
-class _AppointmentRequestState extends State<AppointmentRequest> with TickerProviderStateMixin{
+class _AppointmentRequestState extends State<AppointmentRequest>
+    with TickerProviderStateMixin {
   TextEditingController email = TextEditingController();
   TextEditingController reason = TextEditingController();
   late TabController _tabcontroller;
@@ -117,10 +118,11 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
 
   @override
   void initState() {
-    _tabcontroller = TabController(length:5, vsync: this,initialIndex: 0);
+    _tabcontroller = TabController(length: 5, vsync: this, initialIndex: 0);
     super.initState();
     get_lists();
   }
+
   ismarkascomlete(String date_time) {
     DateTime dt1 = DateTime.parse(date_time);
     DateTime dt2 = DateTime.now();
@@ -131,6 +133,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
     }
     return false;
   }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -171,7 +174,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
         body: load
             ? const CustomLoader()
             : TabBarView(
-              controller: _tabcontroller,
+                controller: _tabcontroller,
                 children: [
                   Container(
                     padding: const EdgeInsets.all(16),
@@ -276,8 +279,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                         height: 35,
                                                         horizontalPadding: 0,
                                                         verticalPadding: 0,
-                                                        color: Colors
-                                                            .transparent,
+                                                        color:
+                                                            Colors.transparent,
                                                         textColor: MyColors
                                                             .primaryColor,
                                                         bordercolor: MyColors
@@ -285,8 +288,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                         onTap: () async {
                                                           _displayTextInputDialog(
                                                               context,
-                                                              incoming[i]
-                                                                      ['id']
+                                                              incoming[i]['id']
                                                                   .toString(),
                                                               incoming[i][
                                                                       'slot_id']
@@ -307,8 +309,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                         onTap: () async {
                                                           acceptpopup(
                                                               context,
-                                                              incoming[i]
-                                                                      ['id']
+                                                              incoming[i]['id']
                                                                   .toString(),
                                                               incoming[i][
                                                                       'slot_id']
@@ -431,57 +432,85 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                 fontSize: 10,
                                                 color: Colors.green,
                                               ),
-                                               Column(
+                                              Column(
                                                 children: [
                                                   vSizedBox2,
                                                   Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment.end,
                                                     children: [
-                                                       RoundEdgedButton(
-                                                      width: 120,
-                                                      height: 40,
-                                                      text: 'Cancel',
-                                                      color: Colors.red,
-                                                      // width: 50,
-                                                      // isSolid: false,
-                                                      onTap: () async {
-                                                       
-                                                        bool? result =
-                                                            await showCustomConfirmationDialog(
-                                                          headingMessage:
-                                                              'Are you sure you want to cancel this booking?',
-                                                          // description: 'You want to delete'
-                                                        );
-                                                        if (result == true) {
-                                                          EasyLoading.show();
-                                                          var data = {
-                                                            "booking_id":
-                                                                accpeted[
-                                                                        i]['id']
-                                                                    .toString(),
-                                                            "user_id":await getCurrentUserId()
-                                                            //  accpeted[i]['user_id']
-                                                               
-                                                          };
-                                                          var res = await Webservices
-                                                              .postData(
-                                                                  apiUrl: ApiUrls
-                                                                      .make_booking_cancel,
-                                                                  body: data,
-                                                                  context:
-                                                                      context);
-                                                          EasyLoading.dismiss();
-                                                          if (res['status']
-                                                                  .toString() ==
-                                                              '1') {
-                                                            accpeted
-                                                                .removeAt(i);
-                                                            setState(() {});
+                                                      RoundEdgedButton(
+                                                        width: 120,
+                                                        height: 40,
+                                                        text: 'Cancel',
+                                                        color: Colors.red,
+                                                        // width: 50,
+                                                        // isSolid: false,
+                                                        onTap: () async {
+                                                          bool? result =
+                                                              await showCustomConfirmationDialog(
+                                                            headingMessage:
+                                                                'Are you sure you want to cancel this booking?',
+                                                            // description: 'You want to delete'
+                                                          );
+                                                          if (result == true) {
+                                                            EasyLoading.show();
+                                                            var result = await Webservices.get(ApiUrls
+                                                                    .singleBookingData +
+                                                                accpeted[i]
+                                                                        ['id']
+                                                                    .toString() +
+                                                                '&user_type=1');
+                                                            if (result['status']
+                                                                    .toString() !=
+                                                                '1') {
+                                                              showSnackbar(result[
+                                                                      "message"] ??
+                                                                  "Some thing went worng ");
+                                                                  return ;
+                                                            } else if (result[
+                                                                            'status']
+                                                                        .toString() ==
+                                                                    '1' &&
+                                                                result['data'][
+                                                                            'is_payment']
+                                                                        .toString() ==
+                                                                    "1") {
+                                                              EasyLoading
+                                                                  .dismiss();
+                                                              showSnackbar(
+                                                                  "You can't cancel the booking because the payment has been received from the customer.");
+                                                              get_lists();
+                                                              return ;
+                                                            }
+                                                            var data = {
+                                                              "booking_id":
+                                                                  accpeted[i]
+                                                                          ['id']
+                                                                      .toString(),
+                                                              "user_id":
+                                                                  await getCurrentUserId()
+                                                              //  accpeted[i]['user_id']
+                                                            };
+                                                            var res = await Webservices
+                                                                .postData(
+                                                                    apiUrl: ApiUrls
+                                                                        .make_booking_cancel,
+                                                                    body: data,
+                                                                    context:
+                                                                        context);
+                                                            EasyLoading
+                                                                .dismiss();
+                                                            if (res['status']
+                                                                    .toString() ==
+                                                                '1') {
+                                                              accpeted
+                                                                  .removeAt(i);
+                                                              setState(() {});
+                                                            }
                                                           }
-                                                        }
-                                                      },
-                                                    ),
+                                                        },
+                                                      ),
                                                       // RoundEdgedButton(
                                                       //   text: 'Start',
                                                       //   borderRadius: 100,
@@ -603,7 +632,6 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                       fontSize: 15,
                                                     ),
                                                   ),
-
                                                 ],
                                               ),
                                               // MainHeadingText(
@@ -634,23 +662,32 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                               ),
                                               // MainHeadingText(text: 'Waiting for payment',fontSize: 10,color: Colors.green,),
                                               Column(
-                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
                                                 children: [
                                                   vSizedBox2,
                                                   Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment.end,
                                                     children: [
-                                                      if (confirms[i]['is_join'].toString() == '0' &&
-                                                          compare_time(confirms[i]['slot_data']['date'] + ' ' +
-                                                                  confirms[i]['slot_data']['start_time']))
+                                                      if (confirms[i]['is_join']
+                                                                  .toString() ==
+                                                              '0' &&
+                                                          compare_time(confirms[
+                                                                          i][
+                                                                      'slot_data']
+                                                                  ['date'] +
+                                                              ' ' +
+                                                              confirms[i][
+                                                                      'slot_data']
+                                                                  [
+                                                                  'start_time']))
                                                         RoundEdgedButton(
                                                           text: 'Start',
                                                           borderRadius: 100,
                                                           width: 70,
                                                           height: 35,
-                                                          horizontalPadding:
-                                                              0,
+                                                          horizontalPadding: 0,
                                                           verticalPadding: 0,
                                                           color: Colors
                                                               .transparent,
@@ -663,35 +700,73 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                             // return;
                                                             // return;
                                                             push(
-                                                                context: context,
-                                                                screen: VideoCallScreen(
-                                                                  name: confirms[i]['user_data']['first_name'],
-                                                                  bookingId: confirms[i]['id'].toString(),
-                                                                  userId: confirms[i]['user_data']['id'].toString(),
+                                                                context:
+                                                                    context,
+                                                                screen:
+                                                                    VideoCallScreen(
+                                                                  name: confirms[
+                                                                              i]
+                                                                          [
+                                                                          'user_data']
+                                                                      [
+                                                                      'first_name'],
+                                                                  bookingId: confirms[
+                                                                              i]
+                                                                          ['id']
+                                                                      .toString(),
+                                                                  userId: confirms[i]
+                                                                              [
+                                                                              'user_data']
+                                                                          ['id']
+                                                                      .toString(),
                                                                 ));
                                                             // showSnackbar( 'Comming Soon.');
                                                           },
                                                         ),
-                                                      if (confirms[i]['is_join'].toString() == '0' &&
-                                                          ismarkascomlete(confirms[i]['slot_data']['date'] + ' ' + confirms[i]['slot_data']
-                                                              ['start_time']) == true)
+                                                      if (confirms[i]['is_join']
+                                                                  .toString() ==
+                                                              '0' &&
+                                                          ismarkascomlete(confirms[
+                                                                              i]
+                                                                          [
+                                                                          'slot_data']
+                                                                      ['date'] +
+                                                                  ' ' +
+                                                                  confirms[i][
+                                                                          'slot_data']
+                                                                      [
+                                                                      'start_time']) ==
+                                                              true)
                                                         Expanded(
-                                                          child: RoundEdgedButton(
+                                                          child:
+                                                              RoundEdgedButton(
                                                             height: 35,
-                                                            text: 'Mark as Complete',
-                                                            color: Colors.transparent,
-                                                            textColor: MyColors.primaryColor,
-                                                            bordercolor: MyColors.primaryColor,
+                                                            text:
+                                                                'Mark as Complete',
+                                                            color: Colors
+                                                                .transparent,
+                                                            textColor: MyColors
+                                                                .primaryColor,
+                                                            bordercolor: MyColors
+                                                                .primaryColor,
                                                             borderRadius: 100,
-                                                            horizontalPadding: 0.0,
+                                                            horizontalPadding:
+                                                                0.0,
                                                             onTap: () async {
                                                               EasyLoading.show(
                                                                   status: null,
                                                                   maskType:
-                                                                  EasyLoadingMaskType.black);
-                                                              var res = await Webservices.get(ApiUrls .mark_as_complete + confirms[i]['id'].toString());
-                                                              print('booking complete   $res');
-                                                              await EasyLoading.dismiss();
+                                                                      EasyLoadingMaskType
+                                                                          .black);
+                                                              var res = await Webservices.get(ApiUrls
+                                                                      .mark_as_complete +
+                                                                  confirms[i]
+                                                                          ['id']
+                                                                      .toString());
+                                                              print(
+                                                                  'booking complete   $res');
+                                                              await EasyLoading
+                                                                  .dismiss();
                                                               get_lists();
                                                             },
                                                           ),
@@ -704,18 +779,16 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                         height: 35,
                                                         horizontalPadding: 0,
                                                         verticalPadding: 0,
-                                                        color: Colors
-                                                            .transparent,
+                                                        color:
+                                                            Colors.transparent,
                                                         textColor: MyColors
                                                             .primaryColor,
                                                         bordercolor: MyColors
                                                             .primaryColor,
                                                         onTap: () async {
                                                           push(
-                                                              context:
-                                                                  context,
-                                                              screen:
-                                                                  ChatPage(
+                                                              context: context,
+                                                              screen: ChatPage(
                                                                 other_user_id: current_user['type']
                                                                             .toString() ==
                                                                         '1'
@@ -728,8 +801,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                                             'id']
                                                                         .toString(),
                                                                 booking_id: confirms[
-                                                                            i]
-                                                                        ['id']
+                                                                        i]['id']
                                                                     .toString(),
                                                               ));
                                                           // showSnackbar( 'Comming Soon.');
@@ -739,140 +811,163 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                     ],
                                                   ),
                                                   vSizedBox,
-                                                PopupMenuButton<int>(
-                                                  clipBehavior: Clip.none,
-                                                  itemBuilder: (context) => [
-                                                    // PopupMenuItem 1
-                                                    const PopupMenuItem(
-                                                      value: 1,
-                                                      // row with 2 children
-                                                      child: Row(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: 10,
-                                                          ),
-                                                          Text("Prescription")
-                                                        ],
+                                                  PopupMenuButton<int>(
+                                                    clipBehavior: Clip.none,
+                                                    itemBuilder: (context) => [
+                                                      // PopupMenuItem 1
+                                                      const PopupMenuItem(
+                                                        value: 1,
+                                                        // row with 2 children
+                                                        child: Row(
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 10,
+                                                            ),
+                                                            Text("Prescription")
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                    const PopupMenuItem(
-                                                      value: 2,
-                                                      // row with two children
-                                                      child: Row(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: 10,
-                                                          ),
-                                                          Text("Sick note")
-                                                        ],
+                                                      const PopupMenuItem(
+                                                        value: 2,
+                                                        // row with two children
+                                                        child: Row(
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 10,
+                                                            ),
+                                                            Text("Sick note")
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                    const PopupMenuItem(
-                                                      value: 3,
-                                                      // row with two children
-                                                      child: Row(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: 10,
-                                                          ),
-                                                          Text("Referral Letter")
-                                                        ],
+                                                      const PopupMenuItem(
+                                                        value: 3,
+                                                        // row with two children
+                                                        child: Row(
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 10,
+                                                            ),
+                                                            Text(
+                                                                "Referral Letter")
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                    const PopupMenuItem(
-                                                      value: 4,
-                                                      // row with two children
-                                                      child: Row(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: 10,
-                                                          ),
-                                                          Text("My Consultation notes")
-                                                        ],
+                                                      const PopupMenuItem(
+                                                        value: 4,
+                                                        // row with two children
+                                                        child: Row(
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 10,
+                                                            ),
+                                                            Text(
+                                                                "My Consultation notes")
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                    const PopupMenuItem(
-                                                      value: 5,
-                                                      // row with 2 children
-                                                      child: Row(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: 10,
-                                                          ),
-                                                          Text("Add ICD-10 codes to statement"),
-                                                        ],
+                                                      const PopupMenuItem(
+                                                        value: 5,
+                                                        // row with 2 children
+                                                        child: Row(
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 10,
+                                                            ),
+                                                            Text(
+                                                                "Add ICD-10 codes to statement"),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                  offset: const Offset(0, 58),
-                                                  color: MyColors.white,
-                                                  elevation: 0,
-                                                  // on selected we show the dialog box
-                                                  onSelected: (value) {
-                                                    // if value 1 show dialog
-                                                    if (value == 1) {
-                                                      push(context: context, screen: Prescriptions_Doctor_Page(
-                                                        booking_id: confirms[i]['id'].toString(),
-                                                      ));
-                                                    } else if (value == 2) {
-                                                      log('sfs ${confirms[i]}');
-                                                      // return;
-                                                      push(context: context, screen: Add_sicknote(
-                                                        booking_id: confirms[i]['id'].toString(),
-                                                        doctorName: '${confirms[i][
-                                                        'user_data']
-                                                        [
-                                                        'first_name']}',
-                                                      ));
-                                                    } else if (value == 3) {
-                                                      push(
+                                                    ],
+                                                    offset: const Offset(0, 58),
+                                                    color: MyColors.white,
+                                                    elevation: 0,
+                                                    // on selected we show the dialog box
+                                                    onSelected: (value) {
+                                                      // if value 1 show dialog
+                                                      if (value == 1) {
+                                                        push(
+                                                            context: context,
+                                                            screen:
+                                                                Prescriptions_Doctor_Page(
+                                                              booking_id:
+                                                                  confirms[i]
+                                                                          ['id']
+                                                                      .toString(),
+                                                            ));
+                                                      } else if (value == 2) {
+                                                        log('sfs ${confirms[i]}');
+                                                        // return;
+                                                        push(
+                                                            context: context,
+                                                            screen:
+                                                                Add_sicknote(
+                                                              booking_id:
+                                                                  confirms[i]
+                                                                          ['id']
+                                                                      .toString(),
+                                                              doctorName:
+                                                                  '${confirms[i]['user_data']['first_name']}',
+                                                            ));
+                                                      } else if (value == 3) {
+                                                        push(
+                                                            context: context,
+                                                            screen:
+                                                                Referral_Letter_Page(
+                                                              booking_id:
+                                                                  confirms[i]
+                                                                          ['id']
+                                                                      .toString(),
+                                                              doctorName:
+                                                                  '${confirms[i]['user_data']['first_name']}',
+                                                            ));
+                                                      } else if (value == 4) {
+                                                        push(
+                                                            context: context,
+                                                            screen:
+                                                                Consultation_Notes_Page(
+                                                              booking_id:
+                                                                  confirms[i]
+                                                                          ['id']
+                                                                      .toString(),
+                                                            ));
+                                                      } else if (value == 5) {
+                                                        print(
+                                                            'skjdfkldas ${confirms[i]['user_data']['first_name']}');
+                                                        // return;
+                                                        push(
                                                           context: context,
-                                                          screen:Referral_Letter_Page(
-                                                            booking_id: confirms[i]
-                                                            ['id']
-                                                                .toString(),
-                                                            doctorName: '${confirms[i][
-                                                            'user_data']
-                                                            [
-                                                            'first_name']}',
-                                                          ));
-                                                    }else if (value == 4) {
-                                                      push(
-                                                          context: context,
-                                                          screen:Consultation_Notes_Page(
-                                                            booking_id: confirms[i]
-                                                            ['id']
-                                                                .toString(),
-                                                          ));
-                                                    }
-                                                    else if (value == 5) {
-                                                      print('skjdfkldas ${confirms[i]['user_data']['first_name']}');
-                                                      // return;
-                                                      push(
-                                                          context: context,
-                                                          screen:AddIcdNotes(
-                                                            booking_id: confirms[i]
-                                                            ['id']
-                                                                .toString(),
-                                                            doctorName: '${confirms[i][
-                                                            'user_data']
-                                                            [
-                                                            'first_name']}',
+                                                          screen: AddIcdNotes(
+                                                            booking_id:
+                                                                confirms[i]
+                                                                        ['id']
+                                                                    .toString(),
+                                                            doctorName:
+                                                                '${confirms[i]['user_data']['first_name']}',
                                                           ),
-                                                      );
-                                                    }
-                                                  },
-                                                  child:Container(
-                                                    padding: const EdgeInsets.all(10.0),
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(color: MyColors.primaryColor),
-                                                      borderRadius: BorderRadius.circular(20.0),
+                                                        );
+                                                      }
+                                                    },
+                                                    child: Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10.0),
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: MyColors
+                                                                .primaryColor),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20.0),
+                                                      ),
+                                                      child: const Text(
+                                                        'Add Consultation Documents',
+                                                        style: TextStyle(
+                                                            color: MyColors
+                                                                .primaryColor),
+                                                      ),
                                                     ),
-                                                    child: const Text('Add Consultation Documents',style: TextStyle(
-                                                      color: MyColors.primaryColor
-                                                    ),),
                                                   ),
-                                                ),
                                                 ],
                                               ),
                                             ],
@@ -988,7 +1083,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                             SizedBox(
                                                               width: 10,
                                                             ),
-                                                            Text("Referral Letter")
+                                                            Text(
+                                                                "Referral Letter")
                                                           ],
                                                         ),
                                                       ),
@@ -1000,7 +1096,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                             SizedBox(
                                                               width: 10,
                                                             ),
-                                                            Text("My Consultation notes")
+                                                            Text(
+                                                                "My Consultation notes")
                                                           ],
                                                         ),
                                                       ),
@@ -1012,28 +1109,44 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                     onSelected: (value) {
                                                       // if value 1 show dialog
                                                       if (value == 1) {
-                                                        push(context: context, screen: Prescriptions_Doctor_Page(
-                                                          booking_id: completeds[i]['id'].toString(),
-                                                        ));
+                                                        push(
+                                                            context: context,
+                                                            screen:
+                                                                Prescriptions_Doctor_Page(
+                                                              booking_id:
+                                                                  completeds[i]
+                                                                          ['id']
+                                                                      .toString(),
+                                                            ));
                                                       } else if (value == 2) {
-                                                        push(context: context, screen: Add_sicknote(
-                                                          booking_id: completeds[i]['id'].toString(),
-                                                        ));
+                                                        push(
+                                                            context: context,
+                                                            screen:
+                                                                Add_sicknote(
+                                                              booking_id:
+                                                                  completeds[i]
+                                                                          ['id']
+                                                                      .toString(),
+                                                            ));
                                                       } else if (value == 3) {
                                                         push(
                                                             context: context,
-                                                            screen:Referral_Letter_Page(
-                                                              booking_id: completeds[i]
-                                                              ['id']
-                                                                  .toString(),
+                                                            screen:
+                                                                Referral_Letter_Page(
+                                                              booking_id:
+                                                                  completeds[i]
+                                                                          ['id']
+                                                                      .toString(),
                                                             ));
-                                                      }else if (value == 4) {
+                                                      } else if (value == 4) {
                                                         push(
                                                             context: context,
-                                                            screen:Consultation_Notes_Page(
-                                                              booking_id: completeds[i]
-                                                              ['id']
-                                                                  .toString(),
+                                                            screen:
+                                                                Consultation_Notes_Page(
+                                                              booking_id:
+                                                                  completeds[i]
+                                                                          ['id']
+                                                                      .toString(),
                                                             ));
                                                       }
                                                     },
@@ -1079,21 +1192,19 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                     horizontalPadding: 0,
                                                     verticalPadding: 0,
                                                     horizontalMargin: 10,
-                                                    color: Colors
-                                                        .transparent,
-                                                    textColor: MyColors
-                                                        .primaryColor,
-                                                    bordercolor: MyColors
-                                                        .primaryColor,
+                                                    color: Colors.transparent,
+                                                    textColor:
+                                                        MyColors.primaryColor,
+                                                    bordercolor:
+                                                        MyColors.primaryColor,
                                                     onTap: () async {
                                                       push(
-                                                          context:
-                                                          context,
+                                                          context: context,
                                                           screen: UserReviewPage(
-                                                              booking_id: completeds[i]
-                                                              [
-                                                              'id']
-                                                                  .toString()));
+                                                              booking_id:
+                                                                  completeds[i]
+                                                                          ['id']
+                                                                      .toString()));
                                                     },
                                                   ),
                                                   RoundEdgedButton(
@@ -1102,37 +1213,42 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                                     width: 70,
                                                     height: 35,
                                                     verticalPadding: 0,
-                                                    color: Colors
-                                                        .transparent,
-                                                    textColor: MyColors
-                                                        .primaryColor,
-                                                    bordercolor: MyColors
-                                                        .primaryColor,
+                                                    color: Colors.transparent,
+                                                    textColor:
+                                                        MyColors.primaryColor,
+                                                    bordercolor:
+                                                        MyColors.primaryColor,
                                                     horizontalPadding: 0,
-
                                                     verticalMargin: 05,
                                                     onTap: () async {
-                                                      Map<String, dynamic> data = {
-                                                        'booking_id': completeds[i]['id'],
+                                                      Map<String, dynamic>
+                                                          data = {
+                                                        'booking_id':
+                                                            completeds[i]['id'],
                                                         'type': '1',
                                                       };
-                                                      bool? result= await showCustomConfirmationDialog(
-                                                          headingMessage: 'Are you sure you want to delete?',
-                                                          // description: 'You want to delete'
-                                                      ) ;
-                                                      if(result==true){
+                                                      bool? result =
+                                                          await showCustomConfirmationDialog(
+                                                        headingMessage:
+                                                            'Are you sure you want to delete?',
+                                                        // description: 'You want to delete'
+                                                      );
+                                                      if (result == true) {
                                                         setState(() {
                                                           load = true;
                                                         });
-                                                        var res = await Webservices.postData(
-                                                            apiUrl: ApiUrls.deleteBooking,
-                                                            body: data,
-                                                            context: context).then((value) => get_lists());
+                                                        var res = await Webservices
+                                                                .postData(
+                                                                    apiUrl: ApiUrls
+                                                                        .deleteBooking,
+                                                                    body: data,
+                                                                    context:
+                                                                        context)
+                                                            .then((value) =>
+                                                                get_lists());
                                                       }
                                                     },
                                                   ),
-
-
                                                 ],
                                               ),
                                             ],
@@ -1229,7 +1345,9 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                             )
                                           ],
                                         ),
-                                        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             MainHeadingText(
                                               text:
@@ -1245,27 +1363,35 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                                               verticalPadding: 0,
                                               color: Colors.transparent,
                                               textColor: MyColors.primaryColor,
-                                              bordercolor: MyColors.primaryColor,
+                                              bordercolor:
+                                                  MyColors.primaryColor,
                                               horizontalPadding: 0,
                                               horizontalMargin: 10,
                                               verticalMargin: 05,
                                               onTap: () async {
                                                 Map<String, dynamic> data = {
-                                                  'booking_id': rejects[i]['id'],
+                                                  'booking_id': rejects[i]
+                                                      ['id'],
                                                   'type': '1',
                                                 };
-                                                bool? result= await showCustomConfirmationDialog(
-                                                    headingMessage: 'Are you sure you want to delete?',
-                                                    // description: 'You want to delete'
-                                                ) ;
-                                                if(result==true){
+                                                bool? result =
+                                                    await showCustomConfirmationDialog(
+                                                  headingMessage:
+                                                      'Are you sure you want to delete?',
+                                                  // description: 'You want to delete'
+                                                );
+                                                if (result == true) {
                                                   setState(() {
                                                     load = true;
                                                   });
-                                                  var res = await Webservices.postData(
-                                                      apiUrl: ApiUrls.deleteBooking,
-                                                      body: data,
-                                                      context: context).then((value) => get_lists());
+                                                  var res = await Webservices
+                                                          .postData(
+                                                              apiUrl: ApiUrls
+                                                                  .deleteBooking,
+                                                              body: data,
+                                                              context: context)
+                                                      .then((value) =>
+                                                          get_lists());
                                                 }
                                               },
                                             ),
@@ -1318,7 +1444,9 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
         };
         EasyLoading.show(status: null, maskType: EasyLoadingMaskType.black);
         var res = await Webservices.postData(
-            apiUrl: ApiUrls.acceptBooking, body: data,);
+          apiUrl: ApiUrls.acceptBooking,
+          body: data,
+        );
         print('res--------$res');
         EasyLoading.dismiss();
         if (res['status'].toString() == '1') {
@@ -1327,7 +1455,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
           setState(() {
             Navigator.pop(context);
           });
-          showSnackbar( res['message']);
+          showSnackbar(res['message']);
         }
       },
     );
@@ -1387,7 +1515,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                 ),
                 onPressed: () async {
                   if (reason.text.isEmpty) {
-                    showSnackbar( 'Please Enter Reason.');
+                    showSnackbar('Please Enter Reason.');
                   } else {
                     Map<String, dynamic> data = {
                       'booking_id': b_id.toString(),
@@ -1399,9 +1527,9 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                     EasyLoading.show(
                         status: null, maskType: EasyLoadingMaskType.black);
                     var res = await Webservices.postData(
-                        apiUrl: ApiUrls.rejectBooking,
-                        body: data,
-                        );
+                      apiUrl: ApiUrls.rejectBooking,
+                      body: data,
+                    );
                     print('res--------$res');
                     EasyLoading.dismiss();
                     if (res['status'].toString() == '1') {
@@ -1410,7 +1538,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
                       setState(() {
                         Navigator.pop(context);
                       });
-                      showSnackbar( res['message']);
+                      showSnackbar(res['message']);
                     }
                   }
                   // setState(() {
@@ -1463,11 +1591,11 @@ class _AppointmentRequestState extends State<AppointmentRequest> with TickerProv
   compare_time(String date_time) {
     DateTime dt1 = DateTime.parse(date_time);
     DateTime dt2 = DateTime.now();
-      Duration d = dt1.difference(dt2);
-      print('diffrence&&&&&&&&&& ${d.inMinutes}');
+    Duration d = dt1.difference(dt2);
+    print('diffrence&&&&&&&&&& ${d.inMinutes}');
     if (d.inMinutes >= -120 || d.inMinutes >= 120) {
       return true;
     }
-      return false;
+    return false;
   }
 }

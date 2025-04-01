@@ -108,10 +108,20 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
     Map<String, dynamic> request = {};
 
     for (int index = 0; index < slotsListNotifier.value.length; index++) {
-      request['start_time[$index]'] =
-          "${DateFormat('yyyy-MM-dd').format(slotsListNotifier.value[index].dateTime)} ${slotsListNotifier.value[index].fromTimeText(context)}";
+      var indexData = slotsListNotifier.value[index].dateTime;
+      request['start_time[$index]'] = DateFormat("yyyy-MM-dd HH:mm:00").format(DateTime(
+          indexData.year,
+          indexData.month,
+          indexData.day,
+          slotsListNotifier.value[index].from.hour,
+          slotsListNotifier.value[index].from.minute));
       request['end_time[$index]'] =
-          "${DateFormat('yyyy-MM-dd').format(slotsListNotifier.value[index].dateTime)} ${slotsListNotifier.value[index].toTimeText(context)}";
+       DateFormat("yyyy-MM-dd HH:mm:00").format(DateTime(
+          indexData.year,
+          indexData.month,
+          indexData.day,
+          slotsListNotifier.value[index].to.hour,
+          slotsListNotifier.value[index].to.minute));
     }
 
     return request;
@@ -416,20 +426,25 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                           onTap: () {
                             var dateTime = DateFormat("yyyy-MM-dd h:mm a").parse(
                                 "${dateController.text} ${startTimeController.text}");
+                            var sameDateEndTime =
+                                DateFormat("yyyy-MM-dd h:mm a").parse(
+                                    "${dateController.text} ${endTimeController.text}");
                             var endDateTime = DateFormat("yyyy-MM-dd h:mm a").parse(
                                 "${endDateController.text} ${endTimeController.text}");
                             myCustomLogStatements(
-                                "date time $weekdaysAvailable $dateTime  ${dateTime.isAfter(DateTime.now())}");
+                                "date time $weekdaysAvailable $dateTime $endDateTime ${dateTime.isAfter(DateTime.now())}");
                             if (weekdaysAvailable.isEmpty) {
                               showSnackbar("Please select repeat availibity ");
                               return;
                             } else if (!dateTime.isAfter(DateTime.now())) {
                               showSnackbar("Please select future start time.");
                               return;
-                            } else if (endDateTime.isBefore(dateTime)) {
-                              showSnackbar("Please select future end time.");
+                            } else if (!(dateTime.isBefore(sameDateEndTime))) {
+                              showSnackbar(
+                                  "Start time must be before end time.");
                               return;
                             }
+
                             var list = generateBultSlotList();
                             print('the total slots are ${list.length}');
                             push(
@@ -447,6 +462,9 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                           onTap: () async {
                             var dateTime = DateFormat("yyyy-MM-dd h:mm a").parse(
                                 "${dateController.text} ${startTimeController.text}");
+                            var sameDateEndTime =
+                                DateFormat("yyyy-MM-dd h:mm a").parse(
+                                    "${dateController.text} ${endTimeController.text}");
                             var endDateTime = DateFormat("yyyy-MM-dd h:mm a").parse(
                                 "${endDateController.text} ${endTimeController.text}");
 
@@ -467,6 +485,10 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                               return;
                             } else if (endDateTime.isBefore(dateTime)) {
                               showSnackbar("Please select future end time.");
+                              return;
+                            } else if (!(dateTime.isBefore(sameDateEndTime))) {
+                              showSnackbar(
+                                  "Start time must be before end time.");
                               return;
                             } else {
                               // DateTime startDateTime =  DateTime(selectedStartDate!.year, selectedStartDate!.month, selectedStartDate!.day, start_timestamp!.hour, start_timestamp!.minute);
@@ -546,7 +568,8 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                           ),
                           child: InkWell(
                             onTap: () {
-                              if (deleteSlotIdList.isNotEmpty && slots[i]['is_booked'].toString() == "0") {
+                              if (deleteSlotIdList.isNotEmpty &&
+                                  slots[i]['is_booked'].toString() == "0") {
                                 if (deleteSlotIdList
                                     .contains(slots[i]['id'].toString())) {
                                   deleteSlotIdList.removeWhere(
@@ -559,18 +582,19 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                                 }
                                 setState(() {});
                               }
-                              if(slots[i]['is_booked'].toString() != "0"){
-                                showSnackbar("This slot is already booked and cannot be deleted.");
+                              if (slots[i]['is_booked'].toString() != "0") {
+                                showSnackbar(
+                                    "This slot is already booked and cannot be deleted.");
                               }
                             },
                             onLongPress: () {
-                              if(slots[i]['is_booked'].toString() == "0"){
-
-                              deleteSlotIdList.add(slots[i]['id'].toString());
-                              deleteSlotIdList.toSet().toList();
-                              setState(() {});
-                              }else{
-                                showSnackbar("This slot is already booked and cannot be deleted.");
+                              if (slots[i]['is_booked'].toString() == "0") {
+                                deleteSlotIdList.add(slots[i]['id'].toString());
+                                deleteSlotIdList.toSet().toList();
+                                setState(() {});
+                              } else {
+                                showSnackbar(
+                                    "This slot is already booked and cannot be deleted.");
                               }
                             },
                             child: Container(
@@ -708,7 +732,6 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                     );
                     String deleteIDcoma = "";
                     if (id.isEmpty) {
-                 
                       deleteIDcoma = slots
                           .where((item) => item['is_booked'].toString() == "0")
                           .map((item) => item["id"].toString())
@@ -722,7 +745,7 @@ class CreateBulkSlotState extends State<CreateBulkSlot> {
                         '${ApiUrls.deleteslot}?slot_id=$deleteIDcoma');
                     EasyLoading.dismiss();
                     if (res['status'].toString() == '1') {
-                    deleteSlotIdList.clear();
+                      deleteSlotIdList.clear();
                       get_slots();
                       Navigator.pop(context);
                     }

@@ -1,5 +1,7 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member, use_build_context_synchronously, deprecated_member_use, avoid_print
 
+import 'dart:convert';
+
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/global_keys.dart';
 import 'package:ecare/constants/navigation.dart';
@@ -68,7 +70,8 @@ class _BulkSlotPreviewState extends State<BulkSlotPreview> {
             };
 
             data.addAll(getSlots());
-            myCustomLogStatements("bulk slot is this $data");
+            myCustomLogStatements("bulk slot is this ${jsonEncode(data)}");
+            
             await EasyLoading.show(
               status: null,
               maskType: EasyLoadingMaskType.black,
@@ -158,10 +161,20 @@ class _BulkSlotPreviewState extends State<BulkSlotPreview> {
     Map<String, dynamic> request = {};
 
     for (int index = 0; index < slotsListNotifier.value.length; index++) {
-      request['start_time[$index]'] =
-          slotsListNotifier.value[index].fromTimeText(context);
+      var indexData = slotsListNotifier.value[index].dateTime;
+      request['start_time[$index]'] = DateFormat("yyyy-MM-dd HH:mm:00").format(DateTime(
+          indexData.year,
+          indexData.month,
+          indexData.day,
+          slotsListNotifier.value[index].from.hour,
+          slotsListNotifier.value[index].from.minute));
       request['end_time[$index]'] =
-          slotsListNotifier.value[index].toTimeText(context);
+       DateFormat("yyyy-MM-dd HH:mm:00").format(DateTime(
+          indexData.year,
+          indexData.month,
+          indexData.day,
+          slotsListNotifier.value[index].to.hour,
+          slotsListNotifier.value[index].to.minute));
     }
 
     return request;

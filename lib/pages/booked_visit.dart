@@ -168,8 +168,7 @@ class _BookedVisitState extends State<BookedVisit>
     setState(() {
       load = true;
     });
-    var res = await Webservices.get(ApiUrls.booking_list +
-        '?user_id=' +
+    var res = await Webservices.get('${ApiUrls.booking_list}?user_id=' +
         await getCurrentUserId() +
         '&user_type=2');
     log('res----dd-$res');
@@ -276,7 +275,7 @@ class _BookedVisitState extends State<BookedVisit>
                         },
                       )
                     : null,
-                title:const headingText(text: "My Consultation"),
+                title: const headingText(text: "My Consultation"),
                 backgroundColor: MyColors.BgColor,
                 bottom: PreferredSize(
                   preferredSize: _tabBar.preferredSize,
@@ -399,56 +398,59 @@ class _BookedVisitState extends State<BookedVisit>
                                                 fontSize: 12,
                                                 color: Colors.red,
                                               ),
-                                              if(pending[i]['status'].toString() == '0')
-                                              vSizedBox,
-                                              if(pending[i]['status'].toString() == '0')
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.end,
-                                                children: [
-                                                  RoundEdgedButton(
-                                                          width: 120,
-                                                          height: 40,
-                                                          text: 'Cancel',
-                                                          color: Colors.red,
-                                                          // width: 50,
-                                                          // isSolid: false,
-                                                          onTap: () async {
-                                                            bool? result =
-                                                                await showCustomConfirmationDialog(
-                                                              headingMessage:
-                                                                  'Are you sure you want to cancel this booking?',
-                                                              // description: 'You want to delete'
-                                                            );
-                                                            if (result == true) {
-                                                              EasyLoading.show();
-                                                              var data = {
-                                                                "booking_id":
-                                                                    pending[
-                                                                            i]['id']
-                                                                        .toString(),
-                                                                "user_id":
-                                                                    await getCurrentUserId()
-                                                              };
-                                                              var res = await Webservices
-                                                                  .postData(
-                                                                      apiUrl: ApiUrls
-                                                                          .make_booking_cancel,
-                                                                      body: data,
-                                                                      context:
-                                                                          context);
-                                                              EasyLoading.dismiss();
-                                                              if (res['status']
-                                                                      .toString() ==
-                                                                  '1') {
-                                                                pending
-                                                                    .removeAt(i);
-                                                                setState(() {});
-                                                              }
-                                                            }
-                                                          },
-                                                        ),
-                                                ],
-                                              ),
+                                              if (pending[i]['status']
+                                                      .toString() ==
+                                                  '0')
+                                                vSizedBox,
+                                              if (pending[i]['status']
+                                                      .toString() ==
+                                                  '0')
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    RoundEdgedButton(
+                                                      width: 120,
+                                                      height: 40,
+                                                      text: 'Cancel',
+                                                      color: Colors.red,
+                                                      // width: 50,
+                                                      // isSolid: false,
+                                                      onTap: () async {
+                                                        bool? result =
+                                                            await showCustomConfirmationDialog(
+                                                          headingMessage:
+                                                              'Are you sure you want to cancel this booking?',
+                                                          // description: 'You want to delete'
+                                                        );
+                                                        if (result == true) {
+                                                          EasyLoading.show();
+                                                          var data = {
+                                                            "booking_id":
+                                                                pending[i]['id']
+                                                                    .toString(),
+                                                            "user_id":
+                                                                await getCurrentUserId()
+                                                          };
+                                                          var res = await Webservices
+                                                              .postData(
+                                                                  apiUrl: ApiUrls
+                                                                      .make_booking_cancel,
+                                                                  body: data,
+                                                                  context:
+                                                                      context);
+                                                          EasyLoading.dismiss();
+                                                          if (res['status']
+                                                                  .toString() ==
+                                                              '1') {
+                                                            pending.removeAt(i);
+                                                            setState(() {});
+                                                          }
+                                                        }
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
                                             ],
                                           )),
                                         ],
@@ -619,6 +621,21 @@ class _BookedVisitState extends State<BookedVisit>
                                                       // width: 50,
                                                       // isSolid: false,
                                                       onTap: () async {
+                                                        EasyLoading.show();
+
+                                                        var result =
+                                                            await Webservices.get(
+                                                                '${ApiUrls.singleBookingData}${acceptedBookings[i]['id']}&user_type=1');
+                                                         EasyLoading.dismiss();
+                                                        if (result['status']
+                                                                .toString() ==
+                                                            '0') {
+                                                          showSnackbar(
+                                                              "You can't proceed with the payment because the booking has been deleted by the healthcare provider.");
+                                                         
+                                                          get_lists();
+                                                          return ;
+                                                        }
                                                         await payment_popup(
                                                           acceptedBookings[i]
                                                                   ['id']
@@ -862,10 +879,9 @@ class _BookedVisitState extends State<BookedVisit>
                                                           // return;
                                                           callStatusLoad.value =
                                                               true;
-                                                          var res = await Webservices
-                                                              .get(ApiUrls
-                                                                      .callStatus +
-                                                                  '?bookingId=${confirms[i]['id']}');
+                                                          var res =
+                                                              await Webservices.get(
+                                                                  '${ApiUrls.callStatus}?bookingId=${confirms[i]['id']}');
                                                           callStatusLoad.value =
                                                               false;
                                                           print(
