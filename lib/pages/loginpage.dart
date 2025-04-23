@@ -169,6 +169,13 @@ class _LoginPageState extends State<LoginPage> {
                 fontFamily: 'light',
                 color: MyColors.primaryColor,
               ),
+               MainHeadingText(
+                  text:  'Welcome Back – ${widget.loginWihtHealthCareProviderCode? 'Direct access to my personal Healthcare Provider':"Client/Patient Access"}',
+                  fontSize: 18,
+                  fontFamily: 'light',
+                  textAlign: TextAlign.center,
+                  color: MyColors.borderColor2,
+                ),
               if (invalid_user_detail)
                 headingText(
                   text: '$invalid_user_text',

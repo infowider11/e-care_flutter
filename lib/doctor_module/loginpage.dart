@@ -66,6 +66,12 @@ class _DoctorLoginPageState extends State<DoctorLoginPage> {
                   fontFamily: 'light',
                   color: MyColors.primaryColor,
                 ),
+                const MainHeadingText(
+                  text: 'Welcome Back – Healthcare Practitioner Access',
+                  fontSize: 18, textAlign: TextAlign.center,
+                  fontFamily: 'light',
+                  color: MyColors.borderColor2,
+                ),
                 if(invalid_user_detail)
                   headingText(text: '$invalid_user_text',color: MyColors.red,),
                 vSizedBox4,

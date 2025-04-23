@@ -59,7 +59,8 @@ void main() async{
   // if(!kIsWeb) {
     await Firebase.initializeApp();
     print('firebase is initialized');
-    await initOneSignal('090aa36a-e6f9-4195-9413-fa54d2789e23');
+    await initOneSignal('6b33ff8d-01c0-4528-9c73-8b365d9a8a45'); // Client id 
+    // await initOneSignal('090aa36a-e6f9-4195-9413-fa54d2789e23'); // Prasoon id 
   try{
     // currentTimezone = await getUserTimeZone();
   }catch(e){

@@ -1,0 +1,2 @@
+D:/harsh_project/e-care_flutter/android/app/.cxx/Debug/2b633l24/x86_64/CMakeFiles/edit_cache.dir
+D:/harsh_project/e-care_flutter/android/app/.cxx/Debug/2b633l24/x86_64/CMakeFiles/rebuild_cache.dir
