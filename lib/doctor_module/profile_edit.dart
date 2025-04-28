@@ -586,7 +586,7 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                     ),
                     // DropDown(hint: 'Language Known'),
                     vSizedBox,
-                    const Text('Special Intrests'),
+                    const Text('Special Interests'),
                     // Container(
                     //   width: MediaQuery.of(context).size.width,
                     //   height: 55,
@@ -601,7 +601,7 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                     //     underline: Container(
                     //       height: 8,
                     //     ),
-                    //     hint: Text('Special Intrests'),
+                    //     hint: Text('Special Interests'),
                     //     value: special_intrest_id,
                     //     icon: Icon(
                     //       Icons.keyboard_arrow_down_outlined,
@@ -628,11 +628,11 @@ class _DoctorProfileEditState extends State<DoctorProfileEdit> {
                     // ),
 
                     CustomTextField(
-                        controller: intrest, hintText: 'Special Intrests'),
+                        controller: intrest, hintText: 'Special Interests'),
                     vSizedBox,
                     const Text('Bio'),
                     CustomTextField(controller: bio, hintText: 'Bio'),
-                    // DropDown(hint: 'Special Intrests',),
+                    // DropDown(hint: 'Special Interests',),
                     // vSizedBox,
                     // Text('Specialization'),
                     // Container(

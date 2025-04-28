@@ -207,7 +207,7 @@ class _SignUpForm2State extends State<SignUpForm2> {
             //     underline: Container(
             //       height: 8,
             //     ),
-            //     hint: Text('Special Intrests'),
+            //     hint: Text('Special Interests'),
             //     value: special_intrest_id,
             //     icon: Icon(
             //       Icons.keyboard_arrow_down_outlined,
@@ -232,9 +232,9 @@ class _SignUpForm2State extends State<SignUpForm2> {
             // ),
             CustomTextField(
               controller: intrest,
-              hintText: 'Special Intrests',
+              hintText: 'Special Interests',
             ),
-            // DropDown(hint: 'Special Intrests',),
+            // DropDown(hint: 'Special Interests',),
             // vSizedBox,
             // Container(
             //   width: MediaQuery.of(context).size.width,

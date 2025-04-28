@@ -109,6 +109,26 @@ class _AppointmentRequestState extends State<AppointmentRequest>
       confirms = res['data']['confirmed'];
       completeds = res['data']['completed'];
       rejects = res['data']['rejected'];
+       incoming.removeWhere(
+        (element) =>
+            element['doctor_data'] == null || element['user_data'] == null,
+      );
+       accpeted.removeWhere(
+        (element) =>
+            element['doctor_data'] == null || element['user_data'] == null,
+      );
+      confirms.removeWhere(
+        (element) =>
+            element['doctor_data'] == null || element['user_data'] == null,
+      );
+      completeds.removeWhere(
+        (element) =>
+            element['doctor_data'] == null || element['user_data'] == null,
+      );
+      rejects.removeWhere(
+        (element) =>
+            element['doctor_data'] == null || element['user_data'] == null,
+      );
       setState(() {});
     }
     setState(() {

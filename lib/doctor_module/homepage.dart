@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use, avoid_print, prefer_interpolation_to_compose_strings, non_constant_identifier_names, prefer_is_empty
 
+import 'dart:convert';
+
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/global_keys.dart';
 import 'package:ecare/constants/navigation.dart';
@@ -7,6 +9,7 @@ import 'package:ecare/doctor_module/create_bulk_slot.dart';
 import 'package:ecare/doctor_module/create_slot.dart';
 import 'package:ecare/doctor_module/notification.dart';
 import 'package:ecare/functions/global_Var.dart';
+import 'package:ecare/functions/print_function.dart';
 import 'package:ecare/pages/add_bank_account_page.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
 import 'package:ecare/widgets/buttons.dart';
@@ -32,7 +35,6 @@ import '../widgets/custom_circular_image.dart';
 import '../widgets/showSnackbar.dart';
 import 'package:badges/badges.dart' as badges;
 
-
 class DoctorHomePage extends StatefulWidget {
   const DoctorHomePage({Key? key}) : super(key: key);
 
@@ -56,7 +58,6 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
 
   @override
   void initState() {
-    
     super.initState();
     get_appointment();
     gettoday_appointment();
@@ -79,6 +80,25 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
       confirms = res['data']['confirmed'];
       completeds = res['data']['completed'];
       rejects = res['data']['rejected'];
+      // ---------------- remove is user data is null || doctor data is null -----------
+      accpeted.removeWhere(
+        (element) =>
+            element['doctor_data'] == null || element['user_data'] == null,
+      );
+      confirms.removeWhere(
+        (element) =>
+            element['doctor_data'] == null || element['user_data'] == null,
+      );
+      completeds.removeWhere(
+        (element) =>
+            element['doctor_data'] == null || element['user_data'] == null,
+      );
+      rejects.removeWhere(
+        (element) =>
+            element['doctor_data'] == null || element['user_data'] == null,
+      );
+      myCustomLogStatements("confirms ----- ${jsonEncode(confirms)}");
+      // ---------------- remove is user data is null || doctor data is null-----------
       setState(() {});
     }
     setState(() {
@@ -202,29 +222,41 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
           //                 fontFamily: 'light'),
           //           ],
           //         ))),
-        
-              badges.Badge(
-                position: badges.BadgePosition.topEnd(top:5,end:2),
-                showBadge: unread_noti_count!=0?true:false,
-                badgeContent: Text('$unread_noti_count',style: const TextStyle(color: Colors.white),),
-                child: IconButton(
-                  icon: const Icon(Icons.chat),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const MessagePage()));
-                  },
-                ),
-              ),
-              badges.Badge(
-                position: badges.BadgePosition.topEnd(top: 5, end: 2),
-                showBadge: unread_noti_count!=0?true:false,
-                badgeContent: Text('$unread_noti_count',style: const TextStyle(color: Colors.white),),
-                child: IconButton(
-                  icon: const Icon(Icons.notifications),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const DoctorNotificationPage()));
-                  },
-                ),
-              ),
+
+          badges.Badge(
+            position: badges.BadgePosition.topEnd(top: 5, end: 2),
+            showBadge: unread_noti_count != 0 ? true : false,
+            badgeContent: Text(
+              '$unread_noti_count',
+              style: const TextStyle(color: Colors.white),
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.chat),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const MessagePage()));
+              },
+            ),
+          ),
+          badges.Badge(
+            position: badges.BadgePosition.topEnd(top: 5, end: 2),
+            showBadge: unread_noti_count != 0 ? true : false,
+            badgeContent: Text(
+              '$unread_noti_count',
+              style: const TextStyle(color: Colors.white),
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.notifications),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const DoctorNotificationPage()));
+              },
+            ),
+          ),
         ],
       ),
       body: Container(
@@ -257,15 +289,18 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                   //     MaterialPageRoute(builder: (context) => CreateSlot()));
                   // return;
                   if (user_Data!['is_bank_account_added'].toString() == '1') {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const CreateSlot()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CreateSlot()));
                   } else {
                     // showSnackbar("Please add bank account first");
                     push(context: context, screen: const AddBankAccountPage());
                   }
                 },
                 child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: MyColors.primaryColor),
@@ -286,15 +321,20 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                   //     MaterialPageRoute(builder: (context) => CreateSlot()));
                   // return;
                   if (user_Data!['is_bank_account_added'].toString() == '1') {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => CreateBulkSlot(key: MyGlobalKeys.createBulkSlotPage,)));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CreateBulkSlot(
+                                  key: MyGlobalKeys.createBulkSlotPage,
+                                )));
                   } else {
                     // showSnackbar("Please add bank account first");
                     push(context: context, screen: const AddBankAccountPage());
                   }
                 },
                 child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: MyColors.primaryColor),
@@ -327,7 +367,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
               const MainHeadingText(
                 text:
                     'All appointment requests made between 7:00 AM and 8:00 PM should be accepted within 2 hours of the request. Failure to accept the appointment within this time frame will result in an automatic cancellation of the appointment.'
-                        '\nSimilarly, all appointment requests made between 8:00 PM and 7:00 AM should be accepted by 8:00 AM the following day. If not accepted by that time, the appointment will be automatically canceled.',
+                    '\nSimilarly, all appointment requests made between 8:00 PM and 7:00 AM should be accepted by 8:00 AM the following day. If not accepted by that time, the appointment will be automatically canceled.',
                 fontSize: 12,
                 fontFamily: 'light',
                 fontWeight: FontWeight.bold,
@@ -499,7 +539,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
               const ParagraphText(
                 text:
                     'As the healthcare provider, it is your responsibility to initiate the video consultation at the scheduled time.'
-                   '\nPlease remember to upload any necessary sick notes or referral letters during the consultation or as soon as possible after the consultation has ended.',
+                    '\nPlease remember to upload any necessary sick notes or referral letters during the consultation or as soon as possible after the consultation has ended.',
                 fontSize: 12,
                 fontFamily: 'light',
                 color: Colors.black,
@@ -612,7 +652,8 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                 SizedBox(
                                                   width: 10,
                                                 ),
-                                                Text("Add ICD-10 codes to statement")
+                                                Text(
+                                                    "Add ICD-10 codes to statement")
                                               ],
                                             ),
                                           ),
@@ -643,29 +684,30 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                           } else if (value == 3) {
                                             push(
                                                 context: context,
-                                                screen:
-                                                Referral_Letter_Page(
+                                                screen: Referral_Letter_Page(
                                                   booking_id: todays_app[i]
-                                                  ['id']
+                                                          ['id']
                                                       .toString(),
                                                 ));
-                                          } else if(value==4) {
+                                          } else if (value == 4) {
                                             push(
                                                 context: context,
-                                                screen:
-                                                Consultation_Notes_Page(
+                                                screen: Consultation_Notes_Page(
                                                   booking_id: todays_app[i]
-                                                  ['id']
+                                                          ['id']
                                                       .toString(),
                                                 ));
-                                          }else if (value == 5) {
-                                            print('skjdfkldas ${todays_app[i]['user_data']['first_name']}');
+                                          } else if (value == 5) {
+                                            print(
+                                                'skjdfkldas ${todays_app[i]['user_data']['first_name']}');
                                             // return;
                                             push(
                                               context: context,
-                                              screen:AddIcdNotes(
-                                                booking_id: todays_app[i]['id'].toString(),
-                                                doctorName: '${todays_app[i]['user_data']['first_name']}',
+                                              screen: AddIcdNotes(
+                                                booking_id: todays_app[i]['id']
+                                                    .toString(),
+                                                doctorName:
+                                                    '${todays_app[i]['user_data']['first_name']}',
                                               ),
                                             );
                                           }
@@ -708,15 +750,16 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                             MainAxisAlignment.end,
                                         children: [
                                           if (
-                                          // todays_app[i]['is_join']
-                                          //     .toString() ==
-                                          //     '0' &&
-                                          compare_time(todays_app[i]
-                                                      ['slot_data']['date'] +
-                                                  ' ' +
-                                                  todays_app[i]['slot_data']
-                                                      ['start_time']) ==
-                                              true)
+                                              // todays_app[i]['is_join']
+                                              //     .toString() ==
+                                              //     '0' &&
+                                              compare_time(todays_app[i]
+                                                              ['slot_data']
+                                                          ['date'] +
+                                                      ' ' +
+                                                      todays_app[i]['slot_data']
+                                                          ['start_time']) ==
+                                                  true)
                                             RoundEdgedButton(
                                               text: 'Start',
                                               borderRadius: 100,
@@ -725,8 +768,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                               horizontalPadding: 0,
                                               verticalPadding: 0,
                                               color: Colors.transparent,
-                                              textColor:
-                                                  MyColors.primaryColor,
+                                              textColor: MyColors.primaryColor,
                                               bordercolor:
                                                   MyColors.primaryColor,
                                               onTap: () async {
@@ -740,8 +782,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                               ['id']
                                                           .toString(),
                                                       userId: todays_app[i]
-                                                                  ['userdata']
-                                                              ['id']
+                                                              ['userdata']['id']
                                                           .toString(),
                                                     ));
                                                 // showSnackbar( 'Comming Soon.');
@@ -757,8 +798,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                             verticalPadding: 0,
                                             color: Colors.transparent,
                                             textColor: MyColors.primaryColor,
-                                            bordercolor:
-                                                MyColors.primaryColor,
+                                            bordercolor: MyColors.primaryColor,
                                             onTap: () async {
                                               push(
                                                   context: context,
@@ -767,8 +807,8 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                                     'type']
                                                                 .toString() ==
                                                             '1'
-                                                        ? todays_app[i][
-                                                                    'userdata']
+                                                        ? todays_app[i]
+                                                                    ['userdata']
                                                                 ['id']
                                                             .toString()
                                                         : todays_app[i][
@@ -808,7 +848,6 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                   ),
                 ),
 
-
               // confirmed booking...
               vSizedBox,
               const MainHeadingText(
@@ -823,8 +862,8 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => bookingdetail(
-                              booking_id: confirms[i]['id'].toString(),
-                            )));
+                                  booking_id: confirms[i]['id'].toString(),
+                                )));
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
@@ -842,258 +881,253 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                               // Image.asset('assets/images/23.png', width: 50,),
                               CustomCircularImage(
                                   imageUrl: confirms[i]['user_data']
-                                  ['profile_image']),
+                                      ['profile_image']),
                               hSizedBox,
                               Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
                                     children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: MainHeadingText(
-                                              text:
+                                      Expanded(
+                                        child: MainHeadingText(
+                                          text:
                                               '${confirms[i]['user_data']['first_name']}',
-                                              fontSize: 14,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: MainHeadingText(
+                                          text: '${confirms[i]['price']} ZAR',
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      PopupMenuButton<int>(
+                                        itemBuilder: (context) => [
+                                          // PopupMenuItem 1
+                                          const PopupMenuItem(
+                                            value: 1,
+                                            // row with 2 children
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Text("Prescription")
+                                              ],
                                             ),
                                           ),
-                                          Expanded(
-                                            child: MainHeadingText(
-                                              text: '${confirms[i]['price']} ZAR',
-                                              fontSize: 15,
+                                          const PopupMenuItem(
+                                            value: 2,
+                                            // row with two children
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Text("Sick note")
+                                              ],
                                             ),
                                           ),
-                                          PopupMenuButton<int>(
-                                            itemBuilder: (context) => [
-                                              // PopupMenuItem 1
-                                              const PopupMenuItem(
-                                                value: 1,
-                                                // row with 2 children
-                                                child: Row(
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text("Prescription")
-                                                  ],
+                                          const PopupMenuItem(
+                                            value: 3,
+                                            // row with two children
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: 10,
                                                 ),
-                                              ),
-                                              const PopupMenuItem(
-                                                value: 2,
-                                                // row with two children
-                                                child: Row(
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text("Sick note")
-                                                  ],
+                                                Text("Referral Letter")
+                                              ],
+                                            ),
+                                          ),
+                                          const PopupMenuItem(
+                                            value: 4,
+                                            // row with two children
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: 10,
                                                 ),
-                                              ),
-                                              const PopupMenuItem(
-                                                value: 3,
-                                                // row with two children
-                                                child: Row(
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text("Referral Letter")
-                                                  ],
+                                                Text("My Consultation notes")
+                                              ],
+                                            ),
+                                          ),
+                                          const PopupMenuItem(
+                                            value: 5,
+                                            // row with 2 children
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: 10,
                                                 ),
-                                              ),
-                                              const PopupMenuItem(
-                                                value: 4,
-                                                // row with two children
-                                                child: Row(
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text("My Consultation notes")
-                                                  ],
-                                                ),
-                                              ),
-                                              const PopupMenuItem(
-                                                value: 5,
-                                                // row with 2 children
-                                                child: Row(
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text("Add ICD-10 codes to statement"),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                            offset: const Offset(0, 58),
-                                            color: MyColors.white,
-                                            elevation: 0,
-                                            // on selected we show the dialog box
-                                            onSelected: (value) {
-                                              // if value 1 show dialog
-                                              if (value == 1) {
-                                                push(
-                                                    context: context,
-                                                    screen:
+                                                Text(
+                                                    "Add ICD-10 codes to statement"),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                        offset: const Offset(0, 58),
+                                        color: MyColors.white,
+                                        elevation: 0,
+                                        // on selected we show the dialog box
+                                        onSelected: (value) {
+                                          // if value 1 show dialog
+                                          if (value == 1) {
+                                            push(
+                                                context: context,
+                                                screen:
                                                     Prescriptions_Doctor_Page(
-                                                      booking_id: confirms[i]
-                                                      ['id']
-                                                          .toString(),
-                                                    ));
-                                              }
-                                              else if (value == 2) {
-                                                push(
-                                                    context: context,
-                                                    screen: Add_sicknote(
-                                                      booking_id: confirms[i]
-                                                      ['id']
-                                                          .toString(),
-                                                    ));
-                                              } else if (value == 3) {
-                                                push(
-                                                    context: context,
-                                                    screen: Referral_Letter_Page(
-                                                      booking_id: confirms[i]
-                                                      ['id']
-                                                          .toString(),
-                                                    ));
-                                              } else if(value==4){
-                                                push(context: context, screen:
-                                                Consultation_Notes_Page(
-                                                  booking_id: confirms[i]
-                                                  ['id']
+                                                  booking_id: confirms[i]['id']
                                                       .toString(),
                                                 ));
-                                              }else if (value == 5) {
-                                                push(
-                                                    context: context,
-                                                    screen:AddIcdNotes(
-                                                      booking_id: confirms[i]
-                                                      ['id']
-                                                          .toString(),
-                                                    ));
-                                              }
-                                            },
-                                          ),
-                                        ],
+                                          } else if (value == 2) {
+                                            push(
+                                                context: context,
+                                                screen: Add_sicknote(
+                                                  booking_id: confirms[i]['id']
+                                                      .toString(),
+                                                ));
+                                          } else if (value == 3) {
+                                            push(
+                                                context: context,
+                                                screen: Referral_Letter_Page(
+                                                  booking_id: confirms[i]['id']
+                                                      .toString(),
+                                                ));
+                                          } else if (value == 4) {
+                                            push(
+                                                context: context,
+                                                screen: Consultation_Notes_Page(
+                                                  booking_id: confirms[i]['id']
+                                                      .toString(),
+                                                ));
+                                          } else if (value == 5) {
+                                            push(
+                                                context: context,
+                                                screen: AddIcdNotes(
+                                                  booking_id: confirms[i]['id']
+                                                      .toString(),
+                                                ));
+                                          }
+                                        },
                                       ),
-                                      // MainHeadingText(
-                                      //   text:
-                                      //   'symptoms: ${confirms[i]['symptoms'] ?? '-'}',
-                                      //   overflow: TextOverflow.ellipsis,
-                                      //   fontFamily: 'light',
-                                      //   fontSize: 14,
-                                      // ),
-                                      Row(
-                                        children: [
-                                          MainHeadingText(
-                                            text:
+                                    ],
+                                  ),
+                                  // MainHeadingText(
+                                  //   text:
+                                  //   'symptoms: ${confirms[i]['symptoms'] ?? '-'}',
+                                  //   overflow: TextOverflow.ellipsis,
+                                  //   fontFamily: 'light',
+                                  //   fontSize: 14,
+                                  // ),
+                                  Row(
+                                    children: [
+                                      MainHeadingText(
+                                        text:
                                             '${confirms[i]['slot_data']['date']}',
-                                            fontSize: 14,
-                                            fontFamily: 'bold',
-                                            color: MyColors.bordercolor,
-                                          ),
-                                          hSizedBox,
-                                          MainHeadingText(
-                                            text:
-                                            '${DateFormat.jm().format(DateFormat('hh:mm').parse(confirms[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(confirms[i]['slot_data']['end_time']))}',
-                                            fontSize: 14,
-                                            fontFamily: 'light',
-                                            color: MyColors.bordercolor,
-                                          )
-                                        ],
+                                        fontSize: 14,
+                                        fontFamily: 'bold',
+                                        color: MyColors.bordercolor,
                                       ),
-                                      // MainHeadingText(text: 'Waiting for payment',fontSize: 10,color: Colors.green,),
-                                      Column(
-                                        children: [
-                                          vSizedBox2,
-                                          Row(
-                                            mainAxisAlignment:
+                                      hSizedBox,
+                                      MainHeadingText(
+                                        text:
+                                            '${DateFormat.jm().format(DateFormat('hh:mm').parse(confirms[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(confirms[i]['slot_data']['end_time']))}',
+                                        fontSize: 14,
+                                        fontFamily: 'light',
+                                        color: MyColors.bordercolor,
+                                      )
+                                    ],
+                                  ),
+                                  // MainHeadingText(text: 'Waiting for payment',fontSize: 10,color: Colors.green,),
+                                  Column(
+                                    children: [
+                                      vSizedBox2,
+                                      Row(
+                                        mainAxisAlignment:
                                             MainAxisAlignment.end,
-                                            children: [
-                                              if (
+                                        children: [
+                                          if (
                                               // todays_app[i]['is_join']
                                               //     .toString() ==
                                               //     '0' &&
                                               compare_time(confirms[i]
-                                              ['slot_data']['date'] +
-                                                  ' ' +
-                                                  confirms[i]['slot_data']
-                                                  ['start_time']) ==
+                                                              ['slot_data']
+                                                          ['date'] +
+                                                      ' ' +
+                                                      confirms[i]['slot_data']
+                                                          ['start_time']) ==
                                                   true)
-                                                RoundEdgedButton(
-                                                  text: 'Start',
-                                                  borderRadius: 100,
-                                                  width: 70,
-                                                  height: 35,
-                                                  horizontalPadding: 0,
-                                                  verticalPadding: 0,
-                                                  color: Colors.transparent,
-                                                  textColor:
+                                            RoundEdgedButton(
+                                              text: 'Start',
+                                              borderRadius: 100,
+                                              width: 70,
+                                              height: 35,
+                                              horizontalPadding: 0,
+                                              verticalPadding: 0,
+                                              color: Colors.transparent,
+                                              textColor: MyColors.primaryColor,
+                                              bordercolor:
                                                   MyColors.primaryColor,
-                                                  bordercolor:
-                                                  MyColors.primaryColor,
-                                                  onTap: () async {
-                                                    push(
-                                                        context: context,
-                                                        screen: VideoCallScreen(
-                                                          name: confirms[i]
-                                                          ['user_data']
+                                              onTap: () async {
+                                                push(
+                                                    context: context,
+                                                    screen: VideoCallScreen(
+                                                      name: confirms[i]
+                                                              ['user_data']
                                                           ['first_name'],
-                                                          bookingId: confirms[i]
-                                                          ['id']
-                                                              .toString(),
-                                                          userId: confirms[i]
-                                                          ['user_data']
-                                                          ['id']
-                                                              .toString(),
-                                                        ));
-                                                    // showSnackbar( 'Comming Soon.');
-                                                  },
-                                                ),
-                                              hSizedBox,
-                                              RoundEdgedButton(
-                                                text: 'Chat',
-                                                borderRadius: 100,
-                                                width: 70,
-                                                height: 35,
-                                                horizontalPadding: 0,
-                                                verticalPadding: 0,
-                                                color: Colors.transparent,
-                                                textColor: MyColors.primaryColor,
-                                                bordercolor:
-                                                MyColors.primaryColor,
-                                                onTap: () async {
-                                                  push(
-                                                      context: context,
-                                                      screen: ChatPage(
-                                                        other_user_id: user_Data![
-                                                        'type']
-                                                            .toString() ==
+                                                      bookingId: confirms[i]
+                                                              ['id']
+                                                          .toString(),
+                                                      userId: confirms[i]
+                                                                  ['user_data']
+                                                              ['id']
+                                                          .toString(),
+                                                    ));
+                                                // showSnackbar( 'Comming Soon.');
+                                              },
+                                            ),
+                                          hSizedBox,
+                                          RoundEdgedButton(
+                                            text: 'Chat',
+                                            borderRadius: 100,
+                                            width: 70,
+                                            height: 35,
+                                            horizontalPadding: 0,
+                                            verticalPadding: 0,
+                                            color: Colors.transparent,
+                                            textColor: MyColors.primaryColor,
+                                            bordercolor: MyColors.primaryColor,
+                                            onTap: () async {
+                                              push(
+                                                  context: context,
+                                                  screen: ChatPage(
+                                                    other_user_id: user_Data![
+                                                                    'type']
+                                                                .toString() ==
                                                             '1'
-                                                            ? confirms[i][
-                                                        'user_data']
-                                                        ['id']
+                                                        ? confirms[i][
+                                                                    'user_data']
+                                                                ['id']
                                                             .toString()
-                                                            : confirms[i][
-                                                        'doctor_data']
-                                                        ['id']
+                                                        : confirms[i][
+                                                                    'doctor_data']
+                                                                ['id']
                                                             .toString(),
-                                                        booking_id: confirms[i]
-                                                        ['id']
-                                                            .toString(),
-                                                      ));
-                                                  // showSnackbar( 'Comming Soon.');
-                                                },
-                                              ),
-                                            ],
+                                                    booking_id: confirms[i]
+                                                            ['id']
+                                                        .toString(),
+                                                  ));
+                                              // showSnackbar( 'Comming Soon.');
+                                            },
                                           ),
                                         ],
                                       ),
                                     ],
-                                  )),
+                                  ),
+                                ],
+                              )),
                             ],
                           ),
                         ),
@@ -1116,7 +1150,6 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
               vSizedBox2,
               // end confirmed booking...
 
-
               // completed booking...
               vSizedBox,
               const MainHeadingText(
@@ -1131,8 +1164,8 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => bookingdetail(
-                              booking_id: completeds[i]['id'].toString(),
-                            )));
+                                  booking_id: completeds[i]['id'].toString(),
+                                )));
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
@@ -1150,202 +1183,202 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                               // Image.asset('assets/images/23.png', width: 50,),
                               CustomCircularImage(
                                   imageUrl: completeds[i]['user_data']
-                                  ['profile_image']),
+                                      ['profile_image']),
                               hSizedBox,
                               Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
                                     children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: MainHeadingText(
-                                              text:
+                                      Expanded(
+                                        child: MainHeadingText(
+                                          text:
                                               '${completeds[i]['user_data']['first_name']}',
-                                              fontSize: 14,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: MainHeadingText(
+                                          text: '${completeds[i]['price']} ZAR',
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      PopupMenuButton<int>(
+                                        itemBuilder: (context) => [
+                                          // PopupMenuItem 1
+                                          const PopupMenuItem(
+                                            value: 1,
+                                            // row with 2 children
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Text("Prescription")
+                                              ],
                                             ),
                                           ),
-                                          Expanded(
-                                            child: MainHeadingText(
-                                              text: '${completeds[i]['price']} ZAR',
-                                              fontSize: 15,
+                                          const PopupMenuItem(
+                                            value: 2,
+                                            // row with two children
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Text("Sick note")
+                                              ],
                                             ),
                                           ),
-                                          PopupMenuButton<int>(
-                                            itemBuilder: (context) => [
-                                              // PopupMenuItem 1
-                                              const PopupMenuItem(
-                                                value: 1,
-                                                // row with 2 children
-                                                child: Row(
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text("Prescription")
-                                                  ],
+                                          const PopupMenuItem(
+                                            value: 3,
+                                            // row with two children
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: 10,
                                                 ),
-                                              ),
-                                              const PopupMenuItem(
-                                                value: 2,
-                                                // row with two children
-                                                child: Row(
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text("Sick note")
-                                                  ],
+                                                Text("Referral Letter")
+                                              ],
+                                            ),
+                                          ),
+                                          const PopupMenuItem(
+                                            value: 4,
+                                            // row with two children
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: 10,
                                                 ),
-                                              ),
-                                              const PopupMenuItem(
-                                                value: 3,
-                                                // row with two children
-                                                child: Row(
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text("Referral Letter")
-                                                  ],
-                                                ),
-                                              ),
-                                              const PopupMenuItem(
-                                                value: 4,
-                                                // row with two children
-                                                child: Row(
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text("My Consultation notes")
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                            offset: const Offset(0, 58),
-                                            color: MyColors.white,
-                                            elevation: 0,
-                                            // on selected we show the dialog box
-                                            onSelected: (value) {
-                                              // if value 1 show dialog
-                                              if (value == 1) {
-                                                push(
-                                                    context: context,
-                                                    screen:
+                                                Text("My Consultation notes")
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                        offset: const Offset(0, 58),
+                                        color: MyColors.white,
+                                        elevation: 0,
+                                        // on selected we show the dialog box
+                                        onSelected: (value) {
+                                          // if value 1 show dialog
+                                          if (value == 1) {
+                                            push(
+                                                context: context,
+                                                screen:
                                                     Prescriptions_Doctor_Page(
-                                                      booking_id: completeds[i]
-                                                      ['id']
-                                                          .toString(),
-                                                    ));
-                                              } else if (value == 2) {
-                                                push(
-                                                    context: context,
-                                                    screen: Add_sicknote(
-                                                      booking_id: completeds[i]
-                                                      ['id']
-                                                          .toString(),
-                                                    ));
-                                              } else if (value == 3) {
-                                                push(
-                                                    context: context,
-                                                    screen:Referral_Letter_Page(
-                                                      booking_id: completeds[i]
-                                                      ['id']
-                                                          .toString(),
-                                                    ));
-                                              }else if (value == 4) {
-                                                push(
-                                                    context: context,
-                                                    screen:Consultation_Notes_Page(
-                                                      booking_id: completeds[i]
-                                                      ['id']
-                                                          .toString(),
-                                                    ));
-                                              }
-                                            },
-                                          ),
-                                        ],
+                                                  booking_id: completeds[i]
+                                                          ['id']
+                                                      .toString(),
+                                                ));
+                                          } else if (value == 2) {
+                                            push(
+                                                context: context,
+                                                screen: Add_sicknote(
+                                                  booking_id: completeds[i]
+                                                          ['id']
+                                                      .toString(),
+                                                ));
+                                          } else if (value == 3) {
+                                            push(
+                                                context: context,
+                                                screen: Referral_Letter_Page(
+                                                  booking_id: completeds[i]
+                                                          ['id']
+                                                      .toString(),
+                                                ));
+                                          } else if (value == 4) {
+                                            push(
+                                                context: context,
+                                                screen: Consultation_Notes_Page(
+                                                  booking_id: completeds[i]
+                                                          ['id']
+                                                      .toString(),
+                                                ));
+                                          }
+                                        },
                                       ),
+                                    ],
+                                  ),
 
-                                      Row(
-                                        children: [
-                                          MainHeadingText(
-                                            text:
+                                  Row(
+                                    children: [
+                                      MainHeadingText(
+                                        text:
                                             '${completeds[i]['slot_data']['date']}',
-                                            fontSize: 14,
-                                            fontFamily: 'bold',
-                                            color: MyColors.bordercolor,
-                                          ),
-                                          hSizedBox,
-                                          MainHeadingText(
-                                            text:
-                                            '${DateFormat.jm().format(DateFormat('hh:mm').parse(completeds[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(completeds[i]['slot_data']['end_time']))}',
-                                            fontSize: 14,
-                                            fontFamily: 'light',
-                                            color: MyColors.bordercolor,
-                                          )
-                                        ],
+                                        fontSize: 14,
+                                        fontFamily: 'bold',
+                                        color: MyColors.bordercolor,
                                       ),
-                                      // MainHeadingText(text: 'Waiting for payment',fontSize: 10,color: Colors.green,),
-                                      Column(
-                                        children: [
-                                          vSizedBox2,
-                                          Row(
-                                            mainAxisAlignment:
+                                      hSizedBox,
+                                      MainHeadingText(
+                                        text:
+                                            '${DateFormat.jm().format(DateFormat('hh:mm').parse(completeds[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(completeds[i]['slot_data']['end_time']))}',
+                                        fontSize: 14,
+                                        fontFamily: 'light',
+                                        color: MyColors.bordercolor,
+                                      )
+                                    ],
+                                  ),
+                                  // MainHeadingText(text: 'Waiting for payment',fontSize: 10,color: Colors.green,),
+                                  Column(
+                                    children: [
+                                      vSizedBox2,
+                                      Row(
+                                        mainAxisAlignment:
                                             MainAxisAlignment.end,
-                                            children: [
-                                              if (
+                                        children: [
+                                          if (
                                               // todays_app[i]['is_join']
                                               //     .toString() ==
                                               //     '0' &&
                                               compare_time(completeds[i]
-                                              ['slot_data']['date'] +
-                                                  ' ' +
-                                                  completeds[i]['slot_data']
-                                                  ['start_time']) ==
+                                                              ['slot_data']
+                                                          ['date'] +
+                                                      ' ' +
+                                                      completeds[i]['slot_data']
+                                                          ['start_time']) ==
                                                   true)
-                                              hSizedBox,
-                                              RoundEdgedButton(
-                                                text: 'Chat',
-                                                borderRadius: 100,
-                                                width: 70,
-                                                height: 35,
-                                                horizontalPadding: 0,
-                                                verticalPadding: 0,
-                                                color: Colors.transparent,
-                                                textColor: MyColors.primaryColor,
-                                                bordercolor:
-                                                MyColors.primaryColor,
-                                                onTap: () async {
-                                                  push(
-                                                      context: context,
-                                                      screen: ChatPage(
-                                                        other_user_id: user_Data![
-                                                        'type']
-                                                            .toString() ==
+                                            hSizedBox,
+                                          RoundEdgedButton(
+                                            text: 'Chat',
+                                            borderRadius: 100,
+                                            width: 70,
+                                            height: 35,
+                                            horizontalPadding: 0,
+                                            verticalPadding: 0,
+                                            color: Colors.transparent,
+                                            textColor: MyColors.primaryColor,
+                                            bordercolor: MyColors.primaryColor,
+                                            onTap: () async {
+                                              push(
+                                                  context: context,
+                                                  screen: ChatPage(
+                                                    other_user_id: user_Data![
+                                                                    'type']
+                                                                .toString() ==
                                                             '1'
-                                                            ? completeds[i][
-                                                        'user_data']
-                                                        ['id']
+                                                        ? completeds[i][
+                                                                    'user_data']
+                                                                ['id']
                                                             .toString()
-                                                            : completeds[i][
-                                                        'doctor_data']
-                                                        ['id']
+                                                        : completeds[i][
+                                                                    'doctor_data']
+                                                                ['id']
                                                             .toString(),
-                                                        booking_id: completeds[i]
-                                                        ['id']
-                                                            .toString(),
-                                                      ));
-                                                  // showSnackbar( 'Comming Soon.');
-                                                },
-                                              ),
-                                            ],
+                                                    booking_id: completeds[i]
+                                                            ['id']
+                                                        .toString(),
+                                                  ));
+                                              // showSnackbar( 'Comming Soon.');
+                                            },
                                           ),
                                         ],
                                       ),
                                     ],
-                                  )),
+                                  ),
+                                ],
+                              )),
                             ],
                           ),
                         ),
@@ -1367,7 +1400,6 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                 ),
               vSizedBox4,
               // end confirmed booking...
-
             ],
           ),
         ),
@@ -1550,6 +1582,6 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
     if (d.inMinutes >= -120 || d.inMinutes >= 120) {
       return true;
     }
-      return false;
+    return false;
   }
 }
