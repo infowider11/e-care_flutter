@@ -39,7 +39,8 @@ import 'consultation_notes.dart';
 
 class bookingdetail extends StatefulWidget {
   final String booking_id;
-  const bookingdetail({Key? key, required this.booking_id}) : super(key: key);
+  final Map? bookingDetails;
+  const bookingdetail({Key? key, required this.booking_id, this.bookingDetails}) : super(key: key);
 
   @override
   State<bookingdetail> createState() => _bookingdetailState();
@@ -752,6 +753,25 @@ class _bookingdetailState extends State<bookingdetail> {
                   subAccountCode: info['doctor_data']['bank_details']['subaccount_code'],
                 );
                 if (paystackInitiateTransactionResponse != null) {
+                    Map<String, dynamic> data = {
+                    'user_id': await getCurrentUserId(),
+                    'booking_id': widget.booking_id.toString(),
+                    'transaction_id': paystackInitiateTransactionResponse
+                        .reference
+                        .toString(), //'123456',
+                    'status': '1',
+                    'payment_status': PaymentStatus.ongoing.name,
+                  };
+                  await EasyLoading.show(
+                    status: null,
+                    maskType: EasyLoadingMaskType.black,
+                  );
+                  print('the request isssd $data');
+                  await Webservices.postData(
+                      apiUrl: ApiUrls.FinalBooking,
+                      body: data,
+                      context: MyGlobalKeys.navigatorKey.currentContext!);
+                  EasyLoading.dismiss();
                   bool? success = await push(
                       context: MyGlobalKeys.navigatorKey.currentContext!,
                       screen: PayStackPaymentPage(

@@ -2,6 +2,7 @@
 
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/constants/sized_box.dart';
+import 'package:ecare/functions/global_Var.dart';
 import 'package:ecare/pages/long_felt_way.dart';
 import 'package:ecare/pages/other_reason_visit.dart';
 import 'package:ecare/widgets/CustomTexts.dart';
@@ -33,9 +34,15 @@ class _ReasonPageState extends State<ReasonPage> {
     
     super.initState();
     print('working-----${widget.cate}');
-    get_subcate();
+    // get_subcate();
+    filterSubcategory();
   }
-
+filterSubcategory(){
+ lists = categories.where((element) => element['parent'] ==widget.cate!['id'] ,).toList();
+ setState(() {
+   
+ });
+}
   get_subcate() async {
     setState(() {
       load = true;

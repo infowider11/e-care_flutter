@@ -626,15 +626,15 @@ class _BookedVisitState extends State<BookedVisit>
                                                         var result =
                                                             await Webservices.get(
                                                                 '${ApiUrls.singleBookingData}${acceptedBookings[i]['id']}&user_type=1');
-                                                         EasyLoading.dismiss();
+                                                        EasyLoading.dismiss();
                                                         if (result['status']
                                                                 .toString() ==
                                                             '0') {
                                                           showSnackbar(
                                                               "You can't proceed with the payment because the booking has been deleted by the healthcare provider.");
-                                                         
+
                                                           get_lists();
-                                                          return ;
+                                                          return;
                                                         }
                                                         await payment_popup(
                                                           acceptedBookings[i]
@@ -1507,6 +1507,25 @@ class _BookedVisitState extends State<BookedVisit>
                   subAccountCode: doctorData['bank_details']['subaccount_code'],
                 );
                 if (paystackInitiateTransactionResponse != null) {
+                  Map<String, dynamic> data = {
+                    'user_id': await getCurrentUserId(),
+                    'booking_id': booking_id.toString(),
+                    'transaction_id': paystackInitiateTransactionResponse
+                        .reference
+                        .toString(), //'123456',
+                    'status': '1',
+                    'payment_status': PaymentStatus.ongoing.name,
+                  };
+                  await EasyLoading.show(
+                    status: null,
+                    maskType: EasyLoadingMaskType.black,
+                  );
+                  print('the request isssd $data');
+                  await Webservices.postData(
+                      apiUrl: ApiUrls.FinalBooking,
+                      body: data,
+                      context: MyGlobalKeys.navigatorKey.currentContext!);
+                  EasyLoading.dismiss();
                   bool? success = await push(
                       context: MyGlobalKeys.navigatorKey.currentContext!,
                       screen: PayStackPaymentPage(

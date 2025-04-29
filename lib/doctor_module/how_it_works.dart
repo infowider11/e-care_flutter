@@ -30,14 +30,15 @@ class DoctorHowItWorks extends StatefulWidget {
 
 class _DoctorHowItWorksState extends State<DoctorHowItWorks> {
   Map userData = {};
-  Map video_data = {};
   bool load = false;
 
   @override
   void initState() {
     super.initState();
     getDetail();
-    get_videos();
+    if (video_data.isEmpty) {
+      get_videos();
+    }
   }
 
   get_videos() async {

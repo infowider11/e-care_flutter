@@ -56,7 +56,7 @@ class FlutterPayStackServices {
         "bearer_type": "account",
         "subaccounts":subAccountCode==null?[]: [
           {
-            // "subaccount": "ACCT_rlkg3u4edusfwm0",
+            // "subaccount": "ACCT_rlkg3u4edusfwm0", // Test sub account
             "subaccount": subAccountCode,
             "share": '${double.parse(amount)*(100-percentageCharge.toInt())/100}',
           }
@@ -104,8 +104,9 @@ class FlutterPayStackServices {
       //   status: null,
       //   maskType: EasyLoadingMaskType.black,
       // );
-      if(showLoading)
-      showLoadingPopup();
+      if(showLoading) {
+        showLoadingPopup();
+      }
     }catch(e){
       print('Could not show easy loading');
     }
@@ -131,8 +132,9 @@ class FlutterPayStackServices {
         if(jsonResponse['data']['status']=='success'){
           try{
             // EasyLoading.dismiss();
-            if(showLoading)
-            Navigator.pop(MyGlobalKeys.navigatorKey.currentContext!);
+            if(showLoading) {
+              Navigator.pop(MyGlobalKeys.navigatorKey.currentContext!);
+            }
           }catch(e){
             print('Could not show easy loading');
           }
@@ -141,8 +143,9 @@ class FlutterPayStackServices {
         if(jsonResponse['data']['status']=='ongoing'){
           try{
             // EasyLoading.dismiss();
-            if(showLoading)
-            Navigator.pop(MyGlobalKeys.navigatorKey.currentContext!);
+            if(showLoading) {
+              Navigator.pop(MyGlobalKeys.navigatorKey.currentContext!);
+            }
           }catch(e){
             print('Could not show easy loading');
           }
@@ -156,8 +159,9 @@ class FlutterPayStackServices {
     }
     try{
       // EasyLoading.dismiss();
-      if(showLoading)
-      Navigator.pop(MyGlobalKeys.navigatorKey.currentContext!);
+      if(showLoading) {
+        Navigator.pop(MyGlobalKeys.navigatorKey.currentContext!);
+      }
     }catch(e){
       print('Could not show easy loading');
     }

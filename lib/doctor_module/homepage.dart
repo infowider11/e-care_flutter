@@ -45,15 +45,10 @@ class DoctorHomePage extends StatefulWidget {
 class _DoctorHomePageState extends State<DoctorHomePage> {
   TextEditingController reason = TextEditingController();
   // Map userData = {};
-  List incoming = [];
-  List accpeted = [];
-  List confirms = [];
-  List completeds = [];
-  List rejects = [];
-  List todays_app = [];
 
   bool load = false;
   bool load2 = false;
+  bool load3 = false;
   bool status = false;
 
   @override
@@ -67,37 +62,43 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
 
   get_lists() async {
     // current_user = await getUserDetails();
-    setState(() {
-      load = true;
-    });
+    if (doctorrejects.isEmpty &&
+        doctorcompleteds.isEmpty &&
+        doctorconfirms.isEmpty &&
+        doctoraccpeted.isEmpty) {
+      setState(() {
+        load = true;
+      });
+    }
     var res = await Webservices.get('${ApiUrls.booking_list}?user_id=' +
         await getCurrentUserId() +
         '&user_type=1');
     print('res-----$res');
     if (res['status'].toString() == '1') {
-      // incoming = res['data']['pending'];
-      accpeted = res['data']['accepted'];
-      confirms = res['data']['confirmed'];
-      completeds = res['data']['completed'];
-      rejects = res['data']['rejected'];
+      // doctorincoming = res['data']['pending'];
+      doctoraccpeted = res['data']['accepted'];
+      doctorconfirms = res['data']['confirmed'];
+      doctorcompleteds = res['data']['completed'];
+      doctorrejects = res['data']['rejected'];
       // ---------------- remove is user data is null || doctor data is null -----------
-      accpeted.removeWhere(
+      doctoraccpeted.removeWhere(
         (element) =>
             element['doctor_data'] == null || element['user_data'] == null,
       );
-      confirms.removeWhere(
+      doctorconfirms.removeWhere(
         (element) =>
             element['doctor_data'] == null || element['user_data'] == null,
       );
-      completeds.removeWhere(
+      doctorcompleteds.removeWhere(
         (element) =>
             element['doctor_data'] == null || element['user_data'] == null,
       );
-      rejects.removeWhere(
+      doctorrejects.removeWhere(
         (element) =>
             element['doctor_data'] == null || element['user_data'] == null,
       );
-      myCustomLogStatements("confirms ----- ${jsonEncode(confirms)}");
+      myCustomLogStatements(
+          "doctorconfirms ----- ${jsonEncode(doctorconfirms)}");
       // ---------------- remove is user data is null || doctor data is null-----------
       setState(() {});
     }
@@ -107,32 +108,36 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
   }
 
   get_appointment() async {
-    setState(() {
-      load = true;
-    });
+    if (doctorincoming.isEmpty) {
+      setState(() {
+        load3 = true;
+      });
+    }
     var res = await Webservices.get('${ApiUrls.booking_list}?user_id=' +
         await getCurrentUserId() +
         '&user_type=1');
     print('res-----$res');
     if (res['status'].toString() == '1') {
-      incoming = res['data']['pending'];
+      doctorincoming = res['data']['pending'];
       setState(() {});
     }
     setState(() {
-      load = false;
+      load3 = false;
     });
   }
 
   gettoday_appointment() async {
-    setState(() {
-      load2 = true;
-    });
+    if (doctortodays_app.isEmpty) {
+      setState(() {
+        load2 = true;
+      });
+    }
     var res = await Webservices.get('${ApiUrls.today_appointment}?user_id=' +
         await getCurrentUserId() +
         '&user_type=1');
     print('ressdfsdf-----$res');
     if (res['status'].toString() == '1') {
-      todays_app = res['data'];
+      doctortodays_app = res['data'];
       setState(() {});
     }
     setState(() {
@@ -375,14 +380,15 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
               vSizedBox,
               Column(
                 children: [
-                  for (var i = 0; i < incoming.length; i++)
+                  for (var i = 0; i < doctorincoming.length; i++)
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => bookingdetail(
-                                      booking_id: incoming[i]['id'].toString(),
+                                      booking_id:
+                                          doctorincoming[i]['id'].toString(),
                                     )));
                       },
                       child: Container(
@@ -404,7 +410,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                 children: [
                                   // Image.asset('assets/images/23.png', width: 50,),
                                   CustomCircularImage(
-                                      imageUrl: incoming[i]['user_data']
+                                      imageUrl: doctorincoming[i]['user_data']
                                           ['profile_image']),
                                   hSizedBox2,
                                   Expanded(
@@ -417,20 +423,21 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                           Expanded(
                                             child: MainHeadingText(
                                               text:
-                                                  '${incoming[i]['user_data']['first_name']}',
+                                                  '${doctorincoming[i]['user_data']['first_name']}',
                                               fontSize: 14,
                                             ),
                                           ),
                                           MainHeadingText(
                                             color: MyColors.black,
-                                            text: '${incoming[i]['price']} ZAR',
+                                            text:
+                                                '${doctorincoming[i]['price']} ZAR',
                                             fontSize: 15,
                                           ),
                                         ],
                                       ),
                                       // MainHeadingText(
                                       //   text:
-                                      //       'symptoms: ${incoming[i]['symptoms'] ?? '-'}',
+                                      //       'symptoms: ${doctorincoming[i]['symptoms'] ?? '-'}',
                                       //   overflow: TextOverflow.ellipsis,
                                       //   fontFamily: 'light',
                                       //   fontSize: 14,
@@ -439,7 +446,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                         children: [
                                           MainHeadingText(
                                             text:
-                                                '${incoming[i]['slot_data']['date']}',
+                                                '${doctorincoming[i]['slot_data']['date']}',
                                             fontSize: 14,
                                             fontFamily: 'bold',
                                             color: MyColors.bordercolor,
@@ -447,7 +454,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                           hSizedBox,
                                           MainHeadingText(
                                             text:
-                                                '${DateFormat.jm().format(DateFormat('hh:mm').parse(incoming[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(incoming[i]['slot_data']['end_time']))}',
+                                                '${DateFormat.jm().format(DateFormat('hh:mm').parse(doctorincoming[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(doctorincoming[i]['slot_data']['end_time']))}',
                                             fontSize: 11,
                                             fontFamily: 'medium',
                                             color: MyColors.primaryColor,
@@ -476,11 +483,13 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                 onTap: () async {
                                                   _displayTextInputDialog(
                                                       context,
-                                                      incoming[i]['id']
+                                                      doctorincoming[i]['id']
                                                           .toString(),
-                                                      incoming[i]['slot_id']
+                                                      doctorincoming[i]
+                                                              ['slot_id']
                                                           .toString(),
-                                                      incoming[i]['user_id']
+                                                      doctorincoming[i]
+                                                              ['user_id']
                                                           .toString());
                                                 },
                                               ),
@@ -495,11 +504,13 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                 onTap: () async {
                                                   acceptpopup(
                                                       context,
-                                                      incoming[i]['id']
+                                                      doctorincoming[i]['id']
                                                           .toString(),
-                                                      incoming[i]['slot_id']
+                                                      doctorincoming[i]
+                                                              ['slot_id']
                                                           .toString(),
-                                                      incoming[i]['user_id']
+                                                      doctorincoming[i]
+                                                              ['user_id']
                                                           .toString());
                                                 },
                                               ),
@@ -516,12 +527,12 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                         ),
                       ),
                     ),
-                  if (incoming.length == 0 && !load)
+                  if (doctorincoming.length == 0 && !load3)
                     const Center(
                       heightFactor: 5.0,
                       child: Text('No Appointment Yet.'),
                     ),
-                  if (load)
+                  if (load3)
                     const Center(
                       heightFactor: 5.0,
                       child: CustomLoader(
@@ -546,14 +557,15 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                 fontWeight: FontWeight.bold,
               ),
               vSizedBox,
-              for (int i = 0; i < todays_app.length; i++)
+              for (int i = 0; i < doctortodays_app.length; i++)
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => bookingdetail(
-                                  booking_id: todays_app[i]['id'].toString(),
+                                  booking_id:
+                                      doctortodays_app[i]['id'].toString(),
                                 )));
                   },
                   child: Padding(
@@ -571,7 +583,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                             children: [
                               // Image.asset('assets/images/23.png', width: 50,),
                               CustomCircularImage(
-                                  imageUrl: todays_app[i]['userdata']
+                                  imageUrl: doctortodays_app[i]['userdata']
                                       ['profile_image']),
                               hSizedBox,
                               Expanded(
@@ -583,13 +595,14 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                       Expanded(
                                         child: MainHeadingText(
                                           text:
-                                              '${todays_app[i]['userdata']['first_name']}',
+                                              '${doctortodays_app[i]['userdata']['first_name']}',
                                           fontSize: 14,
                                         ),
                                       ),
                                       Expanded(
                                         child: MainHeadingText(
-                                          text: '${todays_app[i]['price']} ZAR',
+                                          text:
+                                              '${doctortodays_app[i]['price']} ZAR',
                                           fontSize: 15,
                                         ),
                                       ),
@@ -669,45 +682,46 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                 context: context,
                                                 screen:
                                                     Prescriptions_Doctor_Page(
-                                                  booking_id: todays_app[i]
-                                                          ['id']
-                                                      .toString(),
+                                                  booking_id:
+                                                      doctortodays_app[i]['id']
+                                                          .toString(),
                                                 ));
                                           } else if (value == 2) {
                                             push(
                                                 context: context,
                                                 screen: Add_sicknote(
-                                                  booking_id: todays_app[i]
-                                                          ['id']
-                                                      .toString(),
+                                                  booking_id:
+                                                      doctortodays_app[i]['id']
+                                                          .toString(),
                                                 ));
                                           } else if (value == 3) {
                                             push(
                                                 context: context,
                                                 screen: Referral_Letter_Page(
-                                                  booking_id: todays_app[i]
-                                                          ['id']
-                                                      .toString(),
+                                                  booking_id:
+                                                      doctortodays_app[i]['id']
+                                                          .toString(),
                                                 ));
                                           } else if (value == 4) {
                                             push(
                                                 context: context,
                                                 screen: Consultation_Notes_Page(
-                                                  booking_id: todays_app[i]
-                                                          ['id']
-                                                      .toString(),
+                                                  booking_id:
+                                                      doctortodays_app[i]['id']
+                                                          .toString(),
                                                 ));
                                           } else if (value == 5) {
                                             print(
-                                                'skjdfkldas ${todays_app[i]['user_data']['first_name']}');
+                                                'skjdfkldas ${doctortodays_app[i]['user_data']['first_name']}');
                                             // return;
                                             push(
                                               context: context,
                                               screen: AddIcdNotes(
-                                                booking_id: todays_app[i]['id']
+                                                booking_id: doctortodays_app[i]
+                                                        ['id']
                                                     .toString(),
                                                 doctorName:
-                                                    '${todays_app[i]['user_data']['first_name']}',
+                                                    '${doctortodays_app[i]['user_data']['first_name']}',
                                               ),
                                             );
                                           }
@@ -717,7 +731,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                   ),
                                   // MainHeadingText(
                                   //   text:
-                                  //   'symptoms: ${confirms[i]['symptoms'] ?? '-'}',
+                                  //   'symptoms: ${doctorconfirms[i]['symptoms'] ?? '-'}',
                                   //   overflow: TextOverflow.ellipsis,
                                   //   fontFamily: 'light',
                                   //   fontSize: 14,
@@ -726,7 +740,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                     children: [
                                       MainHeadingText(
                                         text:
-                                            '${todays_app[i]['slot_data']['date']}',
+                                            '${doctortodays_app[i]['slot_data']['date']}',
                                         fontSize: 14,
                                         fontFamily: 'bold',
                                         color: MyColors.bordercolor,
@@ -734,7 +748,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                       hSizedBox,
                                       MainHeadingText(
                                         text:
-                                            '${DateFormat.jm().format(DateFormat('hh:mm').parse(todays_app[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(todays_app[i]['slot_data']['end_time']))}',
+                                            '${DateFormat.jm().format(DateFormat('hh:mm').parse(doctortodays_app[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(doctortodays_app[i]['slot_data']['end_time']))}',
                                         fontSize: 14,
                                         fontFamily: 'light',
                                         color: MyColors.bordercolor,
@@ -750,14 +764,15 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                             MainAxisAlignment.end,
                                         children: [
                                           if (
-                                              // todays_app[i]['is_join']
+                                              // doctortodays_app[i]['is_join']
                                               //     .toString() ==
                                               //     '0' &&
-                                              compare_time(todays_app[i]
+                                              compare_time(doctortodays_app[i]
                                                               ['slot_data']
                                                           ['date'] +
                                                       ' ' +
-                                                      todays_app[i]['slot_data']
+                                                      doctortodays_app[i]
+                                                              ['slot_data']
                                                           ['start_time']) ==
                                                   true)
                                             RoundEdgedButton(
@@ -775,14 +790,16 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                 push(
                                                     context: context,
                                                     screen: VideoCallScreen(
-                                                      name: todays_app[i]
+                                                      name: doctortodays_app[i]
                                                               ['userdata']
                                                           ['first_name'],
-                                                      bookingId: todays_app[i]
+                                                      bookingId:
+                                                          doctortodays_app[i]
+                                                                  ['id']
+                                                              .toString(),
+                                                      userId: doctortodays_app[
+                                                                  i]['userdata']
                                                               ['id']
-                                                          .toString(),
-                                                      userId: todays_app[i]
-                                                              ['userdata']['id']
                                                           .toString(),
                                                     ));
                                                 // showSnackbar( 'Comming Soon.');
@@ -807,17 +824,18 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                                     'type']
                                                                 .toString() ==
                                                             '1'
-                                                        ? todays_app[i]
+                                                        ? doctortodays_app[i]
                                                                     ['userdata']
                                                                 ['id']
                                                             .toString()
-                                                        : todays_app[i][
+                                                        : doctortodays_app[i][
                                                                     'doctor_data']
                                                                 ['id']
                                                             .toString(),
-                                                    booking_id: todays_app[i]
-                                                            ['id']
-                                                        .toString(),
+                                                    booking_id:
+                                                        doctortodays_app[i]
+                                                                ['id']
+                                                            .toString(),
                                                   ));
                                               // showSnackbar( 'Comming Soon.');
                                             },
@@ -835,7 +853,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                     ),
                   ),
                 ),
-              if (todays_app.length == 0 && !load2)
+              if (doctortodays_app.length == 0 && !load2)
                 const Center(
                   heightFactor: 5.0,
                   child: Text('No Appointment Yet.'),
@@ -855,14 +873,15 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                 fontSize: 16,
                 fontFamily: 'light',
               ),
-              for (int i = 0; i < confirms.length; i++)
+              for (int i = 0; i < doctorconfirms.length; i++)
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => bookingdetail(
-                                  booking_id: confirms[i]['id'].toString(),
+                                  booking_id:
+                                      doctorconfirms[i]['id'].toString(),
                                 )));
                   },
                   child: Padding(
@@ -880,7 +899,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                             children: [
                               // Image.asset('assets/images/23.png', width: 50,),
                               CustomCircularImage(
-                                  imageUrl: confirms[i]['user_data']
+                                  imageUrl: doctorconfirms[i]['user_data']
                                       ['profile_image']),
                               hSizedBox,
                               Expanded(
@@ -892,13 +911,14 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                       Expanded(
                                         child: MainHeadingText(
                                           text:
-                                              '${confirms[i]['user_data']['first_name']}',
+                                              '${doctorconfirms[i]['user_data']['first_name']}',
                                           fontSize: 14,
                                         ),
                                       ),
                                       Expanded(
                                         child: MainHeadingText(
-                                          text: '${confirms[i]['price']} ZAR',
+                                          text:
+                                              '${doctorconfirms[i]['price']} ZAR',
                                           fontSize: 15,
                                         ),
                                       ),
@@ -978,35 +998,40 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                 context: context,
                                                 screen:
                                                     Prescriptions_Doctor_Page(
-                                                  booking_id: confirms[i]['id']
+                                                  booking_id: doctorconfirms[i]
+                                                          ['id']
                                                       .toString(),
                                                 ));
                                           } else if (value == 2) {
                                             push(
                                                 context: context,
                                                 screen: Add_sicknote(
-                                                  booking_id: confirms[i]['id']
+                                                  booking_id: doctorconfirms[i]
+                                                          ['id']
                                                       .toString(),
                                                 ));
                                           } else if (value == 3) {
                                             push(
                                                 context: context,
                                                 screen: Referral_Letter_Page(
-                                                  booking_id: confirms[i]['id']
+                                                  booking_id: doctorconfirms[i]
+                                                          ['id']
                                                       .toString(),
                                                 ));
                                           } else if (value == 4) {
                                             push(
                                                 context: context,
                                                 screen: Consultation_Notes_Page(
-                                                  booking_id: confirms[i]['id']
+                                                  booking_id: doctorconfirms[i]
+                                                          ['id']
                                                       .toString(),
                                                 ));
                                           } else if (value == 5) {
                                             push(
                                                 context: context,
                                                 screen: AddIcdNotes(
-                                                  booking_id: confirms[i]['id']
+                                                  booking_id: doctorconfirms[i]
+                                                          ['id']
                                                       .toString(),
                                                 ));
                                           }
@@ -1016,7 +1041,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                   ),
                                   // MainHeadingText(
                                   //   text:
-                                  //   'symptoms: ${confirms[i]['symptoms'] ?? '-'}',
+                                  //   'symptoms: ${doctorconfirms[i]['symptoms'] ?? '-'}',
                                   //   overflow: TextOverflow.ellipsis,
                                   //   fontFamily: 'light',
                                   //   fontSize: 14,
@@ -1025,7 +1050,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                     children: [
                                       MainHeadingText(
                                         text:
-                                            '${confirms[i]['slot_data']['date']}',
+                                            '${doctorconfirms[i]['slot_data']['date']}',
                                         fontSize: 14,
                                         fontFamily: 'bold',
                                         color: MyColors.bordercolor,
@@ -1033,7 +1058,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                       hSizedBox,
                                       MainHeadingText(
                                         text:
-                                            '${DateFormat.jm().format(DateFormat('hh:mm').parse(confirms[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(confirms[i]['slot_data']['end_time']))}',
+                                            '${DateFormat.jm().format(DateFormat('hh:mm').parse(doctorconfirms[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(doctorconfirms[i]['slot_data']['end_time']))}',
                                         fontSize: 14,
                                         fontFamily: 'light',
                                         color: MyColors.bordercolor,
@@ -1049,14 +1074,15 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                             MainAxisAlignment.end,
                                         children: [
                                           if (
-                                              // todays_app[i]['is_join']
+                                              // doctortodays_app[i]['is_join']
                                               //     .toString() ==
                                               //     '0' &&
-                                              compare_time(confirms[i]
+                                              compare_time(doctorconfirms[i]
                                                               ['slot_data']
                                                           ['date'] +
                                                       ' ' +
-                                                      confirms[i]['slot_data']
+                                                      doctorconfirms[i]
+                                                              ['slot_data']
                                                           ['start_time']) ==
                                                   true)
                                             RoundEdgedButton(
@@ -1074,13 +1100,14 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                 push(
                                                     context: context,
                                                     screen: VideoCallScreen(
-                                                      name: confirms[i]
+                                                      name: doctorconfirms[i]
                                                               ['user_data']
                                                           ['first_name'],
-                                                      bookingId: confirms[i]
-                                                              ['id']
-                                                          .toString(),
-                                                      userId: confirms[i]
+                                                      bookingId:
+                                                          doctorconfirms[i]
+                                                                  ['id']
+                                                              .toString(),
+                                                      userId: doctorconfirms[i]
                                                                   ['user_data']
                                                               ['id']
                                                           .toString(),
@@ -1107,17 +1134,17 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                                     'type']
                                                                 .toString() ==
                                                             '1'
-                                                        ? confirms[i][
+                                                        ? doctorconfirms[i][
                                                                     'user_data']
                                                                 ['id']
                                                             .toString()
-                                                        : confirms[i][
+                                                        : doctorconfirms[i][
                                                                     'doctor_data']
                                                                 ['id']
                                                             .toString(),
-                                                    booking_id: confirms[i]
-                                                            ['id']
-                                                        .toString(),
+                                                    booking_id:
+                                                        doctorconfirms[i]['id']
+                                                            .toString(),
                                                   ));
                                               // showSnackbar( 'Comming Soon.');
                                             },
@@ -1135,7 +1162,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                     ),
                   ),
                 ),
-              if (confirms.length == 0 && !load)
+              if (doctorconfirms.length == 0 && !load)
                 const Center(
                   heightFactor: 5.0,
                   child: Text('No Appointment Yet.'),
@@ -1157,14 +1184,15 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                 fontSize: 16,
                 fontFamily: 'light',
               ),
-              for (int i = 0; i < completeds.length; i++)
+              for (int i = 0; i < doctorcompleteds.length; i++)
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => bookingdetail(
-                                  booking_id: completeds[i]['id'].toString(),
+                                  booking_id:
+                                      doctorcompleteds[i]['id'].toString(),
                                 )));
                   },
                   child: Padding(
@@ -1182,7 +1210,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                             children: [
                               // Image.asset('assets/images/23.png', width: 50,),
                               CustomCircularImage(
-                                  imageUrl: completeds[i]['user_data']
+                                  imageUrl: doctorcompleteds[i]['user_data']
                                       ['profile_image']),
                               hSizedBox,
                               Expanded(
@@ -1194,13 +1222,14 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                       Expanded(
                                         child: MainHeadingText(
                                           text:
-                                              '${completeds[i]['user_data']['first_name']}',
+                                              '${doctorcompleteds[i]['user_data']['first_name']}',
                                           fontSize: 14,
                                         ),
                                       ),
                                       Expanded(
                                         child: MainHeadingText(
-                                          text: '${completeds[i]['price']} ZAR',
+                                          text:
+                                              '${doctorcompleteds[i]['price']} ZAR',
                                           fontSize: 15,
                                         ),
                                       ),
@@ -1267,33 +1296,33 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                 context: context,
                                                 screen:
                                                     Prescriptions_Doctor_Page(
-                                                  booking_id: completeds[i]
-                                                          ['id']
-                                                      .toString(),
+                                                  booking_id:
+                                                      doctorcompleteds[i]['id']
+                                                          .toString(),
                                                 ));
                                           } else if (value == 2) {
                                             push(
                                                 context: context,
                                                 screen: Add_sicknote(
-                                                  booking_id: completeds[i]
-                                                          ['id']
-                                                      .toString(),
+                                                  booking_id:
+                                                      doctorcompleteds[i]['id']
+                                                          .toString(),
                                                 ));
                                           } else if (value == 3) {
                                             push(
                                                 context: context,
                                                 screen: Referral_Letter_Page(
-                                                  booking_id: completeds[i]
-                                                          ['id']
-                                                      .toString(),
+                                                  booking_id:
+                                                      doctorcompleteds[i]['id']
+                                                          .toString(),
                                                 ));
                                           } else if (value == 4) {
                                             push(
                                                 context: context,
                                                 screen: Consultation_Notes_Page(
-                                                  booking_id: completeds[i]
-                                                          ['id']
-                                                      .toString(),
+                                                  booking_id:
+                                                      doctorcompleteds[i]['id']
+                                                          .toString(),
                                                 ));
                                           }
                                         },
@@ -1305,7 +1334,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                     children: [
                                       MainHeadingText(
                                         text:
-                                            '${completeds[i]['slot_data']['date']}',
+                                            '${doctorcompleteds[i]['slot_data']['date']}',
                                         fontSize: 14,
                                         fontFamily: 'bold',
                                         color: MyColors.bordercolor,
@@ -1313,7 +1342,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                       hSizedBox,
                                       MainHeadingText(
                                         text:
-                                            '${DateFormat.jm().format(DateFormat('hh:mm').parse(completeds[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(completeds[i]['slot_data']['end_time']))}',
+                                            '${DateFormat.jm().format(DateFormat('hh:mm').parse(doctorcompleteds[i]['slot_data']['start_time']))} - ${DateFormat.jm().format(DateFormat('hh:mm').parse(doctorcompleteds[i]['slot_data']['end_time']))}',
                                         fontSize: 14,
                                         fontFamily: 'light',
                                         color: MyColors.bordercolor,
@@ -1329,14 +1358,15 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                             MainAxisAlignment.end,
                                         children: [
                                           if (
-                                              // todays_app[i]['is_join']
+                                              // doctortodays_app[i]['is_join']
                                               //     .toString() ==
                                               //     '0' &&
-                                              compare_time(completeds[i]
+                                              compare_time(doctorcompleteds[i]
                                                               ['slot_data']
                                                           ['date'] +
                                                       ' ' +
-                                                      completeds[i]['slot_data']
+                                                      doctorcompleteds[i]
+                                                              ['slot_data']
                                                           ['start_time']) ==
                                                   true)
                                             hSizedBox,
@@ -1358,17 +1388,18 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                                     'type']
                                                                 .toString() ==
                                                             '1'
-                                                        ? completeds[i][
+                                                        ? doctorcompleteds[i][
                                                                     'user_data']
                                                                 ['id']
                                                             .toString()
-                                                        : completeds[i][
+                                                        : doctorcompleteds[i][
                                                                     'doctor_data']
                                                                 ['id']
                                                             .toString(),
-                                                    booking_id: completeds[i]
-                                                            ['id']
-                                                        .toString(),
+                                                    booking_id:
+                                                        doctorcompleteds[i]
+                                                                ['id']
+                                                            .toString(),
                                                   ));
                                               // showSnackbar( 'Comming Soon.');
                                             },
@@ -1386,7 +1417,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                     ),
                   ),
                 ),
-              if (completeds.length == 0 && !load)
+              if (doctorcompleteds.length == 0 && !load)
                 const Center(
                   heightFactor: 5.0,
                   child: Text('No Appointment Yet.'),

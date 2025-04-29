@@ -22,28 +22,25 @@ class GetCare extends StatefulWidget {
 }
 
 class _GetCareState extends State<GetCare> {
-  List categories = [];
   bool load = false;
   @override
   void initState() {
-    
     super.initState();
     get_cate();
   }
 
-  get_cate() async{
-    setState(() {
-      load=true;
-    });
+  get_cate() async {
+    if (categories.isEmpty) {
+      setState(() {
+        load = true;
+      });
+    }
     var res = await Webservices.getList(ApiUrls.getSpecialistCategory);
     print('cate------$res');
-    categories=res;
-    setState(() {
-      
-    });
-    setState(() {
-      load=false;
-    });
+    categories = res;
+    load = false;
+
+    setState(() {});
   }
 
   @override
@@ -56,12 +53,12 @@ class _GetCareState extends State<GetCare> {
         leading: Padding(
           padding: const EdgeInsets.only(left: 16, top: 5),
           child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(200),
-              ),
-              child: CustomCircularImage(
-                imageUrl: user_Data!['profile_image'],
-              ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(200),
+            ),
+            child: CustomCircularImage(
+              imageUrl: user_Data!['profile_image'],
+            ),
           ),
         ),
         actions: <Widget>[
@@ -75,77 +72,85 @@ class _GetCareState extends State<GetCare> {
           ),
         ],
       ),
-      body: load?const CustomLoader():SingleChildScrollView(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.all(16),
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                'assets/images/patter.png',
+      body: load
+          ? const CustomLoader()
+          : SingleChildScrollView(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.all(16),
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                      'assets/images/patter.png',
+                    ),
+                    alignment: Alignment.topCenter,
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    vSizedBox2,
+                    const MainHeadingText(
+                      text: 'Please choose a visit right for you',
+                      fontSize: 30,
+                      fontFamily: 'light',
+                    ),
+                    const ParagraphText(
+                        text:
+                            'For medical aid claims, book only with healthcare providers having a practice number. After your consultation, ask for a statement with ICD-10 codes from your healthcare Provider.'),
+                    vSizedBox6,
+                    for (int i = 0; i < categories.length; i++)
+                      if (categories[i]['parent'].toString() == '0')
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ReasonPage(
+                                              cate: categories[i],
+                                            )));
+                              },
+                              child: GetCareBlocks(
+                                  fontSize: 20,
+                                  fontFamily: 'bold',
+                                  heading: '${categories[i]['title']}',
+                                  image: categories[i]['cat_icon'],
+                                  is_network_image: true,
+                                  bgColor: const Color(0xFED8ECF8))),
+                        ),
+                    vSizedBox,
+                    // GetCareBlocks(
+                    //   heading: 'Specialist Doctors',
+                    //   iconColor: Color(0xFE00A2EA).withOpacity(0.1),
+                    //   image: 'assets/images/specialist.png',
+                    // ),
+                    // vSizedBox,
+                    // GetCareBlocks(
+                    //   heading: 'Mental Health',
+                    //   iconColor: Color(0xFE00A2EA).withOpacity(0.1),
+                    //   image: 'assets/images/mental.png',
+                    // ),
+                    // vSizedBox,
+                    // GetCareBlocks(
+                    //   heading: 'Allied Health Care',
+                    //   iconColor: Color(0xFE00A2EA).withOpacity(0.1),
+                    //   image: 'assets/images/allied.png',
+                    // ),
+                    // vSizedBox,
+                    // ParagraphText(
+                    //   text: 'How it works',
+                    //   underlined: true,
+                    //   fontFamily: 'semibold',
+                    //   fontSize: 14,
+                    //   color: MyColors.primaryColor,
+                    // )
+                  ],
+                ),
               ),
-              alignment: Alignment.topCenter,
-              fit: BoxFit.fitWidth,
             ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              vSizedBox2,
-              const MainHeadingText(
-                text: 'Please choose a visit right for you',
-                fontSize: 30,
-                fontFamily: 'light',
-              ),
-              const ParagraphText(text: 'For medical aid claims, book only with healthcare providers having a practice number. After your consultation, ask for a statement with ICD-10 codes from your healthcare Provider.'),
-              vSizedBox6,
-              for(int i=0;i<categories.length;i++)
-                if(categories[i]['parent'].toString()=='0')
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: GestureDetector(
-                    onTap: ()  {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => ReasonPage(cate:categories[i],)));
-                    },
-                    child: GetCareBlocks(
-                        fontSize: 20,
-                        fontFamily: 'bold',
-                        heading: '${categories[i]['title']}',
-                        image: categories[i]['cat_icon'],
-                        is_network_image: true,
-                        bgColor: const Color(0xFED8ECF8))),
-              ),
-              vSizedBox,
-              // GetCareBlocks(
-              //   heading: 'Specialist Doctors',
-              //   iconColor: Color(0xFE00A2EA).withOpacity(0.1),
-              //   image: 'assets/images/specialist.png',
-              // ),
-              // vSizedBox,
-              // GetCareBlocks(
-              //   heading: 'Mental Health',
-              //   iconColor: Color(0xFE00A2EA).withOpacity(0.1),
-              //   image: 'assets/images/mental.png',
-              // ),
-              // vSizedBox,
-              // GetCareBlocks(
-              //   heading: 'Allied Health Care',
-              //   iconColor: Color(0xFE00A2EA).withOpacity(0.1),
-              //   image: 'assets/images/allied.png',
-              // ),
-              // vSizedBox,
-              // ParagraphText(
-              //   text: 'How it works',
-              //   underlined: true,
-              //   fontFamily: 'semibold',
-              //   fontSize: 14,
-              //   color: MyColors.primaryColor,
-              // )
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

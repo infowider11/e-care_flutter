@@ -46,10 +46,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
   TextEditingController review = TextEditingController();
 
   // Map userData = {};
-  List incoming = [];
-  List todays_app = [];
-  List confirms = [];
-  List completeds = [];
+  
   bool load = false;
   bool load2 = false;
   bool status = false;
@@ -57,7 +54,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
   @override
   void initState() {
-    
     super.initState();
     get_appointment();
     gettoday_appointment();
@@ -66,9 +62,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
   }
 
   get_appointment() async {
+    if(confirms.isEmpty && completeds.isEmpty&&incoming.isEmpty){
+
     setState(() {
       load = true;
     });
+    }
     var res = await Webservices.get(ApiUrls.booking_list +
         '?user_id=' +
         await getCurrentUserId() +
@@ -86,9 +85,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
   }
 
   gettoday_appointment() async {
+    if(todays_app.isEmpty){
+
     setState(() {
       load2 = true;
     });
+    }
     var res = await Webservices.get(ApiUrls.today_appointment +
         '?user_id=' +
         await getCurrentUserId() +
@@ -115,12 +117,11 @@ class _PatientHomePageState extends State<PatientHomePage> {
     setState(() {});
   }
 
-
   changeBookingStatus(
       {required String bookingId, required String transactionId}) async {
     PaymentStatus paymentStatus =
-    await FlutterPayStackServices.isPaymentSuccessfull(transactionId,
-        showLoading: false);
+        await FlutterPayStackServices.isPaymentSuccessfull(transactionId,
+            showLoading: false);
     String message =
         'the payment status for transaction id $transactionId is ${paymentStatus}';
     print(message);
@@ -211,29 +212,39 @@ class _PatientHomePageState extends State<PatientHomePage> {
               ],
             )),
         actions: <Widget>[
-
           badges.Badge(
             position: badges.BadgePosition.topEnd(top: 5, end: 2),
-            showBadge: unread_noti_count!=0?true:false,
-            badgeContent: Text('${unread_noti_count}',style: const TextStyle(color: Colors.white),),
+            showBadge: unread_noti_count != 0 ? true : false,
+            badgeContent: Text(
+              '${unread_noti_count}',
+              style: const TextStyle(color: Colors.white),
+            ),
             child: IconButton(
               icon: const Icon(Icons.chat),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const MessagePage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const MessagePage()));
               },
             ),
           ),
-
           badges.Badge(
             position: badges.BadgePosition.topEnd(top: 5, end: 2),
-            showBadge: unread_noti_count!=0?true:false,
+            showBadge: unread_noti_count != 0 ? true : false,
             badgeStyle: const badges.BadgeStyle(),
             // badgeContent: Text('22',style: TextStyle(color: Colors.white,fontSize: 10),),
-            badgeContent: Text('${unread_noti_count}',style: const TextStyle(color: Colors.white,fontSize: 10),),
+            badgeContent: Text(
+              '${unread_noti_count}',
+              style: const TextStyle(color: Colors.white, fontSize: 10),
+            ),
             child: IconButton(
               icon: const Icon(Icons.notifications),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const NotificationPage()));
               },
             ),
           ),
@@ -271,6 +282,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                             MaterialPageRoute(
                                 builder: (context) => bookingdetail(
                                       booking_id: incoming[i]['id'].toString(),
+                                      bookingDetails: incoming[i],
                                     )));
                       },
                       child: Container(
@@ -350,49 +362,54 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.end,
                                               children: [
-                                            if (incoming[i]['is_payment'] ==
-                                              '2')
-                                              RoundEdgedButton(
-                                                text: 'Payment Processing',
-                                                // text: 'Payment is under process.',
-                                                color: Colors.orangeAccent,
-                                                verticalPadding: 4,
-                                                height: 40,
-                                                width: 210,
-                                                onTap: () async {
-                                                  // setState(() {
-                                                  //   load = true;
-                                                  // });
-                                                  //
-                                                  changeBookingStatus(bookingId: incoming[i]['id'], transactionId: incoming[i]['transaction_id']);
-                                                  get_appointment();
-                                                },
-                                              )
+                                                if (incoming[i]['is_payment'] ==
+                                                    '2')
+                                                  RoundEdgedButton(
+                                                    text: 'Payment Processing',
+                                                    // text: 'Payment is under process.',
+                                                    color: Colors.orangeAccent,
+                                                    verticalPadding: 4,
+                                                    height: 40,
+                                                    width: 210,
+                                                    onTap: () async {
+                                                      // setState(() {
+                                                      //   load = true;
+                                                      // });
+                                                      //
+                                                      changeBookingStatus(
+                                                          bookingId: incoming[i]
+                                                              ['id'],
+                                                          transactionId: incoming[
+                                                                  i][
+                                                              'transaction_id']);
+                                                      get_appointment();
+                                                    },
+                                                  )
                                                 else
-                                                RoundEdgedButton(
-                                                  text: 'Pay Now',
-                                                  borderRadius: 100,
-                                                  width: 70,
-                                                  height: 35,
-                                                  horizontalPadding: 0,
-                                                  verticalPadding: 0,
-                                                  color:MyColors.green,
-                                                  textColor:
-                                                      MyColors.white,
-                                                  bordercolor:Colors.transparent,
-                                                  onTap: () async {
-                                                    await payment_popup(
-                                                      incoming[i]['id']
-                                                          .toString(),
-                                                      double.parse(incoming[i]
-                                                                  ['price']
-                                                              .toString())
-                                                          .toInt(),
-                                                      doctorData: incoming[i]
-                                                          ['doctor_data'],
-                                                    );
-                                                  },
-                                                ),
+                                                  RoundEdgedButton(
+                                                    text: 'Pay Now',
+                                                    borderRadius: 100,
+                                                    width: 70,
+                                                    height: 35,
+                                                    horizontalPadding: 0,
+                                                    verticalPadding: 0,
+                                                    color: MyColors.green,
+                                                    textColor: MyColors.white,
+                                                    bordercolor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      await payment_popup(
+                                                        incoming[i]['id']
+                                                            .toString(),
+                                                        double.parse(incoming[i]
+                                                                    ['price']
+                                                                .toString())
+                                                            .toInt(),
+                                                        doctorData: incoming[i]
+                                                            ['doctor_data'],
+                                                      );
+                                                    },
+                                                  ),
                                               ],
                                             ),
                                           ],
@@ -523,22 +540,23 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                     ? todays_app[i]['user_data']
                                                             ['id']
                                                         .toString()
-                                                    : todays_app[i]['doctor_data']
+                                                    : todays_app[i]
+                                                                ['doctor_data']
                                                             ['id']
                                                         .toString(),
                                             booking_id:
-                                            todays_app[i]['id'].toString(),
+                                                todays_app[i]['id'].toString(),
                                           ));
                                     },
                                   ),
                                 ),
                                 hSizedBox,
                                 if (compare_time(todays_app[i]['slot_data']
-                                                ['date'] +
-                                            ' ' +
+                                            ['date'] +
+                                        ' ' +
                                         todays_app[i]['slot_data']
-                                                ['start_time']) ==
-                                        true)
+                                            ['start_time']) ==
+                                    true)
                                   Expanded(
                                     // flex: 4,
                                     child: RoundEdgedButton(
@@ -558,10 +576,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             screen: VideoCallScreen(
                                               name: todays_app[i]['doctor_data']
                                                   ['first_name'],
-                                              bookingId:
-                                              todays_app[i]['id'].toString(),
-                                              userId: todays_app[i]['doctor_data']
-                                                      ['id']
+                                              bookingId: todays_app[i]['id']
+                                                  .toString(),
+                                              userId: todays_app[i]
+                                                      ['doctor_data']['id']
                                                   .toString(),
                                             ));
                                       },
@@ -831,38 +849,39 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                   //     },
                                   //   ),
                                   // ),
-
                                 ],
                               ),
                               Column(
                                 children: [
                                   vSizedBox,
-                                  if(confirms[i]['is_refund_request'].toString()=='0')
+                                  if (confirms[i]['is_refund_request']
+                                          .toString() ==
+                                      '0')
                                     RoundEdgedButton(
                                       height: 60.0,
-                                      text: 'Request a refund and cancel your booking',
+                                      text:
+                                          'Request a refund and cancel your booking',
                                       isSolid: false,
-                                      onTap: () async{
-                                        ask_a_refund(context,confirms[i]['id'].toString());
+                                      onTap: () async {
+                                        ask_a_refund(context,
+                                            confirms[i]['id'].toString());
                                       },
                                     ),
-
-                                  if(confirms[i]['is_refund_request'].toString()=='1')
+                                  if (confirms[i]['is_refund_request']
+                                          .toString() ==
+                                      '1')
                                     RoundEdgedButton(
                                       text: 'Pending Refund',
                                       color: Colors.red,
-                                      onTap: () async{
-
-                                      },
+                                      onTap: () async {},
                                     ),
-
-                                  if(confirms[i]['is_refund_request'].toString()=='2')
+                                  if (confirms[i]['is_refund_request']
+                                          .toString() ==
+                                      '2')
                                     RoundEdgedButton(
                                       text: 'Refunded',
                                       color: Colors.green,
-                                      onTap: () async{
-
-                                      },
+                                      onTap: () async {},
                                     )
                                 ],
                               )
@@ -1043,7 +1062,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
               //       color: MyColors.secondarycolor,
               //     ),
               //   ),
-
             ],
           ),
         ),
@@ -1098,7 +1116,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
-                            itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                            itemPadding:
+                                const EdgeInsets.symmetric(horizontal: 4.0),
                             itemBuilder: (context, _) => const Icon(
                               Icons.star,
                               color: Colors.amber,
@@ -1212,7 +1231,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
                 //TODO: commented to check
                 Navigator.pop(context);
 
-
                 FlutterPayStackInitializeTransactionResponseModal?
                     paystackInitiateTransactionResponse =
                     await FlutterPayStackServices.initializeTransaction(
@@ -1223,7 +1241,25 @@ class _PatientHomePageState extends State<PatientHomePage> {
                             ['subaccount_code']);
 
                 if (paystackInitiateTransactionResponse != null) {
-
+                  Map<String, dynamic> data = {
+                    'user_id': await getCurrentUserId(),
+                    'booking_id': booking_id.toString(),
+                    'transaction_id': paystackInitiateTransactionResponse
+                        .reference
+                        .toString(), //'123456',
+                    'status': '1',
+                    'payment_status': PaymentStatus.ongoing.name,
+                  };
+                  await EasyLoading.show(
+                    status: null,
+                    maskType: EasyLoadingMaskType.black,
+                  );
+                  print('the request isssd $data');
+                  await Webservices.postData(
+                      apiUrl: ApiUrls.FinalBooking,
+                      body: data,
+                      context: MyGlobalKeys.navigatorKey.currentContext!);
+                  EasyLoading.dismiss();
                   // Map<String, dynamic> data = {
                   //   'user_id': await getCurrentUserId(),
                   //   'booking_id': booking_id.toString(),
@@ -1248,20 +1284,25 @@ class _PatientHomePageState extends State<PatientHomePage> {
                   print('payment status $success');
                   // return;
 
-
                   // bool paymentIsSuccess =await FlutterPayStackServices.isPaymentSuccessfull(paystackInitiateTransactionResponse.reference);
 
-
-                  PaymentStatus paymentIsSuccess =await FlutterPayStackServices.isPaymentSuccessfull(paystackInitiateTransactionResponse.reference);
-                  CustomLogServices.sendMessageToSentry(message: 'The navigation request: $success, api response : ${paymentIsSuccess.name}', sentryLevel: SentryLevel.info);
-                  if(success==true || paymentIsSuccess!=PaymentStatus.failed){
+                  PaymentStatus paymentIsSuccess =
+                      await FlutterPayStackServices.isPaymentSuccessfull(
+                          paystackInitiateTransactionResponse.reference);
+                  CustomLogServices.sendMessageToSentry(
+                      message:
+                          'The navigation request: $success, api response : ${paymentIsSuccess.name}',
+                      sentryLevel: SentryLevel.info);
+                  if (success == true ||
+                      paymentIsSuccess != PaymentStatus.failed) {
                     Map<String, dynamic> data = {
                       'user_id': await getCurrentUserId(),
                       'booking_id': booking_id.toString(),
                       'transaction_id': paystackInitiateTransactionResponse
                           .reference
                           .toString(), //'123456',
-                      'status':paymentIsSuccess==PaymentStatus.ongoing?'1': '3',
+                      'status':
+                          paymentIsSuccess == PaymentStatus.ongoing ? '1' : '3',
                       'payment_status': PaymentStatus.ongoing.name,
                     };
                     await EasyLoading.show(
@@ -1278,13 +1319,17 @@ class _PatientHomePageState extends State<PatientHomePage> {
                       get_appointment();
                       gettoday_appointment();
                       await paymentsuccesspopup(
-                          MyGlobalKeys.navigatorKey.currentContext!, paymentIsSuccess);
+                          MyGlobalKeys.navigatorKey.currentContext!,
+                          paymentIsSuccess);
                     } else {
                       showSnackbar('Payment Failed!!!');
                     }
                   } else {
-                    push(context: MyGlobalKeys.navigatorKey.currentContext!, screen: const ErrorLogPage());
-                    showSnackbar('Something went wrong, please try again later.');
+                    push(
+                        context: MyGlobalKeys.navigatorKey.currentContext!,
+                        screen: const ErrorLogPage());
+                    showSnackbar(
+                        'Something went wrong, please try again later.');
                   }
                 }
 
@@ -1567,23 +1612,21 @@ class _PatientHomePageState extends State<PatientHomePage> {
     if (d.inMinutes >= -120 || d.inMinutes >= 120) {
       return true;
     }
-      return false;
+    return false;
   }
 
-  ask_a_refund(BuildContext context,String booking_id) {
+  ask_a_refund(BuildContext context, String booking_id) {
     Widget YesButton = TextButton(
       child: const Text("Yes"),
       onPressed: () async {
-        Map<String,dynamic> data = {
-          'user_id':await getCurrentUserId(),
-          'paitent_id':await getCurrentUserId(),
-          'booking_id':booking_id.toString(),
+        Map<String, dynamic> data = {
+          'user_id': await getCurrentUserId(),
+          'paitent_id': await getCurrentUserId(),
+          'booking_id': booking_id.toString(),
         };
-        EasyLoading.show(
-            status: null,
-            maskType: EasyLoadingMaskType.black
-        );
-        var res = await Webservices.postData(apiUrl:ApiUrls.booking_cancel,body:data);
+        EasyLoading.show(status: null, maskType: EasyLoadingMaskType.black);
+        var res = await Webservices.postData(
+            apiUrl: ApiUrls.booking_cancel, body: data);
         EasyLoading.dismiss();
         Navigator.pop(context);
         print(res);
@@ -1605,11 +1648,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
       title: const Text(
         '',
         //"Request a refund and cancel your booking",
-        style: TextStyle(color: Colors.green,fontSize: 14.0),
+        style: TextStyle(color: Colors.green, fontSize: 14.0),
       ),
       content: const Padding(
         padding: EdgeInsets.only(left: 23.0),
-        child: Text('Are you sure you would like to cancel your booking and request a refund?'
+        child: Text(
+            'Are you sure you would like to cancel your booking and request a refund?'
             '\nPlease note that all cancellations made 24 hours prior to the scheduled consultation will be refunded in full. Unfortunately, cancellations made within 24 hours of your scheduled consultation will not be refunded.'),
       ),
       actions: [
@@ -1625,5 +1669,4 @@ class _PatientHomePageState extends State<PatientHomePage> {
       },
     );
   }
-
 }
