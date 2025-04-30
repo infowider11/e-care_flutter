@@ -676,7 +676,7 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const PrivacyPolicy())),
+                            builder: (context) => const PrivacyPolicy(forDoctor: true,))),
                     child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 10),
                       padding: const EdgeInsets.symmetric(vertical: 16),

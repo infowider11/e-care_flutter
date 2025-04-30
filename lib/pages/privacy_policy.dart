@@ -12,7 +12,8 @@ import 'package:flutter_html/flutter_html.dart';
 import '../services/webservices.dart';
 
 class PrivacyPolicy extends StatefulWidget {
-  const PrivacyPolicy({Key? key}) : super(key: key);
+  final bool forDoctor;
+  const PrivacyPolicy({Key? key,required this.forDoctor}) : super(key: key);
 
   @override
   State<PrivacyPolicy> createState() => PrivacyPolicyState();
@@ -29,7 +30,7 @@ class PrivacyPolicyState extends State<PrivacyPolicy> with TickerProviderStateMi
     setState(() {
       load=true;
     });
-    var res = await Webservices.get(ApiUrls.privacy);
+    var res = await Webservices.get("${ApiUrls.privacy}?user_type=${widget.forDoctor?"1":"2"}");
     print('content-----$res');
     if(res['status'].toString()=='1'){
       conent = res['data']['description'];
@@ -82,5 +83,5 @@ class PrivacyPolicyState extends State<PrivacyPolicy> with TickerProviderStateMi
         ),
       ),
     );
-  }
+  } 
 }

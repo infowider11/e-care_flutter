@@ -328,7 +328,7 @@ class _Whoiam_PageState extends State<Whoiam_Page> {
                                           recognizer: new TapGestureRecognizer()
                                             ..onTap = () => push(
                                                 context: context,
-                                                screen: const PrivacyPolicy())),
+                                                screen: const PrivacyPolicy(forDoctor: false,))),
                                     ])
                               // text: 'I agree to E-Care Terms & Conditions and Privacy Policy? ',
                             ),

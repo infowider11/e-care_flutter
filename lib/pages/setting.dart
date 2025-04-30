@@ -101,7 +101,7 @@ class _SettingPageState extends State<SettingPage> {
             SettingList(
                 heading: 'Privacy Policy',
                 func: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const PrivacyPolicy()))),
+                    MaterialPageRoute(builder: (context) => const PrivacyPolicy(forDoctor: false,)))),
             SettingList(
                 heading: 'Contact Us',
                 func: () => Navigator.push(context,

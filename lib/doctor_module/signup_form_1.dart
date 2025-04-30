@@ -407,7 +407,7 @@ class _SignUpForm1State extends State<SignUpForm1> {
                             recognizer: new TapGestureRecognizer()
                               ..onTap = () => push(
                                   context: context,
-                                  screen: const PrivacyPolicy())),
+                                  screen: const PrivacyPolicy(forDoctor: true,))),
                       ])
                       // text: 'I agree to E-Care Terms & Conditions and Privacy Policy? ',
                       ),
