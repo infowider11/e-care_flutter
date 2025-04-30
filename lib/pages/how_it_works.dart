@@ -9,6 +9,7 @@ import 'package:ecare/widgets/loader.dart';
  
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html_table/flutter_html_table.dart';
 
 import '../services/webservices.dart';
 
@@ -71,7 +72,9 @@ class HowItWorksState extends State<HowItWorks> with TickerProviderStateMixin {
               ),
               child: Column(
                 children: [
-                  Html(data: content),
+                  Html(data: content, extensions:const [
+                             TableHtmlExtension(),
+                          ],),
                 ],
               ),
             ),
