@@ -702,7 +702,7 @@ class _DoctorMyECareState extends State<DoctorMyECare> {
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const TermsCondPage())),
+                            builder: (context) => const TermsCondPage(userType: '1',))),
                     child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 10),
                       padding: const EdgeInsets.symmetric(vertical: 16),

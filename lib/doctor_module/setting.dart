@@ -163,7 +163,7 @@ class _DoctorSettingPageState extends State<DoctorSettingPage> {
                   func: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const TermsCondPage()))),
+                          builder: (context) => const TermsCondPage(userType: '1',)))),
               SettingList(
                   heading: 'Privacy & Policy',
                   func: () => Navigator.push(

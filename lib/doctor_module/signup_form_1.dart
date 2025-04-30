@@ -398,7 +398,7 @@ class _SignUpForm1State extends State<SignUpForm1> {
                             recognizer: new TapGestureRecognizer()
                               ..onTap = () => push(
                                   context: context,
-                                  screen: const TermsCondPage())),
+                                  screen: const TermsCondPage(userType: '1',))),
                         const TextSpan(text: "and"),
                         TextSpan(
                             text: " Privacy Policy",
