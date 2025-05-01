@@ -99,6 +99,22 @@ filterSubcategory(){
                   //   borderradius: 20,
                   // ),
                   vSizedBox05,
+                  //  Padding(
+                  //       padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  //       child: RoundEdgedButton(
+                  //         onTap: () => Navigator.push(
+                  //             context,
+                  //             MaterialPageRoute(
+                  //                 builder: (context) => HowLongFeltThisWay(
+                  //                       cate: widget.cate,
+                  //                     ))),
+                  //         text: 'Continue with only Category Basis',
+                  //         bordercolor: MyColors.primaryColor,
+                  //         color: MyColors.white,
+                  //         textColor: MyColors.primaryColor,
+                  //       ),
+                  //     ),
+                  vSizedBox05,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -122,6 +138,7 @@ filterSubcategory(){
                               color: MyColors.primaryColor)),
                     ],
                   ),
+                   if(widget.cate!['id'].toString()=='1')
                   vSizedBox2,
                   for (int i = 0; i < lists.length; i++)
                     if (((lists[i]['title'].toLowerCase() as String)
@@ -144,9 +161,10 @@ filterSubcategory(){
                           textColor: MyColors.primaryColor,
                         ),
                       ),
-                  if (lists.length == 0)
-                    const Center(
-                      child: Text('No Data Found.'),
+                  if (lists.isEmpty)
+                    const  Center(
+                        child: Text('No Data Found.'),
+                      
                     )
                   // vSizedBox,
                   // RoundEdgedButton(

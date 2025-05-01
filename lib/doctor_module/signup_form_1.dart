@@ -67,7 +67,11 @@ class _SignUpForm1State extends State<SignUpForm1> {
     print('res from catlist---${res}');
     allCat = res['data'];
     for (var i = 0; i < res['data'].length; i++) {
-      if (res['data'][i]['parent'].toString() == '0') {
+      if (res['data'][i]['parent'].toString() == '0' &&
+          -1 !=
+              allCat.indexWhere(
+                (element) => element['parent'] == res['data'][i]['id'],
+              )) {
         categories.add(res['data'][i]);
       } else {
         // subCategories.add(res['data'][i]);
@@ -398,7 +402,9 @@ class _SignUpForm1State extends State<SignUpForm1> {
                             recognizer: new TapGestureRecognizer()
                               ..onTap = () => push(
                                   context: context,
-                                  screen: const TermsCondPage(userType: '1',))),
+                                  screen: const TermsCondPage(
+                                    userType: '1',
+                                  ))),
                         const TextSpan(text: "and"),
                         TextSpan(
                             text: " Privacy Policy",
@@ -407,7 +413,9 @@ class _SignUpForm1State extends State<SignUpForm1> {
                             recognizer: new TapGestureRecognizer()
                               ..onTap = () => push(
                                   context: context,
-                                  screen: const PrivacyPolicy(forDoctor: true,))),
+                                  screen: const PrivacyPolicy(
+                                    forDoctor: true,
+                                  ))),
                       ])
                       // text: 'I agree to E-Care Terms & Conditions and Privacy Policy? ',
                       ),

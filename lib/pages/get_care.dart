@@ -3,6 +3,7 @@
 import 'package:ecare/Services/api_urls.dart';
 import 'package:ecare/constants/colors.dart';
 import 'package:ecare/functions/global_Var.dart';
+import 'package:ecare/pages/long_felt_way.dart';
 import 'package:ecare/pages/reason_visit.dart';
 import 'package:ecare/pages/setting.dart';
 import 'package:ecare/services/webservices.dart';
@@ -106,12 +107,22 @@ class _GetCareState extends State<GetCare> {
                           padding: const EdgeInsets.all(10.0),
                           child: GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ReasonPage(
-                                              cate: categories[i],
-                                            )));
+                                // if (categories[i]['id']=="43") {
+                                //   Navigator.push(
+                                //       context,
+                                //       MaterialPageRoute(
+                                //           builder: (context) =>
+                                //               HowLongFeltThisWay(
+                                //                 cate: categories[i],
+                                //               )));
+                                // } else {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ReasonPage(
+                                                cate: categories[i],
+                                              )));
+                                // }
                               },
                               child: GetCareBlocks(
                                   fontSize: 20,

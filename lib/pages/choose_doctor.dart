@@ -94,7 +94,6 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
 
   @override
   void initState() {
-    
     super.initState();
     print('cate ${widget.cate}');
     print('sub-cate ${widget.sub_cate}');
@@ -141,17 +140,17 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
                         GestureDetector(
                             onTap: () async {
                               Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => const FilterPage()))
-                                  .then((value) => {
-                                        // if(value){
-                                        print('fileter ---- date----${value}'),
-                                        filter_data = value,
-                                        setState(() {}),
-                                        get_doctor(),
-                                        // }
-                                      });
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const FilterPage())).then((value) => {
+                                    // if(value){
+                                    print('fileter ---- date----${value}'),
+                                    filter_data = value,
+                                    setState(() {}),
+                                    get_doctor(),
+                                    // }
+                                  });
                             },
                             child: const RoundEdgedButton(
                               text: 'Filter',
@@ -163,110 +162,120 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
                     ),
                   ),
                   Expanded(
-                    child: GridView.builder(
-                        itemCount: lists.length,
-                        padding: const EdgeInsets.all(10),
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          childAspectRatio: 1 / 1.3,
-                        ),
-                        itemBuilder: (context, i) {
-                          return GestureDetector(
-                            onTap: () {
-                              myCustomLogStatements(
-                                  "head_neck: ${widget.head_neck}, symptoms: ${widget.symptoms}, doc_id: ${lists[i]['id']}, cate: ${widget.cate}, sub_cate: ${widget.sub_cate}, other_reason: ${widget.other_reason}, days: ${widget.days},  temp: ${widget.temp},");
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DoctorDetails(
-                                            head_neck: widget.head_neck,
-                                            symptoms: widget.symptoms,
-                                            doc_id: lists[i]['id'],
-                                            cate: widget.cate,
-                                            sub_cate: widget.sub_cate,
-                                            other_reason: widget.other_reason,
-                                            days: widget.days,
-                                            temp: widget.temp,
-                                          )));
-                            },
-                            child: Container(
-                              // height: 220,
-                              // width: 170,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 5),
-                              decoration: BoxDecoration(
-                                  color: MyColors.white,
-                                  border: Border.all(
-                                      color: MyColors.bordercolor, width: 1),
-                                  borderRadius: BorderRadius.circular(12)),
-                              child: Center(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(100),
-                                      child: Image.network(
-                                        lists[i]['profile_image'],
-                                        width: 70,
-                                        height: 70,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    // Image.asset(
-                                    //   'assets/images/23.png',
-                                    //   width: 65,
-                                    // ),
-                                    vSizedBox05,
-                                    MainHeadingText(
-                                      text: lists[i]['specialist_cat']
-                                                  .toString() ==
-                                              '1'
-                                          ? 'Dr.${lists[i]['first_name']} ${lists[i]['last_name']}'
-                                          : '${lists[i]['first_name']} ${lists[i]['last_name']}',
-                                      fontSize: 14,
-                                      fontFamily: 'semibold',
-                                    ),
-                                    // headingText(
-                                    //   text: lists[i]['subcategory']!=false?'${lists[i]['category']['title']} (${lists[i]['subcategory']['title']})':
-                                    //   '${lists[i]['category']['title']}',
-                                    //   color: MyColors.primaryColor,
-                                    //   fontSize: 8,
-                                    // ),
-                                    Text(
-                                      lists[i]['subcategory'] != false
-                                          ? '${lists[i]['category']['title']} (${lists[i]['subcategory']['title']})'
-                                          : '${lists[i]['category']['title']}',
-                                      style: const TextStyle(
-                                        fontSize: 10,
-                                        color: MyColors.primaryColor,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    vSizedBox05,
-                                    MainHeadingText(
-                                      text:
-                                          '${lists[i]['consultation_fees']} ZAR',
-                                      fontSize: 20,
-                                      fontFamily: 'semibold',
-                                    ),
-                                    // vSizedBox05,
-                                    MainHeadingText(
-                                      text:
-                                          'Next Available:${lists[i]['slot_date']} ${DateFormat.jm().format(DateFormat("hh:mm").parse(lists[i]['slot']))}',
-                                      fontSize: 12,
-                                      fontFamily: 'light',
-                                      color: MyColors.primaryColor,
-                                    ),
-                                  ],
-                                ),
-                              ),
+                    child: lists.isEmpty
+                        ? const Center(
+                            child: Text('No Data Found.'),
+                          )
+                        : GridView.builder(
+                            itemCount: lists.length,
+                            padding: const EdgeInsets.all(10),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                              childAspectRatio: 1 / 1.3,
                             ),
-                          );
-                        }),
+                            itemBuilder: (context, i) {
+                              return GestureDetector(
+                                onTap: () {
+                                  myCustomLogStatements(
+                                      "head_neck: ${widget.head_neck}, symptoms: ${widget.symptoms}, doc_id: ${lists[i]['id']}, cate: ${widget.cate}, sub_cate: ${widget.sub_cate}, other_reason: ${widget.other_reason}, days: ${widget.days},  temp: ${widget.temp},");
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => DoctorDetails(
+                                                head_neck: widget.head_neck,
+                                                symptoms: widget.symptoms,
+                                                doc_id: lists[i]['id'],
+                                                cate: widget.cate,
+                                                sub_cate: widget.sub_cate,
+                                                other_reason:
+                                                    widget.other_reason,
+                                                days: widget.days,
+                                                temp: widget.temp,
+                                              )));
+                                },
+                                child: Container(
+                                  // height: 220,
+                                  // width: 170,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 5),
+                                  decoration: BoxDecoration(
+                                      color: MyColors.white,
+                                      border: Border.all(
+                                          color: MyColors.bordercolor,
+                                          width: 1),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  child: Center(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                          child: Image.network(
+                                            lists[i]['profile_image'],
+                                            width: 70,
+                                            height: 70,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        // Image.asset(
+                                        //   'assets/images/23.png',
+                                        //   width: 65,
+                                        // ),
+                                        vSizedBox05,
+                                        MainHeadingText(
+                                          text: lists[i]['specialist_cat']
+                                                      .toString() ==
+                                                  '1'
+                                              ? 'Dr.${lists[i]['first_name']} ${lists[i]['last_name']}'
+                                              : '${lists[i]['first_name']} ${lists[i]['last_name']}',
+                                          fontSize: 14,
+                                          fontFamily: 'semibold',
+                                        ),
+                                        // headingText(
+                                        //   text: lists[i]['subcategory']!=false?'${lists[i]['category']['title']} (${lists[i]['subcategory']['title']})':
+                                        //   '${lists[i]['category']['title']}',
+                                        //   color: MyColors.primaryColor,
+                                        //   fontSize: 8,
+                                        // ),
+                                        Text(
+                                          lists[i]['subcategory'] != false
+                                              ? '${lists[i]['category']['title']} (${lists[i]['subcategory']['title']})'
+                                              : '${lists[i]['category']['title']}',
+                                          style: const TextStyle(
+                                            fontSize: 10,
+                                            color: MyColors.primaryColor,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        vSizedBox05,
+                                        MainHeadingText(
+                                          text:
+                                              '${lists[i]['consultation_fees']} ZAR',
+                                          fontSize: 20,
+                                          fontFamily: 'semibold',
+                                        ),
+                                        // vSizedBox05,
+                                        MainHeadingText(
+                                          text:
+                                              'Next Available:${lists[i]['slot_date']} ${DateFormat.jm().format(DateFormat("hh:mm").parse(lists[i]['slot']))}',
+                                          fontSize: 12,
+                                          fontFamily: 'light',
+                                          color: MyColors.primaryColor,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }),
                   ),
                   // if(lists.length>0)
                   // GridView.count(
@@ -469,10 +478,6 @@ class _ChooseDoctorState extends State<ChooseDoctor> {
                   // ),
 
                   vSizedBox2,
-                  if (lists.length == 0)
-                    const Center(
-                      child: Text('No Data Found.'),
-                    )
                 ],
               ),
             ),

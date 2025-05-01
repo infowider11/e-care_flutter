@@ -33,7 +33,7 @@ class _tabs_second_pageState extends State<tabs_second_page> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   Timer? timer;
   bool ontime_health_profile = false;
-
+int activeTabIndex = 0;
    List<Widget> _widgetOptions = <Widget>[
     const Homepage(),
     const PatientHomePage(),
@@ -46,12 +46,13 @@ class _tabs_second_pageState extends State<tabs_second_page> {
   void _onItemTapped(int index) {
     setState(() {
       widget.selectedIndex = index;
+     activeTabIndex= index;
     });
   }
 
   @override
   void initState() {
-    
+    activeTabIndex = widget.selectedIndex;
     setNotificationHandler(context);
     super.initState();
     interval();
@@ -185,7 +186,7 @@ class _tabs_second_pageState extends State<tabs_second_page> {
     return Scaffold(
       extendBody: true,
       body: Center(
-        child: _widgetOptions.elementAt(widget.selectedIndex),
+        child: _widgetOptions.elementAt(activeTabIndex),
       ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
@@ -301,7 +302,7 @@ class _tabs_second_pageState extends State<tabs_second_page> {
             //   backgroundColor: Colors.white,
             // ),
           ],
-          currentIndex: widget.selectedIndex,
+          currentIndex: activeTabIndex,
           selectedItemColor: MyColors.primaryColor,
           onTap: _onItemTapped,
         ),
