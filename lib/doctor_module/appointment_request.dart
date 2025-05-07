@@ -265,6 +265,10 @@ class _AppointmentRequestState extends State<AppointmentRequest>
                                               //   fontFamily: 'light',
                                               //   fontSize: 14,
                                               // ),
+                                              if (incoming[i]['slot_data'] !=
+                                                      null &&
+                                                  incoming[i]['slot_data']
+                                                      .isNotEmpty)
                                               Row(
                                                 children: [
                                                   MainHeadingText(
@@ -428,6 +432,10 @@ class _AppointmentRequestState extends State<AppointmentRequest>
                                               //   fontFamily: 'light',
                                               //   fontSize: 14,
                                               // ),
+                                               if (accpeted[i]['slot_data'] !=
+                                                      null &&
+                                                  accpeted[i]['slot_data']
+                                                      .isNotEmpty)
                                               Row(
                                                 children: [
                                                   MainHeadingText(
@@ -661,6 +669,10 @@ class _AppointmentRequestState extends State<AppointmentRequest>
                                               //   fontFamily: 'light',
                                               //   fontSize: 14,
                                               // ),
+                                               if (confirms[i]['slot_data'] !=
+                                                      null &&
+                                                  confirms[i]['slot_data']
+                                                      .isNotEmpty)
                                               Row(
                                                 children: [
                                                   MainHeadingText(
@@ -1180,6 +1192,10 @@ class _AppointmentRequestState extends State<AppointmentRequest>
                                               //   fontFamily: 'light',
                                               //   fontSize: 14,
                                               // ),
+                                               if (completeds[i]['slot_data'] !=
+                                                      null &&
+                                                  completeds[i]['slot_data']
+                                                      .isNotEmpty)
                                               Row(
                                                 children: [
                                                   MainHeadingText(
@@ -1346,6 +1362,10 @@ class _AppointmentRequestState extends State<AppointmentRequest>
                                         //   fontFamily: 'light',
                                         //   fontSize: 14,
                                         // ),
+                                            if (rejects[i]['slot_data'] !=
+                                                      null &&
+                                                  rejects[i]['slot_data']
+                                                      .isNotEmpty)
                                         Row(
                                           children: [
                                             MainHeadingText(

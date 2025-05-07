@@ -372,6 +372,10 @@ class _BookedVisitState extends State<BookedVisit>
                                                 ],
                                               ),
                                               vSizedBox05,
+                                               if (pending[i]['slot_data'] !=
+                                                      null &&
+                                                  pending[i]['slot_data']
+                                                      .isNotEmpty)
                                               Row(
                                                 children: [
                                                   MainHeadingText(
@@ -544,6 +548,10 @@ class _BookedVisitState extends State<BookedVisit>
                                                 ],
                                               ),
                                               vSizedBox05,
+                                               if (acceptedBookings[i]['slot_data'] !=
+                                                      null &&
+                                                  acceptedBookings[i]['slot_data']
+                                                      .isNotEmpty)
                                               Row(
                                                 children: [
                                                   Expanded(
@@ -785,6 +793,10 @@ class _BookedVisitState extends State<BookedVisit>
                                                 ],
                                               ),
                                               vSizedBox05,
+                                               if (confirms[i]['slot_data'] !=
+                                                      null &&
+                                                  confirms[i]['slot_data']
+                                                      .isNotEmpty)
                                               Row(
                                                 children: [
                                                   Expanded(
@@ -1133,6 +1145,10 @@ class _BookedVisitState extends State<BookedVisit>
                                                 ],
                                               ),
                                               vSizedBox05,
+                                               if (completeds[i]['slot_data'] !=
+                                                      null &&
+                                                  completeds[i]['slot_data']
+                                                      .isNotEmpty)
                                               Row(
                                                 children: [
                                                   Expanded(
